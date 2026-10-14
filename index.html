@@ -6,10 +6,14 @@
   <title>ASF Dawah Media | Official Workspace & Creative Hub</title>
   <link id="favicon" rel="icon" type="image/png" href="https://assunnahfoundation.org/assets/images/logo.png">
   
-  <!-- Premium Fonts: Hind Siliguri, Noto Sans Bengali & Plus Jakarta Sans -->
+  <!-- Preload Custom Bornomala Fonts from GitHub Repo -->
+  <link rel="preload" href="./Bornomala-Regular.ttf" as="font" type="font/ttf" crossorigin>
+  <link rel="preload" href="./Bornomala-Bold.ttf" as="font" type="font/ttf" crossorigin>
+
+  <!-- Plus Jakarta Sans for English Numbers & Latin Text -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Noto+Sans+Bengali:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -32,7 +36,7 @@
             }
           },
           fontFamily: {
-            sans: ['Noto Sans Bengali', 'Hind Siliguri', 'Plus Jakarta Sans', 'sans-serif'],
+            sans: ['Bornomala', 'Plus Jakarta Sans', 'sans-serif'],
           }
         }
       }
@@ -43,11 +47,48 @@
   <script src="https://unpkg.com/lucide@latest"></script>
 
   <style>
+    /* Official Bornomala Font Integration */
+    @font-face {
+      font-family: 'Bornomala';
+      src: url('./Bornomala-Regular.ttf') format('truetype');
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Bornomala';
+      src: url('./Bornomala-Regular.ttf') format('truetype');
+      font-weight: 500;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Bornomala';
+      src: url('./Bornomala-Bold.ttf') format('truetype');
+      font-weight: 600;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Bornomala';
+      src: url('./Bornomala-Bold.ttf') format('truetype');
+      font-weight: 700;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Bornomala';
+      src: url('./Bornomala-Bold.ttf') format('truetype');
+      font-weight: 800;
+      font-style: normal;
+      font-display: swap;
+    }
+
     body {
-      font-family: 'Noto Sans Bengali', 'Hind Siliguri', 'Plus Jakarta Sans', sans-serif;
+      font-family: 'Bornomala', 'Plus Jakarta Sans', sans-serif;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
-      letter-spacing: -0.01em;
+      line-height: 1.6;
     }
 
     /* Ambient Mesh Background */
@@ -69,21 +110,21 @@
 
     /* Crystal Glassmorphism Cards */
     .crystal-card {
-      background: rgba(255, 255, 255, 0.82);
+      background: rgba(255, 255, 255, 0.84);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
-      border: 1px solid rgba(255, 255, 255, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.75);
       box-shadow: 0 10px 30px -10px rgba(0, 104, 55, 0.07), 0 4px 6px -4px rgba(0, 0, 0, 0.03);
       transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
     }
     .dark .crystal-card {
-      background: rgba(15, 23, 42, 0.75);
+      background: rgba(15, 23, 42, 0.78);
       border: 1px solid rgba(255, 255, 255, 0.08);
       box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
     }
     .crystal-card-hover:hover {
       transform: translateY(-5px);
-      border-color: rgba(16, 185, 129, 0.4);
+      border-color: rgba(16, 185, 129, 0.45);
       box-shadow: 0 20px 40px -15px rgba(0, 128, 105, 0.18);
     }
 
@@ -127,27 +168,16 @@
     ::-webkit-scrollbar-thumb:hover { background: rgba(0, 128, 105, 0.8); }
 
     @media print {
-      header, footer, #helper-download-bar { display: none !important; }
+      header, footer { display: none !important; }
     }
   </style>
 </head>
 <body class="ambient-bg text-slate-800 dark:text-slate-100 min-h-screen flex flex-col selection:bg-asf-500 selection:text-white">
 
-  <!-- One-Click Self Download Helper Bar -->
-  <div id="helper-download-bar" class="bg-gradient-to-r from-amber-500 via-amber-400 to-yellow-500 text-slate-950 text-xs py-2.5 px-4 flex items-center justify-between font-bold shadow-md z-50">
-    <span class="flex items-center gap-2">✨ নতুন Crystal Clear Motion UI প্রস্তুত! ডানপাশের বাটনে ক্লিক করে ফাইলটি সেভ করুন:</span>
-    <div class="flex items-center gap-2">
-      <button onclick="downloadSelfAsHtml()" class="bg-slate-950 text-white px-4 py-1.5 rounded-full hover:bg-slate-800 transition flex items-center gap-1.5 shadow-lg">
-        📥 Download Crystal UI (index.html)
-      </button>
-      <button onclick="document.getElementById('helper-download-bar').remove()" class="text-slate-900 hover:bg-black/10 rounded-full p-1">✕</button>
-    </div>
-  </div>
-
-  <!-- Top Notice Banner with Shimmer -->
+  <!-- Top Notice Banner -->
   <div id="notice-bar" class="bg-gradient-to-r from-asf-800 via-asf-600 to-asf-800 text-white text-sm py-2.5 px-4 text-center font-medium hidden shadow-inner">
     <span class="inline-flex items-center gap-2">
-      <span class="px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider bg-amber-400 text-slate-950 rounded-full">নোটিশ</span>
+      <span class="px-2.5 py-0.5 text-xs font-bold uppercase tracking-wider bg-amber-400 text-slate-950 rounded-full" data-bn="নোটিশ" data-en="NOTICE">নোটিশ</span>
       <span id="notice-text" class="tracking-wide"></span>
     </span>
   </div>
@@ -163,7 +193,7 @@
         </div>
         <div>
           <div class="flex items-center gap-2">
-            <h1 id="brand-title" class="text-xl sm:text-2xl font-extrabold bg-gradient-to-r from-asf-700 via-asf-500 to-emerald-600 dark:from-white dark:via-emerald-300 dark:to-emerald-400 bg-clip-text text-transparent tracking-tight">ASF Dawah Media</h1>
+            <h1 id="brand-title" class="text-xl sm:text-2xl font-bold bg-gradient-to-r from-asf-700 via-asf-500 to-emerald-600 dark:from-white dark:via-emerald-300 dark:to-emerald-400 bg-clip-text text-transparent tracking-tight">ASF Dawah Media</h1>
             <span class="w-2 h-2 rounded-full bg-emerald-500 live-dot" title="System Live"></span>
           </div>
           <p id="brand-subtitle" class="text-xs font-medium text-slate-500 dark:text-slate-400">As-Sunnah Foundation Creative Wing</p>
@@ -172,29 +202,29 @@
 
       <!-- Main Navigation Pills -->
       <nav class="hidden md:flex items-center gap-1.5 bg-slate-100/80 dark:bg-slate-800/80 p-1.5 rounded-2xl border border-slate-200/60 dark:border-slate-700/60">
-        <button onclick="switchTab('home')" id="nav-home" class="nav-btn px-4 py-2 rounded-xl text-sm font-semibold transition-all duration-200 bg-white dark:bg-slate-900 text-asf-600 dark:text-emerald-400 shadow-sm">
+        <button onclick="switchTab('home')" id="nav-home" class="nav-btn px-4 py-2 rounded-xl text-sm font-bold transition-all duration-200 bg-white dark:bg-slate-900 text-asf-600 dark:text-emerald-400 shadow-sm">
           <span data-bn="হোম" data-en="Home">হোম</span>
         </button>
-        <button onclick="switchTab('dashboard')" id="nav-dashboard" class="nav-btn px-4 py-2 rounded-xl text-sm font-semibold text-slate-600 dark:text-slate-300 hover:text-asf-600 transition-all duration-200">
+        <button onclick="switchTab('dashboard')" id="nav-dashboard" class="nav-btn px-4 py-2 rounded-xl text-sm font-bold text-slate-600 dark:text-slate-300 hover:text-asf-600 transition-all duration-200">
           <span data-bn="মাসিক ড্যাশবোর্ড" data-en="Monthly Dashboard">মাসিক ড্যাশবোর্ড</span>
         </button>
-        <button onclick="switchTab('team')" id="nav-team" class="nav-btn px-4 py-2 rounded-xl text-sm font-semibold text-slate-600 dark:text-slate-300 hover:text-asf-600 transition-all duration-200">
+        <button onclick="switchTab('team')" id="nav-team" class="nav-btn px-4 py-2 rounded-xl text-sm font-bold text-slate-600 dark:text-slate-300 hover:text-asf-600 transition-all duration-200">
           <span data-bn="টিম মেম্বার" data-en="Team Members">টিম মেম্বার</span>
         </button>
-        <button onclick="switchTab('portfolio')" id="nav-portfolio" class="nav-btn px-4 py-2 rounded-xl text-sm font-semibold text-slate-600 dark:text-slate-300 hover:text-asf-600 transition-all duration-200">
+        <button onclick="switchTab('portfolio')" id="nav-portfolio" class="nav-btn px-4 py-2 rounded-xl text-sm font-bold text-slate-600 dark:text-slate-300 hover:text-asf-600 transition-all duration-200">
           <span data-bn="আমাদের কাজ" data-en="Our Portfolio">আমাদের কাজ</span>
         </button>
         <button onclick="switchTab('workspace')" id="nav-workspace" class="nav-btn hidden px-4 py-2 rounded-xl text-sm font-bold text-emerald-700 bg-emerald-100/80 dark:bg-emerald-950 dark:text-emerald-300 transition-all duration-200">
-          <span data-bn="✨ কাজ লিখুন" data-en="✨ Workspace">✨ কাজ লিখুন</span>
+          <span data-bn="✨ কাজ লিখুন" data-en="✨ My Workspace">✨ কাজ লিখুন</span>
         </button>
         <button onclick="switchTab('admin')" id="nav-admin" class="nav-btn hidden px-4 py-2 rounded-xl text-sm font-bold text-amber-800 bg-amber-100/90 dark:bg-amber-950 dark:text-amber-300 transition-all duration-200">
-          <span data-bn="⚙️ অ্যাডমিন" data-en="⚙️ Admin">⚙️ অ্যাডমিন</span>
+          <span data-bn="⚙️ অ্যাডমিন" data-en="⚙️ Admin Panel">⚙️ অ্যাডমিন</span>
         </button>
       </nav>
 
       <!-- Right Controls: Lang, Theme, Auth -->
       <div class="flex items-center gap-2.5">
-        <button onclick="toggleLanguage()" id="lang-btn" class="px-3 py-2 text-xs font-extrabold rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-asf-500 transition">
+        <button onclick="toggleLanguage()" id="lang-btn" class="px-3.5 py-2 text-xs font-bold rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-asf-500 transition shadow-sm">
           EN
         </button>
         <button onclick="toggleTheme()" class="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-asf-500 transition text-slate-700 dark:text-amber-300">
@@ -220,11 +250,11 @@
     <!-- Mobile Navigation Bar -->
     <div class="flex md:hidden overflow-x-auto border-t border-slate-200/60 dark:border-slate-800 px-3 py-2 gap-1.5 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md">
       <button onclick="switchTab('home')" class="px-3.5 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap bg-asf-50 text-asf-600 dark:bg-slate-800 dark:text-emerald-400" data-bn="হোম" data-en="Home">হোম</button>
-      <button onclick="switchTab('dashboard')" class="px-3.5 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap" data-bn="ড্যাশবোর্ড" data-en="Dashboard">ড্যাশবোর্ড</button>
-      <button onclick="switchTab('team')" class="px-3.5 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap" data-bn="টিম" data-en="Team">টিম</button>
-      <button onclick="switchTab('portfolio')" class="px-3.5 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap" data-bn="পোর্টফোলিও" data-en="Portfolio">পোর্টফোলিও</button>
-      <button onclick="switchTab('workspace')" id="mob-workspace" class="hidden px-3.5 py-1.5 rounded-xl text-xs font-bold text-emerald-700 bg-emerald-100 whitespace-nowrap" data-bn="✨ কাজ লিখুন" data-en="Workspace">✨ কাজ লিখুন</button>
-      <button onclick="switchTab('admin')" id="mob-admin" class="hidden px-3.5 py-1.5 rounded-xl text-xs font-bold text-amber-700 bg-amber-100 whitespace-nowrap" data-bn="⚙️ অ্যাডমিন" data-en="Admin">⚙️ অ্যাডমিন</button>
+      <button onclick="switchTab('dashboard')" class="px-3.5 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap" data-bn="ড্যাশবোর্ড" data-en="Dashboard">ড্যাশবোর্ড</button>
+      <button onclick="switchTab('team')" class="px-3.5 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap" data-bn="টিম" data-en="Team">টিম</button>
+      <button onclick="switchTab('portfolio')" class="px-3.5 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap" data-bn="পোর্টফোলিও" data-en="Portfolio">পোর্টফোলিও</button>
+      <button onclick="switchTab('workspace')" id="mob-workspace" class="hidden px-3.5 py-1.5 rounded-xl text-xs font-bold text-emerald-700 bg-emerald-100 whitespace-nowrap" data-bn="✨ কাজ লিখুন" data-en="✨ Workspace">✨ কাজ লিখুন</button>
+      <button onclick="switchTab('admin')" id="mob-admin" class="hidden px-3.5 py-1.5 rounded-xl text-xs font-bold text-amber-700 bg-amber-100 whitespace-nowrap" data-bn="⚙️ অ্যাডমিন" data-en="⚙️ Admin">⚙️ অ্যাডমিন</button>
     </div>
   </header>
 
@@ -236,7 +266,6 @@
       
       <!-- Motion Hero Banner -->
       <div class="hero-mesh rounded-3xl p-8 sm:p-12 lg:p-14 text-white shadow-2xl shadow-asf-900/20 border border-emerald-400/20">
-        <!-- Animated Floating Ambient Orbs -->
         <div class="orb-1 absolute -top-24 -right-24 w-96 h-96 bg-emerald-400/25 rounded-full blur-3xl pointer-events-none"></div>
         <div class="orb-2 absolute -bottom-28 left-1/3 w-80 h-80 bg-amber-400/20 rounded-full blur-3xl pointer-events-none"></div>
         <div class="hero-pattern absolute inset-0 pointer-events-none"></div>
@@ -250,16 +279,16 @@
               </span>
             </div>
 
-            <h2 id="hero-heading" class="text-3xl sm:text-5xl font-extrabold leading-[1.2] tracking-tight text-white drop-shadow-sm">
-              সৃজনশীল মিডিয়া ও প্রযুক্তির মাধ্যমে দাওয়াহ ও কল্যাণের বার্তা বিশ্বজুড়ে
+            <h2 id="hero-heading" class="text-3xl sm:text-5xl font-bold leading-[1.25] tracking-tight text-white drop-shadow-sm">
+              আস-সুন্নাহ ফাউন্ডেশন দাওয়াহ মিডিয়া
             </h2>
 
-            <p id="hero-desc" class="text-emerald-100/90 text-base sm:text-lg leading-relaxed max-w-2xl font-normal">
+            <p id="hero-desc" class="text-emerald-100/95 text-base sm:text-lg leading-relaxed max-w-2xl font-normal" data-bn="আমাদের টিম নিয়মিত কুরআন-সুন্নাহভিত্তিক প্রামাণ্যচিত্র, শায়খদের আলোচনা, শিক্ষণীয় ড্রামা/ওভিসি, শর্টস এবং গ্রাফিক কন্টেন্ট তৈরি ও পরিচালনা করছে। এখানে আমাদের টিমের প্রতিদিনের ও মাসিক কাজের সম্পূর্ণ স্বচ্ছ চিত্র তুলে ধরা হয়েছে।" data-en="Our team regularly produces and manages Quran & Sunnah-based documentaries, scholarly lectures, educational dramas/OVCs, shorts, and graphic content. Explore our transparent daily and monthly team workspace.">
               আমাদের টিম নিয়মিত কুরআন-সুন্নাহভিত্তিক প্রামাণ্যচিত্র, শায়খদের আলোচনা, শিক্ষণীয় ড্রামা/ওভিসি, শর্টস এবং গ্রাফিক কন্টেন্ট তৈরি ও পরিচালনা করছে। এখানে আমাদের টিমের প্রতিদিনের ও মাসিক কাজের সম্পূর্ণ স্বচ্ছ চিত্র তুলে ধরা হয়েছে।
             </p>
 
             <div class="pt-2 flex flex-wrap gap-4">
-              <button onclick="switchTab('dashboard')" class="bg-white text-asf-800 hover:bg-amber-400 hover:text-slate-950 font-extrabold px-6 py-3.5 rounded-2xl text-sm shadow-xl transition-all duration-300 hover:-translate-y-1 flex items-center gap-2.5">
+              <button onclick="switchTab('dashboard')" class="bg-white text-asf-800 hover:bg-amber-400 hover:text-slate-950 font-bold px-6 py-3.5 rounded-2xl text-sm shadow-xl transition-all duration-300 hover:-translate-y-1 flex items-center gap-2.5">
                 <i data-lucide="bar-chart-big" class="w-5 h-5 text-asf-600"></i>
                 <span data-bn="মাসিক ড্যাশবোর্ড দেখুন" data-en="Explore Monthly Dashboard">মাসিক ড্যাশবোর্ড দেখুন</span>
               </button>
@@ -275,8 +304,8 @@
             <div class="bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl p-6 space-y-5 shadow-2xl">
               <div class="flex items-center justify-between border-b border-white/15 pb-4">
                 <div>
-                  <p class="text-xs text-emerald-200 uppercase font-bold tracking-wider">লাইভ ওয়ার্কস্পেস স্ট্যাটাস</p>
-                  <h4 class="text-lg font-extrabold text-white mt-0.5">চলতি মাসের পারফরম্যান্স</h4>
+                  <p class="text-xs text-emerald-200 uppercase font-bold tracking-wider" data-bn="লাইভ ওয়ার্কস্পেস স্ট্যাটাস" data-en="LIVE WORKSPACE STATUS">লাইভ ওয়ার্কস্পেস স্ট্যাটাস</p>
+                  <h4 class="text-lg font-bold text-white mt-0.5" data-bn="চলতি মাসের পারফরম্যান্স" data-en="Current Month Overview">চলতি মাসের পারফরম্যান্স</h4>
                 </div>
                 <div class="w-10 h-10 rounded-2xl bg-amber-400/20 border border-amber-300/40 flex items-center justify-center text-amber-300">
                   <i data-lucide="zap" class="w-5 h-5"></i>
@@ -284,16 +313,25 @@
               </div>
               <div class="space-y-3 text-sm">
                 <div class="flex items-center justify-between bg-black/20 px-4 py-3 rounded-2xl">
-                  <span class="text-emerald-100 flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-emerald-400"></i> সম্পন্ন প্রজেক্ট</span>
-                  <span id="hero-stat-comp" class="text-xl font-extrabold text-white">0</span>
+                  <span class="text-emerald-100 flex items-center gap-2">
+                    <i data-lucide="check-circle" class="w-4 h-4 text-emerald-400"></i>
+                    <span data-bn="সম্পন্ন প্রজেক্ট" data-en="Completed Tasks">সম্পন্ন প্রজেক্ট</span>
+                  </span>
+                  <span id="hero-stat-comp" class="text-xl font-bold text-white">0</span>
                 </div>
                 <div class="flex items-center justify-between bg-black/20 px-4 py-3 rounded-2xl">
-                  <span class="text-emerald-100 flex items-center gap-2"><i data-lucide="flame" class="w-4 h-4 text-amber-400"></i> চলমান কাজ</span>
-                  <span id="hero-stat-ong" class="text-xl font-extrabold text-amber-300">0</span>
+                  <span class="text-emerald-100 flex items-center gap-2">
+                    <i data-lucide="flame" class="w-4 h-4 text-amber-400"></i>
+                    <span data-bn="চলমান কাজ" data-en="Ongoing Tasks">চলমান কাজ</span>
+                  </span>
+                  <span id="hero-stat-ong" class="text-xl font-bold text-amber-300">0</span>
                 </div>
                 <div class="flex items-center justify-between bg-black/20 px-4 py-3 rounded-2xl">
-                  <span class="text-emerald-100 flex items-center gap-2"><i data-lucide="clock" class="w-4 h-4 text-sky-400"></i> মোট কর্মঘণ্টা</span>
-                  <span id="hero-stat-hrs" class="text-xl font-extrabold text-sky-300">0h</span>
+                  <span class="text-emerald-100 flex items-center gap-2">
+                    <i data-lucide="clock" class="w-4 h-4 text-sky-400"></i>
+                    <span data-bn="মোট কর্মঘণ্টা" data-en="Total Hours">মোট কর্মঘণ্টা</span>
+                  </span>
+                  <span id="hero-stat-hrs" class="text-xl font-bold text-sky-300">0h</span>
                 </div>
               </div>
             </div>
@@ -308,8 +346,8 @@
             <i data-lucide="check-circle-2" class="w-7 h-7"></i>
           </div>
           <div>
-            <p class="text-3xl font-extrabold text-slate-800 dark:text-white" id="stat-completed">0</p>
-            <p class="text-xs font-semibold text-slate-500 dark:text-slate-400 mt-0.5" data-bn="চলতি মাসে সম্পন্ন কাজ" data-en="Completed This Month">চলতি মাসে সম্পন্ন কাজ</p>
+            <p class="text-3xl font-bold text-slate-800 dark:text-white" id="stat-completed">0</p>
+            <p class="text-xs font-bold text-slate-500 dark:text-slate-400 mt-0.5" data-bn="চলতি মাসে সম্পন্ন কাজ" data-en="Completed This Month">চলতি মাসে সম্পন্ন কাজ</p>
           </div>
         </div>
 
@@ -318,8 +356,8 @@
             <i data-lucide="loader" class="w-7 h-7"></i>
           </div>
           <div>
-            <p class="text-3xl font-extrabold text-slate-800 dark:text-white" id="stat-ongoing">0</p>
-            <p class="text-xs font-semibold text-slate-500 dark:text-slate-400 mt-0.5" data-bn="বর্তমানে চলমান প্রজেক্ট" data-en="Active Ongoing Tasks">বর্তমানে চলমান প্রজেক্ট</p>
+            <p class="text-3xl font-bold text-slate-800 dark:text-white" id="stat-ongoing">0</p>
+            <p class="text-xs font-bold text-slate-500 dark:text-slate-400 mt-0.5" data-bn="বর্তমানে চলমান প্রজেক্ট" data-en="Active Ongoing Tasks">বর্তমানে চলমান প্রজেক্ট</p>
           </div>
         </div>
 
@@ -328,8 +366,8 @@
             <i data-lucide="users" class="w-7 h-7"></i>
           </div>
           <div>
-            <p class="text-3xl font-extrabold text-slate-800 dark:text-white" id="stat-members">0</p>
-            <p class="text-xs font-semibold text-slate-500 dark:text-slate-400 mt-0.5" data-bn="সক্রিয় টিম মেম্বার" data-en="Active Team Members">সক্রিয় টিম মেম্বার</p>
+            <p class="text-3xl font-bold text-slate-800 dark:text-white" id="stat-members">0</p>
+            <p class="text-xs font-bold text-slate-500 dark:text-slate-400 mt-0.5" data-bn="সক্রিয় টিম মেম্বার" data-en="Active Team Members">সক্রিয় টিম মেম্বার</p>
           </div>
         </div>
 
@@ -338,8 +376,8 @@
             <i data-lucide="radio" class="w-7 h-7"></i>
           </div>
           <div>
-            <p class="text-3xl font-extrabold text-slate-800 dark:text-white" id="stat-platforms">14</p>
-            <p class="text-xs font-semibold text-slate-500 dark:text-slate-400 mt-0.5" data-bn="পরিচালিত চ্যানেল ও পেজ" data-en="Managed Channels & Pages">পরিচালিত চ্যানেল ও পেজ</p>
+            <p class="text-3xl font-bold text-slate-800 dark:text-white" id="stat-platforms">14</p>
+            <p class="text-xs font-bold text-slate-500 dark:text-slate-400 mt-0.5" data-bn="পরিচালিত চ্যানেল ও পেজ" data-en="Managed Channels & Pages">পরিচালিত চ্যানেল ও পেজ</p>
           </div>
         </div>
       </div>
@@ -348,8 +386,8 @@
       <div class="space-y-6">
         <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-2">
           <div>
-            <span class="text-xs font-extrabold uppercase tracking-wider text-asf-600 dark:text-emerald-400">Featured Media</span>
-            <h3 class="text-2xl font-extrabold text-slate-800 dark:text-white flex items-center gap-2.5 mt-1">
+            <span class="text-xs font-bold uppercase tracking-wider text-asf-600 dark:text-emerald-400" data-bn="ফিচারড মিডিয়া" data-en="FEATURED MEDIA">ফিচারড মিডিয়া</span>
+            <h3 class="text-2xl font-bold text-slate-800 dark:text-white flex items-center gap-2.5 mt-1">
               <i data-lucide="play-circle" class="w-6 h-6 text-red-600"></i>
               <span data-bn="আমাদের সাম্প্রতিক প্রোডাকশন" data-en="Recent Productions">আমাদের সাম্প্রতিক প্রোডাকশন</span>
             </h3>
@@ -357,26 +395,22 @@
           </div>
           <button onclick="switchTab('portfolio')" class="inline-flex items-center gap-1.5 text-sm text-asf-600 dark:text-emerald-400 font-bold hover:gap-2.5 transition-all" data-bn="সবগুলো প্রোডাকশন দেখুন →" data-en="View All Productions →">সবগুলো প্রোডাকশন দেখুন →</button>
         </div>
-        <div id="home-portfolio-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          <!-- Populated dynamically -->
-        </div>
+        <div id="home-portfolio-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
       </div>
 
       <!-- Team Members Preview on Home -->
       <div class="space-y-6">
         <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-2">
           <div>
-            <span class="text-xs font-extrabold uppercase tracking-wider text-asf-600 dark:text-emerald-400">Creative Minds</span>
-            <h3 class="text-2xl font-extrabold text-slate-800 dark:text-white flex items-center gap-2.5 mt-1">
+            <span class="text-xs font-bold uppercase tracking-wider text-asf-600 dark:text-emerald-400" data-bn="ক্রিয়েটিভ টিম" data-en="CREATIVE MINDS">ক্রিয়েটিভ টিম</span>
+            <h3 class="text-2xl font-bold text-slate-800 dark:text-white flex items-center gap-2.5 mt-1">
               <i data-lucide="sparkles" class="w-6 h-6 text-amber-500"></i>
               <span data-bn="আমাদের টিম মেম্বার ও পারসোনাল ড্যাশবোর্ড" data-en="Our Team & Personal Dashboards">আমাদের টিম মেম্বার ও পারসোনাল ড্যাশবোর্ড</span>
             </h3>
-            <p class="text-sm text-slate-500 dark:text-slate-400" data-bn="যেকোনো মেম্বারের কার্ডে ক্লিক করে তার মাসিক কাজের বিস্তারিত সামারি ও ক্যালেন্ডার দেখুন" data-en="Click on any team member to view their monthly work summary">যেকোনো মেম্বারের কার্ডে ক্লিক করে তার মাসিক কাজের বিস্তারিত সামারি ও ক্যালেন্ডার দেখুন</p>
+            <p class="text-sm text-slate-500 dark:text-slate-400" data-bn="যেকোনো মেম্বারের কার্ডে ক্লিক করে তার মাসিক কাজের বিস্তারিত সামারি ও ক্যালেন্ডার দেখুন" data-en="Click on any team member card to inspect their monthly work summary & calendar">যেকোনো মেম্বারের কার্ডে ক্লিক করে তার মাসিক কাজের বিস্তারিত সামারি ও ক্যালেন্ডার দেখুন</p>
           </div>
         </div>
-        <div id="home-team-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          <!-- Populated dynamically -->
-        </div>
+        <div id="home-team-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"></div>
       </div>
     </section>
 
@@ -384,49 +418,47 @@
     <section id="tab-dashboard" class="hidden space-y-6 animate-fade-up">
       <div class="crystal-card p-6 sm:p-8 rounded-3xl flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <span class="text-xs font-extrabold uppercase tracking-wider text-asf-600 dark:text-emerald-400">Analytics & Transparency</span>
-          <h2 class="text-2xl font-extrabold mt-0.5" data-bn="মাসভিত্তিক কাজের কেন্দ্রীয় ড্যাশবোর্ড" data-en="Monthly Team Work Dashboard">মাসভিত্তিক কাজের কেন্দ্রীয় ড্যাশবোর্ড</h2>
-          <p class="text-sm text-slate-500 dark:text-slate-400" data-bn="মাস এবং মেম্বার ফিল্টার করে সম্পূর্ণ কাজের হিসাব দেখুন" data-en="Filter by month and member to inspect complete activity logs">মাস এবং মেম্বার ফিল্টার করে সম্পূর্ণ কাজের হিসাব দেখুন</p>
+          <span class="text-xs font-bold uppercase tracking-wider text-asf-600 dark:text-emerald-400" data-bn="অ্যানালিটিক্স ও স্বচ্ছতা" data-en="ANALYTICS & TRANSPARENCY">অ্যানালিটিক্স ও স্বচ্ছতা</span>
+          <h2 class="text-2xl font-bold mt-0.5" data-bn="মাসভিত্তিক কাজের কেন্দ্রীয় ড্যাশবোর্ড" data-en="Monthly Central Work Dashboard">মাসভিত্তিক কাজের কেন্দ্রীয় ড্যাশবোর্ড</h2>
+          <p class="text-sm text-slate-500 dark:text-slate-400" data-bn="মাস এবং মেম্বার ফিল্টার করে সম্পূর্ণ কাজের হিসাব দেখুন" data-en="Filter by month, member, and status to inspect complete activity logs">মাস এবং মেম্বার ফিল্টার করে সম্পূর্ণ কাজের হিসাব দেখুন</p>
         </div>
         <div class="flex flex-wrap items-center gap-3">
           <input type="month" id="filter-month" onchange="renderDashboard()" class="px-4 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm font-bold shadow-sm">
-          <select id="filter-member" onchange="renderDashboard()" class="px-4 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm font-semibold shadow-sm">
-            <option value="ALL">সকল টিম মেম্বার (All Members)</option>
+          <select id="filter-member" onchange="renderDashboard()" class="px-4 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm font-bold shadow-sm">
+            <option value="ALL" data-bn="সকল টিম মেম্বার" data-en="All Team Members">সকল টিম মেম্বার</option>
           </select>
-          <select id="filter-status" onchange="renderDashboard()" class="px-4 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm font-semibold shadow-sm">
-            <option value="ALL">সকল স্ট্যাটাস (All Status)</option>
-            <option value="Completed">Completed (সম্পন্ন)</option>
-            <option value="Ongoing">Ongoing (চলমান)</option>
-            <option value="In Review">In Review (রিভিউতে আছে)</option>
+          <select id="filter-status" onchange="renderDashboard()" class="px-4 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm font-bold shadow-sm">
+            <option value="ALL" data-bn="সকল স্ট্যাটাস" data-en="All Status">সকল স্ট্যাটাস</option>
+            <option value="Completed" data-bn="সম্পন্ন (Completed)" data-en="Completed">সম্পন্ন (Completed)</option>
+            <option value="Ongoing" data-bn="চলমান (Ongoing)" data-en="Ongoing">চলমান (Ongoing)</option>
+            <option value="In Review" data-bn="রিভিউতে আছে (In Review)" data-en="In Review">রিভিউতে আছে (In Review)</option>
           </select>
         </div>
       </div>
 
       <!-- Member-wise Summary Table -->
       <div class="crystal-card rounded-3xl overflow-hidden">
-        <div class="p-5 border-b border-slate-200/70 dark:border-slate-700/70 flex justify-between items-center">
-          <h3 class="font-extrabold text-base flex items-center gap-2">
+        <div class="p-5 border-b border-slate-200/70 dark:border-slate-700/70 flex flex-wrap justify-between items-center gap-2">
+          <h3 class="font-bold text-base flex items-center gap-2">
             <i data-lucide="award" class="w-5 h-5 text-asf-600"></i>
-            <span data-bn="টিম মেম্বারদের মাসিক পারফরম্যান্স সামারি" data-en="Member-wise Monthly Summary">টিম মেম্বারদের মাসিক পারফরম্যান্স সামারি</span>
+            <span data-bn="টিম মেম্বারদের মাসিক পারফরম্যান্স সামারি" data-en="Member-wise Monthly Performance Summary">টিম মেম্বারদের মাসিক পারফরম্যান্স সামারি</span>
           </h3>
-          <span class="text-xs font-semibold text-asf-600 dark:text-emerald-400" data-bn="নামের ওপর ক্লিক করলে বিস্তারিত রিপোর্ট ওপেন হবে" data-en="Click on a member to open full profile">নামের ওপর ক্লিক করলে বিস্তারিত রিপোর্ট ওপেন হবে</span>
+          <span class="text-xs font-bold text-asf-600 dark:text-emerald-400" data-bn="নামের ওপর ক্লিক করলে বিস্তারিত রিপোর্ট ওপেন হবে" data-en="Click on any member row to open full report">নামের ওপর ক্লিক করলে বিস্তারিত রিপোর্ট ওপেন হবে</span>
         </div>
         <div class="overflow-x-auto">
           <table class="w-full text-left border-collapse text-sm">
             <thead>
               <tr class="border-b border-slate-200/70 dark:border-slate-700/70 text-slate-600 dark:text-slate-300 bg-slate-100/60 dark:bg-slate-800/60">
-                <th class="p-4 font-bold">টিম মেম্বার (Member)</th>
-                <th class="p-4 font-bold">পদবী (Role)</th>
-                <th class="p-4 font-bold text-center">চলমান (Ongoing)</th>
-                <th class="p-4 font-bold text-center">রিভিউতে (In Review)</th>
-                <th class="p-4 font-bold text-center">সম্পন্ন (Completed)</th>
-                <th class="p-4 font-bold text-center">মোট সময় (Hours)</th>
-                <th class="p-4 font-bold text-right">রিপোর্ট কার্ড</th>
+                <th class="p-4 font-bold" data-bn="টিম মেম্বার" data-en="Team Member">টিম মেম্বার</th>
+                <th class="p-4 font-bold" data-bn="পদবী" data-en="Designation">পদবী</th>
+                <th class="p-4 font-bold text-center" data-bn="চলমান" data-en="Ongoing">চলমান</th>
+                <th class="p-4 font-bold text-center" data-bn="রিভিউতে" data-en="In Review">রিভিউতে</th>
+                <th class="p-4 font-bold text-center" data-bn="সম্পন্ন" data-en="Completed">সম্পন্ন</th>
+                <th class="p-4 font-bold text-center" data-bn="মোট সময়" data-en="Total Hours">মোট সময়</th>
+                <th class="p-4 font-bold text-right" data-bn="রিপোর্ট কার্ড" data-en="Report Card">রিপোর্ট কার্ড</th>
               </tr>
             </thead>
-            <tbody id="dashboard-member-summary" class="divide-y divide-slate-200/60 dark:divide-slate-800">
-              <!-- Populated dynamically -->
-            </tbody>
+            <tbody id="dashboard-member-summary" class="divide-y divide-slate-200/60 dark:divide-slate-800"></tbody>
           </table>
         </div>
       </div>
@@ -434,24 +466,24 @@
       <!-- Category Breakdown & Detailed Log -->
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div class="crystal-card rounded-3xl p-6">
-          <h3 class="font-extrabold text-base mb-4 border-b pb-3 dark:border-slate-700" data-bn="কাজের ক্যাটাগরি অনুযায়ী হিসাব" data-en="Tasks by Activity Category">কাজের ক্যাটাগরি অনুযায়ী হিসাব</h3>
+          <h3 class="font-bold text-base mb-4 border-b pb-3 dark:border-slate-700" data-bn="কাজের ক্যাটাগরি অনুযায়ী হিসাব" data-en="Tasks by Activity Category">কাজের ক্যাটাগরি অনুযায়ী হিসাব</h3>
           <div id="dashboard-category-list" class="space-y-2.5 max-h-96 overflow-y-auto pr-1"></div>
         </div>
 
         <div class="lg:col-span-2 crystal-card rounded-3xl overflow-hidden">
           <div class="p-5 border-b border-slate-200/70 dark:border-slate-700/70 flex justify-between items-center">
-            <h3 class="font-extrabold text-base" data-bn="প্রতিদিনের কাজের বিস্তারিত তালিকা" data-en="Detailed Daily Work Log">প্রতিদিনের কাজের বিস্তারিত তালিকা</h3>
+            <h3 class="font-bold text-base" data-bn="প্রতিদিনের কাজের বিস্তারিত তালিকা" data-en="Detailed Daily Work Log">প্রতিদিনের কাজের বিস্তারিত তালিকা</h3>
           </div>
           <div class="overflow-x-auto max-h-96">
             <table class="w-full text-left border-collapse text-xs sm:text-sm">
               <thead class="sticky top-0 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-200">
                 <tr>
-                  <th class="p-3.5 font-bold">তারিখ</th>
-                  <th class="p-3.5 font-bold">নাম</th>
-                  <th class="p-3.5 font-bold">কাজের ধরন ও প্রজেক্ট</th>
-                  <th class="p-3.5 font-bold">প্ল্যাটফর্ম</th>
-                  <th class="p-3.5 font-bold">স্ট্যাটাস</th>
-                  <th class="p-3.5 font-bold">লিংক</th>
+                  <th class="p-3.5 font-bold" data-bn="তারিখ" data-en="Date">তারিখ</th>
+                  <th class="p-3.5 font-bold" data-bn="নাম" data-en="Member">নাম</th>
+                  <th class="p-3.5 font-bold" data-bn="কাজের ধরন ও প্রজেক্ট" data-en="Category & Project Title">কাজের ধরন ও প্রজেক্ট</th>
+                  <th class="p-3.5 font-bold" data-bn="প্ল্যাটফর্ম" data-en="Platform">প্ল্যাটফর্ম</th>
+                  <th class="p-3.5 font-bold" data-bn="স্ট্যাটাস" data-en="Status">স্ট্যাটাস</th>
+                  <th class="p-3.5 font-bold" data-bn="লিংক" data-en="Link">লিংক</th>
                 </tr>
               </thead>
               <tbody id="dashboard-logs-tbody" class="divide-y divide-slate-200/60 dark:divide-slate-800"></tbody>
@@ -464,9 +496,9 @@
     <!-- ================= 3. TEAM MEMBERS SECTION ================= -->
     <section id="tab-team" class="hidden space-y-6 animate-fade-up">
       <div class="crystal-card p-6 sm:p-8 rounded-3xl">
-        <span class="text-xs font-extrabold uppercase tracking-wider text-asf-600 dark:text-emerald-400">Team Directory</span>
-        <h2 class="text-2xl font-extrabold mt-0.5" data-bn="আমাদের টিম মেম্বারবৃন্দ" data-en="Our Creative & Media Team">আমাদের টিম মেম্বারবৃন্দ</h2>
-        <p class="text-sm text-slate-500 dark:text-slate-400" data-bn="প্রত্যেক সদস্যের কার্ডের ওপর ক্লিক করে তার ব্যক্তিগত ড্যাশবোর্ড, উপস্থিতি ও সম্পন্ন হওয়া কাজ দেখুন" data-en="Click on any member card to inspect their individual monthly dashboard and tasks">প্রত্যেক সদস্যের কার্ডের ওপর ক্লিক করে তার ব্যক্তিগত ড্যাশবোর্ড, উপস্থিতি ও সম্পন্ন হওয়া কাজ দেখুন</p>
+        <span class="text-xs font-bold uppercase tracking-wider text-asf-600 dark:text-emerald-400" data-bn="টিম ডিরেক্টরি" data-en="TEAM DIRECTORY">টিম ডিরেক্টরি</span>
+        <h2 class="text-2xl font-bold mt-0.5" data-bn="আমাদের টিম মেম্বারবৃন্দ" data-en="Our Creative & Media Team">আমাদের টিম মেম্বারবৃন্দ</h2>
+        <p class="text-sm text-slate-500 dark:text-slate-400" data-bn="প্রত্যেক সদস্যের কার্ডের ওপর ক্লিক করে তার ব্যক্তিগত ড্যাশবোর্ড, উপস্থিতি ও সম্পন্ন হওয়া কাজ দেখুন" data-en="Click on any member card to inspect their individual monthly dashboard, attendance, and tasks">প্রত্যেক সদস্যের কার্ডের ওপর ক্লিক করে তার ব্যক্তিগত ড্যাশবোর্ড, উপস্থিতি ও সম্পন্ন হওয়া কাজ দেখুন</p>
       </div>
       <div id="full-team-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"></div>
     </section>
@@ -475,16 +507,16 @@
     <section id="tab-portfolio" class="hidden space-y-6 animate-fade-up">
       <div class="crystal-card p-6 sm:p-8 rounded-3xl flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <span class="text-xs font-extrabold uppercase tracking-wider text-red-600">Video Archive</span>
-          <h2 class="text-2xl font-extrabold mt-0.5" data-bn="আমাদের প্রোডাকশন পোর্টফোলিও" data-en="Production Portfolio">আমাদের প্রোডাকশন পোর্টফোলিও</h2>
+          <span class="text-xs font-bold uppercase tracking-wider text-red-600" data-bn="ভিডিও আর্কাইভ" data-en="VIDEO ARCHIVE">ভিডিও আর্কাইভ</span>
+          <h2 class="text-2xl font-bold mt-0.5" data-bn="আমাদের প্রোডাকশন পোর্টফোলিও" data-en="Production Portfolio">আমাদের প্রোডাকশন পোর্টফোলিও</h2>
           <p class="text-sm text-slate-500 dark:text-slate-400" data-bn="আমাদের টিমের তৈরি করা ডকুমেন্টারি, লেকচার, ওভিসি এবং ক্রিয়েটিভ ভিডিওসমূহ" data-en="Our featured documentaries, lectures, OVCs, and creative productions">আমাদের টিমের তৈরি করা ডকুমেন্টারি, লেকচার, ওভিসি এবং ক্রিয়েটিভ ভিডিওসমূহ</p>
         </div>
         <select id="portfolio-filter" onchange="renderPortfolio()" class="px-4 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm font-bold">
-          <option value="ALL">সকল ক্যাটাগরি (All)</option>
-          <option value="Documentary">Documentary (প্রামাণ্যচিত্র)</option>
-          <option value="Shaikh Lecture">Shaikh Lecture (আলোচনা)</option>
-          <option value="Drama / OVC">Drama / OVC (নাটিকা/ওভিসি)</option>
-          <option value="Shorts / Reels">Shorts / Reels (শর্টস)</option>
+          <option value="ALL" data-bn="সকল ক্যাটাগরি (All)" data-en="All Categories">সকল ক্যাটাগরি (All)</option>
+          <option value="Documentary" data-bn="প্রামাণ্যচিত্র (Documentary)" data-en="Documentary">প্রামাণ্যচিত্র (Documentary)</option>
+          <option value="Shaikh Lecture" data-bn="আলোচনা (Shaikh Lecture)" data-en="Shaikh Lecture">আলোচনা (Shaikh Lecture)</option>
+          <option value="Drama / OVC" data-bn="নাটিকা / ওভিসি (Drama / OVC)" data-en="Drama / OVC">নাটিকা / ওভিসি (Drama / OVC)</option>
+          <option value="Shorts / Reels" data-bn="শর্টস / রিলস (Shorts / Reels)" data-en="Shorts / Reels">শর্টস / রিলস (Shorts / Reels)</option>
         </select>
       </div>
       <div id="full-portfolio-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
@@ -497,7 +529,7 @@
           <img id="ws-user-img" src="" class="w-16 h-16 rounded-2xl object-cover border-2 border-asf-500 shadow-md">
           <div>
             <div class="flex items-center gap-2.5">
-              <h2 id="ws-user-name" class="text-2xl font-extrabold"></h2>
+              <h2 id="ws-user-name" class="text-2xl font-bold"></h2>
               <span id="ws-user-role-badge" class="text-xs px-3 py-0.5 rounded-full bg-emerald-100 text-asf-700 font-bold"></span>
             </div>
             <p id="ws-user-designation" class="text-sm font-medium text-slate-500 dark:text-slate-400 mt-0.5"></p>
@@ -505,10 +537,12 @@
         </div>
         <div class="flex flex-wrap gap-2.5">
           <button onclick="openEditProfileModal()" class="px-4 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 text-xs font-bold hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center gap-1.5 transition">
-            <i data-lucide="user-cog" class="w-4 h-4"></i> প্রোফাইল ও ছবি পরিবর্তন
+            <i data-lucide="user-cog" class="w-4 h-4"></i>
+            <span data-bn="প্রোফাইল ও ছবি পরিবর্তন" data-en="Edit Profile & Photo">প্রোফাইল ও ছবি পরিবর্তন</span>
           </button>
           <button onclick="openMemberModal(currentUserProfile.uid)" class="px-4 py-2.5 rounded-xl bg-asf-600 text-white text-xs font-bold flex items-center gap-1.5 shadow-md shadow-asf-600/20 hover:bg-asf-700 transition">
-            <i data-lucide="layout-dashboard" class="w-4 h-4"></i> আমার পাবলিক রিপোর্ট কার্ড
+            <i data-lucide="layout-dashboard" class="w-4 h-4"></i>
+            <span data-bn="আমার পাবলিক রিপোর্ট কার্ড" data-en="My Public Report Card">আমার পাবলিক রিপোর্ট কার্ড</span>
           </button>
         </div>
       </div>
@@ -516,9 +550,9 @@
       <!-- Director's Review Lounge -->
       <div id="director-review-panel" class="hidden bg-amber-50/90 dark:bg-amber-950/30 border border-amber-300 dark:border-amber-800 rounded-3xl p-6 space-y-4 shadow-sm">
         <div class="flex items-center justify-between">
-          <h3 class="font-extrabold text-amber-900 dark:text-amber-300 flex items-center gap-2">
+          <h3 class="font-bold text-amber-900 dark:text-amber-300 flex items-center gap-2">
             <i data-lucide="shield-check" class="w-5 h-5"></i>
-            ডিরেক্টর ও অ্যাডমিন রিভিউ প্যানেল (কাজের মান যাচাই ও অনুমোদন)
+            <span data-bn="ডিরেক্টর ও অ্যাডমিন রিভিউ প্যানেল (কাজের মান যাচাই ও অনুমোদন)" data-en="Director & Admin QC Lounge (Review & Approve Tasks)">ডিরেক্টর ও অ্যাডমিন রিভিউ প্যানেল (কাজের মান যাচাই ও অনুমোদন)</span>
           </h3>
           <span class="text-xs bg-amber-200 text-amber-900 px-3 py-1 rounded-full font-bold">In Review Tasks</span>
         </div>
@@ -530,26 +564,26 @@
         <div class="lg:col-span-2 crystal-card p-6 sm:p-8 rounded-3xl space-y-5">
           <div class="flex flex-wrap items-center justify-between border-b border-slate-200/70 dark:border-slate-700/70 pb-4 gap-2">
             <div>
-              <h3 class="text-xl font-extrabold text-asf-600 dark:text-emerald-400 flex items-center gap-2">
+              <h3 class="text-xl font-bold text-asf-600 dark:text-emerald-400 flex items-center gap-2">
                 <i data-lucide="plus-circle" class="w-5 h-5"></i>
-                আজকের কাজ যুক্ত করুন (Add Daily Task)
+                <span data-bn="আজকের কাজ যুক্ত করুন" data-en="Log Today's Work">আজকের কাজ যুক্ত করুন</span>
               </h3>
-              <p class="text-xs text-slate-500 mt-0.5">নিয়ম অনুযায়ী শুধুমাত্র আজকের তারিখেই কাজ এন্ট্রি করা যাবে। আগের দিনের কাজ এডিট করা লক করা আছে।</p>
+              <p class="text-xs text-slate-500 mt-0.5" data-bn="নিয়ম অনুযায়ী শুধুমাত্র আজকের তারিখেই কাজ এন্ট্রি করা যাবে। আগের দিনের কাজ এডিট করা লক করা আছে।" data-en="Strict daily policy: Tasks can only be logged for today's date. Previous dates are locked.">নিয়ম অনুযায়ী শুধুমাত্র আজকের তারিখেই কাজ এন্ট্রি করা যাবে। আগের দিনের কাজ এডিট করা লক করা আছে।</p>
             </div>
-            <span id="today-date-badge" class="bg-emerald-100 text-asf-700 dark:bg-emerald-950 dark:text-emerald-300 text-xs font-extrabold px-3.5 py-2 rounded-xl border border-emerald-300/60"></span>
+            <span id="today-date-badge" class="bg-emerald-100 text-asf-700 dark:bg-emerald-950 dark:text-emerald-300 text-xs font-bold px-3.5 py-2 rounded-xl border border-emerald-300/60"></span>
           </div>
 
           <form id="task-entry-form" onsubmit="submitDailyTask(event)" class="space-y-4">
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label class="block text-xs font-bold mb-1.5">তারিখ (Date) <span class="text-red-500">*</span></label>
+                <label class="block text-xs font-bold mb-1.5"><span data-bn="তারিখ (Date)" data-en="Date">তারিখ (Date)</span> <span class="text-red-500">*</span></label>
                 <input type="date" id="task-date" required readonly class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-100 dark:bg-slate-800/60 text-sm cursor-not-allowed font-bold">
-                <p id="admin-date-hint" class="hidden text-[11px] text-amber-600 font-semibold mt-1">সুপার অ্যাডমিন হিসেবে আপনি যেকোনো তারিখ সিলেক্ট করতে পারবেন।</p>
+                <p id="admin-date-hint" class="hidden text-[11px] text-amber-600 font-bold mt-1" data-bn="সুপার অ্যাডমিন হিসেবে আপনি যেকোনো তারিখ সিলেক্ট করতে পারবেন।" data-en="As Super Admin, you can select any date.">সুপার অ্যাডমিন হিসেবে আপনি যেকোনো তারিখ সিলেক্ট করতে পারবেন।</p>
               </div>
 
               <div>
                 <div class="flex justify-between items-center mb-1.5">
-                  <label class="block text-xs font-bold">কাজের ক্যাটাগরি (Activity) <span class="text-red-500">*</span></label>
+                  <label class="block text-xs font-bold"><span data-bn="কাজের ক্যাটাগরি (Activity)" data-en="Activity Category">কাজের ক্যাটাগরি (Activity)</span> <span class="text-red-500">*</span></label>
                   <button type="button" onclick="toggleAllCategoriesInForm()" id="toggle-cat-btn" class="text-[11px] font-bold text-asf-600 hover:underline">সব ক্যাটাগরি দেখুন</button>
                 </div>
                 <select id="task-category" required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm font-medium"></select>
@@ -557,52 +591,52 @@
             </div>
 
             <div>
-              <label class="block text-xs font-bold mb-1.5">প্রজেক্ট বা কাজের বিস্তারিত শিরোনাম (Project / Task Title) <span class="text-red-500">*</span></label>
-              <input type="text" id="task-title" required placeholder="যেমন: শায়খ আহমাদুল্লাহর প্রশ্নোত্তর পর্ব-৪৫ এডিটিং / রাইটস ম্যানেজার কপিরাইট সমাধান..." class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm">
+              <label class="block text-xs font-bold mb-1.5"><span data-bn="প্রজেক্ট বা কাজের বিস্তারিত শিরোনাম" data-en="Project / Task Title">প্রজেক্ট বা কাজের বিস্তারিত শিরোনাম</span> <span class="text-red-500">*</span></label>
+              <input type="text" id="task-title" required data-placeholder-bn="যেমন: শায়খ আহমাদুল্লাহর প্রশ্নোত্তর পর্ব-৪৫ এডিটিং / রাইটস ম্যানেজার কপিরাইট সমাধান..." data-placeholder-en="e.g., Shaikh Ahmadullah Q&A Ep-45 Editing / Rights Manager Copyright Resolution..." placeholder="যেমন: শায়খ আহমাদুল্লাহর প্রশ্নোত্তর পর্ব-৪৫ এডিটিং / রাইটস ম্যানেজার কপিরাইট সমাধান..." class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm">
             </div>
 
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
               <div>
-                <label class="block text-xs font-bold mb-1.5">প্ল্যাটফর্ম / চ্যানেল (Platform)</label>
+                <label class="block text-xs font-bold mb-1.5" data-bn="প্ল্যাটফর্ম / চ্যানেল" data-en="Platform / Channel">প্ল্যাটফর্ম / চ্যানেল</label>
                 <select id="task-platform" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm"></select>
               </div>
 
               <div>
-                <label class="block text-xs font-bold mb-1.5">কাজের অবস্থা (Status) <span class="text-red-500">*</span></label>
+                <label class="block text-xs font-bold mb-1.5"><span data-bn="কাজের অবস্থা (Status)" data-en="Work Status">কাজের অবস্থা (Status)</span> <span class="text-red-500">*</span></label>
                 <select id="task-status" required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm font-bold">
-                  <option value="Ongoing">⏳ Ongoing (চলমান আছে)</option>
-                  <option value="Completed">✅ Completed (সম্পন্ন হয়েছে)</option>
-                  <option value="In Review">🔍 In Review (রিভিউয়ের জন্য প্রস্তুত)</option>
-                  <option value="Stuck / Hold">⚠️ Stuck / Hold (আটকে আছে)</option>
+                  <option value="Ongoing" data-bn="⏳ চলমান আছে (Ongoing)" data-en="⏳ Ongoing">⏳ চলমান আছে (Ongoing)</option>
+                  <option value="Completed" data-bn="✅ সম্পন্ন হয়েছে (Completed)" data-en="✅ Completed">✅ সম্পন্ন হয়েছে (Completed)</option>
+                  <option value="In Review" data-bn="🔍 রিভিউয়ের জন্য প্রস্তুত (In Review)" data-en="🔍 In Review">🔍 রিভিউয়ের জন্য প্রস্তুত (In Review)</option>
+                  <option value="Stuck / Hold" data-bn="⚠️ আটকে আছে (Stuck / Hold)" data-en="⚠️ Stuck / Hold">⚠️ আটকে আছে (Stuck / Hold)</option>
                 </select>
               </div>
 
               <div>
-                <label class="block text-xs font-bold mb-1.5">পরিমাণ (Quantity / Output)</label>
-                <input type="text" id="task-qty" placeholder="যেমন: ১টি ভিডিও / ৩টি থাম্বনেইল" value="1" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm">
+                <label class="block text-xs font-bold mb-1.5" data-bn="পরিমাণ (Quantity)" data-en="Quantity / Output">পরিমাণ (Quantity)</label>
+                <input type="text" id="task-qty" data-placeholder-bn="যেমন: ১টি ভিডিও / ৩টি থাম্বনেইল" data-placeholder-en="e.g., 1 Video / 3 Thumbnails" placeholder="যেমন: ১টি ভিডিও / ৩টি থাম্বনেইল" value="1" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm">
               </div>
             </div>
 
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
               <div>
-                <label class="block text-xs font-bold mb-1.5">ব্যয়িত সময় (Hours)</label>
+                <label class="block text-xs font-bold mb-1.5" data-bn="ব্যয়িত সময় (ঘণ্টা)" data-en="Time Spent (Hours)">ব্যয়িত সময় (ঘণ্টা)</label>
                 <input type="number" step="0.5" min="0.5" max="24" id="task-hours" value="2" required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm font-bold">
               </div>
 
               <div class="sm:col-span-2">
-                <label class="block text-xs font-bold mb-1.5">গুগল ড্রাইভ বা কাজের লিংক (Drive / Post Link)</label>
+                <label class="block text-xs font-bold mb-1.5" data-bn="গুগল ড্রাইভ বা কাজের লিংক" data-en="Google Drive / Deliverable Link">গুগল ড্রাইভ বা কাজের লিংক</label>
                 <input type="url" id="task-link" placeholder="https://drive.google.com/..." class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm">
               </div>
             </div>
 
             <div>
-              <label class="block text-xs font-bold mb-1.5">মন্তব্য বা নোট (Remarks / Blocker - ঐচ্ছিক)</label>
-              <input type="text" id="task-notes" placeholder="কাজটি নিয়ে কোনো বিশেষ নোট বা থাম্বনেইল প্রয়োজন হলে লিখুন..." class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm">
+              <label class="block text-xs font-bold mb-1.5" data-bn="মন্তব্য বা নোট (ঐচ্ছিক)" data-en="Remarks / Notes (Optional)">মন্তব্য বা নোট (ঐচ্ছিক)</label>
+              <input type="text" id="task-notes" data-placeholder-bn="কাজটি নিয়ে কোনো বিশেষ নোট বা থাম্বনেইল প্রয়োজন হলে লিখুন..." data-placeholder-en="Any special notes or blocker details..." placeholder="কাজটি নিয়ে কোনো বিশেষ নোট বা থাম্বনেইল প্রয়োজন হলে লিখুন..." class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm">
             </div>
 
-            <button type="submit" id="task-submit-btn" class="w-full bg-gradient-to-r from-asf-600 to-emerald-600 hover:from-asf-700 hover:to-emerald-700 text-white font-extrabold py-3.5 rounded-2xl shadow-lg shadow-asf-600/25 transition-all hover:-translate-y-0.5 flex items-center justify-center gap-2">
+            <button type="submit" id="task-submit-btn" class="w-full bg-gradient-to-r from-asf-600 to-emerald-600 hover:from-asf-700 hover:to-emerald-700 text-white font-bold py-3.5 rounded-2xl shadow-lg shadow-asf-600/25 transition-all hover:-translate-y-0.5 flex items-center justify-center gap-2">
               <i data-lucide="save" class="w-5 h-5"></i>
-              <span>আজকের কাজ সেভ করুন</span>
+              <span data-bn="আজকের কাজ সেভ করুন" data-en="Save Today's Task">আজকের কাজ সেভ করুন</span>
             </button>
           </form>
         </div>
@@ -610,11 +644,11 @@
         <!-- Right: My Active Ongoing Tasks -->
         <div class="crystal-card p-6 sm:p-8 rounded-3xl space-y-4">
           <div>
-            <h3 class="font-extrabold text-base flex items-center gap-2 text-blue-600 dark:text-blue-400">
+            <h3 class="font-bold text-base flex items-center gap-2 text-blue-600 dark:text-blue-400">
               <i data-lucide="flame" class="w-5 h-5"></i>
-              আমার চলমান কাজ (Ongoing)
+              <span data-bn="আমার চলমান কাজ (Ongoing)" data-en="My Active Ongoing Tasks">আমার চলমান কাজ (Ongoing)</span>
             </h3>
-            <p class="text-xs text-slate-500 mt-1">আগের দিন শুরু করা যে কাজগুলো এখনো চলমান আছে। আজকে শেষ হলে ১ ক্লিকেই আজকের তারিখে Completed করুন:</p>
+            <p class="text-xs text-slate-500 mt-1" data-bn="আগের দিন শুরু করা যে কাজগুলো এখনো চলমান আছে। আজকে শেষ হলে ১ ক্লিকেই আজকের তারিখে Completed করুন:" data-en="Tasks started earlier that are still ongoing. Mark them Completed for today with 1 click:">আগের দিন শুরু করা যে কাজগুলো এখনো চলমান আছে। আজকে শেষ হলে ১ ক্লিকেই আজকের তারিখে Completed করুন:</p>
           </div>
           <div id="my-ongoing-list" class="space-y-3 max-h-96 overflow-y-auto pr-1"></div>
         </div>
@@ -622,18 +656,18 @@
 
       <!-- My Today's Submitted Tasks -->
       <div class="crystal-card p-6 sm:p-8 rounded-3xl space-y-4">
-        <h3 class="font-extrabold text-base">আজকে আমার এন্ট্রি দেওয়া কাজসমূহ (Today's Entries)</h3>
+        <h3 class="font-bold text-base" data-bn="আজকে আমার এন্ট্রি দেওয়া কাজসমূহ" data-en="My Tasks Logged Today">আজকে আমার এন্ট্রি দেওয়া কাজসমূহ</h3>
         <div class="overflow-x-auto">
           <table class="w-full text-left border-collapse text-sm">
             <thead>
               <tr class="border-b dark:border-slate-700 text-slate-500">
-                <th class="p-3 font-bold">তারিখ</th>
-                <th class="p-3 font-bold">ক্যাটাগরি</th>
-                <th class="p-3 font-bold">প্রজেক্ট শিরোনাম</th>
-                <th class="p-3 font-bold">প্ল্যাটফর্ম</th>
-                <th class="p-3 font-bold">স্ট্যাটাস</th>
-                <th class="p-3 font-bold">সময়</th>
-                <th class="p-3 font-bold text-right">অ্যাকশন</th>
+                <th class="p-3 font-bold" data-bn="তারিখ" data-en="Date">তারিখ</th>
+                <th class="p-3 font-bold" data-bn="ক্যাটাগরি" data-en="Category">ক্যাটাগরি</th>
+                <th class="p-3 font-bold" data-bn="প্রজেক্ট শিরোনাম" data-en="Project Title">প্রজেক্ট শিরোনাম</th>
+                <th class="p-3 font-bold" data-bn="প্ল্যাটফর্ম" data-en="Platform">প্ল্যাটফর্ম</th>
+                <th class="p-3 font-bold" data-bn="স্ট্যাটাস" data-en="Status">স্ট্যাটাস</th>
+                <th class="p-3 font-bold" data-bn="সময়" data-en="Hours">সময়</th>
+                <th class="p-3 font-bold text-right" data-bn="অ্যাকশন" data-en="Action">অ্যাকশন</th>
               </tr>
             </thead>
             <tbody id="my-today-tasks-tbody" class="divide-y dark:divide-slate-800"></tbody>
@@ -646,73 +680,73 @@
     <section id="tab-admin" class="hidden space-y-8 animate-fade-up">
       <div class="bg-gradient-to-r from-amber-600 via-amber-500 to-yellow-600 text-slate-950 p-7 rounded-3xl shadow-xl flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h2 class="text-2xl font-extrabold flex items-center gap-2.5">
+          <h2 class="text-2xl font-bold flex items-center gap-2.5">
             <i data-lucide="settings" class="w-6 h-6"></i>
-            সুপার অ্যাডমিন কন্ট্রোল সেন্টার (Super Admin Panel)
+            <span data-bn="সুপার অ্যাডমিন কন্ট্রোল সেন্টার" data-en="Super Admin Control Center">সুপার অ্যাডমিন কন্ট্রোল সেন্টার</span>
           </h2>
-          <p class="text-slate-900/80 text-sm font-medium mt-1">এখান থেকে আপনি কোনো কোডিং ছাড়াই নতুন মেম্বার অ্যাপ্রুভ, ছবি আপলোড, ইউটিউব ভিডিও যুক্ত এবং ফুটার ক্রেডিট নিয়ন্ত্রণ করতে পারবেন।</p>
+          <p class="text-slate-900/85 text-sm font-medium mt-1" data-bn="এখান থেকে আপনি কোনো কোডিং ছাড়াই নতুন মেম্বার অ্যাপ্রুভ, ছবি আপলোড, ইউটিউব ভিডিও যুক্ত এবং ফুটার ক্রেডিট নিয়ন্ত্রণ করতে পারবেন।" data-en="Approve members, upload logos/photos, add YouTube videos, and manage categories without touching any code.">এখান থেকে আপনি কোনো কোডিং ছাড়াই নতুন মেম্বার অ্যাপ্রুভ, ছবি আপলোড, ইউটিউব ভিডিও যুক্ত এবং ফুটার ক্রেডিট নিয়ন্ত্রণ করতে পারবেন।</p>
         </div>
       </div>
 
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div class="lg:col-span-2 crystal-card p-6 sm:p-8 rounded-3xl space-y-4">
           <div class="flex justify-between items-center border-b pb-3 dark:border-slate-700">
-            <h3 class="font-extrabold text-base flex items-center gap-2">
+            <h3 class="font-bold text-base flex items-center gap-2">
               <i data-lucide="users" class="w-5 h-5 text-asf-600"></i>
-              টিম মেম্বার ম্যানেজমেন্ট ও অনুমোদন (Approve / Edit Role)
+              <span data-bn="টিম মেম্বার ম্যানেজমেন্ট ও অনুমোদন" data-en="Team Member Management & Approvals">টিম মেম্বার ম্যানেজমেন্ট ও অনুমোদন</span>
             </h3>
           </div>
           <div id="admin-members-list" class="space-y-3 max-h-[540px] overflow-y-auto pr-1"></div>
         </div>
 
         <div class="crystal-card p-6 sm:p-8 rounded-3xl space-y-4">
-          <h3 class="font-extrabold text-base border-b pb-3 dark:border-slate-700 flex items-center gap-2">
+          <h3 class="font-bold text-base border-b pb-3 dark:border-slate-700 flex items-center gap-2">
             <i data-lucide="sliders" class="w-5 h-5 text-asf-600"></i>
-            সাইট ব্র্যান্ডিং ও ক্রেডিট সেটিংস
+            <span data-bn="সাইট ব্র্যান্ডিং ও ক্রেডিট সেটিংস" data-en="Site Branding & Credit Settings">সাইট ব্র্যান্ডিং ও ক্রেডিট সেটিংস</span>
           </h3>
           <form onsubmit="saveSiteSettings(event)" class="space-y-3 text-sm">
             <div>
-              <label class="block text-xs font-bold mb-1">ওয়েবসাইটের নাম (Site Title)</label>
+              <label class="block text-xs font-bold mb-1" data-bn="ওয়েবসাইটের নাম (Site Title)" data-en="Site Title">ওয়েবসাইটের নাম (Site Title)</label>
               <input type="text" id="set-title" required class="w-full px-3.5 py-2 rounded-xl border dark:border-slate-700 dark:bg-slate-800">
             </div>
             <div>
-              <label class="block text-xs font-bold mb-1">সাব-টাইটেল (Subtitle)</label>
+              <label class="block text-xs font-bold mb-1" data-bn="সাব-টাইটেল (Subtitle)" data-en="Subtitle">সাব-টাইটেল (Subtitle)</label>
               <input type="text" id="set-subtitle" class="w-full px-3.5 py-2 rounded-xl border dark:border-slate-700 dark:bg-slate-800">
             </div>
             <div>
-              <label class="block text-xs font-bold mb-1">লোগো আপলোড করুন (Upload New Logo)</label>
-              <input type="file" id="set-logo-file" accept="image/*" class="w-full text-xs file:mr-3 file:py-1.5 file:px-3 file:rounded-xl file:border-0 file:bg-asf-50 file:text-asf-700 font-semibold">
+              <label class="block text-xs font-bold mb-1" data-bn="লোগো আপলোড করুন (Upload New Logo)" data-en="Upload New Logo">লোগো আপলোড করুন (Upload New Logo)</label>
+              <input type="file" id="set-logo-file" accept="image/*" class="w-full text-xs file:mr-3 file:py-1.5 file:px-3 file:rounded-xl file:border-0 file:bg-asf-50 file:text-asf-700 font-bold">
             </div>
             <div>
-              <label class="block text-xs font-bold mb-1">হোমপেজ ব্যানার শিরোনাম (Hero Heading)</label>
+              <label class="block text-xs font-bold mb-1" data-bn="হোমপেজ ব্যানার শিরোনাম (Hero Heading)" data-en="Homepage Hero Heading">হোমপেজ ব্যানার শিরোনাম (Hero Heading)</label>
               <input type="text" id="set-hero-heading" class="w-full px-3.5 py-2 rounded-xl border dark:border-slate-700 dark:bg-slate-800">
             </div>
             <div>
-              <label class="block text-xs font-bold mb-1">জরুরি নোটিশ বার (খালি রাখলে লুকানো থাকবে)</label>
-              <input type="text" id="set-notice" placeholder="যেমন: আগামীকাল সকাল ১০টায় মাসিক মিটিং..." class="w-full px-3.5 py-2 rounded-xl border dark:border-slate-700 dark:bg-slate-800">
+              <label class="block text-xs font-bold mb-1" data-bn="জরুরি নোটিশ বার (খালি রাখলে লুকানো থাকবে)" data-en="Top Notice Banner (Leave empty to hide)">জরুরি নোটিশ বার (খালি রাখলে লুকানো থাকবে)</label>
+              <input type="text" id="set-notice" data-placeholder-bn="যেমন: আগামীকাল সকাল ১০টায় মাসিক মিটিং..." data-placeholder-en="e.g., Monthly meeting tomorrow at 10 AM..." placeholder="যেমন: আগামীকাল সকাল ১০টায় মাসিক মিটিং..." class="w-full px-3.5 py-2 rounded-xl border dark:border-slate-700 dark:bg-slate-800">
             </div>
 
             <div class="pt-3 border-t dark:border-slate-700 space-y-2.5">
-              <p class="text-xs font-extrabold text-asf-600 dark:text-emerald-400">ফুটার ক্রেডিট (আপনার নাম, ছবি ও LinkedIn লিংক)</p>
+              <p class="text-xs font-bold text-asf-600 dark:text-emerald-400" data-bn="ফুটার ক্রেডিট (আপনার নাম, ছবি ও LinkedIn লিংক)" data-en="Footer Credit (Your Name, Photo & LinkedIn)">ফুটার ক্রেডিট (আপনার নাম, ছবি ও LinkedIn লিংক)</p>
               <div>
-                <label class="block text-xs font-bold mb-1">আপনার নাম (Credit Name)</label>
-                <input type="text" id="set-credit-name" placeholder="আপনার নাম লিখুন..." class="w-full px-3.5 py-1.5 rounded-xl border dark:border-slate-700 dark:bg-slate-800">
+                <label class="block text-xs font-bold mb-1" data-bn="আপনার নাম (Credit Name)" data-en="Your Name">আপনার নাম (Credit Name)</label>
+                <input type="text" id="set-credit-name" class="w-full px-3.5 py-1.5 rounded-xl border dark:border-slate-700 dark:bg-slate-800">
               </div>
               <div>
-                <label class="block text-xs font-bold mb-1">আপনার পদবী (Credit Role)</label>
-                <input type="text" id="set-credit-role" placeholder="Social Media Executive, As-Sunnah Foundation" class="w-full px-3.5 py-1.5 rounded-xl border dark:border-slate-700 dark:bg-slate-800">
+                <label class="block text-xs font-bold mb-1" data-bn="আপনার পদবী (Credit Role)" data-en="Your Designation">আপনার পদবী (Credit Role)</label>
+                <input type="text" id="set-credit-role" class="w-full px-3.5 py-1.5 rounded-xl border dark:border-slate-700 dark:bg-slate-800">
               </div>
               <div>
-                <label class="block text-xs font-bold mb-1">আপনার LinkedIn প্রোফাইল লিংক</label>
-                <input type="url" id="set-credit-linkedin" placeholder="https://www.linkedin.com/in/..." class="w-full px-3.5 py-1.5 rounded-xl border dark:border-slate-700 dark:bg-slate-800">
+                <label class="block text-xs font-bold mb-1" data-bn="আপনার LinkedIn প্রোফাইল লিংক" data-en="Your LinkedIn Profile URL">আপনার LinkedIn প্রোফাইল লিংক</label>
+                <input type="url" id="set-credit-linkedin" class="w-full px-3.5 py-1.5 rounded-xl border dark:border-slate-700 dark:bg-slate-800">
               </div>
               <div>
-                <label class="block text-xs font-bold mb-1">আপনার ছবি আপলোড করুন (Credit Photo)</label>
-                <input type="file" id="set-credit-photo" accept="image/*" class="w-full text-xs file:mr-3 file:py-1 file:px-2.5 file:rounded-xl file:border-0 file:bg-emerald-50 file:text-asf-700 font-semibold">
+                <label class="block text-xs font-bold mb-1" data-bn="আপনার ছবি আপলোড করুন (Credit Photo)" data-en="Upload Credit Photo">আপনার ছবি আপলোড করুন (Credit Photo)</label>
+                <input type="file" id="set-credit-photo" accept="image/*" class="w-full text-xs file:mr-3 file:py-1 file:px-2.5 file:rounded-xl file:border-0 file:bg-emerald-50 file:text-asf-700 font-bold">
               </div>
             </div>
 
-            <button type="submit" class="w-full bg-asf-600 hover:bg-asf-700 text-white font-extrabold py-3 rounded-xl transition shadow-md">
+            <button type="submit" class="w-full bg-asf-600 hover:bg-asf-700 text-white font-bold py-3 rounded-xl transition shadow-md" data-bn="সব সেটিংস সেভ করুন" data-en="Save All Settings">
               সব সেটিংস সেভ করুন
             </button>
           </form>
@@ -721,31 +755,31 @@
 
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div class="crystal-card p-6 sm:p-8 rounded-3xl space-y-4">
-          <h3 class="font-extrabold text-base border-b pb-3 dark:border-slate-700 flex items-center gap-2">
+          <h3 class="font-bold text-base border-b pb-3 dark:border-slate-700 flex items-center gap-2">
             <i data-lucide="youtube" class="w-5 h-5 text-red-600"></i>
-            হোমপেজে ইউটিউব ভিডিও যুক্ত করুন (YouTube Showcase)
+            <span data-bn="হোমপেজে ইউটিউব ভিডিও যুক্ত করুন" data-en="Add YouTube Video to Portfolio">হোমপেজে ইউটিউব ভিডিও যুক্ত করুন</span>
           </h3>
           <form onsubmit="addPortfolioVideo(event)" class="space-y-3 text-sm">
             <div>
-              <label class="block text-xs font-bold mb-1">ভিডিওর শিরোনাম (Video Title) *</label>
-              <input type="text" id="port-title" required placeholder="যেমন: আস-সুন্নাহ ফাউন্ডেশন বন্যার্তদের পাশে - ডকুমেন্টারি" class="w-full px-3.5 py-2 rounded-xl border dark:border-slate-700 dark:bg-slate-800">
+              <label class="block text-xs font-bold mb-1" data-bn="ভিডিওর শিরোনাম (Video Title) *" data-en="Video Title *">ভিডিওর শিরোনাম (Video Title) *</label>
+              <input type="text" id="port-title" required data-placeholder-bn="যেমন: আস-সুন্নাহ ফাউন্ডেশন বন্যার্তদের পাশে - ডকুমেন্টারি" data-placeholder-en="e.g., As-Sunnah Foundation Flood Relief Documentary" placeholder="যেমন: আস-সুন্নাহ ফাউন্ডেশন বন্যার্তদের পাশে - ডকুমেন্টারি" class="w-full px-3.5 py-2 rounded-xl border dark:border-slate-700 dark:bg-slate-800">
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div>
-                <label class="block text-xs font-bold mb-1">ইউটিউব ভিডিও লিংক (YouTube URL) *</label>
+                <label class="block text-xs font-bold mb-1" data-bn="ইউটিউব ভিডিও লিংক (YouTube URL) *" data-en="YouTube URL *">ইউটিউব ভিডিও লিংক (YouTube URL) *</label>
                 <input type="url" id="port-url" required placeholder="https://www.youtube.com/watch?v=..." class="w-full px-3.5 py-2 rounded-xl border dark:border-slate-700 dark:bg-slate-800">
               </div>
               <div>
-                <label class="block text-xs font-bold mb-1">ক্যাটাগরি *</label>
+                <label class="block text-xs font-bold mb-1" data-bn="ক্যাটাগরি *" data-en="Category *">ক্যাটাগরি *</label>
                 <select id="port-cat" class="w-full px-3.5 py-2 rounded-xl border dark:border-slate-700 dark:bg-slate-800">
-                  <option value="Documentary">Documentary (প্রামাণ্যচিত্র)</option>
-                  <option value="Shaikh Lecture">Shaikh Lecture (আলোচনা)</option>
-                  <option value="Drama / OVC">Drama / OVC (নাটিকা/ওভিসি)</option>
-                  <option value="Shorts / Reels">Shorts / Reels (শর্টস)</option>
+                  <option value="Documentary">Documentary</option>
+                  <option value="Shaikh Lecture">Shaikh Lecture</option>
+                  <option value="Drama / OVC">Drama / OVC</option>
+                  <option value="Shorts / Reels">Shorts / Reels</option>
                 </select>
               </div>
             </div>
-            <button type="submit" class="bg-red-600 hover:bg-red-700 text-white font-bold px-5 py-2.5 rounded-xl text-xs transition shadow">
+            <button type="submit" class="bg-red-600 hover:bg-red-700 text-white font-bold px-5 py-2.5 rounded-xl text-xs transition shadow" data-bn="+ পোর্টফোলিওতে ভিডিও যুক্ত করুন" data-en="+ Add Video to Portfolio">
               + পোর্টফোলিওতে ভিডিও যুক্ত করুন
             </button>
           </form>
@@ -754,19 +788,19 @@
 
         <div class="crystal-card p-6 sm:p-8 rounded-3xl space-y-6">
           <div class="space-y-3">
-            <h3 class="font-extrabold text-base border-b pb-2 dark:border-slate-700">নতুন কাজের ক্যাটাগরি (Activity) যুক্ত করুন</h3>
+            <h3 class="font-bold text-base border-b pb-2 dark:border-slate-700" data-bn="নতুন কাজের ক্যাটাগরি (Activity) যুক্ত করুন" data-en="Add New Activity Category">নতুন কাজের ক্যাটাগরি (Activity) যুক্ত করুন</h3>
             <div class="flex gap-2">
-              <input type="text" id="new-activity-input" placeholder="নতুন কাজের ক্যাটাগরির নাম লিখুন..." class="flex-grow px-3.5 py-2 rounded-xl border text-sm dark:border-slate-700 dark:bg-slate-800">
-              <button onclick="addNewActivity()" class="bg-asf-600 text-white px-4 py-2 rounded-xl text-xs font-bold whitespace-nowrap">+ যুক্ত করুন</button>
+              <input type="text" id="new-activity-input" data-placeholder-bn="নতুন কাজের ক্যাটাগরির নাম লিখুন..." data-placeholder-en="Enter new activity category..." placeholder="নতুন কাজের ক্যাটাগরির নাম লিখুন..." class="flex-grow px-3.5 py-2 rounded-xl border text-sm dark:border-slate-700 dark:bg-slate-800">
+              <button onclick="addNewActivity()" class="bg-asf-600 text-white px-4 py-2 rounded-xl text-xs font-bold whitespace-nowrap" data-bn="+ যুক্ত করুন" data-en="+ Add">+ যুক্ত করুন</button>
             </div>
             <div id="admin-activity-tags" class="flex flex-wrap gap-1.5 max-h-36 overflow-y-auto p-1"></div>
           </div>
 
           <div class="space-y-3">
-            <h3 class="font-extrabold text-base border-b pb-2 dark:border-slate-700">নতুন চ্যানেল বা পেজ (Platform) যুক্ত করুন</h3>
+            <h3 class="font-bold text-base border-b pb-2 dark:border-slate-700" data-bn="নতুন চ্যানেল বা পেজ (Platform) যুক্ত করুন" data-en="Add New Channel / Platform">নতুন চ্যানেল বা পেজ (Platform) যুক্ত করুন</h3>
             <div class="flex gap-2">
-              <input type="text" id="new-platform-input" placeholder="যেমন: Instagram: Ahmadullah..." class="flex-grow px-3.5 py-2 rounded-xl border text-sm dark:border-slate-700 dark:bg-slate-800">
-              <button onclick="addNewPlatform()" class="bg-asf-600 text-white px-4 py-2 rounded-xl text-xs font-bold whitespace-nowrap">+ যুক্ত করুন</button>
+              <input type="text" id="new-platform-input" data-placeholder-bn="যেমন: Instagram: Ahmadullah..." data-placeholder-en="e.g., Instagram: Ahmadullah..." placeholder="যেমন: Instagram: Ahmadullah..." class="flex-grow px-3.5 py-2 rounded-xl border text-sm dark:border-slate-700 dark:bg-slate-800">
+              <button onclick="addNewPlatform()" class="bg-asf-600 text-white px-4 py-2 rounded-xl text-xs font-bold whitespace-nowrap" data-bn="+ যুক্ত করুন" data-en="+ Add">+ যুক্ত করুন</button>
             </div>
             <div id="admin-platform-tags" class="flex flex-wrap gap-1.5 max-h-36 overflow-y-auto p-1"></div>
           </div>
@@ -783,12 +817,14 @@
       <div class="text-center md:text-left space-y-2">
         <div class="flex items-center justify-center md:justify-start gap-2.5">
           <span class="w-2.5 h-2.5 rounded-full bg-asf-600 live-dot"></span>
-          <p class="text-sm font-extrabold text-slate-800 dark:text-slate-100">
-            স্বত্বাধিকারী © ২০২৬ <a href="https://assunnahfoundation.org/" target="_blank" rel="noopener noreferrer" class="text-asf-600 dark:text-emerald-400 hover:underline">আস-সুন্নাহ ফাউন্ডেশন (As-Sunnah Foundation)</a> — সর্বস্বত্ব সংরক্ষিত।
+          <p class="text-sm font-bold text-slate-800 dark:text-slate-100">
+            <span data-bn="স্বত্বাধিকারী © ২০২৬" data-en="Copyright © 2026">স্বত্বাধিকারী © ২০২৬</span>
+            <a href="https://assunnahfoundation.org/" target="_blank" rel="noopener noreferrer" class="text-asf-600 dark:text-emerald-400 hover:underline mx-1" data-bn="আস-সুন্নাহ ফাউন্ডেশন (As-Sunnah Foundation)" data-en="As-Sunnah Foundation">আস-সুন্নাহ ফাউন্ডেশন (As-Sunnah Foundation)</a>
+            <span data-bn="— সর্বস্বত্ব সংরক্ষিত।" data-en="— All rights reserved.">— সর্বস্বত্ব সংরক্ষিত।</span>
           </p>
         </div>
         <p class="text-xs text-slate-500 dark:text-slate-400 flex flex-wrap items-center justify-center md:justify-start gap-3">
-          <span>অফিসিয়াল ওয়েবসাইট: <a href="https://assunnahfoundation.org/" target="_blank" rel="noopener noreferrer" class="font-bold text-asf-600 dark:text-emerald-400 hover:underline inline-flex items-center gap-1">assunnahfoundation.org ↗</a></span>
+          <span><span data-bn="অফিসিয়াল ওয়েবসাইট:" data-en="Official Website:">অফিসিয়াল ওয়েবসাইট:</span> <a href="https://assunnahfoundation.org/" target="_blank" rel="noopener noreferrer" class="font-bold text-asf-600 dark:text-emerald-400 hover:underline inline-flex items-center gap-1">assunnahfoundation.org ↗</a></span>
           <span>•</span>
           <span>ASF Dawah Media Internal Workspace</span>
         </p>
@@ -798,12 +834,12 @@
       <div class="flex items-center gap-3.5 crystal-card crystal-card-hover px-5 py-3 rounded-2xl">
         <img id="footer-credit-img" src="https://ui-avatars.com/api/?name=SM&background=006837&color=fff&bold=true" alt="Creator" class="w-11 h-11 rounded-full object-cover border-2 border-asf-500 shadow-sm">
         <div class="text-left">
-          <p class="text-[10px] uppercase tracking-wider text-slate-400 font-bold">পরিকল্পনা ও ব্যবস্থাপনায় (Concept & Managed By)</p>
-          <a id="footer-credit-link" href="https://www.linkedin.com/company/assunnahfoundation" target="_blank" rel="noopener noreferrer" class="text-sm font-extrabold text-slate-800 dark:text-white hover:text-asf-600 dark:hover:text-emerald-400 transition inline-flex items-center gap-1.5 group" title="Click to visit LinkedIn Profile">
-            <span id="footer-credit-name">Social Media Executive</span>
+          <p class="text-[10px] uppercase tracking-wider text-slate-400 font-bold" data-bn="পরিকল্পনা ও ব্যবস্থাপনায় (Concept & Managed By)" data-en="CONCEPT & MANAGED BY">পরিকল্পনা ও ব্যবস্থাপনায় (Concept & Managed By)</p>
+          <a id="footer-credit-link" href="https://www.linkedin.com/company/assunnahfoundation" target="_blank" rel="noopener noreferrer" class="text-sm font-bold text-slate-800 dark:text-white hover:text-asf-600 dark:hover:text-emerald-400 transition inline-flex items-center gap-1.5 group" title="Click to visit LinkedIn Profile">
+            <span id="footer-credit-name">Tarek Ahmad</span>
             <svg class="w-4 h-4 text-[#0A66C2] group-hover:scale-110 transition" fill="currentColor" viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
           </a>
-          <p id="footer-credit-role" class="text-[11px] font-medium text-slate-500 dark:text-slate-300 leading-none mt-0.5">ASF Dawah Media</p>
+          <p id="footer-credit-role" class="text-[11px] font-medium text-slate-500 dark:text-slate-300 leading-none mt-0.5">Social Media Executive</p>
         </div>
       </div>
 
@@ -816,57 +852,57 @@
   <div id="auth-modal" class="fixed inset-0 z-50 bg-slate-950/60 backdrop-blur-md hidden items-center justify-center p-4">
     <div class="crystal-card bg-white/95 dark:bg-slate-900/95 rounded-3xl max-w-md w-full p-7 shadow-2xl space-y-5 max-h-[90vh] overflow-y-auto animate-fade-up">
       <div class="flex justify-between items-center border-b pb-3 dark:border-slate-800">
-        <h3 id="auth-modal-title" class="text-xl font-extrabold text-asf-600 dark:text-emerald-400">টিম মেম্বার লগইন ও জয়েন</h3>
+        <h3 id="auth-modal-title" class="text-xl font-bold text-asf-600 dark:text-emerald-400" data-bn="টিম মেম্বার লগইন ও জয়েন" data-en="Team Member Login & Join">টিম মেম্বার লগইন ও জয়েন</h3>
         <button onclick="closeAuthModal()" class="text-slate-400 hover:text-slate-600"><i data-lucide="x" class="w-5 h-5"></i></button>
       </div>
 
       <div class="grid grid-cols-2 gap-2 bg-slate-100 dark:bg-slate-800 p-1.5 rounded-2xl text-sm font-bold">
-        <button id="tab-login-btn" onclick="switchAuthMode('login')" class="py-2 rounded-xl bg-white dark:bg-slate-900 shadow text-asf-600 dark:text-emerald-400">লগইন (Login)</button>
-        <button id="tab-signup-btn" onclick="switchAuthMode('signup')" class="py-2 rounded-xl text-slate-600 dark:text-slate-300">নতুন প্রোফাইল খুলুন</button>
+        <button id="tab-login-btn" onclick="switchAuthMode('login')" class="py-2 rounded-xl bg-white dark:bg-slate-900 shadow text-asf-600 dark:text-emerald-400" data-bn="লগইন (Login)" data-en="Login">লগইন (Login)</button>
+        <button id="tab-signup-btn" onclick="switchAuthMode('signup')" class="py-2 rounded-xl text-slate-600 dark:text-slate-300" data-bn="নতুন প্রোফাইল খুলুন" data-en="Create Profile">নতুন প্রোফাইল খুলুন</button>
       </div>
 
       <form id="login-form" onsubmit="handleLogin(event)" class="space-y-4 text-sm">
         <div>
-          <label class="block text-xs font-bold mb-1">ইমেইল অ্যাড্রেস (Email)</label>
+          <label class="block text-xs font-bold mb-1" data-bn="ইমেইল অ্যাড্রেস (Email)" data-en="Email Address">ইমেইল অ্যাড্রেস (Email)</label>
           <input type="email" id="login-email" required placeholder="yourname@gmail.com" class="w-full px-4 py-2.5 rounded-xl border dark:border-slate-700 dark:bg-slate-800">
         </div>
         <div>
-          <label class="block text-xs font-bold mb-1">পাসওয়ার্ড (Password)</label>
+          <label class="block text-xs font-bold mb-1" data-bn="পাসওয়ার্ড (Password)" data-en="Password">পাসওয়ার্ড (Password)</label>
           <input type="password" id="login-pass" required placeholder="••••••••" class="w-full px-4 py-2.5 rounded-xl border dark:border-slate-700 dark:bg-slate-800">
         </div>
-        <button type="submit" class="w-full bg-gradient-to-r from-asf-600 to-emerald-600 text-white font-extrabold py-3 rounded-xl shadow-lg transition">
+        <button type="submit" class="w-full bg-gradient-to-r from-asf-600 to-emerald-600 text-white font-bold py-3 rounded-xl shadow-lg transition" data-bn="লগইন করুন" data-en="Login Now">
           লগইন করুন
         </button>
       </form>
 
       <form id="signup-form" onsubmit="handleSignup(event)" class="hidden space-y-3 text-sm">
         <div>
-          <label class="block text-xs font-bold mb-1">আপনার পূর্ণ নাম (Full Name) *</label>
-          <input type="text" id="reg-name" required placeholder="যেমন: মো: আব্দুল্লাহ" class="w-full px-3.5 py-2 rounded-xl border dark:border-slate-700 dark:bg-slate-800">
+          <label class="block text-xs font-bold mb-1" data-bn="আপনার পূর্ণ নাম (Full Name) *" data-en="Full Name *">আপনার পূর্ণ নাম (Full Name) *</label>
+          <input type="text" id="reg-name" required data-placeholder-bn="যেমন: মো: আব্দুল্লাহ" data-placeholder-en="e.g., Md. Abdullah" placeholder="যেমন: মো: আব্দুল্লাহ" class="w-full px-3.5 py-2 rounded-xl border dark:border-slate-700 dark:bg-slate-800">
         </div>
         <div>
-          <label class="block text-xs font-bold mb-1">পদবী (Designation) *</label>
-          <input type="text" id="reg-designation" required placeholder="যেমন: Social Media Executive / Video Editor" class="w-full px-3.5 py-2 rounded-xl border dark:border-slate-700 dark:bg-slate-800">
+          <label class="block text-xs font-bold mb-1" data-bn="পদবী (Designation) *" data-en="Designation *">পদবী (Designation) *</label>
+          <input type="text" id="reg-designation" required data-placeholder-bn="যেমন: Social Media Executive / Video Editor" data-placeholder-en="e.g., Social Media Executive / Video Editor" placeholder="যেমন: Social Media Executive / Video Editor" class="w-full px-3.5 py-2 rounded-xl border dark:border-slate-700 dark:bg-slate-800">
         </div>
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
           <div>
-            <label class="block text-xs font-bold mb-1">ইমেইল (Email) *</label>
+            <label class="block text-xs font-bold mb-1" data-bn="ইমেইল (Email) *" data-en="Email *">ইমেইল (Email) *</label>
             <input type="email" id="reg-email" required placeholder="email@gmail.com" class="w-full px-3.5 py-2 rounded-xl border dark:border-slate-700 dark:bg-slate-800">
           </div>
           <div>
-            <label class="block text-xs font-bold mb-1">পাসওয়ার্ড (কমপক্ষে ৬ অক্ষর) *</label>
+            <label class="block text-xs font-bold mb-1" data-bn="পাসওয়ার্ড (কমপক্ষে ৬ অক্ষর) *" data-en="Password (Min 6 chars) *">পাসওয়ার্ড (কমপক্ষে ৬ অক্ষর) *</label>
             <input type="password" id="reg-pass" required minlength="6" placeholder="••••••••" class="w-full px-3.5 py-2 rounded-xl border dark:border-slate-700 dark:bg-slate-800">
           </div>
         </div>
         <div>
-          <label class="block text-xs font-bold mb-1">প্রোফাইল ছবি সিলেক্ট করুন (Profile Photo)</label>
+          <label class="block text-xs font-bold mb-1" data-bn="প্রোফাইল ছবি সিলেক্ট করুন (Profile Photo)" data-en="Select Profile Photo">প্রোফাইল ছবি সিলেক্ট করুন (Profile Photo)</label>
           <input type="file" id="reg-photo" accept="image/*" class="w-full text-xs file:mr-3 file:py-1.5 file:px-3 file:rounded-xl file:border-0 file:bg-asf-50 file:text-asf-700 font-bold">
         </div>
         <div>
-          <label class="block text-xs font-bold mb-1">আপনার মূল কাজ কোনগুলো? (টিক দিন)</label>
+          <label class="block text-xs font-bold mb-1" data-bn="আপনার মূল কাজ কোনগুলো? (টিক দিন)" data-en="Select Your Core Activities">আপনার মূল কাজ কোনগুলো? (টিক দিন)</label>
           <div id="reg-activities-checkboxes" class="max-h-36 overflow-y-auto border dark:border-slate-700 rounded-xl p-2 space-y-1 text-xs"></div>
         </div>
-        <button type="submit" class="w-full bg-gradient-to-r from-asf-600 to-emerald-600 text-white font-extrabold py-3 rounded-xl shadow-lg transition">
+        <button type="submit" class="w-full bg-gradient-to-r from-asf-600 to-emerald-600 text-white font-bold py-3 rounded-xl shadow-lg transition" data-bn="প্রোফাইল তৈরি করুন" data-en="Create Profile">
           প্রোফাইল তৈরি করুন
         </button>
       </form>
@@ -880,14 +916,15 @@
         <div class="flex items-center gap-4">
           <img id="mod-member-img" src="" class="w-16 h-16 rounded-2xl object-cover border-2 border-asf-500 shadow">
           <div>
-            <h3 id="mod-member-name" class="text-2xl font-extrabold"></h3>
+            <h3 id="mod-member-name" class="text-2xl font-bold"></h3>
             <p id="mod-member-role" class="text-sm text-asf-600 dark:text-emerald-400 font-bold"></p>
           </div>
         </div>
         <div class="flex items-center gap-2">
           <input type="month" id="mod-member-month" onchange="refreshOpenedMemberModal()" class="px-3.5 py-2 rounded-xl border dark:border-slate-700 dark:bg-slate-800 text-sm font-bold">
           <button onclick="window.print()" class="px-3.5 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 text-xs font-bold hover:bg-slate-200 flex items-center gap-1.5">
-            <i data-lucide="printer" class="w-4 h-4"></i> প্রিন্ট / PDF
+            <i data-lucide="printer" class="w-4 h-4"></i>
+            <span data-bn="প্রিন্ট / PDF" data-en="Print / PDF">প্রিন্ট / PDF</span>
           </button>
           <button onclick="closeMemberModal()" class="p-2 rounded-xl text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800">
             <i data-lucide="x" class="w-5 h-5"></i>
@@ -897,43 +934,43 @@
 
       <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 text-center">
         <div class="p-4 rounded-2xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800">
-          <p class="text-3xl font-extrabold text-asf-600 dark:text-emerald-400" id="mod-stat-completed">0</p>
-          <p class="text-xs font-bold text-slate-500 mt-1">সম্পন্ন কাজ (Completed)</p>
+          <p class="text-3xl font-bold text-asf-600 dark:text-emerald-400" id="mod-stat-completed">0</p>
+          <p class="text-xs font-bold text-slate-500 mt-1" data-bn="সম্পন্ন কাজ (Completed)" data-en="Completed Tasks">সম্পন্ন কাজ (Completed)</p>
         </div>
         <div class="p-4 rounded-2xl bg-blue-50 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-800">
-          <p class="text-3xl font-extrabold text-blue-600 dark:text-blue-400" id="mod-stat-ongoing">0</p>
-          <p class="text-xs font-bold text-slate-500 mt-1">চলমান (Ongoing)</p>
+          <p class="text-3xl font-bold text-blue-600 dark:text-blue-400" id="mod-stat-ongoing">0</p>
+          <p class="text-xs font-bold text-slate-500 mt-1" data-bn="চলমান (Ongoing)" data-en="Ongoing Tasks">চলমান (Ongoing)</p>
         </div>
         <div class="p-4 rounded-2xl bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800">
-          <p class="text-3xl font-extrabold text-amber-600 dark:text-amber-400" id="mod-stat-hours">0</p>
-          <p class="text-xs font-bold text-slate-500 mt-1">মোট কর্মঘণ্টা (Hours)</p>
+          <p class="text-3xl font-bold text-amber-600 dark:text-amber-400" id="mod-stat-hours">0</p>
+          <p class="text-xs font-bold text-slate-500 mt-1" data-bn="মোট কর্মঘণ্টা (Hours)" data-en="Total Hours">মোট কর্মঘণ্টা (Hours)</p>
         </div>
         <div class="p-4 rounded-2xl bg-purple-50 dark:bg-purple-950/40 border border-purple-200 dark:border-purple-800">
-          <p class="text-3xl font-extrabold text-purple-600 dark:text-purple-400" id="mod-stat-days">0</p>
-          <p class="text-xs font-bold text-slate-500 mt-1">সক্রিয় কর্মদিবস (Active Days)</p>
+          <p class="text-3xl font-bold text-purple-600 dark:text-purple-400" id="mod-stat-days">0</p>
+          <p class="text-xs font-bold text-slate-500 mt-1" data-bn="সক্রিয় কর্মদিবস (Active Days)" data-en="Active Days">সক্রিয় কর্মদিবস (Active Days)</p>
         </div>
       </div>
 
       <div class="space-y-2">
-        <p class="text-xs font-extrabold text-slate-500 uppercase">মাসিক উপস্থিতি ও অ্যাক্টিভিটি ক্যালেন্ডার (সবুজ = কাজ এন্ট্রি দেওয়া হয়েছে)</p>
+        <p class="text-xs font-bold text-slate-500 uppercase" data-bn="মাসিক উপস্থিতি ও অ্যাক্টিভিটি ক্যালেন্ডার (সবুজ = কাজ এন্ট্রি দেওয়া হয়েছে)" data-en="MONTHLY ATTENDANCE & ACTIVITY HEATMAP (GREEN = WORK LOGGED)">মাসিক উপস্থিতি ও অ্যাক্টিভিটি ক্যালেন্ডার (সবুজ = কাজ এন্ট্রি দেওয়া হয়েছে)</p>
         <div id="mod-heatmap" class="flex flex-wrap gap-1.5"></div>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
         <div class="border dark:border-slate-800 rounded-2xl p-4 space-y-2">
-          <h4 class="font-extrabold text-sm border-b pb-2 dark:border-slate-800">ক্যাটাগরি অনুযায়ী সামারি</h4>
+          <h4 class="font-bold text-sm border-b pb-2 dark:border-slate-800" data-bn="ক্যাটাগরি অনুযায়ী সামারি" data-en="Category Breakdown">ক্যাটাগরি অনুযায়ী সামারি</h4>
           <div id="mod-category-summary" class="space-y-2 text-xs"></div>
         </div>
         <div class="md:col-span-2 border dark:border-slate-800 rounded-2xl p-4 space-y-2">
-          <h4 class="font-extrabold text-sm border-b pb-2 dark:border-slate-800">এই মাসের সকল কাজের তালিকা</h4>
+          <h4 class="font-bold text-sm border-b pb-2 dark:border-slate-800" data-bn="এই মাসের সকল কাজের তালিকা" data-en="All Tasks Logged This Month">এই মাসের সকল কাজের তালিকা</h4>
           <div class="overflow-x-auto max-h-72">
             <table class="w-full text-left border-collapse text-xs">
               <thead>
                 <tr class="border-b dark:border-slate-800 text-slate-500">
-                  <th class="p-2 font-bold">তারিখ</th>
-                  <th class="p-2 font-bold">ক্যাটাগরি ও প্রজেক্ট</th>
-                  <th class="p-2 font-bold">স্ট্যাটাস</th>
-                  <th class="p-2 font-bold">লিংক</th>
+                  <th class="p-2 font-bold" data-bn="তারিখ" data-en="Date">তারিখ</th>
+                  <th class="p-2 font-bold" data-bn="ক্যাটাগরি ও প্রজেক্ট" data-en="Category & Project">ক্যাটাগরি ও প্রজেক্ট</th>
+                  <th class="p-2 font-bold" data-bn="স্ট্যাটাস" data-en="Status">স্ট্যাটাস</th>
+                  <th class="p-2 font-bold" data-bn="লিংক" data-en="Link">লিংক</th>
                 </tr>
               </thead>
               <tbody id="mod-tasks-tbody" class="divide-y dark:divide-slate-800"></tbody>
@@ -948,51 +985,30 @@
   <div id="edit-profile-modal" class="fixed inset-0 z-50 bg-slate-950/60 backdrop-blur-md hidden items-center justify-center p-4">
     <div class="crystal-card bg-white/95 dark:bg-slate-900/95 rounded-3xl max-w-md w-full p-6 shadow-2xl space-y-4 max-h-[90vh] overflow-y-auto animate-fade-up">
       <div class="flex justify-between items-center border-b pb-3 dark:border-slate-800">
-        <h3 class="font-extrabold text-base">প্রোফাইল ও নির্ধারিত কাজ আপডেট করুন</h3>
+        <h3 class="font-bold text-base" data-bn="প্রোফাইল ও নির্ধারিত কাজ আপডেট করুন" data-en="Update Profile & Assigned Activities">প্রোফাইল ও নির্ধারিত কাজ আপডেট করুন</h3>
         <button onclick="document.getElementById('edit-profile-modal').classList.add('hidden')" class="text-slate-400"><i data-lucide="x" class="w-5 h-5"></i></button>
       </div>
       <form onsubmit="saveProfileChanges(event)" class="space-y-3 text-sm">
         <div>
-          <label class="block text-xs font-bold mb-1">নাম (Name)</label>
+          <label class="block text-xs font-bold mb-1" data-bn="নাম (Name)" data-en="Full Name">নাম (Name)</label>
           <input type="text" id="edit-prof-name" required class="w-full px-3.5 py-2 rounded-xl border dark:border-slate-700 dark:bg-slate-800">
         </div>
         <div>
-          <label class="block text-xs font-bold mb-1">পদবী (Designation)</label>
+          <label class="block text-xs font-bold mb-1" data-bn="পদবী (Designation)" data-en="Designation">পদবী (Designation)</label>
           <input type="text" id="edit-prof-desig" required class="w-full px-3.5 py-2 rounded-xl border dark:border-slate-700 dark:bg-slate-800">
         </div>
         <div>
-          <label class="block text-xs font-bold mb-1">নতুন ছবি আপলোড করুন (ঐচ্ছিক)</label>
+          <label class="block text-xs font-bold mb-1" data-bn="নতুন ছবি আপলোড করুন (ঐচ্ছিক)" data-en="Upload New Photo (Optional)">নতুন ছবি আপলোড করুন (ঐচ্ছিক)</label>
           <input type="file" id="edit-prof-photo" accept="image/*" class="w-full text-xs">
         </div>
         <div>
-          <label class="block text-xs font-bold mb-1">আমার নিয়মিত কাজসমূহ (টিক দিন)</label>
+          <label class="block text-xs font-bold mb-1" data-bn="আমার নিয়মিত কাজসমূহ (টিক দিন)" data-en="My Regular Activities">আমার নিয়মিত কাজসমূহ (টিক দিন)</label>
           <div id="edit-prof-activities" class="max-h-40 overflow-y-auto border dark:border-slate-700 rounded-xl p-2 space-y-1 text-xs"></div>
         </div>
-        <button type="submit" class="w-full bg-asf-600 text-white font-extrabold py-2.5 rounded-xl">আপডেট সেভ করুন</button>
+        <button type="submit" class="w-full bg-asf-600 text-white font-bold py-2.5 rounded-xl" data-bn="আপডেট সেভ করুন" data-en="Save Changes">আপডেট সেভ করুন</button>
       </form>
     </div>
   </div>
-
-  <!-- Self Downloader Script -->
-  <script>
-    function downloadSelfAsHtml() {
-      const clone = document.documentElement.cloneNode(true);
-      const bar = clone.querySelector('#helper-download-bar');
-      if (bar) bar.remove();
-      const htmlContent = "<!DOCTYPE html>\n" + clone.outerHTML;
-      const blob = new Blob([htmlContent], { type: "text/html;charset=utf-8" });
-      const a = document.createElement("a");
-      a.href = URL.createObjectURL(blob);
-      a.download = "index.html";
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-    }
-    if (window.location.protocol === 'file:' || window.location.hostname.includes('web.app') || window.location.hostname.includes('github.io')) {
-      const hb = document.getElementById('helper-download-bar');
-      if (hb) hb.remove();
-    }
-  </script>
 
   <!-- ================= FIREBASE & APPLICATION SCRIPT ================= -->
   <script type="module">
@@ -1066,6 +1082,9 @@
       "Internal / All Platforms"
     ];
 
+    window.currentLang = 'bn';
+    window.t = (bn, en) => window.currentLang === 'en' ? en : bn;
+
     window.currentUserProfile = null;
     window.allMembers = [];
     window.allTasks = [];
@@ -1074,12 +1093,12 @@
       title: "ASF Dawah Media",
       subtitle: "As-Sunnah Foundation Creative Wing",
       logo: "https://ui-avatars.com/api/?name=ASF&background=006837&color=fff&bold=true",
-      heroHeading: "সৃজনশীল মিডিয়া ও প্রযুক্তির মাধ্যমে দাওয়াহ ও কল্যাণের বার্তা বিশ্বজুড়ে",
+      heroHeading: "আস-সুন্নাহ ফাউন্ডেশন দাওয়াহ মিডিয়া",
       notice: "",
-      creditName: "Social Media Executive",
-      creditRole: "ASF Dawah Media, As-Sunnah Foundation",
+      creditName: "Tarek Ahmad",
+      creditRole: "Social Media Executive",
       creditLinkedin: "https://www.linkedin.com/company/assunnahfoundation",
-      creditPhoto: "https://ui-avatars.com/api/?name=SM&background=006837&color=fff&bold=true",
+      creditPhoto: "https://ui-avatars.com/api/?name=TA&background=006837&color=fff&bold=true",
       activities: DEFAULT_ACTIVITIES,
       platforms: DEFAULT_PLATFORMS
     };
@@ -1123,7 +1142,11 @@
     document.getElementById('filter-month').value = getCurrentMonthStr();
     document.getElementById('mod-member-month').value = getCurrentMonthStr();
     document.getElementById('task-date').value = getTodayStr();
-    document.getElementById('today-date-badge').innerText = `আজকের তারিখ: ${getTodayStr()}`;
+    updateTodayBadgeText();
+
+    function updateTodayBadgeText() {
+      document.getElementById('today-date-badge').innerText = window.t(`আজকের তারিখ: ${getTodayStr()}`, `Today's Date: ${getTodayStr()}`);
+    }
 
     onSnapshot(doc(db, "config", "siteSettings"), (docSnap) => {
       if (docSnap.exists()) {
@@ -1184,8 +1207,8 @@
       }
       if (s.heroHeading) document.getElementById('hero-heading').innerText = s.heroHeading;
       
-      document.getElementById('footer-credit-name').innerText = s.creditName || "Social Media Executive";
-      document.getElementById('footer-credit-role').innerText = s.creditRole || "ASF Dawah Media";
+      document.getElementById('footer-credit-name').innerText = s.creditName || "Tarek Ahmad";
+      document.getElementById('footer-credit-role').innerText = s.creditRole || "Social Media Executive";
       document.getElementById('footer-credit-link').href = s.creditLinkedin || "https://www.linkedin.com/";
       if (s.creditPhoto) {
         document.getElementById('footer-credit-img').src = s.creditPhoto;
@@ -1233,8 +1256,8 @@
       const listToShow = window.showAllCategoriesInForm ? allActs : myActs;
       sel.innerHTML = listToShow.map(a => `<option value="${a}">${a}</option>`).join('');
       document.getElementById('toggle-cat-btn').innerText = window.showAllCategoriesInForm
-        ? "শুধু আমার নির্ধারিত ক্যাটাগরি দেখুন"
-        : `সব ক্যাটাগরি দেখুন (${allActs.length}টি)`;
+        ? window.t("শুধু আমার নির্ধারিত ক্যাটাগরি দেখুন", "Show Only My Assigned Categories")
+        : window.t(`সব ক্যাটাগরি দেখুন (${allActs.length}টি)`, `Show All Categories (${allActs.length})`);
     }
 
     window.toggleAllCategoriesInForm = () => {
@@ -1334,7 +1357,7 @@
         closeAuthModal();
         switchTab('workspace');
       } catch (err) {
-        alert("লগইন ব্যর্থ হয়েছে! ইমেইল বা পাসওয়ার্ড চেক করুন অথবা নতুন প্রোফাইল খুলুন।\nError: " + err.message);
+        alert(window.t("লগইন ব্যর্থ হয়েছে! ইমেইল বা পাসওয়ার্ড চেক করুন।\nError: ", "Login failed! Please check your email or password.\nError: ") + err.message);
       }
     };
 
@@ -1377,14 +1400,14 @@
         window.currentUserProfile = { uid: cred.user.uid, ...profileData };
         closeAuthModal();
         if (isSuperAdmin) {
-          alert("আলহামদুলিল্লাহ! আপনার সুপার অ্যাডমিন প্রোফাইল তৈরি হয়ে গেছে!");
+          alert(window.t("আলহামদুলিল্লাহ! আপনার সুপার অ্যাডমিন প্রোফাইল তৈরি হয়ে গেছে!", "Alhamdulillah! Your Super Admin profile has been created!"));
           switchTab('admin');
         } else {
-          alert("আপনার প্রোফাইল তৈরি হয়েছে! সুপার অ্যাডমিন অনুমোদন (Approve) করলেই আপনি কাজ এন্ট্রি দিতে পারবেন।");
+          alert(window.t("আপনার প্রোফাইল তৈরি হয়েছে! সুপার অ্যাডমিন অনুমোদন (Approve) করলেই আপনি কাজ এন্ট্রি দিতে পারবেন।", "Your profile is created! You can log tasks once approved by the Super Admin."));
           switchTab('workspace');
         }
       } catch (err) {
-        alert("অ্যাকাউন্ট খুলতে সমস্যা হয়েছে: " + err.message);
+        alert(window.t("অ্যাকাউন্ট খুলতে সমস্যা হয়েছে: ", "Error creating account: ") + err.message);
       }
     };
 
@@ -1396,14 +1419,14 @@
     window.submitDailyTask = async (e) => {
       e.preventDefault();
       const p = window.currentUserProfile;
-      if (!p) return alert("অনুগ্রহ করে আগে লগইন করুন।");
+      if (!p) return alert(window.t("অনুগ্রহ করে আগে লগইন করুন।", "Please login first."));
       if (!p.approved && p.role !== 'superadmin') {
-        return alert("আপনার প্রোফাইলটি এখনো অ্যাডমিন অনুমোদনের (Pending Approval) অপেক্ষায় আছে।");
+        return alert(window.t("আপনার প্রোফাইলটি এখনো অ্যাডমিন অনুমোদনের (Pending Approval) অপেক্ষায় আছে।", "Your profile is currently pending Admin approval."));
       }
 
       const taskDate = p.role === 'superadmin' ? document.getElementById('task-date').value : getTodayStr();
       if (p.role !== 'superadmin' && taskDate !== getTodayStr()) {
-        return alert("আপনি শুধুমাত্র আজকের তারিখেই কাজ এন্ট্রি করতে পারবেন!");
+        return alert(window.t("আপনি শুধুমাত্র আজকের তারিখেই কাজ এন্ট্রি করতে পারবেন!", "You can only log tasks for today's date!"));
       }
 
       const newTask = {
@@ -1427,14 +1450,14 @@
       document.getElementById('task-title').value = '';
       document.getElementById('task-link').value = '';
       document.getElementById('task-notes').value = '';
-      alert("আলহামদুলিল্লাহ! আপনার আজকের কাজ সফলভাবে সেভ হয়েছে।");
+      alert(window.t("আলহামদুলিল্লাহ! আপনার আজকের কাজ সফলভাবে সেভ হয়েছে।", "Alhamdulillah! Your task for today has been saved."));
     };
 
     window.completeOngoingToday = async (taskId, newStatus) => {
       const oldTask = window.allTasks.find(t => t.id === taskId);
       if (!oldTask) return;
-      const link = prompt("কাজটির গুগল ড্রাইভ বা প্রিভিউ লিংক দিন (ঐচ্ছিক):", oldTask.link || "");
-      const hours = prompt("আজকে এই কাজে কত ঘণ্টা সময় দিয়েছেন?", "2");
+      const link = prompt(window.t("কাজটির গুগল ড্রাইভ বা প্রিভিউ লিংক দিন (ঐচ্ছিক):", "Enter Google Drive or Deliverable Link (Optional):"), oldTask.link || "");
+      const hours = prompt(window.t("আজকে এই কাজে কত ঘণ্টা সময় দিয়েছেন?", "How many hours did you spend on this today?"), "2");
       if (hours === null) return;
 
       const today = getTodayStr();
@@ -1452,7 +1475,7 @@
           status: newStatus,
           link: link || oldTask.link,
           hours: parseFloat(hours) || 2,
-          notes: `আগের দিনের (${oldTask.date}) চলমান কাজ থেকে সম্পন্ন`,
+          notes: `Continued from (${oldTask.date})`,
           createdAt: new Date().toISOString()
         });
         await updateDoc(doc(db, "tasks", taskId), { continuedOn: today });
@@ -1462,9 +1485,9 @@
     window.deleteTodayTask = async (taskId, taskDate) => {
       const p = window.currentUserProfile;
       if (p.role !== 'superadmin' && taskDate !== getTodayStr()) {
-        return alert("আগের দিনের কাজ ডিলিট বা পরিবর্তন করা সম্পূর্ণ লক করা আছে!");
+        return alert(window.t("আগের দিনের কাজ ডিলিট বা পরিবর্তন করা সম্পূর্ণ লক করা আছে!", "Deleting or modifying past tasks is strictly locked!"));
       }
-      if (confirm("আপনি কি নিশ্চিতভাবে এই এন্ট্রিটি মুছে ফেলতে চান?")) {
+      if (confirm(window.t("আপনি কি নিশ্চিতভাবে এই এন্ট্রিটি মুছে ফেলতে চান?", "Are you sure you want to delete this entry?"))) {
         await deleteDoc(doc(db, "tasks", taskId));
       }
     };
@@ -1481,18 +1504,18 @@
       const myToday = window.allTasks.filter(t => t.uid === p.uid && t.date === today);
       const tbody = document.getElementById('my-today-tasks-tbody');
       if (myToday.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="7" class="p-6 text-center text-slate-400">আজকে এখনো কোনো কাজ এন্ট্রি দেওয়া হয়নি।</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="7" class="p-6 text-center text-slate-400">${window.t('আজকে এখনো কোনো কাজ এন্ট্রি দেওয়া হয়নি।', 'No tasks logged today yet.')}</td></tr>`;
       } else {
         tbody.innerHTML = myToday.map(t => `
           <tr>
             <td class="p-3 font-bold">${t.date}</td>
-            <td class="p-3 text-xs font-semibold">${t.category}</td>
+            <td class="p-3 text-xs font-bold">${t.category}</td>
             <td class="p-3 font-bold">${t.title}</td>
             <td class="p-3 text-xs">${t.platform}</td>
             <td class="p-3"><span class="px-2.5 py-1 rounded-full text-xs font-bold ${statusBadgeClass(t.status)}">${t.status}</span></td>
             <td class="p-3 font-bold">${t.hours}h</td>
             <td class="p-3 text-right">
-              <button onclick="deleteTodayTask('${t.id}', '${t.date}')" class="text-red-500 hover:underline text-xs font-bold">মুছুন</button>
+              <button onclick="deleteTodayTask('${t.id}', '${t.date}')" class="text-red-500 hover:underline text-xs font-bold">${window.t('মুছুন', 'Delete')}</button>
             </td>
           </tr>
         `).join('');
@@ -1501,18 +1524,18 @@
       const myOngoing = window.allTasks.filter(t => t.uid === p.uid && t.status === 'Ongoing' && !t.continuedOn);
       const ongoingBox = document.getElementById('my-ongoing-list');
       if (myOngoing.length === 0) {
-        ongoingBox.innerHTML = `<p class="text-xs text-slate-400 py-6 text-center">কোনো অমীমাংসিত চলমান (Ongoing) কাজ নেই।</p>`;
+        ongoingBox.innerHTML = `<p class="text-xs text-slate-400 py-6 text-center">${window.t('কোনো অমীমাংসিত চলমান (Ongoing) কাজ নেই।', 'No active ongoing tasks right now.')}</p>`;
       } else {
         ongoingBox.innerHTML = myOngoing.map(t => `
           <div class="p-4 rounded-2xl border border-blue-200 dark:border-blue-900 bg-blue-50/50 dark:bg-slate-800/60 space-y-2">
-            <div class="flex justify-between text-xs text-slate-500 font-semibold">
-              <span>শুরু: ${t.date}</span>
+            <div class="flex justify-between text-xs text-slate-500 font-bold">
+              <span>${window.t('শুরু:', 'Started:')} ${t.date}</span>
               <span>${t.category}</span>
             </div>
-            <p class="font-extrabold text-sm">${t.title}</p>
+            <p class="font-bold text-sm">${t.title}</p>
             <div class="flex gap-2 pt-1">
-              <button onclick="completeOngoingToday('${t.id}', 'Completed')" class="flex-1 bg-asf-600 text-white text-xs py-2 rounded-xl font-bold hover:bg-asf-700 transition">✅ আজকে Completed করুন</button>
-              <button onclick="completeOngoingToday('${t.id}', 'In Review')" class="px-3 bg-amber-500 text-slate-950 text-xs py-2 rounded-xl font-bold">রিভিউতে পাঠান</button>
+              <button onclick="completeOngoingToday('${t.id}', 'Completed')" class="flex-1 bg-asf-600 text-white text-xs py-2 rounded-xl font-bold hover:bg-asf-700 transition">${window.t('✅ আজকে Completed করুন', '✅ Mark Completed Today')}</button>
+              <button onclick="completeOngoingToday('${t.id}', 'In Review')" class="px-3 bg-amber-500 text-slate-950 text-xs py-2 rounded-xl font-bold">${window.t('রিভিউতে পাঠান', 'Send to Review')}</button>
             </div>
           </div>
         `).join('');
@@ -1524,17 +1547,17 @@
         const reviewTasks = window.allTasks.filter(t => t.status === 'In Review');
         const revBox = document.getElementById('director-review-list');
         if (reviewTasks.length === 0) {
-          revBox.innerHTML = `<p class="text-xs text-amber-800 dark:text-amber-300">বর্তমানে রিভিউয়ের অপেক্ষায় কোনো কাজ নেই।</p>`;
+          revBox.innerHTML = `<p class="text-xs text-amber-800 dark:text-amber-300">${window.t('বর্তমানে রিভিউয়ের অপেক্ষায় কোনো কাজ নেই।', 'No tasks currently waiting for review.')}</p>`;
         } else {
           revBox.innerHTML = reviewTasks.map(t => `
             <div class="bg-white dark:bg-slate-900 p-3.5 rounded-2xl border border-amber-200 dark:border-slate-700 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs">
               <div>
-                <span class="font-extrabold text-asf-600">${t.memberName}</span> — <span class="font-bold">${t.title}</span> (${t.category})
-                ${t.link ? `<a href="${t.link}" target="_blank" class="ml-2 text-blue-600 underline font-bold">ফাইল দেখুন ↗</a>` : ''}
+                <span class="font-bold text-asf-600">${t.memberName}</span> — <span class="font-bold">${t.title}</span> (${t.category})
+                ${t.link ? `<a href="${t.link}" target="_blank" class="ml-2 text-blue-600 underline font-bold">${window.t('ফাইল দেখুন ↗', 'View File ↗')}</a>` : ''}
               </div>
               <div class="flex gap-2">
                 <button onclick="approveReviewTask('${t.id}', 'Completed')" class="bg-emerald-600 text-white px-3.5 py-1.5 rounded-xl font-bold">✅ Approve</button>
-                <button onclick="approveReviewTask('${t.id}', 'Ongoing')" class="bg-red-500 text-white px-3.5 py-1.5 rounded-xl font-bold">↩ কারেকশন দিন</button>
+                <button onclick="approveReviewTask('${t.id}', 'Ongoing')" class="bg-red-500 text-white px-3.5 py-1.5 rounded-xl font-bold">${window.t('↩ কারেকশন দিন', '↩ Request Revision')}</button>
               </div>
             </div>
           `).join('');
@@ -1571,12 +1594,12 @@
 
       const memSelect = document.getElementById('filter-member');
       const currentVal = memSelect.value;
-      memSelect.innerHTML = `<option value="ALL">সকল টিম মেম্বার (All Members)</option>` +
+      memSelect.innerHTML = `<option value="ALL">${window.t('সকল টিম মেম্বার', 'All Team Members')}</option>` +
         approvedMembers.map(m => `<option value="${m.uid}">${m.name} (${m.designation})</option>`).join('');
       memSelect.value = currentVal || "ALL";
 
       const cardsHtml = approvedMembers.length === 0
-        ? `<div class="col-span-full crystal-card p-10 rounded-3xl text-center text-slate-500">এখনো কোনো টিম মেম্বার যুক্ত হননি। উপরে ডানপাশে <b>লগইন / জয়েন</b> বাটনে ক্লিক করে প্রথম প্রোফাইল খুলুন!</div>`
+        ? `<div class="col-span-full crystal-card p-10 rounded-3xl text-center text-slate-500">${window.t('এখনো কোনো টিম মেম্বার যুক্ত হননি। উপরে ডানপাশে লগইন / জয়েন বাটনে ক্লিক করে প্রথম প্রোফাইল খুলুন!', 'No team members added yet. Click Login / Join at the top right to create the first profile!')}</div>`
         : approvedMembers.map(m => {
             const mTasks = monthTasks.filter(t => t.uid === m.uid);
             const comp = mTasks.filter(t => t.status === 'Completed').length;
@@ -1590,15 +1613,15 @@
                     <span class="absolute -bottom-1 -right-1 w-4 h-4 rounded-full bg-emerald-500 border-2 border-white dark:border-slate-900"></span>
                   </div>
                   <div>
-                    <h4 class="font-extrabold text-base group-hover:text-asf-600 dark:group-hover:text-emerald-400 transition">${m.name}</h4>
-                    <p class="text-xs font-semibold text-slate-500 dark:text-slate-400 mt-0.5">${m.designation || 'Team Member'}</p>
-                    ${m.role === 'director' ? '<span class="inline-block mt-1 text-[10px] bg-amber-100 text-amber-800 px-2.5 py-0.5 rounded-full font-extrabold">Director</span>' : ''}
+                    <h4 class="font-bold text-base group-hover:text-asf-600 dark:group-hover:text-emerald-400 transition">${m.name}</h4>
+                    <p class="text-xs font-medium text-slate-500 dark:text-slate-400 mt-0.5">${m.designation || 'Team Member'}</p>
+                    ${m.role === 'director' ? '<span class="inline-block mt-1 text-[10px] bg-amber-100 text-amber-800 px-2.5 py-0.5 rounded-full font-bold">Director</span>' : ''}
                   </div>
                 </div>
                 <div class="mt-5 pt-4 border-t border-slate-200/60 dark:border-slate-800 grid grid-cols-3 text-center text-xs">
-                  <div class="bg-emerald-50/70 dark:bg-emerald-950/30 py-2 rounded-xl"><p class="font-extrabold text-base text-emerald-600">${comp}</p><p class="text-[11px] font-semibold text-slate-500">সম্পন্ন</p></div>
-                  <div class="bg-blue-50/70 dark:bg-blue-950/30 py-2 rounded-xl mx-1"><p class="font-extrabold text-base text-blue-600">${ong}</p><p class="text-[11px] font-semibold text-slate-500">চলমান</p></div>
-                  <div class="bg-amber-50/70 dark:bg-amber-950/30 py-2 rounded-xl"><p class="font-extrabold text-base text-amber-600">${hrs}h</p><p class="text-[11px] font-semibold text-slate-500">সময়</p></div>
+                  <div class="bg-emerald-50/70 dark:bg-emerald-950/30 py-2 rounded-xl"><p class="font-bold text-base text-emerald-600">${comp}</p><p class="text-[11px] font-bold text-slate-500">${window.t('সম্পন্ন', 'Done')}</p></div>
+                  <div class="bg-blue-50/70 dark:bg-blue-950/30 py-2 rounded-xl mx-1"><p class="font-bold text-base text-blue-600">${ong}</p><p class="text-[11px] font-bold text-slate-500">${window.t('চলমান', 'Active')}</p></div>
+                  <div class="bg-amber-50/70 dark:bg-amber-950/30 py-2 rounded-xl"><p class="font-bold text-base text-amber-600">${hrs}h</p><p class="text-[11px] font-bold text-slate-500">${window.t('সময়', 'Hours')}</p></div>
                 </div>
               </div>
             `;
@@ -1625,16 +1648,16 @@
         const hrs = mTasks.reduce((s, t) => s + (Number(t.hours) || 0), 0);
         return `
           <tr onclick="openMemberModal('${m.uid}')" class="hover:bg-emerald-50/50 dark:hover:bg-slate-800/60 cursor-pointer transition">
-            <td class="p-4 flex items-center gap-3 font-extrabold">
+            <td class="p-4 flex items-center gap-3 font-bold">
               <img src="${m.photo}" class="w-9 h-9 rounded-xl object-cover border border-asf-500">
               <span>${m.name}</span>
             </td>
-            <td class="p-4 text-xs font-semibold text-slate-500">${m.designation}</td>
-            <td class="p-4 text-center font-extrabold text-blue-600">${ong}</td>
-            <td class="p-4 text-center font-extrabold text-amber-600">${rev}</td>
-            <td class="p-4 text-center font-extrabold text-emerald-600">${comp}</td>
-            <td class="p-4 text-center font-bold">${hrs} ঘণ্টা</td>
-            <td class="p-4 text-right"><span class="text-xs bg-asf-50 dark:bg-slate-800 text-asf-600 dark:text-emerald-400 px-3 py-1.5 rounded-xl font-bold">রিপোর্ট দেখুন →</span></td>
+            <td class="p-4 text-xs font-medium text-slate-500">${m.designation}</td>
+            <td class="p-4 text-center font-bold text-blue-600">${ong}</td>
+            <td class="p-4 text-center font-bold text-amber-600">${rev}</td>
+            <td class="p-4 text-center font-bold text-emerald-600">${comp}</td>
+            <td class="p-4 text-center font-bold">${hrs} ${window.t('ঘণ্টা', 'hrs')}</td>
+            <td class="p-4 text-right"><span class="text-xs bg-asf-50 dark:bg-slate-800 text-asf-600 dark:text-emerald-400 px-3 py-1.5 rounded-xl font-bold">${window.t('রিপোর্ট দেখুন →', 'View Report →')}</span></td>
           </tr>
         `;
       }).join('');
@@ -1647,29 +1670,29 @@
       filtered.forEach(t => { catCounts[t.category] = (catCounts[t.category] || 0) + 1; });
       const catEntries = Object.entries(catCounts).sort((a, b) => b[1] - a[1]);
       document.getElementById('dashboard-category-list').innerHTML = catEntries.length === 0
-        ? `<p class="text-xs text-slate-400">এই মাসে কোনো এন্ট্রি নেই।</p>`
+        ? `<p class="text-xs text-slate-400">${window.t('এই মাসে কোনো এন্ট্রি নেই।', 'No entries logged for this month.')}</p>`
         : catEntries.map(([cat, count]) => `
             <div class="flex justify-between items-center text-xs p-2.5 rounded-xl bg-slate-100/70 dark:bg-slate-800/60">
               <span class="font-bold">${cat}</span>
-              <span class="px-2.5 py-0.5 rounded-full bg-asf-600 text-white font-extrabold">${count}টি</span>
+              <span class="px-2.5 py-0.5 rounded-full bg-asf-600 text-white font-bold">${count}${window.t('টি', '')}</span>
             </div>
           `).join('');
 
       const logsTbody = document.getElementById('dashboard-logs-tbody');
       logsTbody.innerHTML = filtered.length === 0
-        ? `<tr><td colspan="6" class="p-8 text-center text-slate-400">কোনো কাজের তথ্য পাওয়া যায়নি।</td></tr>`
+        ? `<tr><td colspan="6" class="p-8 text-center text-slate-400">${window.t('কোনো কাজের তথ্য পাওয়া যায়নি।', 'No work logs found.')}</td></tr>`
         : filtered.map(t => `
             <tr class="hover:bg-slate-50/80 dark:hover:bg-slate-800/40 transition">
               <td class="p-3.5 whitespace-nowrap font-bold">${t.date}</td>
-              <td class="p-3.5 font-extrabold">${t.memberName}</td>
+              <td class="p-3.5 font-bold">${t.memberName}</td>
               <td class="p-3.5">
                 <p class="font-bold text-slate-800 dark:text-slate-100">${t.title}</p>
-                <p class="text-[11px] font-medium text-slate-500">${t.category} • পরিমাণ: ${t.quantity || '1'} (${t.hours}h)</p>
+                <p class="text-[11px] font-medium text-slate-500">${t.category} • ${window.t('পরিমাণ:', 'Qty:')} ${t.quantity || '1'} (${t.hours}h)</p>
               </td>
-              <td class="p-3.5 text-xs font-semibold">${t.platform}</td>
+              <td class="p-3.5 text-xs font-medium">${t.platform}</td>
               <td class="p-3.5"><span class="px-2.5 py-1 rounded-full text-xs font-bold ${statusBadgeClass(t.status)}">${t.status}</span></td>
               <td class="p-3.5">
-                ${t.link ? `<a href="${t.link}" target="_blank" class="text-asf-600 dark:text-emerald-400 underline text-xs font-bold">লিংক ↗</a>` : '-'}
+                ${t.link ? `<a href="${t.link}" target="_blank" class="text-asf-600 dark:text-emerald-400 underline text-xs font-bold">${window.t('লিংক ↗', 'Open ↗')}</a>` : '-'}
               </td>
             </tr>
           `).join('');
@@ -1712,18 +1735,18 @@
       for (let d = 1; d <= 31; d++) {
         const dayStr = `${month}-${String(d).padStart(2, '0')}`;
         const hasWork = activeDates.has(dayStr);
-        heatmapHtml += `<div title="${dayStr}" class="w-8 h-8 rounded-xl flex items-center justify-center text-xs font-extrabold transition ${hasWork ? 'bg-gradient-to-br from-emerald-500 to-asf-600 text-white shadow-md shadow-emerald-500/20 scale-105' : 'bg-slate-100 dark:bg-slate-800 text-slate-400'}">${d}</div>`;
+        heatmapHtml += `<div title="${dayStr}" class="w-8 h-8 rounded-xl flex items-center justify-center text-xs font-bold transition ${hasWork ? 'bg-gradient-to-br from-emerald-500 to-asf-600 text-white shadow-md shadow-emerald-500/20 scale-105' : 'bg-slate-100 dark:bg-slate-800 text-slate-400'}">${d}</div>`;
       }
       document.getElementById('mod-heatmap').innerHTML = heatmapHtml;
 
       const catMap = {};
       mTasks.forEach(t => { catMap[t.category] = (catMap[t.category] || 0) + 1; });
       document.getElementById('mod-category-summary').innerHTML = Object.entries(catMap).length === 0
-        ? `<p class="text-slate-400">এই মাসে কোনো কাজ নেই।</p>`
-        : Object.entries(catMap).map(([c, cnt]) => `<div class="flex justify-between p-2 bg-slate-50 dark:bg-slate-800 rounded-xl font-semibold"><span>${c}</span><span class="font-extrabold text-asf-600">${cnt}টি</span></div>`).join('');
+        ? `<p class="text-slate-400">${window.t('এই মাসে কোনো কাজ নেই।', 'No tasks logged this month.')}</p>`
+        : Object.entries(catMap).map(([c, cnt]) => `<div class="flex justify-between p-2 bg-slate-50 dark:bg-slate-800 rounded-xl font-medium"><span>${c}</span><span class="font-bold text-asf-600">${cnt}${window.t('টি', '')}</span></div>`).join('');
 
       document.getElementById('mod-tasks-tbody').innerHTML = mTasks.length === 0
-        ? `<tr><td colspan="4" class="p-4 text-center text-slate-400">কোনো কাজ পাওয়া যায়নি।</td></tr>`
+        ? `<tr><td colspan="4" class="p-4 text-center text-slate-400">${window.t('কোনো কাজ পাওয়া যায়নি।', 'No tasks found.')}</td></tr>`
         : mTasks.map(t => `
             <tr>
               <td class="p-2.5 whitespace-nowrap font-bold">${t.date}</td>
@@ -1732,7 +1755,7 @@
                 <p class="text-[10px] text-slate-500">${t.category} • ${t.platform}</p>
               </td>
               <td class="p-2.5"><span class="px-2 py-0.5 rounded-full text-[10px] font-bold ${statusBadgeClass(t.status)}">${t.status}</span></td>
-              <td class="p-2.5">${t.link ? `<a href="${t.link}" target="_blank" class="text-asf-600 underline font-bold">লিংক ↗</a>` : '-'}</td>
+              <td class="p-2.5">${t.link ? `<a href="${t.link}" target="_blank" class="text-asf-600 underline font-bold">${window.t('লিংক ↗', 'Open ↗')}</a>` : '-'}</td>
             </tr>
           `).join('');
     };
@@ -1761,7 +1784,7 @@
       }
       await updateDoc(doc(db, "users", p.uid), updates);
       document.getElementById('edit-profile-modal').classList.add('hidden');
-      alert("প্রোফাইল সফলভাবে আপডেট হয়েছে!");
+      alert(window.t("প্রোফাইল সফলভাবে আপডেট হয়েছে!", "Profile updated successfully!"));
     };
 
     function extractYouTubeId(url) {
@@ -1775,7 +1798,7 @@
       const list = filter === 'ALL' ? window.allPortfolio : window.allPortfolio.filter(v => v.category === filter);
 
       const renderCards = (items) => items.length === 0
-        ? `<div class="col-span-full crystal-card p-10 rounded-3xl text-center text-slate-500">এখনো কোনো ইউটিউব ভিডিও পোর্টফোলিওতে যুক্ত করা হয়নি। অ্যাডমিন প্যানেল থেকে ইউটিউব লিংক পেস্ট করলেই এখানে থাম্বনেইলসহ শো করবে!</div>`
+        ? `<div class="col-span-full crystal-card p-10 rounded-3xl text-center text-slate-500">${window.t('এখনো কোনো ইউটিউব ভিডিও পোর্টফোলিওতে যুক্ত করা হয়নি। অ্যাডমিন প্যানেল থেকে ইউটিউব লিংক পেস্ট করলেই এখানে থাম্বনেইলসহ শো করবে!', 'No YouTube videos added to portfolio yet. Paste a YouTube URL from the Admin Panel to showcase here!')}</div>`
         : items.map(v => {
             const ytId = extractYouTubeId(v.url);
             const thumb = ytId ? `https://img.youtube.com/vi/${ytId}/hqdefault.jpg` : 'https://via.placeholder.com/480x270?text=Video';
@@ -1792,7 +1815,7 @@
                   </div>
                 </div>
                 <div class="p-5">
-                  <h4 class="font-extrabold text-base line-clamp-2 group-hover:text-asf-600 dark:group-hover:text-emerald-400 transition">${v.title}</h4>
+                  <h4 class="font-bold text-base line-clamp-2 group-hover:text-asf-600 dark:group-hover:text-emerald-400 transition">${v.title}</h4>
                 </div>
               </a>
             `;
@@ -1818,20 +1841,20 @@
           <div class="flex items-center gap-3">
             <img src="${m.photo}" class="w-11 h-11 rounded-2xl object-cover border border-asf-500">
             <div>
-              <p class="font-extrabold text-sm">${m.name} ${!m.approved ? '<span class="bg-amber-200 text-amber-900 text-[10px] px-2 py-0.5 rounded-full ml-1 font-bold">Pending Approval</span>' : ''}</p>
+              <p class="font-bold text-sm">${m.name} ${!m.approved ? '<span class="bg-amber-200 text-amber-900 text-[10px] px-2 py-0.5 rounded-full ml-1 font-bold">Pending Approval</span>' : ''}</p>
               <p class="text-slate-500 font-medium">${m.designation} • ${m.email}</p>
             </div>
           </div>
           <div class="flex flex-wrap items-center gap-2">
             <button onclick="toggleApproveMember('${m.uid}', ${!m.approved})" class="px-3.5 py-1.5 rounded-xl font-bold ${m.approved ? 'bg-slate-200 text-slate-700' : 'bg-emerald-600 text-white'}">
-              ${m.approved ? 'Approved ✓' : 'Approve করুন'}
+              ${m.approved ? 'Approved ✓' : window.t('Approve করুন', 'Approve Now')}
             </button>
-            <select onchange="changeMemberRole('${m.uid}', this.value)" class="px-2.5 py-1.5 rounded-xl border dark:bg-slate-800 font-semibold">
+            <select onchange="changeMemberRole('${m.uid}', this.value)" class="px-2.5 py-1.5 rounded-xl border dark:bg-slate-800 font-bold">
               <option value="member" ${m.role === 'member' ? 'selected' : ''}>Team Member</option>
               <option value="director" ${m.role === 'director' ? 'selected' : ''}>Director / Manager</option>
               <option value="superadmin" ${m.role === 'superadmin' ? 'selected' : ''}>Super Admin</option>
             </select>
-            <button onclick="deleteMemberProfile('${m.uid}')" class="text-red-500 hover:underline px-2 font-bold">রিমুভ</button>
+            <button onclick="deleteMemberProfile('${m.uid}')" class="text-red-500 hover:underline px-2 font-bold">${window.t('রিমুভ', 'Remove')}</button>
           </div>
         </div>
       `).join('');
@@ -1839,18 +1862,18 @@
       document.getElementById('admin-portfolio-list').innerHTML = window.allPortfolio.map(v => `
         <div class="flex justify-between items-center text-xs p-2.5 bg-slate-50 dark:bg-slate-800/60 rounded-xl">
           <span class="truncate pr-2 font-bold">${v.title} (${v.category})</span>
-          <button onclick="deletePortfolioVideo('${v.id}')" class="text-red-500 hover:underline whitespace-nowrap font-bold">ডিলিট</button>
+          <button onclick="deletePortfolioVideo('${v.id}')" class="text-red-500 hover:underline whitespace-nowrap font-bold">${window.t('ডিলিট', 'Delete')}</button>
         </div>
       `).join('');
 
       document.getElementById('admin-activity-tags').innerHTML = (s.activities || DEFAULT_ACTIVITIES).map(a => `
-        <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-xl bg-slate-100 dark:bg-slate-800 text-xs font-semibold">
+        <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-xl bg-slate-100 dark:bg-slate-800 text-xs font-medium">
           ${a} <button onclick="removeActivity('${a}')" class="text-red-500 font-bold ml-1">×</button>
         </span>
       `).join('');
 
       document.getElementById('admin-platform-tags').innerHTML = (s.platforms || DEFAULT_PLATFORMS).map(p => `
-        <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-xl bg-slate-100 dark:bg-slate-800 text-xs font-semibold">
+        <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-xl bg-slate-100 dark:bg-slate-800 text-xs font-medium">
           ${p} <button onclick="removePlatform('${p}')" class="text-red-500 font-bold ml-1">×</button>
         </span>
       `).join('');
@@ -1863,7 +1886,7 @@
       await updateDoc(doc(db, "users", uid), { role, approved: true });
     };
     window.deleteMemberProfile = async (uid) => {
-      if (confirm("আপনি কি এই মেম্বারের প্রোফাইল মুছে ফেলতে চান?")) {
+      if (confirm(window.t("আপনি কি এই মেম্বারের প্রোফাইল মুছে ফেলতে চান?", "Are you sure you want to remove this member profile?"))) {
         await deleteDoc(doc(db, "users", uid));
       }
     };
@@ -1889,7 +1912,7 @@
         newSettings.creditPhoto = await compressImageToBase64(creditPhotoFile, 200);
       }
       await setDoc(doc(db, "config", "siteSettings"), newSettings);
-      alert("সাইট সেটিংস, লোগো এবং ফুটার ক্রেডিট সফলভাবে সেভ হয়েছে!");
+      alert(window.t("সাইট সেটিংস, লোগো এবং ফুটার ক্রেডিট সফলভাবে সেভ হয়েছে!", "Site settings, logo, and footer credits saved successfully!"));
     };
 
     window.addPortfolioVideo = async (e) => {
@@ -1945,13 +1968,29 @@
       document.documentElement.classList.toggle('dark');
     };
 
-    window.currentLang = 'bn';
     window.toggleLanguage = () => {
       window.currentLang = window.currentLang === 'bn' ? 'en' : 'bn';
       document.getElementById('lang-btn').innerText = window.currentLang === 'bn' ? 'EN' : 'বাং';
+      
+      // Translate all static elements with data-bn and data-en
       document.querySelectorAll('[data-bn]').forEach(el => {
         el.innerText = el.getAttribute(`data-${window.currentLang}`);
       });
+
+      // Translate all input placeholders
+      document.querySelectorAll('[data-placeholder-bn]').forEach(el => {
+        el.placeholder = el.getAttribute(`data-placeholder-${window.currentLang}`);
+      });
+
+      // Re-render all dynamic views in the selected language
+      updateTodayBadgeText();
+      populateTaskCategoryDropdown();
+      renderHomeAndTeam();
+      renderDashboard();
+      renderPortfolio();
+      renderWorkspaceTasks();
+      renderAdminPanel();
+      if (window.openedModalMemberId) refreshOpenedMemberModal();
     };
 
     lucide.createIcons();
