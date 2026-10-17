@@ -14,7 +14,7 @@
   <link rel="preload" href="./Bornomala-Regular.ttf" as="font" type="font/ttf" crossorigin>
   <link rel="preload" href="./Bornomala-Bold.ttf" as="font" type="font/ttf" crossorigin>
 
-  <!-- Clean Sans-Serif Font (Inter) for English Mode & Numbers (Like As-Sunnah Foundation Official Site) -->
+  <!-- Clean Sans-Serif Font (Inter) for English Mode & Numbers -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -79,7 +79,6 @@
       unicode-range: U+0980-09FF, U+200C-200D, U+25CC;
     }
 
-    /* English characters & numbers always use crisp Inter; Bangla characters use Bornomala */
     body {
       font-family: 'Inter', 'Bornomala', sans-serif;
       background-color: #f6f8f7;
@@ -131,18 +130,16 @@
       border-color: #1e3a2f;
     }
 
-    /* Solid Flat Buttons (No Gradients, No Corner Lines) */
     .btn-solid-green {
       background-color: #006837;
       color: #ffffff;
       border-radius: 0.85rem;
-      transition: background-color 0.2s ease, transform 0.15s ease;
+      transition: background-color 0.2s ease;
     }
     .btn-solid-green:hover {
       background-color: #083823;
     }
 
-    /* Solid Hero & Footer */
     .asf-hero-solid {
       background-color: #083823;
     }
@@ -155,7 +152,7 @@
     ::-webkit-scrollbar-thumb { background: #006837; border-radius: 9999px; }
 
     @media print {
-      header, footer, #mobile-bottom-nav, #mobile-install-banner { display: none !important; }
+      header, footer, #mobile-bottom-nav { display: none !important; }
     }
   </style>
 </head>
@@ -182,7 +179,7 @@
         </div>
       </div>
 
-      <!-- Desktop Navigation (Clean Like As-Sunnah Foundation) -->
+      <!-- Desktop Navigation -->
       <nav class="hidden md:flex items-center gap-1">
         <button onclick="switchTab('home')" id="nav-home" class="nav-btn px-3.5 py-2 rounded-lg text-sm font-bold text-asf-600 dark:text-emerald-400 border-b-2 border-asf-600">
           <span data-bn="হোম" data-en="Home">হোম</span>
@@ -204,15 +201,13 @@
         </button>
       </nav>
 
-      <!-- Right Controls (Mobile App Button Visible on Mobile!) -->
+      <!-- Right Controls -->
       <div class="flex items-center gap-1.5 sm:gap-2">
-        <!-- App Install Button: Always visible on Mobile & Desktop -->
         <button onclick="triggerAppInstall()" id="pwa-install-btn" class="inline-flex items-center gap-1 px-2.5 py-1.5 sm:px-3 sm:py-2 text-xs font-bold rounded-lg bg-emerald-50 dark:bg-emerald-950 text-asf-600 dark:text-emerald-300 border border-asf-600/30 hover:bg-emerald-100 transition">
           <i data-lucide="download" class="w-3.5 h-3.5"></i>
           <span data-bn="অ্যাপ" data-en="App">অ্যাপ</span>
         </button>
 
-        <!-- Notification Bell -->
         <div id="notif-wrapper" class="relative hidden">
           <button onclick="toggleNotifDropdown()" class="relative p-2 rounded-lg bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
             <i data-lucide="bell" class="w-4 h-4 text-slate-700 dark:text-slate-200"></i>
@@ -226,12 +221,10 @@
           </div>
         </div>
 
-        <!-- Language Switcher (বাং | EN) -->
         <button onclick="toggleLanguage()" id="lang-btn" class="px-2.5 py-1.5 sm:px-3 sm:py-2 text-xs font-bold rounded-lg bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-asf-600">
           EN
         </button>
 
-        <!-- Dark Mode -->
         <button onclick="toggleTheme()" class="p-2 rounded-lg bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-amber-300">
           <i data-lucide="moon" class="w-4 h-4"></i>
         </button>
@@ -288,12 +281,10 @@
     <!-- ================= 1. HOME SECTION ================= -->
     <section id="tab-home" class="space-y-8 sm:space-y-10">
       
-      <!-- 1A. Stitched Solid Hero Banner (No Top Pill Badge, 2-Line Centered Title) -->
+      <!-- 1A. Stitched Solid Hero Banner -->
       <div class="stitched-box">
         <div class="asf-hero-solid rounded-2xl p-6 sm:p-10 text-white">
           <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
-            
-            <!-- Left 8 Cols: Centered 2-Line Title & Short Description -->
             <div class="lg:col-span-8 text-center flex flex-col items-center justify-center space-y-3 py-2">
               <h2 class="text-2xl sm:text-4xl lg:text-5xl font-bold leading-snug text-white tracking-tight">
                 <span id="hero-line-1" class="block">আস-সুন্নাহ ফাউন্ডেশন</span>
@@ -304,7 +295,6 @@
               </p>
             </div>
 
-            <!-- Right 4 Cols: Current Month Status Box -->
             <div class="lg:col-span-4">
               <div class="bg-[#0b462c] border border-emerald-700/70 rounded-2xl p-5 space-y-3">
                 <div class="flex items-center justify-between border-b border-emerald-700/60 pb-2.5">
@@ -327,12 +317,11 @@
                 </div>
               </div>
             </div>
-
           </div>
         </div>
       </div>
 
-      <!-- 1B. 4 Stitched Counter Boxes (Solid Colors Like As-Sunnah Foundation) -->
+      <!-- 1B. 4 Stitched Counter Boxes -->
       <div class="grid grid-cols-2 lg:grid-cols-4 gap-3.5 sm:gap-5">
         <div onclick="openQuickStatusModal('Completed')" class="stitched-box cursor-pointer">
           <div class="solid-card p-4 sm:p-5 flex items-center gap-3.5">
@@ -383,7 +372,7 @@
         </div>
       </div>
 
-      <!-- 1C. Featured Productions FIRST (সবার উপরে সাম্প্রতিক প্রোডাকশন) -->
+      <!-- 1C. Featured Productions FIRST -->
       <div class="space-y-4">
         <div class="flex items-center justify-between">
           <h3 class="text-lg sm:text-2xl font-bold flex items-center gap-2">
@@ -395,10 +384,8 @@
         <div id="home-portfolio-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"></div>
       </div>
 
-      <!-- 1D & 1E. Roadmap & Visual Column Comparison Chart (With Month Names) -->
+      <!-- 1D & 1E. Roadmap & Visual Column Comparison Chart -->
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
-        
-        <!-- Left 7 Cols: Monthly Planning & Status Cards -->
         <div class="lg:col-span-7 stitched-box">
           <div class="solid-card p-5 sm:p-6 h-full space-y-5">
             <div class="flex items-center justify-between border-b pb-3 dark:border-slate-800">
@@ -409,7 +396,6 @@
               <button onclick="switchTab('dashboard')" class="text-xs font-bold text-asf-600 hover:underline" data-bn="ড্যাশবোর্ড →" data-en="Dashboard →">ড্যাশবোর্ড →</button>
             </div>
 
-            <!-- Solid Progress Bar -->
             <div class="bg-emerald-50/70 dark:bg-slate-800/70 p-4 rounded-xl border border-emerald-200 dark:border-slate-700 space-y-2">
               <div class="flex justify-between items-center text-xs font-bold">
                 <span data-bn="চলতি মাসের প্ল্যানিং বাস্তবায়ন" data-en="Current Month Plan Execution">চলতি মাসের প্ল্যানিং বাস্তবায়ন</span>
@@ -421,7 +407,6 @@
               <p id="home-plan-subtext" class="text-xs text-slate-600 dark:text-slate-400"></p>
             </div>
 
-            <!-- 4 Clean Cards -->
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
               <div onclick="openPlanningDetailModal('currentPlan')" class="p-4 rounded-xl border border-slate-200 dark:border-slate-800 hover:border-asf-600 cursor-pointer transition">
                 <div class="flex items-center justify-between mb-1">
@@ -458,7 +443,6 @@
           </div>
         </div>
 
-        <!-- Right 5 Cols: Visual Vertical Column Chart (Previous Month vs Current Month with Month Names) -->
         <div class="lg:col-span-5 stitched-box">
           <div class="solid-card p-5 sm:p-6 h-full flex flex-col justify-between space-y-4">
             <div class="border-b pb-3 dark:border-slate-800 flex items-center justify-between">
@@ -477,7 +461,6 @@
             </div>
           </div>
         </div>
-
       </div>
 
       <!-- 1F. Meeting Decisions -->
@@ -495,10 +478,8 @@
 
     </section>
 
-    <!-- ================= 2. MONTHLY DASHBOARD SECTION (VISUAL FIRST, THEN LIST) ================= -->
+    <!-- ================= 2. MONTHLY DASHBOARD SECTION ================= -->
     <section id="tab-dashboard" class="hidden space-y-6">
-      
-      <!-- Top Filter Bar -->
       <div class="stitched-box">
         <div class="solid-card p-5 sm:p-6 flex flex-col lg:flex-row lg:items-center justify-between gap-4">
           <div class="flex items-center gap-2.5">
@@ -523,10 +504,7 @@
         </div>
       </div>
 
-      <!-- STEP 1: Visual Graphical Summary (Total, Completed, Ongoing, Remaining) -->
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
-        
-        <!-- Left 5 Cols: Visual Donut / Bar Chart & 4 Numbers -->
         <div class="lg:col-span-5 stitched-box">
           <div class="solid-card p-5 sm:p-6 h-full flex flex-col justify-between space-y-5">
             <h3 class="font-bold text-base border-b pb-2.5 dark:border-slate-800" data-bn="মাসিক কাজের ভিজ্যুয়াল গ্রাফ" data-en="Monthly Visual Progress Graph">মাসিক কাজের ভিজ্যুয়াল গ্রাফ</h3>
@@ -534,7 +512,6 @@
           </div>
         </div>
 
-        <!-- Right 7 Cols: What Tasks Exist This Month, Which Are Done & Which Remain -->
         <div class="lg:col-span-7 stitched-box">
           <div class="solid-card p-5 sm:p-6 h-full space-y-4">
             <div class="flex items-center justify-between border-b pb-2.5 dark:border-slate-800">
@@ -544,10 +521,8 @@
             <div id="dash-tasks-checklist" class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 max-h-72 overflow-y-auto pr-1"></div>
           </div>
         </div>
-
       </div>
 
-      <!-- STEP 2: Clean Member & Category Count Grid -->
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
         <div class="lg:col-span-7 stitched-box">
           <div class="solid-card p-5 sm:p-6 space-y-3.5">
@@ -564,7 +539,6 @@
         </div>
       </div>
 
-      <!-- STEP 3: Detailed Monthly Table with Month Name -->
       <div class="stitched-box">
         <div class="solid-card overflow-hidden">
           <div class="p-5 border-b border-slate-200 dark:border-slate-800 flex justify-between items-center">
@@ -588,10 +562,9 @@
           </div>
         </div>
       </div>
-
     </section>
 
-    <!-- ================= 3. TEAM MEMBERS SECTION (CLEAN, ORDERED BY ADMIN) ================= -->
+    <!-- ================= 3. TEAM MEMBERS SECTION ================= -->
     <section id="tab-team" class="hidden space-y-6">
       <div class="stitched-box">
         <div class="solid-card p-5 sm:p-6 flex items-center justify-between">
@@ -618,10 +591,8 @@
       <div id="full-portfolio-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"></div>
     </section>
 
-    <!-- ================= 5. LOG WORK (কাজ লিখুন) — ULTRA CLEAN, NO PLACEHOLDERS ================= -->
+    <!-- ================= 5. LOG WORK (কাজ লিখুন) — PROTECTED ================= -->
     <section id="tab-workspace" class="hidden space-y-7">
-      
-      <!-- Member Header & Direct Button to Personal Portfolio -->
       <div class="stitched-box">
         <div class="solid-card p-5 sm:p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div class="flex items-center gap-4">
@@ -644,7 +615,7 @@
               <i data-lucide="plus-circle" class="w-4 h-4"></i>
               <span data-bn="পোর্টফোলিও যুক্ত করুন" data-en="Add to Portfolio">পোর্টফোলিও যুক্ত করুন</span>
             </button>
-            <button onclick="openMemberModal(currentUserProfile.uid)" class="btn-solid-green px-4 py-2 text-xs font-bold flex items-center gap-1.5">
+            <button onclick="if(window.currentUserProfile) openMemberModal(window.currentUserProfile.uid)" class="btn-solid-green px-4 py-2 text-xs font-bold flex items-center gap-1.5">
               <i data-lucide="layout-grid" class="w-4 h-4"></i>
               <span data-bn="আমার পোর্টফোলিও দেখুন" data-en="My Portfolio">আমার পোর্টফোলিও দেখুন</span>
             </button>
@@ -652,7 +623,6 @@
         </div>
       </div>
 
-      <!-- Pending Assigned Tasks Alert Box -->
       <div id="my-assigned-alert-box" class="hidden stitched-box-amber">
         <div class="solid-card p-5 space-y-3 bg-amber-50/50 dark:bg-amber-950/20">
           <div class="flex items-center justify-between">
@@ -665,9 +635,7 @@
         </div>
       </div>
 
-      <!-- Director & Super Admin Panel: Assign Task & Rate Works -->
       <div id="director-control-lounge" class="hidden grid grid-cols-1 lg:grid-cols-2 gap-6">
-        
         <div class="stitched-box">
           <div class="solid-card p-5 sm:p-6 space-y-4 h-full">
             <h3 class="font-bold text-base text-asf-600 border-b pb-2.5 dark:border-slate-800 flex items-center gap-2">
@@ -716,12 +684,9 @@
             <div id="director-review-list" class="space-y-2.5 max-h-72 overflow-y-auto pr-1"></div>
           </div>
         </div>
-
       </div>
 
-      <!-- Crystal Clear Daily Work Entry Form (Blank Inputs, Minimal Fields) -->
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
-        
         <div class="lg:col-span-7 stitched-box">
           <div class="solid-card p-5 sm:p-7 space-y-5">
             <div class="flex items-center justify-between border-b pb-3 dark:border-slate-800">
@@ -793,7 +758,6 @@
           </div>
         </div>
 
-        <!-- Right 5 Cols: Ongoing & Today's Logged Works -->
         <div class="lg:col-span-5 space-y-6">
           <div class="stitched-box-blue">
             <div class="solid-card p-5 space-y-3">
@@ -809,14 +773,11 @@
             </div>
           </div>
         </div>
-
       </div>
     </section>
 
-    <!-- ================= 6. SUPER ADMIN & DIRECTOR CMS ================= -->
+    <!-- ================= 6. SUPER ADMIN & DIRECTOR CMS — HARD LOCKED ================= -->
     <section id="tab-admin" class="hidden space-y-8">
-      
-      <!-- Top Admin Bar with Backup & Clear Test Data Buttons -->
       <div class="stitched-box">
         <div class="asf-hero-solid text-white p-6 rounded-2xl flex flex-col lg:flex-row lg:items-center justify-between gap-4">
           <div>
@@ -834,7 +795,7 @@
               <i data-lucide="database" class="w-4 h-4"></i>
               <span data-bn="ডাটাবেস ব্যাকআপ" data-en="Full Backup">ডাটাবেস ব্যাকআপ</span>
             </button>
-            <button onclick="clearAllTestTasks()" id="btn-clear-test-data" class="bg-red-600 hover:bg-red-700 text-white px-3.5 py-2 rounded-lg text-xs font-bold flex items-center gap-1.5">
+            <button onclick="clearAllTestTasks()" id="btn-clear-test-data" class="hidden bg-red-600 hover:bg-red-700 text-white px-3.5 py-2 rounded-lg text-xs font-bold flex items-center gap-1.5">
               <i data-lucide="trash-2" class="w-4 h-4"></i>
               <span data-bn="সব টেস্ট কাজ মুছুন" data-en="Clear All Test Tasks">সব টেস্ট কাজ মুছুন</span>
             </button>
@@ -842,7 +803,6 @@
         </div>
       </div>
 
-      <!-- Planning Roadmap & Meeting Agenda CMS -->
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
         <div class="lg:col-span-6 stitched-box">
           <div class="solid-card p-5 sm:p-6 space-y-4 h-full">
@@ -900,11 +860,8 @@
         </div>
       </div>
 
-      <!-- Super Admin Only Section: Member Order/Hierarchy, Site Texts & Core Activities -->
-      <div id="superadmin-only-cms" class="space-y-6">
+      <div id="superadmin-only-cms" class="hidden space-y-6">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
-          
-          <!-- Team Member Ordering (⬆️ ⬇️), Approval & Role Control -->
           <div class="lg:col-span-7 stitched-box">
             <div class="solid-card p-5 sm:p-6 space-y-4">
               <div class="flex items-center justify-between border-b pb-2.5 dark:border-slate-800">
@@ -914,7 +871,6 @@
             </div>
           </div>
 
-          <!-- Site Branding & Hero 2-Line Editor -->
           <div class="lg:col-span-5 stitched-box">
             <div class="solid-card p-5 sm:p-6 space-y-4">
               <h3 class="font-bold text-base border-b pb-2.5 dark:border-slate-800 text-asf-600" data-bn="হিরো ব্যানার, ঠিকানা ও ডেভেলপার ক্রেডিট" data-en="Hero Banner, Address & Credit">হিরো ব্যানার, ঠিকানা ও ডেভেলপার ক্রেডিট</h3>
@@ -979,7 +935,6 @@
           </div>
         </div>
 
-        <!-- Featured Productions & Core Activity Manager -->
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <div class="stitched-box">
             <div class="solid-card p-5 sm:p-6 space-y-4">
@@ -1040,18 +995,14 @@
           </div>
         </div>
       </div>
-
     </section>
 
   </main>
 
-  <!-- ================= OFFICIAL AS-SUNNAH FOUNDATION STYLE SOLID DARK-GREEN FOOTER ================= -->
+  <!-- ================= OFFICIAL SOLID DARK-GREEN FOOTER ================= -->
   <footer class="asf-footer-solid text-white pt-10 pb-7 mt-14 border-t border-emerald-900">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
-      
       <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
-        
-        <!-- Left 5 Cols: Foundation Brand & Address -->
         <div class="md:col-span-5 space-y-2.5 text-center md:text-left">
           <div class="flex items-center justify-center md:justify-start gap-3">
             <img id="footer-brand-logo" src="https://assunnahfoundation.org/assets/images/logo.png" onerror="this.src='https://ui-avatars.com/api/?name=ASF&background=006837&color=fff&bold=true'" class="w-10 h-10 rounded-lg bg-white p-0.5 object-contain">
@@ -1063,7 +1014,6 @@
           </p>
         </div>
 
-        <!-- Middle 3 Cols: Quick Links -->
         <div class="md:col-span-3 flex flex-wrap justify-center gap-4 text-xs font-semibold text-emerald-200">
           <button onclick="switchTab('home')" class="hover:text-white" data-bn="হোম" data-en="Home">হোম</button>
           <button onclick="switchTab('dashboard')" class="hover:text-white" data-bn="ড্যাশবোর্ড" data-en="Dashboard">ড্যাশবোর্ড</button>
@@ -1071,7 +1021,6 @@
           <a href="https://assunnahfoundation.org/" target="_blank" rel="noopener noreferrer" class="hover:text-white">assunnahfoundation.org ↗</a>
         </div>
 
-        <!-- Right 4 Cols: Developer Credit -->
         <div class="md:col-span-4 flex justify-center md:justify-end">
           <div class="flex items-center gap-3 bg-[#083823] border border-emerald-700/70 px-4 py-2.5 rounded-xl">
             <img id="footer-credit-img" src="https://ui-avatars.com/api/?name=TA&background=006837&color=fff&bold=true" alt="Developer" class="w-10 h-10 rounded-full object-cover border border-emerald-400">
@@ -1085,23 +1034,18 @@
             </div>
           </div>
         </div>
-
       </div>
 
-      <!-- Bottom Copyright Line (Without "সর্বস্বত্ব সংরক্ষিত।") -->
       <div class="border-t border-emerald-800/80 pt-5 text-center">
         <p class="text-xs font-semibold text-emerald-200">
           <span data-bn="স্বত্বাধিকারী © ২০২৬" data-en="Copyright © 2026">স্বত্বাধিকারী © ২০২৬</span>
           <a href="https://assunnahfoundation.org/" target="_blank" rel="noopener noreferrer" class="text-white hover:underline ml-1" data-bn="আস-সুন্নাহ ফাউন্ডেশন" data-en="As-Sunnah Foundation">আস-সুন্নাহ ফাউন্ডেশন</a>
         </p>
       </div>
-
     </div>
   </footer>
 
   <!-- ================= MODALS ================= -->
-
-  <!-- 1. Auth Modal (Blank Inputs) -->
   <div id="auth-modal" class="fixed inset-0 z-50 bg-slate-950/60 backdrop-blur-sm hidden items-center justify-center p-4">
     <div class="solid-card max-w-md w-full p-6 shadow-2xl space-y-5 max-h-[90vh] overflow-y-auto">
       <div class="flex justify-between items-center border-b pb-3 dark:border-slate-800">
@@ -1162,10 +1106,9 @@
     </div>
   </div>
 
-  <!-- 2. Member Personal Portfolio Modal (With Separate 1:1 Photocard, 1080x1080 Thumbnail & Video Sections) -->
+  <!-- Member Portfolio Modal -->
   <div id="member-modal" class="fixed inset-0 z-50 bg-slate-950/65 backdrop-blur-sm hidden items-center justify-center p-2 sm:p-4">
     <div class="solid-card max-w-5xl w-full p-4 sm:p-7 shadow-2xl space-y-6 max-h-[92vh] overflow-y-auto">
-      
       <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b pb-4 dark:border-slate-800">
         <div class="flex items-center gap-4">
           <img id="mod-member-img" src="" class="w-16 h-16 rounded-2xl object-cover border-2 border-asf-600">
@@ -1188,7 +1131,6 @@
         </div>
       </div>
 
-      <!-- 4 Stats -->
       <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center">
         <div class="p-3 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800">
           <p class="text-xl sm:text-2xl font-bold text-asf-600" id="mod-stat-completed">0</p>
@@ -1208,30 +1150,23 @@
         </div>
       </div>
 
-      <!-- SEPARATE PORTFOLIO SECTIONS: 1. Photocards (1:1 Square), 2. Thumbnails (1080x1080 Square), 3. Videos -->
       <div class="space-y-6">
-        
-        <!-- Photocard Section (1:1 Square) -->
         <div id="mod-photocard-section" class="space-y-3 hidden">
           <h4 class="font-bold text-sm sm:text-base text-asf-600 border-b pb-1.5 dark:border-slate-800" data-bn="ফটোকার্ড ডিজাইন (১:১ স্কয়ার)" data-en="Photocard Designs (1:1 Square)">ফটোকার্ড ডিজাইন (১:১ স্কয়ার)</h4>
           <div id="mod-photocard-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4"></div>
         </div>
 
-        <!-- Thumbnail Section (1080x1080 Square) -->
         <div id="mod-thumbnail-section" class="space-y-3 hidden">
           <h4 class="font-bold text-sm sm:text-base text-asf-600 border-b pb-1.5 dark:border-slate-800" data-bn="থাম্বনেইল ডিজাইন (১০৮০×১০৮০)" data-en="Thumbnail Designs (1080×1080)">থাম্বনেইল ডিজাইন (১০৮০×১০৮০)</h4>
           <div id="mod-thumbnail-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4"></div>
         </div>
 
-        <!-- Video Production Section -->
         <div id="mod-video-section" class="space-y-3 hidden">
           <h4 class="font-bold text-sm sm:text-base text-asf-600 border-b pb-1.5 dark:border-slate-800" data-bn="ভিডিও প্রোডাকশন পোর্টফোলিও" data-en="Video Productions">ভিডিও প্রোডাকশন পোর্টফোলিও</h4>
           <div id="mod-video-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4"></div>
         </div>
-
       </div>
 
-      <!-- Monthly Work History Table -->
       <div class="border dark:border-slate-800 rounded-xl p-4 space-y-3">
         <h4 class="font-bold text-sm border-b pb-2 dark:border-slate-800" data-bn="মাসভিত্তিক কাজের তালিকা" data-en="Monthly Work History">মাসভিত্তিক কাজের তালিকা</h4>
         <div class="overflow-x-auto max-h-64">
@@ -1248,11 +1183,10 @@
           </table>
         </div>
       </div>
-
     </div>
   </div>
 
-  <!-- 3. Separate Add to Personal Portfolio Modal (For Photocard 1:1, Thumbnail 1080x1080, or Video) -->
+  <!-- Add to Personal Portfolio Modal -->
   <div id="add-portfolio-item-modal" class="fixed inset-0 z-50 bg-slate-950/60 backdrop-blur-sm hidden items-center justify-center p-4">
     <div class="solid-card max-w-md w-full p-6 shadow-2xl space-y-4">
       <div class="flex justify-between items-center border-b pb-3 dark:border-slate-800">
@@ -1285,7 +1219,7 @@
     </div>
   </div>
 
-  <!-- 4. Quick Detail Modal -->
+  <!-- Quick Detail Modal -->
   <div id="quick-detail-modal" class="fixed inset-0 z-50 bg-slate-950/60 backdrop-blur-sm hidden items-center justify-center p-4">
     <div class="solid-card max-w-2xl w-full p-6 shadow-2xl space-y-4 max-h-[85vh] overflow-y-auto">
       <div class="flex items-center justify-between border-b pb-3 dark:border-slate-800">
@@ -1296,1822 +1230,9 @@
     </div>
   </div>
 
-  <!-- 5. Edit Profile Modal -->
+  <!-- Edit Profile Modal -->
   <div id="edit-profile-modal" class="fixed inset-0 z-50 bg-slate-950/60 backdrop-blur-sm hidden items-center justify-center p-4">
     <div class="solid-card max-w-md w-full p-6 shadow-2xl space-y-4 max-h-[90vh] overflow-y-auto">
       <div class="flex justify-between items-center border-b pb-3 dark:border-slate-800">
         <h3 class="font-bold text-base" data-bn="প্রোফাইল আপডেট করুন" data-en="Update Profile">প্রোফাইল আপডেট করুন</h3>
-        <button onclick="document.getElementById('edit-profile-modal').classList.add('hidden')" class="text-slate-400"><i data-lucide="x" class="w-5 h-5"></i></button>
-      </div>
-      <form onsubmit="saveProfileChanges(event)" class="space-y-3 text-sm">
-        <div>
-          <label class="block text-xs font-bold mb-1" data-bn="পূর্ণ নাম" data-en="Full Name">পূর্ণ নাম</label>
-          <input type="text" id="edit-prof-name" required class="w-full px-3 py-2 rounded-lg border dark:border-slate-700 dark:bg-slate-800">
-        </div>
-        <div>
-          <label class="block text-xs font-bold mb-1" data-bn="পদবী" data-en="Designation">পদবী</label>
-          <input type="text" id="edit-prof-desig" required class="w-full px-3 py-2 rounded-lg border dark:border-slate-700 dark:bg-slate-800">
-        </div>
-        <div>
-          <label class="block text-xs font-bold mb-1" data-bn="কাজের বিবরণ" data-en="Role Description">কাজের বিবরণ</label>
-          <textarea id="edit-prof-bio" rows="2" class="w-full px-3 py-2 rounded-lg border dark:border-slate-700 dark:bg-slate-800 text-xs"></textarea>
-        </div>
-        <div>
-          <label class="block text-xs font-bold mb-1" data-bn="প্রোফাইল ছবি" data-en="Profile Photo">প্রোফাইল ছবি</label>
-          <input type="file" id="edit-prof-photo" accept="image/*" class="w-full text-xs">
-        </div>
-        <div>
-          <label class="block text-xs font-bold mb-1" data-bn="আমার নির্ধারিত কাজ" data-en="My Core Activities">আমার নির্ধারিত কাজ</label>
-          <div id="edit-prof-activities" class="max-h-36 overflow-y-auto border dark:border-slate-700 rounded-lg p-2 space-y-1 text-xs"></div>
-        </div>
-        <button type="submit" class="btn-solid-green w-full font-bold py-2.5" data-bn="সেভ করুন" data-en="Save Changes">সেভ করুন</button>
-      </form>
-    </div>
-  </div>
-
-  <!-- 6. Full Image Lightbox Modal -->
-  <div id="image-lightbox-modal" onclick="this.classList.add('hidden')" class="fixed inset-0 z-50 bg-black/85 hidden items-center justify-center p-4 cursor-zoom-out">
-    <img id="lightbox-img" src="" class="max-w-full max-h-[90vh] rounded-xl shadow-2xl object-contain">
-  </div>
-
-  <!-- ================= FIREBASE & APPLICATION LOGIC ================= -->
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-    import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-    import { getFirestore, collection, doc, setDoc, getDoc, addDoc, updateDoc, deleteDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-
-    const firebaseConfig = {
-      apiKey: "AIzaSyBT9cdbTFwa_ZvpUkpz7InFyMqCC4qhc0c",
-      authDomain: "asf-dawah-media.firebaseapp.com",
-      projectId: "asf-dawah-media",
-      storageBucket: "asf-dawah-media.firebasestorage.app",
-      messagingSenderId: "480459742534",
-      appId: "1:480459742534:web:487c32f5800f588fb65947",
-      measurementId: "G-KVSB4YMPYS"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-    const db = getFirestore(app);
-
-    const SUPER_ADMIN_EMAIL = "asfsocialmediabd@gmail.com";
-
-    // Anti-XSS Sanitizer
-    window.clean = (str) => {
-      if (str === null || str === undefined) return '';
-      return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
-    };
-    window.cleanUrl = (url) => {
-      if (!url) return '';
-      const trimmed = String(url).trim();
-      return /^(https?:\/\/)/i.test(trimmed) ? window.clean(trimmed) : '';
-    };
-
-    // Clean 11 Core Activities (Ordered: Director -> Social Media -> Editor/Designer)
-    const CORE_ACTIVITIES = [
-      "টিম ম্যানেজমেন্ট ও কাজের তদারকি",
-      "কোয়ালিটি কন্ট্রোল ও ফাইনাল রিভিউ",
-      "সোশ্যাল মিডিয়া কন্টেন্ট পাবলিশিং ও পেজ ম্যানেজমেন্ট",
-      "টাইটেল, ক্যাপশন ও কপিরাইটিং",
-      "কপিরাইট ও রাইটস ম্যানেজার সমাধান",
-      "স্ক্রিপ্ট রাইটিং ও গবেষণা",
-      "ভিডিও শুটিং ও ক্যামেরা অপারেশন",
-      "লং ভিডিও ও লেকচার এডিটিং",
-      "শর্টস ও রিলস এডিটিং",
-      "ডকুমেন্টারি ও ওভিসি এডিটিং",
-      "গ্রাফিক ডিজাইন, থাম্বনেইল ও ফটোকার্ড",
-      "শরয়ী পরামর্শ ও যাচাইকরণ"
-    ];
-
-    const ACTIVITY_EN_MAP = {
-      "টিম ম্যানেজমেন্ট ও কাজের তদারকি": "Team Management & Supervision",
-      "কোয়ালিটি কন্ট্রোল ও ফাইনাল রিভিউ": "Quality Control & Final Review",
-      "সোশ্যাল মিডিয়া কন্টেন্ট পাবলিশিং ও পেজ ম্যানেজমেন্ট": "Social Media Publishing & Page Management",
-      "টাইটেল, ক্যাপশন ও কপিরাইটিং": "Title, Caption & Copywriting",
-      "কপিরাইট ও রাইটস ম্যানেজার সমাধান": "Copyright & Rights Manager Resolution",
-      "স্ক্রিপ্ট রাইটিং ও গবেষণা": "Script Writing & Research",
-      "ভিডিও শুটিং ও ক্যামেরা অপারেশন": "Video Shooting & Camera Operation",
-      "লং ভিডিও ও লেকচার এডিটিং": "Long Video & Lecture Editing",
-      "শর্টস ও রিলস এডিটিং": "Shorts & Reels Editing",
-      "ডকুমেন্টারি ও ওভিসি এডিটিং": "Documentary & OVC Editing",
-      "গ্রাফিক ডিজাইন, থাম্বনেইল ও ফটোকার্ড": "Graphic Design, Thumbnail & Photocard",
-      "শরয়ী পরামর্শ ও যাচাইকরণ": "Sharia Consultancy & Verification"
-    };
-
-    // Strip legacy code prefixes like "SM1.", "A.", "F." automatically
-    window.tAct = (act) => {
-      if (!act) return '';
-      const cleaned = String(act).replace(/^[A-Z0-9]+\.\s*/i, '').trim();
-      if (window.currentLang === 'en') {
-        return ACTIVITY_EN_MAP[act] || ACTIVITY_EN_MAP[cleaned] || cleaned;
-      }
-      return cleaned;
-    };
-
-    const STATUS_TRANSLATIONS = {
-      "Completed": { bn: "সম্পন্ন", en: "Completed" },
-      "Ongoing": { bn: "চলমান", en: "Ongoing" },
-      "In Review": { bn: "রিভিউতে", en: "In Review" },
-      "Pending": { bn: "পেন্ডিং", en: "Pending" }
-    };
-
-    const MONTHS_BN = ["জানুয়ারি", "ফেব্রুয়ারি", "মার্চ", "এপ্রিল", "মে", "জুন", "জুলাই", "আগস্ট", "সেপ্টেম্বর", "অক্টোবর", "নভেম্বর", "ডিসেম্বর"];
-    const MONTHS_EN = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-
-    window.formatMonthName = (yyyyMm) => {
-      if (!yyyyMm || !yyyyMm.includes('-')) return yyyyMm || '';
-      const [y, m] = yyyyMm.split('-');
-      const idx = parseInt(m, 10) - 1;
-      if (idx < 0 || idx > 11) return yyyyMm;
-      return window.currentLang === 'en' ? `${MONTHS_EN[idx]} ${y}` : `${MONTHS_BN[idx]} ${y}`;
-    };
-
-    window.formatFullDate = (yyyyMmDd) => {
-      if (!yyyyMmDd || !yyyyMmDd.includes('-')) return yyyyMmDd || '';
-      const parts = yyyyMmDd.split('-');
-      if (parts.length < 3) return yyyyMmDd;
-      const [y, m, d] = parts;
-      const idx = parseInt(m, 10) - 1;
-      return window.currentLang === 'en' ? `${parseInt(d, 10)} ${MONTHS_EN[idx]} ${y}` : `${parseInt(d, 10)} ${MONTHS_BN[idx]} ${y}`;
-    };
-
-    const DEFAULT_PLATFORMS = [
-      "Facebook: Ahmadullah",
-      "Facebook: As-Sunnah Foundation",
-      "Facebook: ইসলামী প্রশ্নোত্তর",
-      "Facebook: শরয়ী সমাধান",
-      "YouTube: Ahmadullah",
-      "YouTube: As-Sunnah Foundation",
-      "YouTube: ইসলামী প্রশ্নোত্তর",
-      "YouTube: শরয়ী সমাধান",
-      "LinkedIn: As-Sunnah Foundation",
-      "WhatsApp: Ahmadullah",
-      "WhatsApp: As-Sunnah Foundation",
-      "Telegram: Ahmadullah",
-      "Telegram: As-Sunnah Foundation",
-      "Internal / All Platforms"
-    ];
-
-    const DEFAULT_PORTFOLIO_CATEGORIES = [
-      "লেকচার",
-      "ডকুমেন্টারি",
-      "শর্টফিল্ম",
-      "ওভিসি",
-      "শর্টস / রিলস",
-      "ফটোকার্ড / থাম্বনেইল"
-    ];
-
-    window.currentLang = 'bn';
-    window.t = (bn, en) => window.currentLang === 'en' ? en : bn;
-    window.tStatus = (st) => STATUS_TRANSLATIONS[st] ? STATUS_TRANSLATIONS[st][window.currentLang] : st;
-
-    window.currentUserProfile = null;
-    window.allMembers = [];
-    window.allTasks = [];
-    window.allPortfolio = [];
-    window.allMemberPortfolio = [];
-    window.allMeetings = [];
-    window.selectedPortfolioCategory = 'ALL';
-    window.showAllCategoriesInForm = false;
-    window.openedModalMemberId = null;
-
-    window.siteSettings = {
-      title: "ASF Dawah Media",
-      subtitle: "As-Sunnah Foundation",
-      logo: "https://assunnahfoundation.org/assets/images/logo.png",
-      heroLine1: "আস-সুন্নাহ ফাউন্ডেশন",
-      heroLine2: "দাওয়াহ মিডিয়া",
-      heroDesc: "আস-সুন্নাহ ফাউন্ডেশন ও শায়খ আহমাদুল্লাহ দাওয়াহ মিডিয়া সকল ধরণের কাজ।",
-      notice: "",
-      addressBn: "প্লট-৭০, রোড-৩, ব্লক-সি, আফতাবনগর, ঢাকা-১২১২, বাংলাদেশ",
-      addressEn: "Plot-70, Road-3, Block-C, Aftabnagar, Dhaka-1212, Bangladesh",
-      creditLabel: "Developer",
-      creditName: "Tarek Ahmad",
-      creditRole: "Social Media Executive",
-      creditLinkedin: "https://www.linkedin.com/company/assunnahfoundation",
-      creditPhoto: "https://ui-avatars.com/api/?name=TA&background=006837&color=fff&bold=true",
-      planTargetCount: 50,
-      planPrevNote: "বিগত মাসের সকল প্রজেক্ট সফলভাবে সম্পন্ন হয়েছে।",
-      planCurrentText: "১. শায়খ আহমাদুল্লাহর নিয়মিত লেকচার ও প্রশ্নোত্তর পর্ব প্রোডাকশন\n২. ফাউন্ডেশনের চলমান প্রজেক্টের ডকুমেন্টারি ও ওভিসি নির্মাণ\n৩. নিয়মিত শর্টস, রিলস ও শিক্ষণীয় ফটোকার্ড ডিজাইন ও পাবলিশিং",
-      planNext3Text: "১. আসন্ন বিশেষ দাওয়াহ ক্যাম্পেইন ও প্রামাণ্যচিত্র সিরিজ নির্মাণ\n২. নতুন পডকাস্ট ও শর্টফিল্ম প্রজেক্ট বাস্তবায়ন",
-      activities: CORE_ACTIVITIES,
-      platforms: DEFAULT_PLATFORMS,
-      portfolioCategories: DEFAULT_PORTFOLIO_CATEGORIES
-    };
-
-    // PWA Manifest & Mobile Install Handler
-    function initPWA() {
-      const manifest = {
-        name: "ASF Dawah Media",
-        short_name: "ASF Media",
-        start_url: window.location.href,
-        display: "standalone",
-        background_color: "#083823",
-        theme_color: "#083823",
-        icons: [{ src: window.siteSettings.logo, sizes: "192x192", type: "image/png" }]
-      };
-      const blob = new Blob([JSON.stringify(manifest)], { type: 'application/json' });
-      document.getElementById('pwa-manifest').href = URL.createObjectURL(blob);
-    }
-    initPWA();
-
-    window.deferredPrompt = null;
-    window.addEventListener('beforeinstallprompt', (e) => {
-      e.preventDefault();
-      window.deferredPrompt = e;
-    });
-    window.triggerAppInstall = async () => {
-      if (window.deferredPrompt) {
-        window.deferredPrompt.prompt();
-      } else {
-        alert(window.t(
-          "মোবাইলে অ্যাপ হিসেবে ইনস্টল করতে:\n১. আপনার ব্রাউজারের উপরের ডান কোণায় ৩-ডট (⋮) অথবা নিচে Share আইকনে ট্যাপ করুন।\n২. 'Add to Home screen' বা 'Install App' অপশনে ট্যাপ করুন!",
-          "To install on your phone:\n1. Tap your browser menu (⋮ or Share button).\n2. Tap 'Add to Home Screen' or 'Install App'."
-        ));
-      }
-    };
-
-    // Image Compressor (Supports Square 1:1 1080x1080 crop or full fit)
-    async function compressImageToBase64(file, maxSize = 600) {
-      return new Promise((resolve) => {
-        if (!file) return resolve(null);
-        const reader = new FileReader();
-        reader.onload = (e) => {
-          const img = new Image();
-          img.onload = () => {
-            const canvas = document.createElement('canvas');
-            let w = img.width, h = img.height;
-            if (w > h) { if (w > maxSize) { h *= maxSize / w; w = maxSize; } }
-            else { if (h > maxSize) { w *= maxSize / h; h = maxSize; } }
-            canvas.width = w; canvas.height = h;
-            const ctx = canvas.getContext('2d');
-            ctx.drawImage(img, 0, 0, w, h);
-            resolve(canvas.toDataURL('image/jpeg', 0.82));
-          };
-          img.src = e.target.result;
-        };
-        reader.readAsDataURL(file);
-      });
-    }
-
-    function getTodayStr() {
-      const now = new Date();
-      return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
-    }
-    function getCurrentMonthStr() {
-      return getTodayStr().slice(0, 7);
-    }
-    function getPreviousMonthStr() {
-      const now = new Date();
-      now.setMonth(now.getMonth() - 1);
-      return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
-    }
-
-    document.getElementById('filter-month').value = getCurrentMonthStr();
-    document.getElementById('mod-member-month').value = getCurrentMonthStr();
-    document.getElementById('task-date').value = getTodayStr();
-    document.getElementById('meet-date').value = getTodayStr();
-
-    function updateTodayBadgeText() {
-      document.getElementById('today-date-badge').innerText = window.formatFullDate(getTodayStr());
-    }
-    updateTodayBadgeText();
-
-    // Sort Members by Admin Custom Order
-    function getSortedMembers(onlyApproved = true) {
-      let list = onlyApproved ? window.allMembers.filter(m => m.approved || m.role === 'superadmin') : [...window.allMembers];
-      return list.sort((a, b) => {
-        const oa = typeof a.sortOrder === 'number' ? a.sortOrder : 999;
-        const ob = typeof b.sortOrder === 'number' ? b.sortOrder : 999;
-        if (oa !== ob) return oa - ob;
-        return (a.name || '').localeCompare(b.name || '');
-      });
-    }
-
-    // Firestore Listeners
-    onSnapshot(doc(db, "config", "siteSettings"), (docSnap) => {
-      if (docSnap.exists()) {
-        const data = docSnap.data();
-        window.siteSettings = {
-          ...window.siteSettings,
-          ...data,
-          activities: (data.activities && data.activities.length <= 18) ? data.activities : CORE_ACTIVITIES,
-          portfolioCategories: data.portfolioCategories || DEFAULT_PORTFOLIO_CATEGORIES
-        };
-      }
-      applySiteSettingsUI();
-      renderHomeSection();
-      renderDashboard();
-      renderAdminPanel();
-    });
-
-    onSnapshot(collection(db, "users"), (snap) => {
-      window.allMembers = [];
-      snap.forEach(d => window.allMembers.push({ uid: d.id, ...d.data() }));
-      if (auth.currentUser) {
-        window.currentUserProfile = window.allMembers.find(m => m.uid === auth.currentUser.uid) || null;
-        updateAuthUI();
-      }
-      renderHomeSection();
-      renderTeamSection();
-      renderDashboard();
-      renderAdminPanel();
-    });
-
-    onSnapshot(collection(db, "tasks"), (snap) => {
-      window.allTasks = [];
-      snap.forEach(d => window.allTasks.push({ id: d.id, ...d.data() }));
-      window.allTasks.sort((a, b) => (b.date || "").localeCompare(a.date || ""));
-      renderHomeSection();
-      renderTeamSection();
-      renderDashboard();
-      renderPortfolio();
-      renderWorkspaceTasks();
-      updateNotificationBell();
-      if (window.openedModalMemberId) refreshOpenedMemberModal();
-    });
-
-    onSnapshot(collection(db, "portfolio"), (snap) => {
-      window.allPortfolio = [];
-      snap.forEach(d => window.allPortfolio.push({ id: d.id, ...d.data() }));
-      renderPortfolio();
-      renderAdminPanel();
-    });
-
-    onSnapshot(collection(db, "memberPortfolio"), (snap) => {
-      window.allMemberPortfolio = [];
-      snap.forEach(d => window.allMemberPortfolio.push({ id: d.id, ...d.data() }));
-      window.allMemberPortfolio.sort((a, b) => (b.createdAt || "").localeCompare(a.createdAt || ""));
-      if (window.openedModalMemberId) refreshOpenedMemberModal();
-    });
-
-    onSnapshot(collection(db, "meetings"), (snap) => {
-      window.allMeetings = [];
-      snap.forEach(d => window.allMeetings.push({ id: d.id, ...d.data() }));
-      window.allMeetings.sort((a, b) => (b.date || "").localeCompare(a.date || ""));
-      renderHomeSection();
-      renderAdminPanel();
-    });
-
-    onAuthStateChanged(auth, async (user) => {
-      if (user) {
-        const userDoc = await getDoc(doc(db, "users", user.uid));
-        if (userDoc.exists()) {
-          window.currentUserProfile = { uid: user.uid, ...userDoc.data() };
-        }
-      } else {
-        window.currentUserProfile = null;
-      }
-      updateAuthUI();
-    });
-
-    function applySiteSettingsUI() {
-      const s = window.siteSettings;
-      document.getElementById('brand-title').innerText = s.title || "ASF Dawah Media";
-      document.getElementById('brand-subtitle').innerText = s.subtitle || "As-Sunnah Foundation";
-      if (s.logo) {
-        document.getElementById('brand-logo').src = s.logo;
-        document.getElementById('footer-brand-logo').src = s.logo;
-        document.getElementById('favicon').href = s.logo;
-      }
-
-      // 100% English Translation for Hero Header when EN is active
-      if (window.currentLang === 'en') {
-        document.getElementById('hero-line-1').innerText = "As-Sunnah Foundation";
-        document.getElementById('hero-line-2').innerText = "Dawah Media";
-        document.getElementById('hero-desc').innerText = "All Dawah & Media productions of As-Sunnah Foundation and Shaikh Ahmadullah.";
-      } else {
-        document.getElementById('hero-line-1').innerText = s.heroLine1 || "আস-সুন্নাহ ফাউন্ডেশন";
-        document.getElementById('hero-line-2').innerText = s.heroLine2 || "দাওয়াহ মিডিয়া";
-        document.getElementById('hero-desc').innerText = s.heroDesc || "";
-      }
-
-      const heroDescEl = document.getElementById('hero-desc');
-      if (heroDescEl.innerText.trim() !== "") heroDescEl.classList.remove('hidden');
-      else heroDescEl.classList.add('hidden');
-
-      document.getElementById('footer-address-text').innerText = window.currentLang === 'en'
-        ? (s.addressEn || "Plot-70, Road-3, Block-C, Aftabnagar, Dhaka-1212, Bangladesh")
-        : (s.addressBn || "প্লট-৭০, রোড-৩, ব্লক-সি, আফতাবনগর, ঢাকা-১২১২, বাংলাদেশ");
-
-      document.getElementById('footer-credit-label').innerText = "Developer";
-      document.getElementById('footer-credit-name').innerText = s.creditName || "Tarek Ahmad";
-      document.getElementById('footer-credit-role').innerText = s.creditRole || "";
-      document.getElementById('footer-credit-link').href = window.cleanUrl(s.creditLinkedin) || "https://www.linkedin.com/";
-      if (s.creditPhoto) document.getElementById('footer-credit-img').src = s.creditPhoto;
-
-      const noticeBar = document.getElementById('notice-bar');
-      if (s.notice && s.notice.trim() !== "") {
-        document.getElementById('notice-text').innerText = s.notice;
-        noticeBar.classList.remove('hidden');
-      } else {
-        noticeBar.classList.add('hidden');
-      }
-
-      populateDropdowns();
-      populateActivityCheckboxes('reg-activities-checkboxes', []);
-      if (window.currentUserProfile) populateTaskCategoryDropdown();
-    }
-
-    function populateDropdowns() {
-      const selectPlaceholder = `<option value="" disabled selected>${window.t('— নির্বাচন করুন —', '— Select —')}</option>`;
-      const plats = selectPlaceholder + (window.siteSettings.platforms || DEFAULT_PLATFORMS).map(p => `<option value="${window.clean(p)}">${window.clean(p)}</option>`).join('');
-      if (document.getElementById('task-platform')) document.getElementById('task-platform').innerHTML = plats;
-      if (document.getElementById('assign-platform')) document.getElementById('assign-platform').innerHTML = plats;
-
-      const allActs = selectPlaceholder + (window.siteSettings.activities || CORE_ACTIVITIES).map(a => `<option value="${window.clean(a)}">${window.clean(window.tAct(a))}</option>`).join('');
-      if (document.getElementById('assign-category')) document.getElementById('assign-category').innerHTML = allActs;
-
-      const cats = window.siteSettings.portfolioCategories || DEFAULT_PORTFOLIO_CATEGORIES;
-      if (document.getElementById('port-cat')) {
-        document.getElementById('port-cat').innerHTML = cats.map(c => `<option value="${window.clean(c)}">${window.clean(c)}</option>`).join('');
-      }
-    }
-
-    function populateActivityCheckboxes(containerId, selectedList = []) {
-      const box = document.getElementById(containerId);
-      if (!box) return;
-      box.innerHTML = (window.siteSettings.activities || CORE_ACTIVITIES).map(act => `
-        <label class="flex items-center gap-2 p-1.5 hover:bg-slate-50 dark:hover:bg-slate-800 rounded cursor-pointer">
-          <input type="checkbox" value="${window.clean(act)}" ${selectedList.includes(act) ? 'checked' : ''} class="rounded text-asf-600">
-          <span>${window.clean(window.tAct(act))}</span>
-        </label>
-      `).join('');
-    }
-
-    function populateTaskCategoryDropdown() {
-      const sel = document.getElementById('task-category');
-      if (!sel) return;
-      const allActs = window.siteSettings.activities || CORE_ACTIVITIES;
-      const myActs = (window.currentUserProfile && window.currentUserProfile.assignedActivities && window.currentUserProfile.assignedActivities.length > 0)
-        ? window.currentUserProfile.assignedActivities
-        : allActs;
-
-      const listToShow = window.showAllCategoriesInForm ? allActs : myActs;
-      const selectPlaceholder = `<option value="" disabled selected>${window.t('— নির্বাচন করুন —', '— Select —')}</option>`;
-      sel.innerHTML = selectPlaceholder + listToShow.map(a => `<option value="${window.clean(a)}">${window.clean(window.tAct(a))}</option>`).join('');
-      document.getElementById('toggle-cat-btn').innerText = window.showAllCategoriesInForm
-        ? window.t("আমার নির্ধারিত কাজ", "My Categories")
-        : window.t(`সব ক্যাটাগরি (${allActs.length})`, `All (${allActs.length})`);
-    }
-
-    window.toggleAllCategoriesInForm = () => {
-      window.showAllCategoriesInForm = !window.showAllCategoriesInForm;
-      populateTaskCategoryDropdown();
-    };
-
-    function updateAuthUI() {
-      const p = window.currentUserProfile;
-      const authBtns = document.getElementById('auth-buttons');
-      const userMenu = document.getElementById('user-menu');
-      const notifWrap = document.getElementById('notif-wrapper');
-      const navWs = document.getElementById('nav-workspace');
-      const navAdmin = document.getElementById('nav-admin');
-      const mnavWs = document.getElementById('mnav-workspace');
-      const mnavAdmin = document.getElementById('mnav-admin');
-
-      if (p) {
-        authBtns.classList.add('hidden');
-        userMenu.classList.remove('hidden');
-        userMenu.classList.add('flex');
-        notifWrap.classList.remove('hidden');
-        document.getElementById('current-user-img').src = p.photo || `https://ui-avatars.com/api/?name=${encodeURIComponent(p.name)}&background=006837&color=fff`;
-        
-        navWs.classList.remove('hidden');
-        mnavWs.classList.remove('hidden');
-        mnavWs.classList.add('flex');
-
-        document.getElementById('ws-user-img').src = p.photo || `https://ui-avatars.com/api/?name=${encodeURIComponent(p.name)}&background=006837&color=fff`;
-        document.getElementById('ws-user-name').innerText = p.name;
-        document.getElementById('ws-user-designation').innerText = p.designation || "";
-        document.getElementById('ws-user-bio').innerText = p.bio || "";
-        document.getElementById('ws-user-role-badge').innerText = p.role === 'superadmin'
-          ? window.t('সুপার অ্যাডমিন', 'Super Admin')
-          : (p.role === 'director' ? window.t('ডিরেক্টর', 'Director') : window.t('টিম মেম্বার', 'Team Member'));
-
-        const dateInput = document.getElementById('task-date');
-        if (p.role === 'superadmin' || p.role === 'director') {
-          dateInput.removeAttribute('readonly');
-          dateInput.classList.remove('cursor-not-allowed', 'bg-slate-100');
-          navAdmin.classList.remove('hidden');
-          mnavAdmin.classList.remove('hidden');
-          mnavAdmin.classList.add('flex');
-        } else {
-          dateInput.value = getTodayStr();
-          dateInput.setAttribute('readonly', true);
-          dateInput.classList.add('cursor-not-allowed', 'bg-slate-100');
-          navAdmin.classList.add('hidden');
-          mnavAdmin.classList.add('hidden');
-        }
-
-        const superOnly = document.getElementById('superadmin-only-cms');
-        const clearBtn = document.getElementById('btn-clear-test-data');
-        if (p.role === 'superadmin') {
-          if (superOnly) superOnly.classList.remove('hidden');
-          if (clearBtn) clearBtn.classList.remove('hidden');
-        } else {
-          if (superOnly) superOnly.classList.add('hidden');
-          if (clearBtn) clearBtn.classList.add('hidden');
-        }
-
-        populateTaskCategoryDropdown();
-        renderWorkspaceTasks();
-        updateNotificationBell();
-      } else {
-        authBtns.classList.remove('hidden');
-        userMenu.classList.add('hidden');
-        notifWrap.classList.add('hidden');
-        navWs.classList.add('hidden');
-        navAdmin.classList.add('hidden');
-        mnavWs.classList.add('hidden');
-        mnavAdmin.classList.add('hidden');
-      }
-      lucide.createIcons();
-    }
-
-    // Notification Bell
-    window.toggleNotifDropdown = () => {
-      document.getElementById('notif-dropdown').classList.toggle('hidden');
-    };
-    function updateNotificationBell() {
-      const p = window.currentUserProfile;
-      if (!p) return;
-      const myPendingAssigned = window.allTasks.filter(t => t.uid === p.uid && t.status === 'Pending');
-      const badge = document.getElementById('notif-badge');
-      const list = document.getElementById('notif-list');
-
-      if (myPendingAssigned.length > 0) {
-        badge.innerText = myPendingAssigned.length;
-        badge.classList.remove('hidden');
-        list.innerHTML = myPendingAssigned.map(t => `
-          <div onclick="switchTab('workspace'); document.getElementById('notif-dropdown').classList.add('hidden');" class="p-2.5 rounded-lg bg-amber-50 dark:bg-slate-800 border border-amber-300 cursor-pointer text-xs space-y-1">
-            <div class="flex justify-between font-bold text-amber-800 dark:text-amber-300">
-              <span>${window.clean(window.tAct(t.category))}</span>
-              <span>${t.deadline ? window.formatFullDate(t.deadline) : ''}</span>
-            </div>
-            <p class="font-bold text-slate-900 dark:text-white">${window.clean(t.title)}</p>
-          </div>
-        `).join('');
-      } else {
-        badge.classList.add('hidden');
-        list.innerHTML = `<p class="text-xs text-slate-400 text-center py-4">${window.t('কোনো পেন্ডিং কাজ নেই।', 'No pending tasks.')}</p>`;
-      }
-    }
-
-    // ================= 1. HOME SECTION RENDERER =================
-    function renderHomeSection() {
-      const s = window.siteSettings;
-      const curMonth = getCurrentMonthStr();
-      const prevMonth = getPreviousMonthStr();
-
-      const curMonthTasks = window.allTasks.filter(t => t.month === curMonth);
-      const prevMonthTasks = window.allTasks.filter(t => t.month === prevMonth);
-
-      const compCount = curMonthTasks.filter(t => t.status === 'Completed').length;
-      const ongCount = window.allTasks.filter(t => t.status === 'Ongoing' && !t.continuedOn).length;
-      const pendCount = window.allTasks.filter(t => t.status === 'Pending' || t.status === 'In Review').length;
-
-      document.getElementById('stat-completed').innerText = compCount;
-      document.getElementById('stat-ongoing').innerText = ongCount;
-      document.getElementById('stat-pending').innerText = pendCount;
-      document.getElementById('stat-platforms').innerText = (s.platforms || DEFAULT_PLATFORMS).length;
-
-      document.getElementById('hero-stat-comp').innerText = compCount;
-      document.getElementById('hero-stat-ong').innerText = ongCount;
-      document.getElementById('hero-stat-pend').innerText = pendCount;
-
-      const target = Number(s.planTargetCount) || 50;
-      const pct = Math.min(100, Math.round((compCount / target) * 100));
-      document.getElementById('home-plan-percent').innerText = `${pct}% (${compCount}/${target})`;
-      document.getElementById('home-plan-bar').style.width = `${pct}%`;
-      document.getElementById('home-plan-subtext').innerText = window.currentLang === 'en'
-        ? `Target: ${target} projects • Completed: ${compCount}`
-        : (s.planPrevNote || "");
-
-      document.getElementById('home-current-plan-preview').innerText = window.currentLang === 'en'
-        ? "Click to view current month strategic work plan..."
-        : (s.planCurrentText || "");
-      document.getElementById('home-next3-plan-preview').innerText = window.currentLang === 'en'
-        ? "Click to view next 3 months roadmap..."
-        : (s.planNext3Text || "");
-
-      const ongoingTitles = window.allTasks.filter(t => t.status === 'Ongoing' && !t.continuedOn).map(t => `• ${t.title} (${t.memberName})`).join(' ');
-      document.getElementById('home-ongoing-preview').innerText = ongoingTitles || window.t('কোনো চলমান কাজ নেই।', 'No active ongoing works.');
-
-      const pendingTitles = window.allTasks.filter(t => t.status === 'Pending' || t.status === 'In Review').map(t => `• ${t.title} (${t.memberName})`).join(' ');
-      document.getElementById('home-pending-preview').innerText = pendingTitles || window.t('কোনো পেন্ডিং কাজ নেই।', 'No pending works.');
-
-      // Vertical Column Chart with Month Names (Previous vs Current Month)
-      const prevComp = prevMonthTasks.filter(t => t.status === 'Completed').length;
-      const prevTotal = prevMonthTasks.length;
-      const curTotal = curMonthTasks.length;
-      const maxBar = Math.max(8, prevComp, compCount, prevTotal, curTotal);
-
-      const prevMonthLabel = window.formatMonthName(prevMonth);
-      const curMonthLabel = window.formatMonthName(curMonth);
-      document.getElementById('legend-prev-month').innerText = prevMonthLabel;
-      document.getElementById('legend-cur-month').innerText = curMonthLabel;
-
-      const diff = compCount - prevComp;
-      document.getElementById('home-growth-badge').innerText = diff >= 0
-        ? window.t(`+${diff}টি এগিয়ে`, `+${diff} Growth`)
-        : window.t(`${diff}টি কম`, `${diff}`);
-
-      const hPrevComp = Math.max(14, Math.round((prevComp / maxBar) * 140));
-      const hCurComp = Math.max(14, Math.round((compCount / maxBar) * 140));
-      const hPrevTot = Math.max(14, Math.round((prevTotal / maxBar) * 140));
-      const hCurTot = Math.max(14, Math.round((curTotal / maxBar) * 140));
-
-      document.getElementById('home-comparison-chart').innerHTML = `
-        <div class="grid grid-cols-2 gap-6 items-end pt-4 px-2">
-          <!-- Group 1: Completed Works -->
-          <div class="flex flex-col items-center">
-            <div class="flex items-end justify-center gap-4 h-40 w-full border-b border-slate-200 dark:border-slate-700 pb-2">
-              <div class="flex flex-col items-center gap-1">
-                <span class="text-xs font-bold text-slate-500">${prevComp}</span>
-                <div class="w-10 sm:w-12 bg-slate-400 rounded-t-lg transition-all duration-500" style="height: ${hPrevComp}px"></div>
-              </div>
-              <div class="flex flex-col items-center gap-1">
-                <span class="text-xs font-bold text-asf-600 dark:text-emerald-400">${compCount}</span>
-                <div class="w-10 sm:w-12 bg-asf-600 rounded-t-lg transition-all duration-500" style="height: ${hCurComp}px"></div>
-              </div>
-            </div>
-            <p class="text-xs font-bold mt-2.5 text-center">${window.t('সম্পন্ন প্রজেক্ট', 'Completed Projects')}</p>
-          </div>
-
-          <!-- Group 2: Total Active & Logged Works -->
-          <div class="flex flex-col items-center">
-            <div class="flex items-end justify-center gap-4 h-40 w-full border-b border-slate-200 dark:border-slate-700 pb-2">
-              <div class="flex flex-col items-center gap-1">
-                <span class="text-xs font-bold text-slate-500">${prevTotal}</span>
-                <div class="w-10 sm:w-12 bg-slate-400 rounded-t-lg transition-all duration-500" style="height: ${hPrevTot}px"></div>
-              </div>
-              <div class="flex flex-col items-center gap-1">
-                <span class="text-xs font-bold text-blue-600">${curTotal}</span>
-                <div class="w-10 sm:w-12 bg-blue-600 rounded-t-lg transition-all duration-500" style="height: ${hCurTot}px"></div>
-              </div>
-            </div>
-            <p class="text-xs font-bold mt-2.5 text-center">${window.t('মোট এন্ট্রিকৃত কাজ', 'Total Logged Works')}</p>
-          </div>
-        </div>
-      `;
-
-      // Meetings List on Home
-      const meetBox = document.getElementById('home-meetings-list');
-      if (window.allMeetings.length === 0) {
-        meetBox.innerHTML = `<div class="col-span-full p-5 text-center text-xs text-slate-400">${window.t('কোনো মিটিং সিদ্ধান্ত এখনো যুক্ত করা হয়নি।', 'No meeting records published yet.')}</div>`;
-      } else {
-        meetBox.innerHTML = window.allMeetings.slice(0, 4).map(m => `
-          <div class="p-4 rounded-xl border border-slate-200 dark:border-slate-800 space-y-1.5">
-            <div class="flex items-center justify-between">
-              <h4 class="font-bold text-sm text-asf-600">${window.clean(m.title)}</h4>
-              <span class="text-[11px] font-bold px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800">${window.formatFullDate(m.date)}</span>
-            </div>
-            <p class="text-xs text-slate-600 dark:text-slate-300"><strong>${window.t('এজেন্ডা:', 'Agenda:')}</strong> ${window.clean(m.agenda)}</p>
-            <p class="text-xs text-asf-700 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950/40 p-2 rounded-lg"><strong>${window.t('সিদ্ধান্ত:', 'Decision:')}</strong> ${window.clean(m.decisions)}</p>
-          </div>
-        `).join('');
-      }
-    }
-
-    // ================= 2. VISUAL MONTHLY DASHBOARD RENDERER =================
-    window.renderDashboard = () => {
-      const month = document.getElementById('filter-month').value || getCurrentMonthStr();
-      const monthFormatted = window.formatMonthName(month);
-
-      document.getElementById('dashboard-month-heading').innerText = window.t(
-        `${monthFormatted} — মাসিক ড্যাশবোর্ড`,
-        `${monthFormatted} — Monthly Dashboard`
-      );
-      document.getElementById('dash-table-month-title').innerText = window.t(
-        `${monthFormatted}-এর সকল কাজের বিস্তারিত তালিকা`,
-        `Detailed Work Log — ${monthFormatted}`
-      );
-
-      const memSelect = document.getElementById('filter-member');
-      const approvedMembers = getSortedMembers(true);
-      const curMemVal = memSelect.value || 'ALL';
-      memSelect.innerHTML = `<option value="ALL">${window.t('সকল টিম মেম্বার', 'All Team Members')}</option>` +
-        approvedMembers.map(m => `<option value="${m.uid}">${window.clean(m.name)}</option>`).join('');
-      memSelect.value = curMemVal;
-
-      const statusFilter = document.getElementById('filter-status').value || 'ALL';
-      const monthTasks = window.allTasks.filter(t => t.month === month);
-
-      // Step 1: Visual Graphical Summary (Total, Completed, Ongoing, Remaining)
-      const totalTasksCount = monthTasks.length;
-      const doneCount = monthTasks.filter(t => t.status === 'Completed').length;
-      const ongoingCount = monthTasks.filter(t => t.status === 'Ongoing').length;
-      const remainingCount = monthTasks.filter(t => t.status === 'Pending' || t.status === 'In Review').length;
-      const donePct = totalTasksCount > 0 ? Math.round((doneCount / totalTasksCount) * 100) : 0;
-
-      document.getElementById('dash-visual-summary-chart').innerHTML = `
-        <div class="grid grid-cols-2 gap-3 text-center">
-          <div class="p-3.5 rounded-xl bg-slate-100 dark:bg-slate-800">
-            <p class="text-2xl font-bold">${totalTasksCount}</p>
-            <p class="text-xs font-bold text-slate-500">${window.t('মোট কাজ', 'Total Tasks')}</p>
-          </div>
-          <div class="p-3.5 rounded-xl bg-emerald-50 dark:bg-emerald-950/50 border border-emerald-200 dark:border-emerald-800">
-            <p class="text-2xl font-bold text-asf-600">${doneCount} (${donePct}%)</p>
-            <p class="text-xs font-bold text-asf-600">${window.t('সম্পন্ন হয়েছে', 'Completed')}</p>
-          </div>
-          <div class="p-3.5 rounded-xl bg-blue-50 dark:bg-blue-950/50 border border-blue-200 dark:border-blue-800">
-            <p class="text-2xl font-bold text-blue-600">${ongoingCount}</p>
-            <p class="text-xs font-bold text-blue-600">${window.t('চলমান আছে', 'Ongoing')}</p>
-          </div>
-          <div class="p-3.5 rounded-xl bg-amber-50 dark:bg-amber-950/50 border border-amber-200 dark:border-amber-800">
-            <p class="text-2xl font-bold text-amber-600">${remainingCount}</p>
-            <p class="text-xs font-bold text-amber-600">${window.t('বাকি / পেন্ডিং', 'Remaining')}</p>
-          </div>
-        </div>
-        <div class="space-y-1.5 pt-2">
-          <div class="flex justify-between text-xs font-bold">
-            <span>${window.t('সম্পন্ন বনাম বাকি কাজের অনুপাত', 'Completion Ratio')}</span>
-            <span class="text-asf-600">${donePct}%</span>
-          </div>
-          <div class="w-full h-4 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden flex">
-            <div class="h-full bg-asf-600" style="width: ${donePct}%" title="Completed"></div>
-            <div class="h-full bg-blue-500" style="width: ${totalTasksCount ? Math.round((ongoingCount / totalTasksCount) * 100) : 0}%" title="Ongoing"></div>
-            <div class="h-full bg-amber-500" style="width: ${totalTasksCount ? Math.round((remainingCount / totalTasksCount) * 100) : 0}%" title="Remaining"></div>
-          </div>
-        </div>
-      `;
-
-      // Right Checklist: Which Tasks are Done vs Remaining
-      document.getElementById('dash-checklist-counter').innerText = window.t(
-        `${doneCount}টি সম্পন্ন • ${ongoingCount + remainingCount}টি চলমান/বাকি`,
-        `${doneCount} Done • ${ongoingCount + remainingCount} Active/Remaining`
-      );
-      const checkBox = document.getElementById('dash-tasks-checklist');
-      checkBox.innerHTML = monthTasks.length === 0
-        ? `<p class="col-span-full text-xs text-slate-400 py-8 text-center">${window.t('এই মাসে এখনো কোনো কাজ এন্ট্রি করা হয়নি।', 'No tasks logged in this month yet.')}</p>`
-        : monthTasks.map(t => {
-            const isDone = t.status === 'Completed';
-            return `
-              <div class="p-3 rounded-xl border ${isDone ? 'border-emerald-200 bg-emerald-50/40 dark:border-emerald-900/60 dark:bg-emerald-950/20' : 'border-amber-200 bg-amber-50/40 dark:border-amber-900/60 dark:bg-amber-950/20'} flex items-start justify-between gap-2 text-xs">
-                <div class="space-y-0.5">
-                  <p class="font-bold text-slate-800 dark:text-white">${isDone ? '✓' : '⏳'} ${window.clean(t.title)}</p>
-                  <p class="text-[11px] text-slate-500">${window.clean(t.memberName)} • ${window.formatFullDate(t.date)}</p>
-                </div>
-                <span class="px-2 py-0.5 rounded font-bold shrink-0 text-[10px] ${statusBadgeClass(t.status)}">${window.tStatus(t.status)}</span>
-              </div>
-            `;
-          }).join('');
-
-      // Step 2: Clean Member Cards
-      document.getElementById('dashboard-visual-bars').innerHTML = approvedMembers.map(m => {
-        const mTasks = monthTasks.filter(t => t.uid === m.uid);
-        const comp = mTasks.filter(t => t.status === 'Completed').reduce((s, t) => s + (parseInt(t.quantity) || 1), 0);
-        const ong = mTasks.filter(t => t.status === 'Ongoing').length;
-        const pend = mTasks.filter(t => t.status === 'Pending' || t.status === 'In Review').length;
-        return `
-          <div onclick="openMemberModal('${m.uid}')" class="p-3.5 rounded-xl border border-slate-200 dark:border-slate-800 hover:border-asf-600 cursor-pointer transition flex items-center justify-between gap-2">
-            <div class="flex items-center gap-2.5">
-              <img src="${m.photo}" class="w-10 h-10 rounded-xl object-cover border border-asf-600">
-              <div>
-                <p class="font-bold text-xs sm:text-sm">${window.clean(m.name)}</p>
-                <p class="text-[11px] text-slate-500">${window.clean(m.designation)}</p>
-              </div>
-            </div>
-            <div class="text-right text-xs font-bold">
-              <span class="block text-asf-600">${comp} ${window.t('সম্পন্ন', 'Done')}</span>
-              <span class="text-[10px] text-slate-400">${ong} ${window.t('চলমান', 'Active')} • ${pend} ${window.t('বাকি', 'Left')}</span>
-            </div>
-          </div>
-        `;
-      }).join('');
-
-      // Category Summary
-      let filtered = monthTasks;
-      if (curMemVal !== 'ALL') filtered = filtered.filter(t => t.uid === curMemVal);
-      if (statusFilter !== 'ALL') filtered = filtered.filter(t => t.status === statusFilter);
-
-      const catCounts = {};
-      filtered.forEach(t => {
-        const q = parseInt(t.quantity) || 1;
-        catCounts[t.category] = (catCounts[t.category] || 0) + q;
-      });
-      const catEntries = Object.entries(catCounts).sort((a, b) => b[1] - a[1]);
-
-      document.getElementById('dashboard-category-list').innerHTML = catEntries.length === 0
-        ? `<p class="text-xs text-slate-400 py-6 text-center">${window.t('কোনো রেকর্ড নেই।', 'No records.')}</p>`
-        : catEntries.map(([cat, count]) => `
-            <div class="flex items-center justify-between p-2.5 rounded-lg bg-slate-50 dark:bg-slate-800/70 text-xs font-bold">
-              <span>${window.clean(window.tAct(cat))}</span>
-              <span class="px-2.5 py-0.5 rounded bg-asf-600 text-white">${count}</span>
-            </div>
-          `).join('');
-
-      // Step 3: Detailed Table with Month Name Date & Admin Delete Button
-      const isSuperAdmin = window.currentUserProfile && window.currentUserProfile.role === 'superadmin';
-      const logsTbody = document.getElementById('dashboard-logs-tbody');
-      logsTbody.innerHTML = filtered.length === 0
-        ? `<tr><td colspan="7" class="p-8 text-center text-slate-400">${window.t('কোনো কাজের তথ্য পাওয়া যায়নি।', 'No work logs found.')}</td></tr>`
-        : filtered.map(t => `
-            <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/40">
-              <td class="p-3.5 whitespace-nowrap font-bold">${window.formatFullDate(t.date)}</td>
-              <td class="p-3.5 font-bold">${window.clean(t.memberName)}</td>
-              <td class="p-3.5">
-                <p class="font-bold text-slate-800 dark:text-slate-100">${window.clean(t.title)}</p>
-                <p class="text-[11px] text-slate-500">${window.clean(window.tAct(t.category))} • ${window.t('সংখ্যা:', 'Qty:')} ${window.clean(t.quantity || '1')}</p>
-              </td>
-              <td class="p-3.5 text-xs font-medium">${window.clean(t.platform)}</td>
-              <td class="p-3.5"><span class="px-2.5 py-1 rounded text-xs font-bold ${statusBadgeClass(t.status)}">${window.tStatus(t.status)}</span></td>
-              <td class="p-3.5 text-amber-500 font-bold text-xs">${t.rating ? '⭐'.repeat(t.rating) : '-'}</td>
-              <td class="p-3.5 space-x-2 whitespace-nowrap">
-                ${t.link ? `<a href="${window.cleanUrl(t.link)}" target="_blank" class="text-asf-600 underline text-xs font-bold">${window.t('ফাইল ↗', 'File ↗')}</a>` : ''}
-                ${t.topViewLink ? `<a href="${window.cleanUrl(t.topViewLink)}" target="_blank" class="text-red-600 underline text-xs font-bold">${window.t('ভিউ ↗', 'View ↗')}</a>` : ''}
-                ${isSuperAdmin ? `<button onclick="deleteTaskByAdmin('${t.id}')" class="text-red-600 hover:underline text-xs font-bold ml-2">${window.t('মুছুন', 'Delete')}</button>` : ''}
-              </td>
-            </tr>
-          `).join('');
-    };
-
-    // ================= 3. TEAM SECTION RENDERER (ORDERED BY ADMIN) =================
-    function renderTeamSection() {
-      const curMonth = getCurrentMonthStr();
-      const monthTasks = window.allTasks.filter(t => t.month === curMonth);
-      const approvedMembers = getSortedMembers(true);
-
-      const grid = document.getElementById('full-team-grid');
-      if (approvedMembers.length === 0) {
-        grid.innerHTML = `<div class="col-span-full solid-card p-10 text-center text-slate-500">${window.t('কোনো টিম মেম্বার নেই।', 'No team members yet.')}</div>`;
-        return;
-      }
-
-      grid.innerHTML = approvedMembers.map(m => {
-        const mTasks = monthTasks.filter(t => t.uid === m.uid);
-        const comp = mTasks.filter(t => t.status === 'Completed').reduce((s, t) => s + (parseInt(t.quantity) || 1), 0);
-        const ong = mTasks.filter(t => t.status === 'Ongoing').length;
-        const pend = mTasks.filter(t => t.status === 'Pending' || t.status === 'In Review').length;
-        const roleBio = m.bio || (m.assignedActivities || []).slice(0, 3).map(a => window.tAct(a)).join(' • ');
-
-        return `
-          <div onclick="openMemberModal('${m.uid}')" class="stitched-box cursor-pointer group">
-            <div class="solid-card p-5 h-full flex flex-col justify-between">
-              <div class="space-y-3">
-                <div class="flex items-center gap-3.5">
-                  <img src="${m.photo}" alt="${window.clean(m.name)}" class="w-15 h-15 w-14 h-14 rounded-xl object-cover border-2 border-asf-600 shrink-0">
-                  <div>
-                    <h4 class="font-bold text-base sm:text-lg group-hover:text-asf-600 transition">${window.clean(m.name)}</h4>
-                    <p class="text-xs font-bold text-asf-600 dark:text-emerald-400">${window.clean(m.designation || 'Team Member')}</p>
-                  </div>
-                </div>
-                <p class="text-xs text-slate-600 dark:text-slate-300 bg-slate-50 dark:bg-slate-800/60 p-2.5 rounded-xl line-clamp-2">
-                  ${window.clean(roleBio || window.t('দাওয়াহ মিডিয়া টিম', 'Dawah Media Team'))}
-                </p>
-              </div>
-
-              <div class="mt-4 pt-3 border-t border-slate-200 dark:border-slate-800">
-                <div class="grid grid-cols-3 text-center text-xs gap-1.5">
-                  <div class="bg-emerald-50 dark:bg-emerald-950/30 py-1.5 rounded-lg"><p class="font-bold text-sm text-asf-600">${comp}</p><p class="text-[10px] font-bold text-slate-500">${window.t('সম্পন্ন', 'Done')}</p></div>
-                  <div class="bg-blue-50 dark:bg-blue-950/30 py-1.5 rounded-lg"><p class="font-bold text-sm text-blue-600">${ong}</p><p class="text-[10px] font-bold text-slate-500">${window.t('চলমান', 'Ongoing')}</p></div>
-                  <div class="bg-amber-50 dark:bg-amber-950/30 py-1.5 rounded-lg"><p class="font-bold text-sm text-amber-600">${pend}</p><p class="text-[10px] font-bold text-slate-500">${window.t('পেন্ডিং', 'Pending')}</p></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        `;
-      }).join('');
-    }
-
-    // Member Portfolio Modal (Separate 1:1 Photocard, 1080x1080 Thumbnail, and Video Sections)
-    window.openMemberModal = (uid) => {
-      window.openedModalMemberId = uid;
-      document.getElementById('member-modal').classList.remove('hidden');
-      document.getElementById('member-modal').classList.add('flex');
-      refreshOpenedMemberModal();
-    };
-    window.closeMemberModal = () => {
-      window.openedModalMemberId = null;
-      document.getElementById('member-modal').classList.add('hidden');
-      document.getElementById('member-modal').classList.remove('flex');
-    };
-
-    window.openImageLightbox = (src) => {
-      document.getElementById('lightbox-img').src = src;
-      document.getElementById('image-lightbox-modal').classList.remove('hidden');
-      document.getElementById('image-lightbox-modal').classList.add('flex');
-    };
-
-    window.refreshOpenedMemberModal = () => {
-      const uid = window.openedModalMemberId;
-      const m = window.allMembers.find(x => x.uid === uid);
-      if (!m) return;
-
-      const addPortBtn = document.getElementById('mod-add-port-btn');
-      if (window.currentUserProfile && (window.currentUserProfile.uid === uid || window.currentUserProfile.role === 'superadmin')) {
-        addPortBtn.classList.remove('hidden');
-        addPortBtn.classList.add('inline-flex');
-      } else {
-        addPortBtn.classList.add('hidden');
-      }
-
-      const month = document.getElementById('mod-member-month').value || getCurrentMonthStr();
-      document.getElementById('mod-member-img').src = m.photo;
-      document.getElementById('mod-member-name').innerText = m.name;
-      document.getElementById('mod-member-role').innerText = m.designation;
-      document.getElementById('mod-member-bio').innerText = m.bio || (m.assignedActivities || []).map(a => window.tAct(a)).join(' • ');
-
-      const allMemberTasks = window.allTasks.filter(t => t.uid === uid);
-      const ratedTasks = allMemberTasks.filter(t => t.rating > 0);
-      const avgRating = ratedTasks.length > 0
-        ? (ratedTasks.reduce((s, t) => s + t.rating, 0) / ratedTasks.length).toFixed(1)
-        : null;
-      document.getElementById('mod-member-rating-avg').innerText = avgRating ? `⭐ ${avgRating}` : window.t('সদস্য', 'Member');
-
-      const mTasks = allMemberTasks.filter(t => t.month === month);
-      const comp = mTasks.filter(t => t.status === 'Completed').reduce((s, t) => s + (parseInt(t.quantity) || 1), 0);
-      const ong = mTasks.filter(t => t.status === 'Ongoing').length;
-      const pend = mTasks.filter(t => t.status === 'Pending' || t.status === 'In Review').length;
-      const activeDates = new Set(mTasks.map(t => t.date));
-
-      document.getElementById('mod-stat-completed').innerText = comp;
-      document.getElementById('mod-stat-ongoing').innerText = ong;
-      document.getElementById('mod-stat-pending').innerText = pend;
-      document.getElementById('mod-stat-days').innerText = activeDates.size;
-
-      // Separate Portfolio Sections for this Member
-      const memberItems = window.allMemberPortfolio.filter(p => p.uid === uid);
-      const photocards = memberItems.filter(p => p.type === 'photocard');
-      const thumbnails = memberItems.filter(p => p.type === 'thumbnail');
-      const videos = memberItems.filter(p => p.type === 'video');
-      const canDelete = window.currentUserProfile && (window.currentUserProfile.uid === uid || window.currentUserProfile.role === 'superadmin');
-
-      // 1. Photocards (1:1 Square)
-      const pcSec = document.getElementById('mod-photocard-section');
-      const pcGrid = document.getElementById('mod-photocard-grid');
-      if (photocards.length > 0) {
-        pcSec.classList.remove('hidden');
-        pcGrid.innerHTML = photocards.map(item => `
-          <div class="solid-card overflow-hidden border border-slate-200 dark:border-slate-800 flex flex-col justify-between">
-            <div onclick="openImageLightbox('${item.image}')" class="aspect-square bg-slate-100 dark:bg-slate-900 overflow-hidden cursor-zoom-in">
-              <img src="${item.image}" class="w-full h-full object-contain">
-            </div>
-            <div class="p-2.5 flex items-center justify-between gap-1 text-xs">
-              <span class="font-bold truncate">${window.clean(item.title)}</span>
-              ${canDelete ? `<button onclick="deleteMemberPortfolioItem('${item.id}')" class="text-red-500 font-bold">×</button>` : ''}
-            </div>
-          </div>
-        `).join('');
-      } else {
-        pcSec.classList.add('hidden');
-      }
-
-      // 2. Thumbnails (1080x1080 Square)
-      const thSec = document.getElementById('mod-thumbnail-section');
-      const thGrid = document.getElementById('mod-thumbnail-grid');
-      if (thumbnails.length > 0) {
-        thSec.classList.remove('hidden');
-        thGrid.innerHTML = thumbnails.map(item => `
-          <div class="solid-card overflow-hidden border border-slate-200 dark:border-slate-800 flex flex-col justify-between">
-            <div onclick="openImageLightbox('${item.image}')" class="aspect-square bg-slate-100 dark:bg-slate-900 overflow-hidden cursor-zoom-in">
-              <img src="${item.image}" class="w-full h-full object-contain">
-            </div>
-            <div class="p-2.5 flex items-center justify-between gap-1 text-xs">
-              <span class="font-bold truncate">${window.clean(item.title)}</span>
-              ${canDelete ? `<button onclick="deleteMemberPortfolioItem('${item.id}')" class="text-red-500 font-bold">×</button>` : ''}
-            </div>
-          </div>
-        `).join('');
-      } else {
-        thSec.classList.add('hidden');
-      }
-
-      // 3. Videos
-      const vidSec = document.getElementById('mod-video-section');
-      const vidGrid = document.getElementById('mod-video-grid');
-      if (videos.length > 0) {
-        vidSec.classList.remove('hidden');
-        vidGrid.innerHTML = videos.map(item => {
-          const ytId = extractYouTubeId(item.link);
-          const thumb = item.image || (ytId ? `https://img.youtube.com/vi/${ytId}/hqdefault.jpg` : '');
-          return `
-            <div class="solid-card overflow-hidden border border-slate-200 dark:border-slate-800 flex flex-col justify-between">
-              <a href="${window.cleanUrl(item.link)}" target="_blank" class="aspect-video bg-slate-900 block overflow-hidden">
-                ${thumb ? `<img src="${thumb}" class="w-full h-full object-cover">` : `<div class="w-full h-full flex items-center justify-center text-white text-xs font-bold">Video ↗</div>`}
-              </a>
-              <div class="p-2.5 flex items-center justify-between gap-1 text-xs">
-                <a href="${window.cleanUrl(item.link)}" target="_blank" class="font-bold truncate hover:text-asf-600">${window.clean(item.title)}</a>
-                ${canDelete ? `<button onclick="deleteMemberPortfolioItem('${item.id}')" class="text-red-500 font-bold">×</button>` : ''}
-              </div>
-            </div>
-          `;
-        }).join('');
-      } else {
-        vidSec.classList.add('hidden');
-      }
-
-      document.getElementById('mod-tasks-tbody').innerHTML = mTasks.length === 0
-        ? `<tr><td colspan="4" class="p-4 text-center text-slate-400">${window.t('কোনো কাজ পাওয়া যায়নি।', 'No works found.')}</td></tr>`
-        : mTasks.map(t => `
-            <tr>
-              <td class="p-2.5 whitespace-nowrap font-bold">${window.formatFullDate(t.date)}</td>
-              <td class="p-2.5">
-                <p class="font-bold">${window.clean(t.title)}</p>
-                <p class="text-[10px] text-slate-500">${window.clean(window.tAct(t.category))} • ${window.clean(t.platform)}</p>
-              </td>
-              <td class="p-2.5">
-                <span class="px-2 py-0.5 rounded text-[10px] font-bold ${statusBadgeClass(t.status)}">${window.tStatus(t.status)}</span>
-                ${t.rating ? `<span class="block text-[10px] text-amber-500 mt-0.5">${'⭐'.repeat(t.rating)}</span>` : ''}
-              </td>
-              <td class="p-2.5 space-x-1">
-                ${t.link ? `<a href="${window.cleanUrl(t.link)}" target="_blank" class="text-asf-600 underline font-bold">${window.t('ফাইল ↗', 'File ↗')}</a>` : ''}
-                ${t.topViewLink ? `<a href="${window.cleanUrl(t.topViewLink)}" target="_blank" class="text-red-600 underline font-bold">${window.t('ভিউ ↗', 'View ↗')}</a>` : ''}
-              </td>
-            </tr>
-          `).join('');
-    };
-
-    // Add to Member Personal Portfolio Handler
-    window.openAddPortfolioItemModal = () => {
-      document.getElementById('add-portfolio-item-modal').classList.remove('hidden');
-      document.getElementById('add-portfolio-item-modal').classList.add('flex');
-    };
-    window.toggleMpFields = () => {
-      const type = document.getElementById('mp-type').value;
-      const fileWrap = document.getElementById('mp-file-wrap');
-      if (type === 'video') fileWrap.classList.add('hidden');
-      else fileWrap.classList.remove('hidden');
-    };
-    window.saveMemberPortfolioItem = async (e) => {
-      e.preventDefault();
-      const p = window.currentUserProfile;
-      if (!p) return;
-      const targetUid = window.openedModalMemberId || p.uid;
-      const type = document.getElementById('mp-type').value;
-      const title = document.getElementById('mp-title').value.trim();
-      const link = document.getElementById('mp-link').value.trim();
-      const imgFile = document.getElementById('mp-image-file').files[0];
-
-      if ((type === 'photocard' || type === 'thumbnail') && !imgFile) {
-        return alert(window.t("অনুগ্রহ করে ছবি নির্বাচন করুন।", "Please select an image file."));
-      }
-      const imgBase64 = imgFile ? await compressImageToBase64(imgFile, 720) : null;
-
-      await addDoc(collection(db, "memberPortfolio"), {
-        uid: targetUid,
-        type,
-        title,
-        link,
-        image: imgBase64,
-        createdAt: new Date().toISOString()
-      });
-
-      document.getElementById('mp-title').value = '';
-      document.getElementById('mp-link').value = '';
-      document.getElementById('mp-image-file').value = '';
-      document.getElementById('add-portfolio-item-modal').classList.add('hidden');
-      alert(window.t("পোর্টফোলিওতে সফলভাবে যুক্ত হয়েছে!", "Added to portfolio!"));
-    };
-
-    window.deleteMemberPortfolioItem = async (id) => {
-      if (confirm(window.t("পোর্টফোলিও থেকে মুছে ফেলতে চান?", "Delete from portfolio?"))) {
-        await deleteDoc(doc(db, "memberPortfolio", id));
-      }
-    };
-
-    // ================= 4. FEATURED PRODUCTIONS RENDERER =================
-    function extractYouTubeId(url) {
-      const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=|shorts\/)([^#\&\?]*).*/;
-      const match = (url || "").match(regExp);
-      return (match && match[2].length === 11) ? match[2] : null;
-    }
-
-    window.setPortfolioCategoryFilter = (cat) => {
-      window.selectedPortfolioCategory = cat;
-      renderPortfolio();
-    };
-
-    window.renderPortfolio = () => {
-      const cats = window.siteSettings.portfolioCategories || DEFAULT_PORTFOLIO_CATEGORIES;
-      const pillsBox = document.getElementById('portfolio-category-pills');
-      if (pillsBox) {
-        const allCats = ['ALL', ...cats];
-        pillsBox.innerHTML = allCats.map(c => {
-          const active = window.selectedPortfolioCategory === c;
-          const label = c === 'ALL' ? window.t('সকল প্রোডাকশন', 'All Productions') : c;
-          return `<button onclick="setPortfolioCategoryFilter('${window.clean(c)}')" class="px-3.5 py-1.5 rounded-lg text-xs font-bold transition ${active ? 'btn-solid-green' : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300'}">${window.clean(label)}</button>`;
-        }).join('');
-      }
-
-      const list = window.selectedPortfolioCategory === 'ALL'
-        ? window.allPortfolio
-        : window.allPortfolio.filter(v => v.category === window.selectedPortfolioCategory);
-
-      const renderCards = (items) => items.length === 0
-        ? `<div class="col-span-full solid-card p-8 text-center text-xs text-slate-400">${window.t('কোনো প্রোডাকশন যুক্ত করা হয়নি।', 'No productions added yet.')}</div>`
-        : items.map(v => {
-            const ytId = extractYouTubeId(v.url);
-            const thumb = ytId ? `https://img.youtube.com/vi/${ytId}/hqdefault.jpg` : 'https://via.placeholder.com/480x270?text=ASF+Media';
-            return `
-              <a href="${window.cleanUrl(v.url)}" target="_blank" class="stitched-box group block">
-                <div class="solid-card overflow-hidden h-full flex flex-col">
-                  <div class="relative aspect-video bg-slate-950 overflow-hidden">
-                    <img src="${thumb}" alt="${window.clean(v.title)}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
-                    <span class="absolute top-2.5 left-2.5 bg-asf-700 text-white text-[10px] font-bold px-2.5 py-0.5 rounded">${window.clean(v.category)}</span>
-                    <div class="absolute inset-0 flex items-center justify-center">
-                      <div class="w-11 h-11 rounded-full bg-red-600 text-white flex items-center justify-center shadow-lg">
-                        <svg class="w-5 h-5 fill-current ml-0.5" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="p-4">
-                    <h4 class="font-bold text-sm sm:text-base line-clamp-2 group-hover:text-asf-600 transition">${window.clean(v.title)}</h4>
-                  </div>
-                </div>
-              </a>
-            `;
-          }).join('');
-
-      if (document.getElementById('home-portfolio-grid')) {
-        document.getElementById('home-portfolio-grid').innerHTML = renderCards(window.allPortfolio.slice(0, 6));
-      }
-      if (document.getElementById('full-portfolio-grid')) {
-        document.getElementById('full-portfolio-grid').innerHTML = renderCards(list);
-      }
-    };
-
-    // ================= 5. WORKSPACE & TASK HANDLERS =================
-    window.submitDailyTask = async (e) => {
-      e.preventDefault();
-      const p = window.currentUserProfile;
-      if (!p) return alert(window.t("লগইন করুন।", "Please login."));
-      if (!p.approved && p.role !== 'superadmin') {
-        return alert(window.t("আপনার প্রোফাইল অ্যাডমিন অনুমোদনের অপেক্ষায় আছে।", "Pending Admin approval."));
-      }
-
-      const isAdminOrDir = (p.role === 'superadmin' || p.role === 'director');
-      const taskDate = isAdminOrDir ? document.getElementById('task-date').value : getTodayStr();
-
-      await addDoc(collection(db, "tasks"), {
-        uid: p.uid,
-        memberName: p.name,
-        memberRole: p.designation,
-        date: taskDate,
-        month: taskDate.slice(0, 7),
-        category: document.getElementById('task-category').value,
-        title: document.getElementById('task-title').value.trim(),
-        platform: document.getElementById('task-platform').value,
-        status: document.getElementById('task-status').value,
-        quantity: parseInt(document.getElementById('task-qty').value) || 1,
-        link: document.getElementById('task-link').value.trim(),
-        topViewLink: document.getElementById('task-top-link').value.trim(),
-        rating: 0,
-        createdAt: new Date().toISOString()
-      });
-
-      document.getElementById('task-title').value = '';
-      document.getElementById('task-link').value = '';
-      document.getElementById('task-top-link').value = '';
-      alert(window.t("আলহামদুলিল্লাহ! কাজ সেভ হয়েছে।", "Work saved successfully!"));
-    };
-
-    window.assignTaskToMember = async (e) => {
-      e.preventDefault();
-      const p = window.currentUserProfile;
-      if (!p || (p.role !== 'superadmin' && p.role !== 'director')) return;
-
-      const targetUid = document.getElementById('assign-member-uid').value;
-      const targetMem = window.allMembers.find(m => m.uid === targetUid);
-      if (!targetMem) return;
-
-      const today = getTodayStr();
-      await addDoc(collection(db, "tasks"), {
-        uid: targetMem.uid,
-        memberName: targetMem.name,
-        memberRole: targetMem.designation,
-        date: today,
-        month: today.slice(0, 7),
-        category: document.getElementById('assign-category').value,
-        title: document.getElementById('assign-title').value.trim(),
-        platform: document.getElementById('assign-platform').value,
-        status: "Pending",
-        quantity: 1,
-        deadline: document.getElementById('assign-deadline').value || "",
-        assignedBy: p.name,
-        rating: 0,
-        createdAt: new Date().toISOString()
-      });
-
-      document.getElementById('assign-title').value = '';
-      alert(window.t(`${targetMem.name}-কে কাজ পাঠানো হয়েছে।`, `Task assigned to ${targetMem.name}.`));
-    };
-
-    window.completeAssignedOrOngoingTask = async (taskId, newStatus) => {
-      const t = window.allTasks.find(x => x.id === taskId);
-      if (!t) return;
-      const driveLink = prompt(window.t("ড্রাইভ বা ফাইল লিংক (ঐচ্ছিক):", "Drive / File Link (Optional):"), t.link || "");
-      if (driveLink === null) return;
-      const today = getTodayStr();
-      await updateDoc(doc(db, "tasks", taskId), {
-        status: newStatus,
-        date: today,
-        month: today.slice(0, 7),
-        link: driveLink || t.link || ""
-      });
-    };
-
-    window.rateAndApproveTask = async (taskId, status) => {
-      const ratingEl = document.getElementById(`rate-sel-${taskId}`);
-      const ratingVal = ratingEl ? parseInt(ratingEl.value) || 5 : 5;
-      await updateDoc(doc(db, "tasks", taskId), { status, rating: ratingVal });
-    };
-
-    window.deleteTodayTask = async (taskId, taskDate) => {
-      const p = window.currentUserProfile;
-      if (p.role !== 'superadmin' && taskDate !== getTodayStr()) {
-        return alert(window.t("আগের দিনের কাজ মুছে ফেলা লক করা আছে!", "Past dates are locked!"));
-      }
-      if (confirm(window.t("এই কাজটি মুছে ফেলতে চান?", "Delete this entry?"))) {
-        await deleteDoc(doc(db, "tasks", taskId));
-      }
-    };
-
-    window.deleteTaskByAdmin = async (taskId) => {
-      if (confirm(window.t("আপনি কি নিশ্চিতভাবে এই কাজটি ডাটাবেস থেকে মুছে ফেলতে চান?", "Delete this task permanently?"))) {
-        await deleteDoc(doc(db, "tasks", taskId));
-      }
-    };
-
-    // Clear All Test Tasks Button for Super Admin
-    window.clearAllTestTasks = async () => {
-      const p = window.currentUserProfile;
-      if (!p || p.role !== 'superadmin') return;
-      if (!confirm(window.t("সতর্কবার্তা: আপনি কি এতদিনের সব টেস্ট কাজ (Tasks) এক ক্লিকে মুছে ফেলে নতুনের মতো ০ থেকে শুরু করতে চান? (মেম্বার প্রোফাইল ও সেটিংস অক্ষত থাকবে)", "Are you sure you want to delete ALL test tasks and start fresh from 0? (Member profiles will remain safe)"))) return;
-      for (const t of window.allTasks) {
-        await deleteDoc(doc(db, "tasks", t.id));
-      }
-      alert(window.t("আলহামদুলিল্লাহ! সব টেস্ট কাজ মুছে ফেলা হয়েছে। এখন নতুনের মতো কাজ শুরু করতে পারেন।", "All test tasks cleared!"));
-    };
-
-    function renderWorkspaceTasks() {
-      const p = window.currentUserProfile;
-      if (!p) return;
-      const today = getTodayStr();
-
-      const myPending = window.allTasks.filter(t => t.uid === p.uid && t.status === 'Pending');
-      const alertBox = document.getElementById('my-assigned-alert-box');
-      const pendingList = document.getElementById('my-assigned-tasks-list');
-      if (myPending.length > 0) {
-        alertBox.classList.remove('hidden');
-        pendingList.innerHTML = myPending.map(t => `
-          <div class="p-3.5 rounded-xl bg-white dark:bg-slate-900 border border-amber-300 space-y-2 text-xs">
-            <div class="flex justify-between font-bold text-amber-700">
-              <span>${window.clean(window.tAct(t.category))}</span>
-              <span>${t.deadline ? window.formatFullDate(t.deadline) : ''}</span>
-            </div>
-            <p class="font-bold text-sm">${window.clean(t.title)}</p>
-            <div class="flex gap-2 pt-1">
-              <button onclick="completeAssignedOrOngoingTask('${t.id}', 'Completed')" class="flex-1 btn-solid-green py-1.5 font-bold">${window.t('সম্পন্ন করেছি', 'Mark Completed')}</button>
-              <button onclick="completeAssignedOrOngoingTask('${t.id}', 'Ongoing')" class="px-3 bg-blue-600 text-white py-1.5 rounded-lg font-bold">${window.t('চলমান', 'Ongoing')}</button>
-            </div>
-          </div>
-        `).join('');
-      } else {
-        alertBox.classList.add('hidden');
-      }
-
-      const myOngoing = window.allTasks.filter(t => t.uid === p.uid && t.status === 'Ongoing' && !t.continuedOn);
-      document.getElementById('my-ongoing-list').innerHTML = myOngoing.length === 0
-        ? `<p class="text-xs text-slate-400 py-5 text-center">${window.t('কোনো চলমান কাজ নেই।', 'No ongoing works.')}</p>`
-        : myOngoing.map(t => `
-            <div class="p-3 rounded-xl border border-blue-200 dark:border-slate-700 space-y-2 text-xs">
-              <div class="flex justify-between text-slate-500 font-bold">
-                <span>${window.formatFullDate(t.date)}</span>
-                <span>${window.clean(window.tAct(t.category))}</span>
-              </div>
-              <p class="font-bold text-sm">${window.clean(t.title)}</p>
-              <div class="flex gap-2">
-                <button onclick="completeAssignedOrOngoingTask('${t.id}', 'Completed')" class="flex-1 btn-solid-green py-1.5 font-bold">${window.t('সম্পন্ন করুন', 'Complete')}</button>
-                <button onclick="completeAssignedOrOngoingTask('${t.id}', 'In Review')" class="px-3 bg-amber-500 text-slate-950 py-1.5 rounded-lg font-bold">${window.t('রিভিউতে দিন', 'Review')}</button>
-              </div>
-            </div>
-          `).join('');
-
-      const myToday = window.allTasks.filter(t => t.uid === p.uid && t.date === today);
-      document.getElementById('my-today-tasks-list').innerHTML = myToday.length === 0
-        ? `<p class="text-xs text-slate-400 py-5 text-center">${window.t('আজকে কোনো কাজ জমা দেওয়া হয়নি।', 'No works logged today.')}</p>`
-        : myToday.map(t => `
-            <div class="p-3 rounded-xl border dark:border-slate-800 flex items-center justify-between gap-2 text-xs">
-              <div>
-                <p class="font-bold text-sm">${window.clean(t.title)}</p>
-                <p class="text-slate-500">${window.clean(window.tAct(t.category))} • ${window.tStatus(t.status)}</p>
-              </div>
-              <button onclick="deleteTodayTask('${t.id}', '${t.date}')" class="text-red-500 font-bold">${window.t('মুছুন', 'Delete')}</button>
-            </div>
-          `).join('');
-
-      const dirLounge = document.getElementById('director-control-lounge');
-      if (p.role === 'superadmin' || p.role === 'director') {
-        dirLounge.classList.remove('hidden');
-        const approvedMembers = getSortedMembers(true);
-        const assignSel = document.getElementById('assign-member-uid');
-        if (assignSel) {
-          assignSel.innerHTML = `<option value="" disabled selected>${window.t('— নির্বাচন করুন —', '— Select —')}</option>` +
-            approvedMembers.map(m => `<option value="${m.uid}">${window.clean(m.name)} (${window.clean(m.designation)})</option>`).join('');
-        }
-
-        const reviewable = window.allTasks.filter(t => t.status === 'In Review' || (t.status === 'Completed' && !t.rating));
-        document.getElementById('director-review-list').innerHTML = reviewable.length === 0
-          ? `<p class="text-xs text-slate-400 py-5 text-center">${window.t('রিভিউয়ের অপেক্ষায় কোনো কাজ নেই।', 'No tasks waiting for review.')}</p>`
-          : reviewable.slice(0, 12).map(t => `
-              <div class="p-3 rounded-xl border border-slate-200 dark:border-slate-700 space-y-1.5 text-xs">
-                <div class="flex justify-between">
-                  <span class="font-bold text-asf-600">${window.clean(t.memberName)}</span>
-                  <span class="px-2 py-0.5 rounded text-[10px] font-bold ${statusBadgeClass(t.status)}">${window.tStatus(t.status)}</span>
-                </div>
-                <p class="font-bold">${window.clean(t.title)}</p>
-                <div class="flex items-center justify-between gap-2 pt-1">
-                  <select id="rate-sel-${t.id}" class="px-2 py-1 rounded border dark:bg-slate-800 font-bold text-amber-600">
-                    <option value="5">⭐⭐⭐⭐⭐ (5/5)</option>
-                    <option value="4">⭐⭐⭐⭐ (4/5)</option>
-                    <option value="3">⭐⭐⭐ (3/5)</option>
-                  </select>
-                  <div class="flex gap-1.5">
-                    <button onclick="rateAndApproveTask('${t.id}', 'Completed')" class="btn-solid-green px-2.5 py-1 font-bold">${window.t('অ্যাপ্রুভ', 'Approve')}</button>
-                    <button onclick="rateAndApproveTask('${t.id}', 'Ongoing')" class="bg-red-500 text-white px-2.5 py-1 rounded-lg font-bold">${window.t('কারেকশন', 'Revision')}</button>
-                  </div>
-                </div>
-              </div>
-            `).join('');
-      } else {
-        dirLounge.classList.add('hidden');
-      }
-    }
-
-    function statusBadgeClass(status) {
-      if (status === 'Completed') return 'bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300';
-      if (status === 'Ongoing') return 'bg-blue-100 text-blue-800 dark:bg-blue-950 dark:text-blue-300';
-      if (status === 'In Review') return 'bg-purple-100 text-purple-800 dark:bg-purple-950 dark:text-purple-300';
-      return 'bg-amber-100 text-amber-800 dark:bg-amber-950 dark:text-amber-300';
-    }
-
-    // Popups on Home
-    window.openPlanningDetailModal = (type) => {
-      const s = window.siteSettings;
-      const modal = document.getElementById('quick-detail-modal');
-      const title = document.getElementById('quick-modal-title');
-      const body = document.getElementById('quick-modal-body');
-
-      if (type === 'currentPlan') {
-        title.innerText = window.t('চলতি মাসের বিস্তারিত কর্মপরিকল্পনা', 'Current Month Work Plan');
-        body.innerHTML = `<div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800 whitespace-pre-line leading-relaxed font-medium">${window.clean(s.planCurrentText)}</div>`;
-      } else {
-        title.innerText = window.t('আগামী ৩ মাসের পরিকল্পনা', 'Next 3 Months Plan');
-        body.innerHTML = `<div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800 whitespace-pre-line leading-relaxed font-medium">${window.clean(s.planNext3Text)}</div>`;
-      }
-      modal.classList.remove('hidden');
-      modal.classList.add('flex');
-    };
-
-    window.openQuickStatusModal = (statusType) => {
-      const modal = document.getElementById('quick-detail-modal');
-      const title = document.getElementById('quick-modal-title');
-      const body = document.getElementById('quick-modal-body');
-
-      let list = [];
-      if (statusType === 'Completed') {
-        title.innerText = window.t('চলতি মাসে সম্পন্ন কাজসমূহ', 'Completed Works This Month');
-        list = window.allTasks.filter(t => t.month === getCurrentMonthStr() && t.status === 'Completed');
-      } else if (statusType === 'Ongoing') {
-        title.innerText = window.t('বর্তমানে চলমান কাজসমূহ', 'Ongoing Works');
-        list = window.allTasks.filter(t => t.status === 'Ongoing' && !t.continuedOn);
-      } else {
-        title.innerText = window.t('পেন্ডিং ও রিভিউতে থাকা কাজসমূহ', 'Pending & In-Review Works');
-        list = window.allTasks.filter(t => t.status === 'Pending' || t.status === 'In Review');
-      }
-
-      body.innerHTML = list.length === 0
-        ? `<p class="text-center text-slate-400 py-6">${window.t('কোনো কাজ নেই।', 'No works found.')}</p>`
-        : list.map(t => `
-            <div class="p-3 rounded-xl border dark:border-slate-800 flex items-center justify-between gap-2 text-xs">
-              <div>
-                <p class="font-bold text-sm">${window.clean(t.title)}</p>
-                <p class="text-slate-500">${window.clean(t.memberName)} • ${window.clean(window.tAct(t.category))} • ${window.formatFullDate(t.date)}</p>
-              </div>
-              <span class="px-2.5 py-1 rounded font-bold ${statusBadgeClass(t.status)}">${window.tStatus(t.status)}</span>
-            </div>
-          `).join('');
-      modal.classList.remove('hidden');
-      modal.classList.add('flex');
-    };
-
-    // ================= 6. ADMIN PANEL & MEMBER HIERARCHY ORDERING =================
-    function renderAdminPanel() {
-      const s = window.siteSettings;
-      if (document.getElementById('plan-target-count')) document.getElementById('plan-target-count').value = s.planTargetCount || 50;
-      if (document.getElementById('plan-prev-note')) document.getElementById('plan-prev-note').value = s.planPrevNote || "";
-      if (document.getElementById('plan-current-text')) document.getElementById('plan-current-text').value = s.planCurrentText || "";
-      if (document.getElementById('plan-next3-text')) document.getElementById('plan-next3-text').value = s.planNext3Text || "";
-
-      if (document.getElementById('set-title')) {
-        document.getElementById('set-title').value = s.title || "";
-        document.getElementById('set-subtitle').value = s.subtitle || "";
-        document.getElementById('set-hero-line1').value = s.heroLine1 || "আস-সুন্নাহ ফাউন্ডেশন";
-        document.getElementById('set-hero-line2').value = s.heroLine2 || "দাওয়াহ মিডিয়া";
-        document.getElementById('set-hero-desc').value = s.heroDesc || "";
-        document.getElementById('set-notice').value = s.notice || "";
-        document.getElementById('set-address-bn').value = s.addressBn || "";
-        document.getElementById('set-credit-name').value = s.creditName || "";
-        document.getElementById('set-credit-role').value = s.creditRole || "";
-        document.getElementById('set-credit-linkedin').value = s.creditLinkedin || "";
-      }
-
-      const sortedMembers = getSortedMembers(false);
-      const memBox = document.getElementById('admin-members-list');
-      if (memBox) {
-        memBox.innerHTML = sortedMembers.map((m, idx) => `
-          <div class="p-3 rounded-xl border ${m.approved ? 'border-slate-200 dark:border-slate-800' : 'border-amber-400 bg-amber-50/40'} flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 text-xs">
-            <div class="flex items-center gap-2.5">
-              <div class="flex flex-col gap-0.5">
-                <button onclick="moveMemberOrder('${m.uid}', -1)" class="px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 hover:bg-asf-600 hover:text-white font-bold" title="উপরে নিন">▲</button>
-                <button onclick="moveMemberOrder('${m.uid}', 1)" class="px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 hover:bg-asf-600 hover:text-white font-bold" title="নিচে নিন">▼</button>
-              </div>
-              <span class="w-6 text-center font-bold text-asf-600">#${idx + 1}</span>
-              <img src="${m.photo}" class="w-9 h-9 rounded-lg object-cover border border-asf-600">
-              <div>
-                <p class="font-bold text-sm">${window.clean(m.name)}</p>
-                <p class="text-slate-500">${window.clean(m.designation)}</p>
-              </div>
-            </div>
-            <div class="flex flex-wrap items-center gap-1.5">
-              <button onclick="toggleApproveMember('${m.uid}', ${!m.approved})" class="px-2.5 py-1 rounded-lg font-bold ${m.approved ? 'bg-emerald-100 text-asf-700' : 'bg-asf-600 text-white'}">
-                ${m.approved ? window.t('অনুমোদিত ✓', 'Approved ✓') : window.t('অনুমোদন দিন', 'Approve')}
-              </button>
-              <select onchange="changeMemberRole('${m.uid}', this.value)" class="px-2 py-1 rounded-lg border dark:bg-slate-800 font-bold">
-                <option value="member" ${m.role === 'member' ? 'selected' : ''}>Member</option>
-                <option value="director" ${m.role === 'director' ? 'selected' : ''}>Director</option>
-                <option value="superadmin" ${m.role === 'superadmin' ? 'selected' : ''}>Super Admin</option>
-              </select>
-              <button onclick="deleteMemberProfile('${m.uid}')" class="text-red-500 font-bold px-1">${window.t('মুছুন', 'Remove')}</button>
-            </div>
-          </div>
-        `).join('');
-      }
-
-      if (document.getElementById('admin-meetings-list')) {
-        document.getElementById('admin-meetings-list').innerHTML = window.allMeetings.map(m => `
-          <div class="flex justify-between items-center text-xs p-2 bg-slate-50 dark:bg-slate-800 rounded-lg">
-            <span class="font-bold truncate pr-2">${window.formatFullDate(m.date)} — ${window.clean(m.title)}</span>
-            <button onclick="deleteMeetingRecord('${m.id}')" class="text-red-500 font-bold">${window.t('ডিলিট', 'Delete')}</button>
-          </div>
-        `).join('');
-      }
-
-      if (document.getElementById('admin-portfolio-list')) {
-        document.getElementById('admin-portfolio-list').innerHTML = window.allPortfolio.map(v => `
-          <div class="flex justify-between items-center text-xs p-2 bg-slate-50 dark:bg-slate-800 rounded-lg">
-            <span class="truncate pr-2 font-bold">${window.clean(v.title)} (${window.clean(v.category)})</span>
-            <button onclick="deletePortfolioVideo('${v.id}')" class="text-red-500 font-bold">${window.t('ডিলিট', 'Delete')}</button>
-          </div>
-        `).join('');
-      }
-
-      if (document.getElementById('admin-port-cat-tags')) {
-        document.getElementById('admin-port-cat-tags').innerHTML = (s.portfolioCategories || DEFAULT_PORTFOLIO_CATEGORIES).map(c => `
-          <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-emerald-50 dark:bg-slate-800 text-asf-700 dark:text-emerald-300 text-xs font-bold">
-            ${window.clean(c)} <button type="button" onclick="removePortfolioCategory('${window.clean(c)}')" class="text-red-500 font-bold ml-1">×</button>
-          </span>
-        `).join('');
-      }
-
-      if (document.getElementById('admin-activity-tags')) {
-        document.getElementById('admin-activity-tags').innerHTML = (s.activities || CORE_ACTIVITIES).map(a => `
-          <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-xs font-semibold">
-            ${window.clean(window.tAct(a))} <button onclick="removeActivity('${window.clean(a)}')" class="text-red-500 font-bold ml-1">×</button>
-          </span>
-        `).join('');
-      }
-
-      if (document.getElementById('admin-platform-tags')) {
-        document.getElementById('admin-platform-tags').innerHTML = (s.platforms || DEFAULT_PLATFORMS).map(p => `
-          <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-xs font-semibold">
-            ${window.clean(p)} <button onclick="removePlatform('${window.clean(p)}')" class="text-red-500 font-bold ml-1">×</button>
-          </span>
-        `).join('');
-      }
-    }
-
-    // Move Member Up / Down in Custom Hierarchy
-    window.moveMemberOrder = async (uid, direction) => {
-      const sorted = getSortedMembers(false);
-      const idx = sorted.findIndex(m => m.uid === uid);
-      if (idx === -1) return;
-      const swapIdx = idx + direction;
-      if (swapIdx < 0 || swapIdx >= sorted.length) return;
-
-      const temp = sorted[idx];
-      sorted[idx] = sorted[swapIdx];
-      sorted[swapIdx] = temp;
-
-      for (let i = 0; i < sorted.length; i++) {
-        await updateDoc(doc(db, "users", sorted[i].uid), { sortOrder: i + 1 });
-      }
-    };
-
-    window.resetToCleanCoreActivities = async () => {
-      await setDoc(doc(db, "config", "siteSettings"), { ...window.siteSettings, activities: CORE_ACTIVITIES });
-      alert(window.t("মূল কাজগুলোর তালিকা সেট করা হয়েছে!", "Reset to clean core activities!"));
-    };
-
-    window.savePlanningSettings = async (e) => {
-      e.preventDefault();
-      const updated = {
-        ...window.siteSettings,
-        planTargetCount: parseInt(document.getElementById('plan-target-count').value) || 50,
-        planPrevNote: document.getElementById('plan-prev-note').value.trim(),
-        planCurrentText: document.getElementById('plan-current-text').value.trim(),
-        planNext3Text: document.getElementById('plan-next3-text').value.trim()
-      };
-      await setDoc(doc(db, "config", "siteSettings"), updated);
-      alert(window.t("পরিকল্পনা আপডেট হয়েছে।", "Planning updated!"));
-    };
-
-    window.addMeetingRecord = async (e) => {
-      e.preventDefault();
-      await addDoc(collection(db, "meetings"), {
-        title: document.getElementById('meet-title').value.trim(),
-        date: document.getElementById('meet-date').value,
-        agenda: document.getElementById('meet-agenda').value.trim(),
-        decisions: document.getElementById('meet-decisions').value.trim(),
-        createdAt: new Date().toISOString()
-      });
-      document.getElementById('meet-title').value = '';
-      document.getElementById('meet-agenda').value = '';
-      document.getElementById('meet-decisions').value = '';
-    };
-
-    window.deleteMeetingRecord = async (id) => {
-      await deleteDoc(doc(db, "meetings", id));
-    };
-
-    window.saveSiteSettings = async (e) => {
-      e.preventDefault();
-      const logoFile = document.getElementById('set-logo-file').files[0];
-      const creditPhotoFile = document.getElementById('set-credit-photo').files[0];
-      const newSettings = {
-        ...window.siteSettings,
-        title: document.getElementById('set-title').value.trim(),
-        subtitle: document.getElementById('set-subtitle').value.trim(),
-        heroLine1: document.getElementById('set-hero-line1').value.trim(),
-        heroLine2: document.getElementById('set-hero-line2').value.trim(),
-        heroDesc: document.getElementById('set-hero-desc').value.trim(),
-        notice: document.getElementById('set-notice').value.trim(),
-        addressBn: document.getElementById('set-address-bn').value.trim(),
-        creditLabel: "Developer",
-        creditName: document.getElementById('set-credit-name').value.trim(),
-        creditRole: document.getElementById('set-credit-role').value.trim(),
-        creditLinkedin: document.getElementById('set-credit-linkedin').value.trim()
-      };
-      if (logoFile) newSettings.logo = await compressImageToBase64(logoFile, 220);
-      if (creditPhotoFile) newSettings.creditPhoto = await compressImageToBase64(creditPhotoFile, 220);
-      await setDoc(doc(db, "config", "siteSettings"), newSettings);
-      alert(window.t("সেটিংস সেভ হয়েছে!", "Settings saved!"));
-    };
-
-    window.addNewPortfolioCategory = async () => {
-      const val = document.getElementById('new-port-cat-input').value.trim();
-      if (!val) return;
-      const updated = [...new Set([...(window.siteSettings.portfolioCategories || DEFAULT_PORTFOLIO_CATEGORIES), val])];
-      await setDoc(doc(db, "config", "siteSettings"), { ...window.siteSettings, portfolioCategories: updated });
-      document.getElementById('new-port-cat-input').value = '';
-    };
-    window.removePortfolioCategory = async (val) => {
-      const updated = (window.siteSettings.portfolioCategories || DEFAULT_PORTFOLIO_CATEGORIES).filter(x => x !== val);
-      await setDoc(doc(db, "config", "siteSettings"), { ...window.siteSettings, portfolioCategories: updated });
-    };
-
-    window.addPortfolioVideo = async (e) => {
-      e.preventDefault();
-      await addDoc(collection(db, "portfolio"), {
-        title: document.getElementById('port-title').value.trim(),
-        url: document.getElementById('port-url').value.trim(),
-        category: document.getElementById('port-cat').value,
-        createdAt: new Date().toISOString()
-      });
-      document.getElementById('port-title').value = '';
-      document.getElementById('port-url').value = '';
-    };
-    window.deletePortfolioVideo = async (id) => {
-      await deleteDoc(doc(db, "portfolio", id));
-    };
-
-    window.addNewActivity = async () => {
-      const val = document.getElementById('new-activity-input').value.trim();
-      if (!val) return;
-      const updated = [...(window.siteSettings.activities || CORE_ACTIVITIES), val];
-      await setDoc(doc(db, "config", "siteSettings"), { ...window.siteSettings, activities: updated });
-      document.getElementById('new-activity-input').value = '';
-    };
-    window.removeActivity = async (val) => {
-      const updated = (window.siteSettings.activities || CORE_ACTIVITIES).filter(x => x !== val);
-      await setDoc(doc(db, "config", "siteSettings"), { ...window.siteSettings, activities: updated });
-    };
-
-    window.addNewPlatform = async () => {
-      const val = document.getElementById('new-platform-input').value.trim();
-      if (!val) return;
-      const updated = [...(window.siteSettings.platforms || DEFAULT_PLATFORMS), val];
-      await setDoc(doc(db, "config", "siteSettings"), { ...window.siteSettings, platforms: updated });
-      document.getElementById('new-platform-input').value = '';
-    };
-    window.removePlatform = async (val) => {
-      const updated = (window.siteSettings.platforms || DEFAULT_PLATFORMS).filter(x => x !== val);
-      await setDoc(doc(db, "config", "siteSettings"), { ...window.siteSettings, platforms: updated });
-    };
-
-    window.toggleApproveMember = async (uid, status) => {
-      await updateDoc(doc(db, "users", uid), { approved: status });
-    };
-    window.changeMemberRole = async (uid, role) => {
-      await updateDoc(doc(db, "users", uid), { role, approved: true });
-    };
-    window.deleteMemberProfile = async (uid) => {
-      if (confirm(window.t("এই সদস্যের প্রোফাইল মুছে ফেলতে চান?", "Remove member profile?"))) {
-        await deleteDoc(doc(db, "users", uid));
-      }
-    };
-
-    // Auth Modal & Profile
-    window.openAuthModal = () => {
-      document.getElementById('auth-modal').classList.remove('hidden');
-      document.getElementById('auth-modal').classList.add('flex');
-    };
-    window.closeAuthModal = () => {
-      document.getElementById('auth-modal').classList.add('hidden');
-      document.getElementById('auth-modal').classList.remove('flex');
-    };
-    window.switchAuthMode = (mode) => {
-      const loginForm = document.getElementById('login-form');
-      const signupForm = document.getElementById('signup-form');
-      const loginBtn = document.getElementById('tab-login-btn');
-      const signupBtn = document.getElementById('tab-signup-btn');
-      if (mode === 'login') {
-        loginForm.classList.remove('hidden');
-        signupForm.classList.add('hidden');
-        loginBtn.className = "py-2 rounded-lg bg-white dark:bg-slate-900 shadow text-asf-600";
-        signupBtn.className = "py-2 rounded-lg text-slate-600 dark:text-slate-300";
-      } else {
-        loginForm.classList.add('hidden');
-        signupForm.classList.remove('hidden');
-        signupBtn.className = "py-2 rounded-lg bg-white dark:bg-slate-900 shadow text-asf-600";
-        loginBtn.className = "py-2 rounded-lg text-slate-600 dark:text-slate-300";
-      }
-    };
-
-    window.handleLogin = async (e) => {
-      e.preventDefault();
-      try {
-        await signInWithEmailAndPassword(auth, document.getElementById('login-email').value.trim(), document.getElementById('login-pass').value);
-        closeAuthModal();
-        switchTab('workspace');
-      } catch (err) {
-        alert(window.t("লগইন ব্যর্থ হয়েছে!", "Login failed!"));
-      }
-    };
-
-    window.handleSignup = async (e) => {
-      e.preventDefault();
-      const name = document.getElementById('reg-name').value.trim();
-      const designation = document.getElementById('reg-designation').value.trim();
-      const bio = document.getElementById('reg-bio').value.trim();
-      const email = document.getElementById('reg-email').value.trim().toLowerCase();
-      const pass = document.getElementById('reg-pass').value;
-      const photoFile = document.getElementById('reg-photo').files[0];
-      const checkedActs = Array.from(document.querySelectorAll('#reg-activities-checkboxes input:checked')).map(i => i.value);
-      const isSuperAdmin = (email === SUPER_ADMIN_EMAIL.toLowerCase());
-
-      try {
-        const cred = await createUserWithEmailAndPassword(auth, email, pass);
-        const photoBase64 = await compressImageToBase64(photoFile, 260);
-        const photoUrl = photoBase64 || `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=006837&color=fff`;
-        const profileData = {
-          name, designation, bio, email, photo: photoUrl,
-          role: isSuperAdmin ? 'superadmin' : 'member',
-          approved: isSuperAdmin ? true : false,
-          sortOrder: window.allMembers.length + 1,
-          assignedActivities: checkedActs,
-          createdAt: new Date().toISOString()
-        };
-        await setDoc(doc(db, "users", cred.user.uid), profileData);
-        window.currentUserProfile = { uid: cred.user.uid, ...profileData };
-        closeAuthModal();
-        switchTab(isSuperAdmin ? 'admin' : 'workspace');
-      } catch (err) {
-        alert(err.message);
-      }
-    };
-
-    window.logoutUser = async () => {
-      await signOut(auth);
-      switchTab('home');
-    };
-
-    window.openEditProfileModal = () => {
-      const p = window.currentUserProfile;
-      if (!p) return;
-      document.getElementById('edit-prof-name').value = p.name || "";
-      document.getElementById('edit-prof-desig').value = p.designation || "";
-      document.getElementById('edit-prof-bio').value = p.bio || "";
-      populateActivityCheckboxes('edit-prof-activities', p.assignedActivities || []);
-      document.getElementById('edit-profile-modal').classList.remove('hidden');
-      document.getElementById('edit-profile-modal').classList.add('flex');
-    };
-
-    window.saveProfileChanges = async (e) => {
-      e.preventDefault();
-      const p = window.currentUserProfile;
-      const updates = {
-        name: document.getElementById('edit-prof-name').value.trim(),
-        designation: document.getElementById('edit-prof-desig').value.trim(),
-        bio: document.getElementById('edit-prof-bio').value.trim(),
-        assignedActivities: Array.from(document.querySelectorAll('#edit-prof-activities input:checked')).map(i => i.value)
-      };
-      const photoFile = document.getElementById('edit-prof-photo').files[0];
-      if (photoFile) updates.photo = await compressImageToBase64(photoFile, 260);
-      await updateDoc(doc(db, "users", p.uid), updates);
-      document.getElementById('edit-profile-modal').classList.add('hidden');
-    };
-
-    // Export CSV & JSON Backup
-    window.exportTasksToCSV = () => {
-      if (window.allTasks.length === 0) return alert(window.t("ডাউনলোড করার মতো কোনো ডাটা নেই।", "No data to export."));
-      const headers = ["Date", "Month", "Member Name", "Designation", "Category", "Project Title", "Platform", "Status", "Quantity", "Rating", "Drive Link", "Published Link"];
-      const rows = window.allTasks.map(t => [
-        t.date || "", t.month || "", `"${(t.memberName || "").replace(/"/g, '""')}"`, `"${(t.memberRole || "").replace(/"/g, '""')}"`,
-        `"${(t.category || "").replace(/"/g, '""')}"`, `"${(t.title || "").replace(/"/g, '""')}"`, `"${(t.platform || "").replace(/"/g, '""')}"`,
-        t.status || "", t.quantity || 1, t.rating || "", `"${t.link || ""}"`, `"${t.topViewLink || ""}"`
-      ]);
-      const csvContent = "\uFEFF" + [headers.join(","), ...rows.map(r => r.join(","))].join("\n");
-      const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
-      const a = document.createElement("a");
-      a.href = URL.createObjectURL(blob);
-      a.download = `ASF_Dawah_Media_Report_${getTodayStr()}.csv`;
-      a.click();
-    };
-
-    window.downloadFullJSONBackup = () => {
-      const backup = {
-        exportedAt: new Date().toISOString(),
-        siteSettings: window.siteSettings,
-        members: window.allMembers,
-        tasks: window.allTasks,
-        portfolio: window.allPortfolio,
-        memberPortfolio: window.allMemberPortfolio,
-        meetings: window.allMeetings
-      };
-      const blob = new Blob([JSON.stringify(backup, null, 2)], { type: "application/json" });
-      const a = document.createElement("a");
-      a.href = URL.createObjectURL(blob);
-      a.download = `ASF_Media_Full_Backup_${getTodayStr()}.json`;
-      a.click();
-    };
-
-    // Tab Navigation & Language Toggle
-    window.switchTab = (tabName) => {
-      ['home', 'dashboard', 'team', 'portfolio', 'workspace', 'admin'].forEach(t => {
-        document.getElementById(`tab-${t}`).classList.add('hidden');
-        const btn = document.getElementById(`nav-${t}`);
-        if (btn) btn.className = "nav-btn px-3.5 py-2 rounded-lg text-sm font-semibold text-slate-700 dark:text-slate-300 hover:text-asf-600";
-        const mbtn = document.getElementById(`mnav-${t}`);
-        if (mbtn) mbtn.classList.remove('text-asf-600', 'dark:text-emerald-400');
-      });
-      document.getElementById(`tab-${tabName}`).classList.remove('hidden');
-      const activeBtn = document.getElementById(`nav-${tabName}`);
-      if (activeBtn) activeBtn.className = "nav-btn px-3.5 py-2 rounded-lg text-sm font-bold text-asf-600 dark:text-emerald-400 border-b-2 border-asf-600";
-      const activeMbtn = document.getElementById(`mnav-${tabName}`);
-      if (activeMbtn) activeMbtn.classList.add('text-asf-600', 'dark:text-emerald-400');
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    };
-
-    window.toggleTheme = () => {
-      document.documentElement.classList.toggle('dark');
-    };
-
-    window.toggleLanguage = () => {
-      window.currentLang = window.currentLang === 'bn' ? 'en' : 'bn';
-      document.getElementById('lang-btn').innerText = window.currentLang === 'bn' ? 'EN' : 'বাং';
-      document.documentElement.classList.toggle('lang-en', window.currentLang === 'en');
-
-      document.querySelectorAll('[data-bn]').forEach(el => {
-        el.innerText = el.getAttribute(`data-${window.currentLang}`);
-      });
-
-      updateTodayBadgeText();
-      applySiteSettingsUI();
-      renderHomeSection();
-      renderTeamSection();
-      renderDashboard();
-      renderPortfolio();
-      renderWorkspaceTasks();
-      renderAdminPanel();
-      updateNotificationBell();
-      if (window.openedModalMemberId) refreshOpenedMemberModal();
-    };
-
-    lucide.createIcons();
-    applySiteSettingsUI();
-  </script>
-</body>
-</html>
+        <button
