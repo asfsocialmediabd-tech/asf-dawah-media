@@ -94,7 +94,6 @@
       color: #f1f5f9;
     }
 
-    /* As-Sunnah Foundation Official Stitched (Dashed) Outer Border Frame */
     .stitched-box {
       padding: 5px;
       border: 1.5px dashed #006837;
@@ -119,9 +118,9 @@
       border: 1.5px dashed #7c3aed;
       border-radius: 1.35rem;
     }
-    .stitched-box-teal {
+    .stitched-box-rose {
       padding: 5px;
-      border: 1.5px dashed #0d9488;
+      border: 1.5px dashed #e11d48;
       border-radius: 1.35rem;
     }
 
@@ -166,13 +165,14 @@
   <!-- Toast Status Notification -->
   <div id="toast-msg" class="fixed top-5 right-5 z-50 hidden bg-asf-700 text-white px-4 py-3 rounded-xl shadow-2xl border border-emerald-400 text-xs sm:text-sm font-bold"></div>
 
-  <!-- Live Incoming Chat Screen Popup Banner -->
-  <div id="live-chat-popup" onclick="openChatWindowFromPopup()" class="fixed bottom-24 right-5 z-50 hidden max-w-xs w-full stitched-box cursor-pointer shadow-2xl animate-bounce">
-    <div class="solid-card p-3.5 bg-asf-700 text-white border-emerald-500 flex items-start gap-3">
-      <div class="w-9 h-9 rounded-full bg-emerald-500 text-white flex items-center justify-center shrink-0 font-bold">💬</div>
-      <div class="flex-grow overflow-hidden">
-        <p id="popup-chat-sender" class="text-xs font-bold text-emerald-300 truncate"></p>
-        <p id="popup-chat-text" class="text-xs text-white line-clamp-2 mt-0.5"></p>
+  <!-- Live Incoming Chat Screen Popup -->
+  <div id="live-msg-popup" onclick="openChatFromPopup()" class="fixed top-20 right-4 z-50 hidden max-w-xs w-full solid-card p-3.5 shadow-2xl border-2 border-asf-600 cursor-pointer animate-bounce">
+    <div class="flex items-start gap-2.5">
+      <div class="w-8 h-8 rounded-full bg-asf-600 text-white flex items-center justify-center shrink-0 font-bold text-xs">💬</div>
+      <div class="flex-1 min-w-0">
+        <p id="popup-sender-name" class="text-xs font-bold text-asf-600 truncate"></p>
+        <p id="popup-msg-text" class="text-xs text-slate-700 dark:text-slate-200 line-clamp-2 mt-0.5"></p>
+        <span class="text-[10px] font-bold text-emerald-600 underline mt-1 inline-block" data-bn="ক্লিক করে বিস্তারিত দেখুন ↗" data-en="Click to view & reply ↗">ক্লিক করে বিস্তারিত দেখুন ↗</span>
       </div>
     </div>
   </div>
@@ -185,7 +185,7 @@
     </span>
   </div>
 
-  <!-- Clean Official Header -->
+  <!-- Header -->
   <header class="sticky top-0 z-40 bg-white dark:bg-[#0a1912] border-b border-slate-200 dark:border-emerald-950">
     <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between gap-2">
       
@@ -197,61 +197,61 @@
         </div>
       </div>
 
-      <!-- Desktop Navigation (With Separate Production Pipeline Tab) -->
+      <!-- Desktop Navigation -->
       <nav class="hidden lg:flex items-center gap-1">
-        <button onclick="switchTab('home')" id="nav-home" class="nav-btn px-3 py-2 rounded-lg text-sm font-bold text-asf-600 dark:text-emerald-400 border-b-2 border-asf-600">
+        <button type="button" onclick="switchTab('home')" id="nav-home" class="nav-btn px-3 py-2 rounded-lg text-sm font-bold text-asf-600 dark:text-emerald-400 border-b-2 border-asf-600">
           <span data-bn="হোম" data-en="Home">হোম</span>
         </button>
-        <button onclick="switchTab('pipeline')" id="nav-pipeline" class="nav-btn px-3 py-2 rounded-lg text-sm font-semibold text-slate-700 dark:text-slate-300 hover:text-asf-600">
-          <span data-bn="প্রোডাকশন পাইপলাইন" data-en="Production Pipeline">প্রোডাকশন পাইপলাইন</span>
+        <button type="button" onclick="switchTab('pipeline')" id="nav-pipeline" class="nav-btn px-3 py-2 rounded-lg text-sm font-semibold text-slate-700 dark:text-slate-300 hover:text-asf-600">
+          <span data-bn="প্রোডাকশন পাইপলাইন" data-en="Pipeline">প্রোডাকশন পাইপলাইন</span>
         </button>
-        <button onclick="switchTab('dashboard')" id="nav-dashboard" class="nav-btn px-3 py-2 rounded-lg text-sm font-semibold text-slate-700 dark:text-slate-300 hover:text-asf-600">
-          <span data-bn="মাসিক ড্যাশবোর্ড" data-en="Monthly Dashboard">মাসিক ড্যাশবোর্ড</span>
+        <button type="button" onclick="switchTab('dashboard')" id="nav-dashboard" class="nav-btn px-3 py-2 rounded-lg text-sm font-semibold text-slate-700 dark:text-slate-300 hover:text-asf-600">
+          <span data-bn="মাসিক ড্যাশবোর্ড" data-en="Dashboard">মাসিক ড্যাশবোর্ড</span>
         </button>
-        <button onclick="switchTab('team')" id="nav-team" class="nav-btn px-3 py-2 rounded-lg text-sm font-semibold text-slate-700 dark:text-slate-300 hover:text-asf-600">
-          <span data-bn="টিম মেম্বার" data-en="Team Members">টিম মেম্বার</span>
+        <button type="button" onclick="switchTab('team')" id="nav-team" class="nav-btn px-3 py-2 rounded-lg text-sm font-semibold text-slate-700 dark:text-slate-300 hover:text-asf-600">
+          <span data-bn="টিম মেম্বার" data-en="Team">টিম মেম্বার</span>
         </button>
-        <button onclick="switchTab('portfolio')" id="nav-portfolio" class="nav-btn px-3 py-2 rounded-lg text-sm font-semibold text-slate-700 dark:text-slate-300 hover:text-asf-600">
-          <span data-bn="আমাদের কাজ" data-en="Our Works">আমাদের কাজ</span>
+        <button type="button" onclick="switchTab('portfolio')" id="nav-portfolio" class="nav-btn px-3 py-2 rounded-lg text-sm font-semibold text-slate-700 dark:text-slate-300 hover:text-asf-600">
+          <span data-bn="আমাদের কাজ" data-en="Productions">আমাদের কাজ</span>
         </button>
-        <button onclick="switchTab('workspace')" id="nav-workspace" class="nav-btn hidden px-3 py-2 rounded-lg text-sm font-semibold text-slate-700 dark:text-slate-300 hover:text-asf-600">
+        <button type="button" onclick="switchTab('workspace')" id="nav-workspace" class="nav-btn hidden px-3 py-2 rounded-lg text-sm font-semibold text-slate-700 dark:text-slate-300 hover:text-asf-600">
           <span data-bn="কাজ লিখুন" data-en="Log Work">কাজ লিখুন</span>
         </button>
-        <button onclick="switchTab('admin')" id="nav-admin" class="nav-btn hidden px-3 py-2 rounded-lg text-sm font-semibold text-slate-700 dark:text-slate-300 hover:text-asf-600">
+        <button type="button" onclick="switchTab('admin')" id="nav-admin" class="nav-btn hidden px-3 py-2 rounded-lg text-sm font-semibold text-slate-700 dark:text-slate-300 hover:text-asf-600">
           <span data-bn="অ্যাডমিন" data-en="Admin">অ্যাডমিন</span>
         </button>
       </nav>
 
       <!-- Right Controls -->
       <div class="flex items-center gap-1.5 sm:gap-2">
-        <button onclick="triggerAppInstall()" id="pwa-install-btn" class="inline-flex items-center gap-1 px-2.5 py-1.5 sm:px-3 sm:py-2 text-xs font-bold rounded-lg bg-emerald-50 dark:bg-emerald-950 text-asf-600 dark:text-emerald-300 border border-asf-600/30 hover:bg-emerald-100 transition">
+        <button type="button" onclick="triggerAppInstall()" id="pwa-install-btn" class="inline-flex items-center gap-1 px-2.5 py-1.5 sm:px-3 sm:py-2 text-xs font-bold rounded-lg bg-emerald-50 dark:bg-emerald-950 text-asf-600 dark:text-emerald-300 border border-asf-600/30 hover:bg-emerald-100 transition">
           <i data-lucide="download" class="w-3.5 h-3.5"></i>
           <span data-bn="অ্যাপ" data-en="App">অ্যাপ</span>
         </button>
 
         <div id="notif-wrapper" class="relative hidden">
-          <button onclick="toggleNotifDropdown()" class="relative p-2 rounded-lg bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
+          <button type="button" onclick="toggleNotifDropdown()" class="relative p-2 rounded-lg bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
             <i data-lucide="bell" class="w-4 h-4 text-slate-700 dark:text-slate-200"></i>
             <span id="notif-badge" class="hidden absolute -top-1 -right-1 min-w-[17px] h-[17px] px-1 rounded-full bg-red-600 text-white text-[10px] font-bold flex items-center justify-center">0</span>
           </button>
           <div id="notif-dropdown" class="hidden absolute right-0 mt-2 w-72 sm:w-80 solid-card shadow-xl p-4 z-50">
             <div class="flex items-center justify-between border-b pb-2 mb-2 dark:border-slate-800">
-              <h4 class="font-bold text-xs sm:text-sm" data-bn="অ্যাসাইন করা পেন্ডিং কাজ" data-en="Assigned Pending Tasks">অ্যাসাইন করা পেন্ডিং কাজ</h4>
+              <h4 class="font-bold text-xs sm:text-sm" data-bn="অ্যাসাইন করা কাজ" data-en="Assigned Tasks">অ্যাসাইন করা কাজ</h4>
             </div>
             <div id="notif-list" class="space-y-2 max-h-64 overflow-y-auto"></div>
           </div>
         </div>
 
-        <button onclick="toggleLanguage()" id="lang-btn" class="px-2.5 py-1.5 sm:px-3 sm:py-2 text-xs font-bold rounded-lg bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-asf-600">
+        <button type="button" onclick="toggleLanguage()" id="lang-btn" class="px-2.5 py-1.5 sm:px-3 sm:py-2 text-xs font-bold rounded-lg bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-asf-600">
           EN
         </button>
 
-        <button onclick="toggleTheme()" class="p-2 rounded-lg bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-amber-300">
+        <button type="button" onclick="toggleTheme()" class="p-2 rounded-lg bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-amber-300">
           <i data-lucide="moon" class="w-4 h-4"></i>
         </button>
         
         <div id="auth-buttons">
-          <button onclick="openAuthModal()" class="btn-solid-green px-3 sm:px-4 py-2 text-xs sm:text-sm font-bold flex items-center gap-1.5">
+          <button type="button" onclick="openAuthModal()" class="btn-solid-green px-3 sm:px-4 py-2 text-xs sm:text-sm font-bold flex items-center gap-1.5">
             <i data-lucide="user" class="w-4 h-4"></i>
             <span data-bn="লগইন" data-en="Login">লগইন</span>
           </button>
@@ -259,7 +259,7 @@
 
         <div id="user-menu" class="hidden items-center gap-1.5 bg-slate-100 dark:bg-slate-800 p-1 pr-2 rounded-full border border-slate-200 dark:border-slate-700">
           <img id="current-user-img" src="" class="w-7 h-7 sm:w-8 sm:h-8 rounded-full object-cover border border-asf-600 cursor-pointer" onclick="switchTab('workspace')">
-          <button onclick="logoutUser()" class="text-xs font-bold text-red-600 p-1" title="Logout">
+          <button type="button" onclick="logoutUser()" class="text-xs font-bold text-red-600 p-1" title="Logout">
             <i data-lucide="log-out" class="w-3.5 h-3.5"></i>
           </button>
         </div>
@@ -270,31 +270,31 @@
 
   <!-- Mobile Bottom Navigation -->
   <nav id="mobile-bottom-nav" class="lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-white dark:bg-[#0a1912] border-t border-slate-200 dark:border-emerald-950 px-1 py-1.5 flex items-center justify-around shadow-lg">
-    <button onclick="switchTab('home')" id="mnav-home" class="flex flex-col items-center gap-0.5 py-1 px-1.5 rounded-lg text-asf-600 dark:text-emerald-400 font-bold text-[10px]">
+    <button type="button" onclick="switchTab('home')" id="mnav-home" class="flex flex-col items-center gap-0.5 py-1 px-1.5 rounded-lg text-asf-600 dark:text-emerald-400 font-bold text-[10px]">
       <i data-lucide="home" class="w-4 h-4"></i>
       <span data-bn="হোম" data-en="Home">হোম</span>
     </button>
-    <button onclick="switchTab('pipeline')" id="mnav-pipeline" class="flex flex-col items-center gap-0.5 py-1 px-1.5 rounded-lg text-slate-500 font-bold text-[10px]">
+    <button type="button" onclick="switchTab('pipeline')" id="mnav-pipeline" class="flex flex-col items-center gap-0.5 py-1 px-1.5 rounded-lg text-slate-500 font-bold text-[10px]">
       <i data-lucide="clapperboard" class="w-4 h-4"></i>
       <span data-bn="পাইপলাইন" data-en="Pipeline">পাইপলাইন</span>
     </button>
-    <button onclick="switchTab('dashboard')" id="mnav-dashboard" class="flex flex-col items-center gap-0.5 py-1 px-1.5 rounded-lg text-slate-500 font-bold text-[10px]">
+    <button type="button" onclick="switchTab('dashboard')" id="mnav-dashboard" class="flex flex-col items-center gap-0.5 py-1 px-1.5 rounded-lg text-slate-500 font-bold text-[10px]">
       <i data-lucide="bar-chart-2" class="w-4 h-4"></i>
       <span data-bn="ড্যাশবোর্ড" data-en="Dashboard">ড্যাশবোর্ড</span>
     </button>
-    <button onclick="switchTab('team')" id="mnav-team" class="flex flex-col items-center gap-0.5 py-1 px-1.5 rounded-lg text-slate-500 font-bold text-[10px]">
+    <button type="button" onclick="switchTab('team')" id="mnav-team" class="flex flex-col items-center gap-0.5 py-1 px-1.5 rounded-lg text-slate-500 font-bold text-[10px]">
       <i data-lucide="users" class="w-4 h-4"></i>
-      <span data-bn="মেম্বার" data-en="Team">মেম্বার</span>
+      <span data-bn="টিম" data-en="Team">টিম</span>
     </button>
-    <button onclick="switchTab('portfolio')" id="mnav-portfolio" class="flex flex-col items-center gap-0.5 py-1 px-1.5 rounded-lg text-slate-500 font-bold text-[10px]">
+    <button type="button" onclick="switchTab('portfolio')" id="mnav-portfolio" class="flex flex-col items-center gap-0.5 py-1 px-1.5 rounded-lg text-slate-500 font-bold text-[10px]">
       <i data-lucide="film" class="w-4 h-4"></i>
       <span data-bn="কাজ" data-en="Works">কাজ</span>
     </button>
-    <button onclick="switchTab('workspace')" id="mnav-workspace" class="hidden flex-col items-center gap-0.5 py-1 px-1.5 rounded-lg text-slate-500 font-bold text-[10px]">
+    <button type="button" onclick="switchTab('workspace')" id="mnav-workspace" class="hidden flex-col items-center gap-0.5 py-1 px-1.5 rounded-lg text-slate-500 font-bold text-[10px]">
       <i data-lucide="edit-3" class="w-4 h-4"></i>
       <span data-bn="লিখুন" data-en="Log">লিখুন</span>
     </button>
-    <button onclick="switchTab('admin')" id="mnav-admin" class="hidden flex-col items-center gap-0.5 py-1 px-1.5 rounded-lg text-slate-500 font-bold text-[10px]">
+    <button type="button" onclick="switchTab('admin')" id="mnav-admin" class="hidden flex-col items-center gap-0.5 py-1 px-1.5 rounded-lg text-slate-500 font-bold text-[10px]">
       <i data-lucide="settings" class="w-4 h-4"></i>
       <span data-bn="অ্যাডমিন" data-en="Admin">অ্যাডমিন</span>
     </button>
@@ -306,7 +306,7 @@
     <!-- ================= 1. HOME SECTION ================= -->
     <section id="tab-home" class="space-y-8 sm:space-y-10">
       
-      <!-- 1A. Stitched Solid Hero Banner -->
+      <!-- Stitched Solid Hero Banner -->
       <div class="stitched-box">
         <div class="asf-hero-solid rounded-2xl p-6 sm:p-10 text-white">
           <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
@@ -329,11 +329,11 @@
                 </div>
                 <div class="space-y-2 text-xs sm:text-sm">
                   <div class="flex items-center justify-between bg-[#07301e] px-3.5 py-2 rounded-xl">
-                    <span class="text-emerald-100" data-bn="চলতি মাসে সম্পন্ন প্রোডাকশন" data-en="Completed Productions">চলতি মাসে সম্পন্ন প্রোডাকশন</span>
+                    <span class="text-emerald-100" data-bn="সম্পন্ন প্রোডাকশন" data-en="Completed Productions">সম্পন্ন প্রোডাকশন</span>
                     <span id="hero-stat-comp" class="text-base font-bold text-white">0</span>
                   </div>
                   <div class="flex items-center justify-between bg-[#07301e] px-3.5 py-2 rounded-xl">
-                    <span class="text-emerald-100" data-bn="বর্তমানে চলমান প্রজেক্ট" data-en="Ongoing Projects">বর্তমানে চলমান প্রজেক্ট</span>
+                    <span class="text-emerald-100" data-bn="চলমান প্রজেক্ট" data-en="Ongoing Projects">চলমান প্রজেক্ট</span>
                     <span id="hero-stat-ong" class="text-base font-bold text-sky-300">0</span>
                   </div>
                   <div class="flex items-center justify-between bg-[#07301e] px-3.5 py-2 rounded-xl">
@@ -348,7 +348,7 @@
         </div>
       </div>
 
-      <!-- 1B. 5 Stitched Counter Boxes (Completed Productions, Ongoing, Pending, Ready to Publish, Upcoming) -->
+      <!-- 5 Stitched Counter Buttons (Completed Productions, Ongoing, Pending, Ready to Publish, Upcoming) -->
       <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3.5 sm:gap-4">
         <div onclick="openQuickStatusModal('Completed')" class="stitched-box cursor-pointer">
           <div class="solid-card p-4 flex items-center gap-3">
@@ -357,7 +357,7 @@
             </div>
             <div>
               <p class="text-xl sm:text-2xl font-bold" id="stat-completed">0</p>
-              <p class="text-[11px] font-bold text-slate-600 dark:text-slate-300" data-bn="চলতি মাসে সম্পন্ন প্রোডাকশন" data-en="Completed Productions">চলতি মাসে সম্পন্ন প্রোডাকশন</p>
+              <p class="text-[11px] font-bold text-slate-500 dark:text-slate-400" data-bn="চলতি মাসে সম্পন্ন প্রোডাকশন" data-en="Completed Productions">চলতি মাসে সম্পন্ন প্রোডাকশন</p>
             </div>
           </div>
         </div>
@@ -369,7 +369,7 @@
             </div>
             <div>
               <p class="text-xl sm:text-2xl font-bold" id="stat-ongoing">0</p>
-              <p class="text-[11px] font-bold text-slate-600 dark:text-slate-300" data-bn="বর্তমানে চলমান প্রজেক্ট" data-en="Ongoing Projects">বর্তমানে চলমান প্রজেক্ট</p>
+              <p class="text-[11px] font-bold text-slate-500 dark:text-slate-400" data-bn="বর্তমানে চলমান প্রজেক্ট" data-en="Ongoing Projects">বর্তমানে চলমান প্রজেক্ট</p>
             </div>
           </div>
         </div>
@@ -381,19 +381,19 @@
             </div>
             <div>
               <p class="text-xl sm:text-2xl font-bold" id="stat-pending">0</p>
-              <p class="text-[11px] font-bold text-slate-600 dark:text-slate-300" data-bn="পেন্ডিং (শুটিং শেষ / অ্যাসাইনড)" data-en="Pending Projects">পেন্ডিং (শুটিং শেষ / অ্যাসাইনড)</p>
+              <p class="text-[11px] font-bold text-slate-500 dark:text-slate-400" data-bn="পেন্ডিং প্রজেক্ট" data-en="Pending Projects">পেন্ডিং প্রজেক্ট</p>
             </div>
           </div>
         </div>
 
-        <div onclick="openQuickStatusModal('Ready')" class="stitched-box-teal cursor-pointer">
+        <div onclick="openQuickStatusModal('Ready')" class="stitched-box-rose cursor-pointer">
           <div class="solid-card p-4 flex items-center gap-3">
-            <div class="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-teal-600 text-white flex items-center justify-center shrink-0">
-              <i data-lucide="send" class="w-5 h-5"></i>
+            <div class="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-rose-600 text-white flex items-center justify-center shrink-0">
+              <i data-lucide="upload-cloud" class="w-5 h-5"></i>
             </div>
             <div>
               <p class="text-xl sm:text-2xl font-bold" id="stat-ready">0</p>
-              <p class="text-[11px] font-bold text-slate-600 dark:text-slate-300" data-bn="রেডি টু পাবলিশ" data-en="Ready to Publish">রেডি টু পাবলিশ</p>
+              <p class="text-[11px] font-bold text-slate-500 dark:text-slate-400" data-bn="রেডি টু পাবলিশ" data-en="Ready to Publish">রেডি টু পাবলিশ</p>
             </div>
           </div>
         </div>
@@ -405,13 +405,13 @@
             </div>
             <div>
               <p class="text-xl sm:text-2xl font-bold" id="stat-upcoming">0</p>
-              <p class="text-[11px] font-bold text-slate-600 dark:text-slate-300" data-bn="আপকামিং প্রোডাকশন" data-en="Upcoming Productions">আপকামিং প্রোডাকশন</p>
+              <p class="text-[11px] font-bold text-slate-500 dark:text-slate-400" data-bn="আপকামিং প্রোডাকশন" data-en="Upcoming Productions">আপকামিং প্রোডাকশন</p>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- 1C. Roadmap & Visual Column Comparison Chart -->
+      <!-- Roadmap & Visual Column Comparison Chart -->
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
         
         <div class="lg:col-span-7 stitched-box">
@@ -421,7 +421,7 @@
                 <i data-lucide="compass" class="w-5 h-5 text-asf-600"></i>
                 <span data-bn="মাসিক কাজের প্ল্যানিং ও চলমান ওভারভিউ" data-en="Monthly Planning & Active Overview">মাসিক কাজের প্ল্যানিং ও চলমান ওভারভিউ</span>
               </h3>
-              <button onclick="switchTab('pipeline')" class="text-xs font-bold text-asf-600 hover:underline" data-bn="প্রোডাকশন পাইপলাইন →" data-en="Pipeline →">প্রোডাকশন পাইপলাইন →</button>
+              <button type="button" onclick="switchTab('pipeline')" class="text-xs font-bold text-asf-600 hover:underline" data-bn="পাইপলাইন →" data-en="Pipeline →">পাইপলাইন →</button>
             </div>
 
             <div class="bg-emerald-50/70 dark:bg-slate-800/70 p-4 rounded-xl border border-emerald-200 dark:border-slate-700 space-y-2">
@@ -452,17 +452,17 @@
                 <p id="home-next3-plan-preview" class="text-xs text-slate-600 dark:text-slate-300 line-clamp-2"></p>
               </div>
 
-              <div onclick="openQuickStatusModal('Ready')" class="p-4 rounded-xl border border-slate-200 dark:border-slate-800 hover:border-teal-600 cursor-pointer transition">
+              <div onclick="openQuickStatusModal('Ongoing')" class="p-4 rounded-xl border border-slate-200 dark:border-slate-800 hover:border-blue-600 cursor-pointer transition">
                 <div class="flex items-center justify-between mb-1">
-                  <span class="text-xs font-bold text-teal-600" data-bn="রেডি টু পাবলিশ তালিকা" data-en="Ready to Publish">রেডি টু পাবলিশ তালিকা</span>
+                  <span class="text-xs font-bold text-blue-600" data-bn="বর্তমানে চলমান প্রজেক্ট" data-en="Ongoing Projects">বর্তমানে চলমান প্রজেক্ট</span>
                   <span class="text-[11px] font-bold text-slate-400" data-bn="তালিকা ↗" data-en="List ↗">তালিকা ↗</span>
                 </div>
                 <p id="home-ongoing-preview" class="text-xs text-slate-600 dark:text-slate-300 line-clamp-2"></p>
               </div>
 
-              <div onclick="openQuickStatusModal('Upcoming')" class="p-4 rounded-xl border border-slate-200 dark:border-slate-800 hover:border-purple-600 cursor-pointer transition">
+              <div onclick="openQuickStatusModal('Ready')" class="p-4 rounded-xl border border-slate-200 dark:border-slate-800 hover:border-rose-600 cursor-pointer transition">
                 <div class="flex items-center justify-between mb-1">
-                  <span class="text-xs font-bold text-purple-600" data-bn="আপকামিং শুটিং ও প্রোডাকশন" data-en="Upcoming Shoots">আপকামিং শুটিং ও প্রোডাকশন</span>
+                  <span class="text-xs font-bold text-rose-600" data-bn="রেডি টু পাবলিশ ও পেন্ডিং" data-en="Ready to Publish & Pending">রেডি টু পাবলিশ ও পেন্ডিং</span>
                   <span class="text-[11px] font-bold text-slate-400" data-bn="তালিকা ↗" data-en="List ↗">তালিকা ↗</span>
                 </div>
                 <p id="home-pending-preview" class="text-xs text-slate-600 dark:text-slate-300 line-clamp-2"></p>
@@ -492,27 +492,27 @@
 
       </div>
 
-      <!-- 1D. Featured & Popular Productions (Below Roadmap & Graph) -->
+      <!-- Featured & Popular Productions Below Roadmap -->
       <div class="space-y-4">
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <h3 class="text-lg sm:text-2xl font-bold flex items-center gap-2">
             <i data-lucide="play-circle" class="w-5 h-5 sm:w-6 sm:h-6 text-asf-600"></i>
             <span data-bn="ফিচারড ও পপুলার প্রোডাকশন" data-en="Featured & Popular Productions">ফিচারড ও পপুলার প্রোডাকশন</span>
           </h3>
-          <div class="flex flex-wrap items-center gap-2">
-            <button onclick="setHomeProdFilter('POPULAR')" id="hprod-btn-pop" class="px-3 py-1.5 rounded-lg text-xs font-bold btn-solid-green">
-              ★ <span data-bn="পপুলার প্রোডাকশন" data-en="Popular">পপুলার প্রোডাকশন</span>
+          <div class="flex items-center gap-2">
+            <button type="button" onclick="setHomeProdFilter('popular')" id="hprod-popular" class="px-3 py-1.5 rounded-lg text-xs font-bold btn-solid-green">
+              <span data-bn="★ পপুলার প্রোডাকশন" data-en="★ Popular">★ পপুলার প্রোডাকশন</span>
             </button>
-            <button onclick="setHomeProdFilter('CURRENT')" id="hprod-btn-cur" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-200">
+            <button type="button" onclick="setHomeProdFilter('current')" id="hprod-current" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300">
               <span data-bn="চলতি মাসের কাজ" data-en="This Month">চলতি মাসের কাজ</span>
             </button>
-            <button onclick="switchTab('portfolio')" class="text-xs sm:text-sm text-asf-600 dark:text-emerald-400 font-bold hover:underline ml-2" data-bn="সবগুলো দেখুন →" data-en="View All →">সবগুলো দেখুন →</button>
+            <button type="button" onclick="switchTab('portfolio')" class="text-xs sm:text-sm text-asf-600 dark:text-emerald-400 font-bold hover:underline ml-2" data-bn="সব দেখুন →" data-en="View All →">সব দেখুন →</button>
           </div>
         </div>
         <div id="home-portfolio-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"></div>
       </div>
 
-      <!-- 1E. Meeting Decisions (At the very bottom of Home) -->
+      <!-- Meeting Decisions at the Very Bottom of Home -->
       <div class="stitched-box">
         <div class="solid-card p-5 sm:p-6 space-y-4">
           <div class="border-b pb-3 dark:border-slate-800">
@@ -527,99 +527,97 @@
 
     </section>
 
-    <!-- ================= 2. DEDICATED PRODUCTION PIPELINE TAB ================= -->
-    <section id="tab-pipeline" class="hidden space-y-7">
+    <!-- ================= 2. PRODUCTION PIPELINE TAB (SEPARATE TAB) ================= -->
+    <section id="tab-pipeline" class="hidden space-y-6">
       
       <div class="stitched-box">
         <div class="solid-card p-5 sm:p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
-            <h2 class="text-xl sm:text-2xl font-bold flex items-center gap-2 text-asf-600 dark:text-emerald-400">
+            <h2 class="text-xl sm:text-2xl font-bold flex items-center gap-2 text-asf-600">
               <i data-lucide="clapperboard" class="w-6 h-6"></i>
-              <span data-bn="প্রোডাকশন পাইপলাইন ও শুটিং শিডিউল" data-en="Production Pipeline & Shooting Schedule">প্রোডাকশন পাইপলাইন ও শুটিং শিডিউল</span>
+              <span data-bn="প্রোডাকশন পাইপলাইন (শুটিং থেকে পাবলিশ)" data-en="Production Pipeline (Shooting to Publish)">প্রোডাকশন পাইপলাইন (শুটিং থেকে পাবলিশ)</span>
             </h2>
           </div>
-          <div class="flex flex-wrap gap-2">
-            <button onclick="openQuickStatusModal('Upcoming')" class="px-3 py-1.5 rounded-lg bg-purple-100 text-purple-800 text-xs font-bold" data-bn="আপকামিং শুটিং" data-en="Upcoming Shoots">আপকামিং শুটিং</button>
-            <button onclick="openQuickStatusModal('Ready')" class="px-3 py-1.5 rounded-lg bg-teal-100 text-teal-800 text-xs font-bold" data-bn="রেডি টু পাবলিশ তালিকা" data-en="Ready to Publish">রেডি টু পাবলিশ তালিকা</button>
+          <div class="flex flex-wrap gap-2 text-xs font-bold">
+            <span class="px-3 py-1.5 rounded-lg bg-purple-100 text-purple-800" id="pipe-count-upcoming">আপকামিং শুটিং: 0</span>
+            <span class="px-3 py-1.5 rounded-lg bg-amber-100 text-amber-800" id="pipe-count-pending">পেন্ডিং (শুটিং শেষ): 0</span>
+            <span class="px-3 py-1.5 rounded-lg bg-blue-100 text-blue-800" id="pipe-count-editing">এডিটিং চলমান: 0</span>
+            <span class="px-3 py-1.5 rounded-lg bg-rose-100 text-rose-800" id="pipe-count-ready">রেডি টু পাবলিশ: 0</span>
           </div>
         </div>
       </div>
 
-      <!-- Admin / Director Form: Schedule Shooting & Assign Crew -->
-      <div id="pipeline-creator-box" class="hidden stitched-box">
+      <!-- Admin & Director Form: Schedule Shooting & Assign Shooting Crew -->
+      <div id="pipeline-create-box" class="hidden stitched-box">
         <div class="solid-card p-5 sm:p-6 space-y-4">
           <h3 class="font-bold text-base text-asf-600 border-b pb-2.5 dark:border-slate-800 flex items-center gap-2">
-            <i data-lucide="calendar-plus" class="w-5 h-5"></i>
-            <span data-bn="নতুন শুটিং ও প্রোডাকশন অ্যাসাইন করুন (আপকামিংয়ে যুক্ত হবে ও মেম্বারদের প্রোফাইলে যাবে)" data-en="Schedule New Shooting & Production">নতুন শুটিং ও প্রোডাকশন অ্যাসাইন করুন (আপকামিংয়ে যুক্ত হবে ও মেম্বারদের প্রোফাইলে যাবে)</span>
+            <i data-lucide="video" class="w-5 h-5"></i>
+            <span data-bn="আগামী শুটিং শিডিউল ও টিম অ্যাসাইন করুন (আপকামিং প্রোডাকশন)" data-en="Schedule Upcoming Shooting & Assign Crew">আগামী শুটিং শিডিউল ও টিম অ্যাসাইন করুন (আপকামিং প্রোডাকশন)</span>
           </h3>
-          <form onsubmit="createPipelineProject(event)" class="space-y-4 text-xs sm:text-sm">
+          <form onsubmit="createPipelineProduction(event)" class="space-y-4 text-xs sm:text-sm">
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
               <div class="sm:col-span-2">
-                <label class="block text-xs font-bold mb-1" data-bn="প্রোডাকশন টপিক / শিরোনাম *" data-en="Production Topic / Title *">প্রোডাকশন টপিক / শিরোনাম *</label>
-                <input type="text" id="pipe-title" required class="w-full px-3.5 py-2 rounded-lg border dark:border-slate-700 dark:bg-slate-800">
+                <label class="block text-xs font-bold mb-1" data-bn="প্রোডাকশনের শিরোনাম / শুটিং টপিক *" data-en="Production Topic / Title *">প্রোডাকশনের শিরোনাম / শুটিং টপিক *</label>
+                <input type="text" id="pipe-title" required class="w-full px-3.5 py-2 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800">
               </div>
               <div>
                 <label class="block text-xs font-bold mb-1" data-bn="প্রোডাকশনের ধরন *" data-en="Production Type *">প্রোডাকশনের ধরন *</label>
-                <select id="pipe-type" required class="w-full px-3 py-2 rounded-lg border dark:border-slate-700 dark:bg-slate-800 font-bold"></select>
+                <select id="pipe-type" required class="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 font-bold"></select>
               </div>
             </div>
 
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label class="block text-xs font-bold mb-1" data-bn="শুটিংয়ের তারিখ *" data-en="Shooting Date *">শুটিংয়ের তারিখ *</label>
-                <input type="date" id="pipe-shoot-date" required class="w-full px-3 py-2 rounded-lg border dark:border-slate-700 dark:bg-slate-800 font-bold">
+                <input type="date" id="pipe-shoot-date" required class="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 font-bold">
               </div>
               <div>
                 <label class="block text-xs font-bold mb-1" data-bn="শুটিং শুরুর সময় *" data-en="Shooting Time *">শুটিং শুরুর সময় *</label>
-                <input type="time" id="pipe-shoot-time" required class="w-full px-3 py-2 rounded-lg border dark:border-slate-700 dark:bg-slate-800 font-bold">
-              </div>
-              <div>
-                <label class="block text-xs font-bold mb-1" data-bn="লোকেশন / নোট (ঐচ্ছিক)" data-en="Location / Note">লোকেশন / নোট (ঐচ্ছিক)</label>
-                <input type="text" id="pipe-note" class="w-full px-3 py-2 rounded-lg border dark:border-slate-700 dark:bg-slate-800">
+                <input type="time" id="pipe-shoot-time" required class="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 font-bold">
               </div>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
               <div>
-                <label class="block text-xs font-bold mb-1 text-asf-600" data-bn="শুটিংয়ে কে কে থাকবেন? (টিক দিন — তাদের প্রোফাইলে কাজ চলে যাবে) *" data-en="Select Shooting Crew (Will appear on their profiles) *">শুটিংয়ে কে কে থাকবেন? (টিক দিন — তাদের প্রোফাইলে কাজ চলে যাবে) *</label>
-                <div id="pipe-crew-checkboxes" class="max-h-36 overflow-y-auto border dark:border-slate-700 rounded-xl p-2.5 grid grid-cols-1 sm:grid-cols-2 gap-1.5 bg-slate-50 dark:bg-slate-800/50"></div>
+                <label class="block text-xs font-bold mb-1 text-asf-600" data-bn="শুটিংয়ে কে কে থাকবেন? (টিক দিন — তাদের প্রোফাইলে কাজ চলে যাবে) *" data-en="Select Shooting Crew (Will auto-assign to their profile) *">শুটিংয়ে কে কে থাকবেন? (টিক দিন — তাদের প্রোফাইলে কাজ চলে যাবে) *</label>
+                <div id="pipe-crew-checkboxes" class="max-h-36 overflow-y-auto border border-slate-300 dark:border-slate-700 rounded-lg p-2.5 grid grid-cols-1 sm:grid-cols-2 gap-1.5 bg-slate-50 dark:bg-slate-800/50 text-xs"></div>
               </div>
               <div>
-                <label class="block text-xs font-bold mb-1 text-asf-600" data-bn="প্ল্যাটফর্ম বা চ্যানেলসমূহ (একাধিক সিলেক্ট করা যাবে) *" data-en="Target Platforms (Multi-Select) *">প্ল্যাটফর্ম বা চ্যানেলসমূহ (একাধিক সিলেক্ট করা যাবে) *</label>
-                <div id="pipe-platform-checkboxes" class="max-h-36 overflow-y-auto border dark:border-slate-700 rounded-xl p-2.5 grid grid-cols-1 sm:grid-cols-2 gap-1.5 bg-slate-50 dark:bg-slate-800/50"></div>
+                <label class="block text-xs font-bold mb-1 text-asf-600" data-bn="প্ল্যাটফর্ম বা চ্যানেলসমূহ (মাল্টিপল সিলেক্ট করা যাবে) *" data-en="Select Platforms (Multiple allowed) *">প্ল্যাটফর্ম বা চ্যানেলসমূহ (মাল্টিপল সিলেক্ট করা যাবে) *</label>
+                <div id="pipe-platform-checkboxes" class="max-h-36 overflow-y-auto border border-slate-300 dark:border-slate-700 rounded-lg p-2.5 grid grid-cols-1 sm:grid-cols-2 gap-1.5 bg-slate-50 dark:bg-slate-800/50 text-xs"></div>
               </div>
             </div>
 
-            <button type="submit" class="btn-solid-green w-full py-3 font-bold flex items-center justify-center gap-2">
-              <i data-lucide="rocket" class="w-4 h-4"></i>
+            <button type="submit" class="btn-solid-green w-full py-2.5 font-bold flex items-center justify-center gap-2">
+              <i data-lucide="calendar-plus" class="w-4 h-4"></i>
               <span data-bn="শুটিং অ্যাসাইন করুন ও আপকামিংয়ে পাঠান" data-en="Assign Shooting & Add to Upcoming">শুটিং অ্যাসাইন করুন ও আপকামিংয়ে পাঠান</span>
             </button>
           </form>
         </div>
       </div>
 
-      <!-- 5-Stage Interactive Pipeline Board -->
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
+      <!-- 5-Stage Pipeline Columns -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
         
-        <!-- Stage 1: Upcoming / Shooting Assigned -->
+        <!-- Stage 1: Upcoming Shooting -->
         <div class="stitched-box-purple">
           <div class="solid-card p-4 space-y-3 h-full">
             <div class="flex items-center justify-between border-b pb-2 dark:border-slate-800">
-              <h4 class="font-bold text-xs sm:text-sm text-purple-700 dark:text-purple-400" data-bn="১. আপকামিং শুটিং" data-en="1. Upcoming Shoot">১. আপকামিং শুটিং</h4>
-              <span id="pcount-upcoming" class="px-2 py-0.5 rounded bg-purple-100 text-purple-800 text-xs font-bold">0</span>
+              <h4 class="font-bold text-sm text-purple-700 dark:text-purple-400" data-bn="১. আপকামিং শুটিং" data-en="1. Upcoming Shooting">১. আপকামিং শুটিং</h4>
+              <span id="stage1-badge" class="px-2 py-0.5 rounded bg-purple-100 text-purple-800 text-xs font-bold">0</span>
             </div>
-            <div id="pstage-upcoming" class="space-y-3 max-h-[520px] overflow-y-auto pr-1"></div>
+            <div id="pipeline-stage-upcoming" class="space-y-3 max-h-96 overflow-y-auto pr-1"></div>
           </div>
         </div>
 
-        <!-- Stage 2: Shooting Done (Pending Editing) -->
+        <!-- Stage 2: Shooting Done -> Pending Editor Assignment -->
         <div class="stitched-box-amber">
           <div class="solid-card p-4 space-y-3 h-full">
             <div class="flex items-center justify-between border-b pb-2 dark:border-slate-800">
-              <h4 class="font-bold text-xs sm:text-sm text-amber-700 dark:text-amber-400" data-bn="২. শুটিং শেষ (পেন্ডিং)" data-en="2. Shoot Done (Pending)">২. শুটিং শেষ (পেন্ডিং)</h4>
-              <span id="pcount-pending" class="px-2 py-0.5 rounded bg-amber-100 text-amber-800 text-xs font-bold">0</span>
+              <h4 class="font-bold text-sm text-amber-700 dark:text-amber-400" data-bn="২. শুটিং সম্পন্ন (এডিটিং পেন্ডিং)" data-en="2. Shooting Done (Pending Edit)">২. শুটিং সম্পন্ন (এডিটিং পেন্ডিং)</h4>
+              <span id="stage2-badge" class="px-2 py-0.5 rounded bg-amber-100 text-amber-800 text-xs font-bold">0</span>
             </div>
-            <div id="pstage-pending" class="space-y-3 max-h-[520px] overflow-y-auto pr-1"></div>
+            <div id="pipeline-stage-pending" class="space-y-3 max-h-96 overflow-y-auto pr-1"></div>
           </div>
         </div>
 
@@ -627,32 +625,32 @@
         <div class="stitched-box-blue">
           <div class="solid-card p-4 space-y-3 h-full">
             <div class="flex items-center justify-between border-b pb-2 dark:border-slate-800">
-              <h4 class="font-bold text-xs sm:text-sm text-blue-700 dark:text-blue-400" data-bn="৩. এডিটিং (চলমান)" data-en="3. Editing (Ongoing)">৩. এডিটিং (চলমান)</h4>
-              <span id="pcount-editing" class="px-2 py-0.5 rounded bg-blue-100 text-blue-800 text-xs font-bold">0</span>
+              <h4 class="font-bold text-sm text-blue-700 dark:text-blue-400" data-bn="৩. এডিটিং চলমান (Ongoing)" data-en="3. Editing (Ongoing)">৩. এডিটিং চলমান (Ongoing)</h4>
+              <span id="stage3-badge" class="px-2 py-0.5 rounded bg-blue-100 text-blue-800 text-xs font-bold">0</span>
             </div>
-            <div id="pstage-editing" class="space-y-3 max-h-[520px] overflow-y-auto pr-1"></div>
+            <div id="pipeline-stage-editing" class="space-y-3 max-h-96 overflow-y-auto pr-1"></div>
           </div>
         </div>
 
         <!-- Stage 4: Ready to Publish -->
-        <div class="stitched-box-teal">
+        <div class="stitched-box-rose">
           <div class="solid-card p-4 space-y-3 h-full">
             <div class="flex items-center justify-between border-b pb-2 dark:border-slate-800">
-              <h4 class="font-bold text-xs sm:text-sm text-teal-700 dark:text-teal-400" data-bn="৪. রেডি টু পাবলিশ" data-en="4. Ready to Publish">৪. রেডি টু পাবলিশ</h4>
-              <span id="pcount-ready" class="px-2 py-0.5 rounded bg-teal-100 text-teal-800 text-xs font-bold">0</span>
+              <h4 class="font-bold text-sm text-rose-700 dark:text-rose-400" data-bn="৪. রেডি টু পাবলিশ" data-en="4. Ready to Publish">৪. রেডি টু পাবলিশ</h4>
+              <span id="stage4-badge" class="px-2 py-0.5 rounded bg-rose-100 text-rose-800 text-xs font-bold">0</span>
             </div>
-            <div id="pstage-ready" class="space-y-3 max-h-[520px] overflow-y-auto pr-1"></div>
+            <div id="pipeline-stage-ready" class="space-y-3 max-h-96 overflow-y-auto pr-1"></div>
           </div>
         </div>
 
         <!-- Stage 5: Published & Rated -->
-        <div class="stitched-box">
+        <div class="stitched-box md:col-span-2 lg:col-span-2">
           <div class="solid-card p-4 space-y-3 h-full">
             <div class="flex items-center justify-between border-b pb-2 dark:border-slate-800">
-              <h4 class="font-bold text-xs sm:text-sm text-asf-600 dark:text-emerald-400" data-bn="৫. পাবলিশড ও রেটিং" data-en="5. Published & Rated">৫. পাবলিশড ও রেটিং</h4>
-              <span id="pcount-published" class="px-2 py-0.5 rounded bg-emerald-100 text-asf-700 text-xs font-bold">0</span>
+              <h4 class="font-bold text-sm text-asf-600" data-bn="৫. পাবলিশড প্রোডাকশন ও রেটিং" data-en="5. Published & Rated Productions">৫. পাবলিশড প্রোডাকশন ও রেটিং</h4>
+              <span id="stage5-badge" class="px-2 py-0.5 rounded bg-emerald-100 text-asf-700 text-xs font-bold">0</span>
             </div>
-            <div id="pstage-published" class="space-y-3 max-h-[520px] overflow-y-auto pr-1"></div>
+            <div id="pipeline-stage-published" class="grid grid-cols-1 sm:grid-cols-2 gap-3 max-h-96 overflow-y-auto pr-1"></div>
           </div>
         </div>
 
@@ -660,7 +658,7 @@
 
     </section>
 
-    <!-- ================= 3. MONTHLY DASHBOARD SECTION (NO DUPLICATE MEMBER BOX) ================= -->
+    <!-- ================= 3. MONTHLY DASHBOARD SECTION (NO DUPLICATE MEMBER SUMMARY) ================= -->
     <section id="tab-dashboard" class="hidden space-y-6">
       
       <div class="stitched-box">
@@ -676,10 +674,10 @@
               <option value="ALL" data-bn="সকল অবস্থা" data-en="All Status">সকল অবস্থা</option>
               <option value="Completed" data-bn="সম্পন্ন" data-en="Completed">সম্পন্ন</option>
               <option value="Ongoing" data-bn="চলমান" data-en="Ongoing">চলমান</option>
-              <option value="In Review" data-bn="রেডি / রিভিউতে" data-en="Ready / In Review">রেডি / রিভিউতে</option>
+              <option value="Ready" data-bn="রেডি টু পাবলিশ" data-en="Ready to Publish">রেডি টু পাবলিশ</option>
               <option value="Pending" data-bn="পেন্ডিং" data-en="Pending">পেন্ডিং</option>
             </select>
-            <button onclick="exportTasksToCSV()" class="btn-solid-green px-3.5 py-2 text-xs font-bold flex items-center gap-1.5">
+            <button type="button" onclick="exportTasksToCSV()" class="btn-solid-green px-3.5 py-2 text-xs font-bold flex items-center gap-1.5">
               <i data-lucide="download" class="w-4 h-4"></i>
               <span data-bn="এক্সেল ডাউনলোড" data-en="Export Excel">এক্সেল ডাউনলোড</span>
             </button>
@@ -687,7 +685,7 @@
         </div>
       </div>
 
-      <!-- Visual Summary & Checklist -->
+      <!-- Visual Graphical Summary & Monthly Checklist -->
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
         <div class="lg:col-span-5 stitched-box">
           <div class="solid-card p-5 sm:p-6 h-full flex flex-col justify-between space-y-5">
@@ -707,15 +705,15 @@
         </div>
       </div>
 
-      <!-- Category Summary Only (No Duplicate Member Box Here) -->
+      <!-- Clean Category Summary Only (Member Summary Removed to Avoid Duplication) -->
       <div class="stitched-box">
         <div class="solid-card p-5 sm:p-6 space-y-3.5">
           <h3 class="font-bold text-base border-b pb-2.5 dark:border-slate-800" data-bn="কাজের ধরন অনুযায়ী হিসাব" data-en="Category Summary">কাজের ধরন অনুযায়ী হিসাব</h3>
-          <div id="dashboard-category-list" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3"></div>
+          <div id="dashboard-category-list" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5"></div>
         </div>
       </div>
 
-      <!-- Detailed Table -->
+      <!-- Detailed Monthly Table -->
       <div class="stitched-box">
         <div class="solid-card overflow-hidden">
           <div class="p-5 border-b border-slate-200 dark:border-slate-800 flex justify-between items-center">
@@ -728,7 +726,7 @@
                   <th class="p-3.5 font-bold" data-bn="তারিখ" data-en="Date">তারিখ</th>
                   <th class="p-3.5 font-bold" data-bn="টিম মেম্বার" data-en="Member">টিম মেম্বার</th>
                   <th class="p-3.5 font-bold" data-bn="কাজের শিরোনাম ও ধরন" data-en="Title & Category">কাজের শিরোনাম ও ধরন</th>
-                  <th class="p-3.5 font-bold" data-bn="প্ল্যাটফর্মসমূহ" data-en="Platforms">প্ল্যাটফর্মসমূহ</th>
+                  <th class="p-3.5 font-bold" data-bn="প্ল্যাটফর্ম" data-en="Platform">প্ল্যাটফর্ম</th>
                   <th class="p-3.5 font-bold" data-bn="অবস্থা" data-en="Status">অবস্থা</th>
                   <th class="p-3.5 font-bold" data-bn="রেটিং" data-en="Rating">রেটিং</th>
                   <th class="p-3.5 font-bold" data-bn="লিংক" data-en="Links">লিংক</th>
@@ -755,19 +753,19 @@
       <div id="full-team-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"></div>
     </section>
 
-    <!-- ================= 5. OUR WORKS (আমাদের কাজ) SECTION ================= -->
+    <!-- ================= 5. PRODUCTIONS (আমাদের কাজ) SECTION ================= -->
     <section id="tab-portfolio" class="hidden space-y-6">
       <div class="stitched-box">
         <div class="solid-card p-5 sm:p-6 space-y-4">
           <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             <h2 class="text-xl sm:text-2xl font-bold flex items-center gap-2">
               <i data-lucide="film" class="w-6 h-6 text-asf-600"></i>
-              <span data-bn="আমাদের কাজ ও প্রোডাকশনসমূহ" data-en="Our Works & Productions">আমাদের কাজ ও প্রোডাকশনসমূহ</span>
+              <span data-bn="আমাদের প্রোডাকশনসমূহ" data-en="Our Productions">আমাদের প্রোডাকশনসমূহ</span>
             </h2>
             <div class="flex flex-wrap gap-2">
-              <button onclick="setPortfolioMainTab('ALL')" id="pmain-all" class="px-3.5 py-1.5 rounded-lg text-xs font-bold btn-solid-green" data-bn="সকল প্রোডাকশন" data-en="All Works">সকল প্রোডাকশন</button>
-              <button onclick="setPortfolioMainTab('CURRENT')" id="pmain-cur" class="px-3.5 py-1.5 rounded-lg text-xs font-bold bg-slate-100 dark:bg-slate-800" data-bn="চলতি মাসের প্রোডাকশন" data-en="Current Month">চলতি মাসের প্রোডাকশন</button>
-              <button onclick="setPortfolioMainTab('POPULAR')" id="pmain-pop" class="px-3.5 py-1.5 rounded-lg text-xs font-bold bg-slate-100 dark:bg-slate-800">★ <span data-bn="পপুলার প্রোডাকশন" data-en="Popular">পপুলার প্রোডাকশন</span></button>
+              <button type="button" onclick="setPortfolioViewMode('ALL')" id="pmod-all" class="px-3.5 py-1.5 rounded-lg text-xs font-bold btn-solid-green" data-bn="সব প্রোডাকশন" data-en="All">সব প্রোডাকশন</button>
+              <button type="button" onclick="setPortfolioViewMode('CURRENT_MONTH')" id="pmod-month" class="px-3.5 py-1.5 rounded-lg text-xs font-bold bg-slate-100 dark:bg-slate-800" data-bn="চলতি মাসের প্রোডাকশন" data-en="This Month">চলতি মাসের প্রোডাকশন</button>
+              <button type="button" onclick="setPortfolioViewMode('POPULAR')" id="pmod-pop" class="px-3.5 py-1.5 rounded-lg text-xs font-bold bg-slate-100 dark:bg-slate-800" data-bn="★ পপুলার প্রোডাকশন" data-en="★ Popular">★ পপুলার প্রোডাকশন</button>
             </div>
           </div>
           <div id="portfolio-category-pills" class="flex flex-wrap gap-2 pt-2 border-t dark:border-slate-800"></div>
@@ -776,7 +774,7 @@
       <div id="full-portfolio-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"></div>
     </section>
 
-    <!-- ================= 6. LOG WORK (কাজ লিখুন) — WITH MULTI-PLATFORM SELECTION ================= -->
+    <!-- ================= 6. LOG WORK (কাজ লিখুন) — MULTI-PLATFORM SUPPORT ================= -->
     <section id="tab-workspace" class="hidden space-y-7">
       
       <div class="stitched-box">
@@ -793,15 +791,15 @@
             </div>
           </div>
           <div class="flex flex-wrap gap-2">
-            <button onclick="openEditProfileModal()" class="px-3.5 py-2 rounded-lg border border-slate-300 dark:border-slate-700 text-xs font-bold hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center gap-1.5">
+            <button type="button" onclick="openEditProfileModal()" class="px-3.5 py-2 rounded-lg border border-slate-300 dark:border-slate-700 text-xs font-bold hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center gap-1.5">
               <i data-lucide="user-cog" class="w-4 h-4"></i>
               <span data-bn="প্রোফাইল এডিট" data-en="Edit Profile">প্রোফাইল এডিট</span>
             </button>
-            <button onclick="openAddPortfolioItemModal()" class="px-3.5 py-2 rounded-lg bg-amber-500 text-slate-950 text-xs font-bold hover:bg-amber-400 flex items-center gap-1.5">
+            <button type="button" onclick="openAddPortfolioItemModal()" class="px-3.5 py-2 rounded-lg bg-amber-500 text-slate-950 text-xs font-bold hover:bg-amber-400 flex items-center gap-1.5">
               <i data-lucide="plus-circle" class="w-4 h-4"></i>
               <span data-bn="পোর্টফোলিও যুক্ত করুন" data-en="Add to Portfolio">পোর্টফোলিও যুক্ত করুন</span>
             </button>
-            <button onclick="openMemberModal(currentUserProfile.uid)" class="btn-solid-green px-4 py-2 text-xs font-bold flex items-center gap-1.5">
+            <button type="button" onclick="openMemberModal(currentUserProfile.uid)" class="btn-solid-green px-4 py-2 text-xs font-bold flex items-center gap-1.5">
               <i data-lucide="layout-grid" class="w-4 h-4"></i>
               <span data-bn="আমার পোর্টফোলিও দেখুন" data-en="My Portfolio">আমার পোর্টফোলিও দেখুন</span>
             </button>
@@ -814,7 +812,7 @@
           <div class="flex items-center justify-between">
             <h3 class="font-bold text-sm sm:text-base text-amber-800 dark:text-amber-300 flex items-center gap-2">
               <i data-lucide="bell-ring" class="w-5 h-5 text-amber-600"></i>
-              <span data-bn="আপনার জন্য নির্ধারিত পেন্ডিং কাজ ও শুটিং" data-en="Your Assigned Pending Tasks & Shoots">আপনার জন্য নির্ধারিত পেন্ডিং কাজ ও শুটিং</span>
+              <span data-bn="আপনার জন্য নির্ধারিত কাজ" data-en="Your Assigned Tasks">আপনার জন্য নির্ধারিত কাজ</span>
             </h3>
           </div>
           <div id="my-assigned-tasks-list" class="grid grid-cols-1 md:grid-cols-2 gap-3"></div>
@@ -845,8 +843,8 @@
                 <input type="text" id="assign-title" required class="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800">
               </div>
               <div>
-                <label class="block text-xs font-bold mb-1" data-bn="প্ল্যাটফর্ম / চ্যানেল (একাধিক সিলেক্ট করা যাবে)" data-en="Platforms (Multi-Select)">প্ল্যাটফর্ম / চ্যানেল (একাধিক সিলেক্ট করা যাবে)</label>
-                <div id="assign-platform-checkboxes" class="max-h-28 overflow-y-auto border border-slate-300 dark:border-slate-700 rounded-lg p-2 grid grid-cols-1 sm:grid-cols-2 gap-1 bg-slate-50 dark:bg-slate-800/50 text-xs"></div>
+                <label class="block text-xs font-bold mb-1" data-bn="প্ল্যাটফর্মসমূহ (একাধিক সিলেক্ট করা যাবে)" data-en="Platforms (Multiple allowed)">প্ল্যাটফর্মসমূহ (একাধিক সিলেক্ট করা যাবে)</label>
+                <div id="assign-platform-checkboxes" class="max-h-28 overflow-y-auto border border-slate-300 dark:border-slate-700 rounded-lg p-2 grid grid-cols-1 sm:grid-cols-2 gap-1 bg-slate-50 dark:bg-slate-800 text-xs"></div>
               </div>
               <div>
                 <label class="block text-xs font-bold mb-1" data-bn="ডেডলাইন তারিখ" data-en="Deadline">ডেডলাইন তারিখ</label>
@@ -872,7 +870,7 @@
 
       </div>
 
-      <!-- Daily Work Entry Form with Multi-Platform Selection -->
+      <!-- Daily Work Entry Form with Multi-Platform Checkboxes -->
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
         
         <div class="lg:col-span-7 stitched-box">
@@ -895,8 +893,8 @@
               </div>
 
               <div>
-                <label class="block text-xs font-bold mb-1" data-bn="প্ল্যাটফর্ম বা চ্যানেলসমূহ (এক বা একাধিক টিক দিন) *" data-en="Select Platform(s) (Multi-Select) *">প্ল্যাটফর্ম বা চ্যানেলসমূহ (এক বা একাধিক টিক দিন) *</label>
-                <div id="task-platform-checkboxes" class="max-h-36 overflow-y-auto border border-slate-300 dark:border-slate-700 rounded-xl p-2.5 grid grid-cols-1 sm:grid-cols-2 gap-1.5 bg-slate-50 dark:bg-slate-800/60 text-xs"></div>
+                <label class="block text-xs font-bold mb-1 text-asf-600" data-bn="প্ল্যাটফর্ম বা চ্যানেলসমূহ (একাধিক সিলেক্ট করা যাবে) *" data-en="Platforms / Channels (Select one or multiple) *">প্ল্যাটফর্ম বা চ্যানেলসমূহ (একাধিক সিলেক্ট করা যাবে) *</label>
+                <div id="task-platform-checkboxes" class="max-h-36 overflow-y-auto border border-slate-300 dark:border-slate-700 rounded-lg p-2.5 grid grid-cols-1 sm:grid-cols-2 gap-1.5 bg-slate-50 dark:bg-slate-800/60 text-xs"></div>
               </div>
 
               <div>
@@ -910,7 +908,7 @@
                   <select id="task-status" required class="w-full px-3 py-2.5 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm font-bold">
                     <option value="Completed" data-bn="সম্পন্ন" data-en="Completed">সম্পন্ন</option>
                     <option value="Ongoing" data-bn="চলমান" data-en="Ongoing">চলমান</option>
-                    <option value="In Review" data-bn="রেডি টু পাবলিশ / রিভিউতে" data-en="Ready to Publish">রেডি টু পাবলিশ / রিভিউতে</option>
+                    <option value="Ready" data-bn="রেডি টু পাবলিশ" data-en="Ready to Publish">রেডি টু পাবলিশ</option>
                   </select>
                 </div>
 
@@ -975,13 +973,17 @@
             </h2>
           </div>
           <div class="flex flex-wrap gap-2">
-            <button onclick="exportTasksToCSV()" class="bg-white text-asf-700 px-3.5 py-2 rounded-lg text-xs font-bold flex items-center gap-1.5">
+            <button type="button" onclick="exportTasksToCSV()" class="bg-white text-asf-700 px-3.5 py-2 rounded-lg text-xs font-bold flex items-center gap-1.5">
               <i data-lucide="file-spreadsheet" class="w-4 h-4"></i>
               <span data-bn="এক্সেল ব্যাকআপ" data-en="Excel Backup">এক্সেল ব্যাকআপ</span>
             </button>
-            <button onclick="downloadFullJSONBackup()" class="bg-emerald-800 text-white border border-emerald-600 px-3.5 py-2 rounded-lg text-xs font-bold flex items-center gap-1.5">
+            <button type="button" onclick="downloadFullJSONBackup()" class="bg-emerald-800 text-white border border-emerald-600 px-3.5 py-2 rounded-lg text-xs font-bold flex items-center gap-1.5">
               <i data-lucide="database" class="w-4 h-4"></i>
               <span data-bn="ডাটাবেস ব্যাকআপ" data-en="Full Backup">ডাটাবেস ব্যাকআপ</span>
+            </button>
+            <button type="button" onclick="clearAllTestTasks()" id="btn-clear-test-data" class="bg-red-600 hover:bg-red-700 text-white px-3.5 py-2 rounded-lg text-xs font-bold flex items-center gap-1.5">
+              <i data-lucide="trash-2" class="w-4 h-4"></i>
+              <span data-bn="সব টেস্ট কাজ মুছুন" data-en="Clear All Test Tasks">সব টেস্ট কাজ মুছুন</span>
             </button>
           </div>
         </div>
@@ -1030,5 +1032,386 @@
                 </div>
               </div>
               <div>
-                <label class="block text-xs font-bold mb-1" data-bn="আলোচ্য বিষয় (Agenda) *" data-en="Agenda *">আল
+                <label class="block text-xs font-bold mb-1" data-bn="আলোচ্য বিষয় (Agenda) *" data-en="Agenda *">আলোচ্য বিষয় (Agenda) *</label>
+                <textarea id="meet-agenda" rows="2" required class="w-full px-3 py-2 rounded-lg border dark:border-slate-700 dark:bg-slate-800"></textarea>
+              </div>
+              <div>
+                <label class="block text-xs font-bold mb-1" data-bn="গৃহীত সিদ্ধান্তসমূহ (Decisions) *" data-en="Decisions *">গৃহীত সিদ্ধান্তসমূহ (Decisions) *</label>
+                <textarea id="meet-decisions" rows="2" required class="w-full px-3 py-2 rounded-lg border dark:border-slate-700 dark:bg-slate-800"></textarea>
+              </div>
+              <button type="submit" class="btn-solid-green w-full py-2.5 font-bold" data-bn="মিটিং সিদ্ধান্ত প্রকাশ করুন" data-en="Publish Meeting Record">মিটিং সিদ্ধান্ত প্রকাশ করুন</button>
+            </form>
+            <div id="admin-meetings-list" class="space-y-2 max-h-36 overflow-y-auto pt-2 border-t dark:border-slate-800"></div>
+          </div>
+        </div>
+      </div>
+
+      <div id="superadmin-only-cms" class="space-y-6">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+          
+          <div class="lg:col-span-7 stitched-box">
+            <div class="solid-card p-5 sm:p-6 space-y-4">
+              <div class="flex items-center justify-between border-b pb-2.5 dark:border-slate-800">
+                <h3 class="font-bold text-base text-asf-600" data-bn="টিম মেম্বার সিরিয়াল (▲ ▼), অনুমোদন ও পদবী নিয়ন্ত্রণ" data-en="Team Member Order (▲ ▼), Approval & Roles">টিম মেম্বার সিরিয়াল (▲ ▼), অনুমোদন ও পদবী নিয়ন্ত্রণ</h3>
+              </div>
+              <div id="admin-members-list" class="space-y-2.5 max-h-[560px] overflow-y-auto pr-1"></div>
+            </div>
+          </div>
+
+          <div class="lg:col-span-5 stitched-box">
+            <div class="solid-card p-5 sm:p-6 space-y-4">
+              <h3 class="font-bold text-base border-b pb-2.5 dark:border-slate-800 text-asf-600" data-bn="হিরো ব্যানার, ঠিকানা ও কন্ট্রিবিউটর ক্রেডিট" data-en="Hero Banner, Address & Contributor">হিরো ব্যানার, ঠিকানা ও কন্ট্রিবিউটর ক্রেডিট</h3>
+              <form onsubmit="saveSiteSettings(event)" class="space-y-2.5 text-xs sm:text-sm">
+                <div class="grid grid-cols-2 gap-2">
+                  <div>
+                    <label class="block text-xs font-bold mb-1" data-bn="সাইটের নাম" data-en="Site Title">সাইটের নাম</label>
+                    <input type="text" id="set-title" required class="w-full px-3 py-1.5 rounded-lg border dark:border-slate-700 dark:bg-slate-800">
+                  </div>
+                  <div>
+                    <label class="block text-xs font-bold mb-1" data-bn="সাব-টাইটেল" data-en="Subtitle">সাব-টাইটেল</label>
+                    <input type="text" id="set-subtitle" class="w-full px-3 py-1.5 rounded-lg border dark:border-slate-700 dark:bg-slate-800">
+                  </div>
+                </div>
+                <div class="grid grid-cols-2 gap-2">
+                  <div>
+                    <label class="block text-xs font-bold mb-1" data-bn="হিরো ১ম লাইন (বাংলা)" data-en="Hero Line 1 (BN)">হিরো ১ম লাইন (বাংলা)</label>
+                    <input type="text" id="set-hero-line1" class="w-full px-3 py-1.5 rounded-lg border dark:border-slate-700 dark:bg-slate-800">
+                  </div>
+                  <div>
+                    <label class="block text-xs font-bold mb-1" data-bn="হিরো ২য় লাইন (বাংলা)" data-en="Hero Line 2 (BN)">হিরো ২য় লাইন (বাংলা)</label>
+                    <input type="text" id="set-hero-line2" class="w-full px-3 py-1.5 rounded-lg border dark:border-slate-700 dark:bg-slate-800">
+                  </div>
+                </div>
+                <div>
+                  <label class="block text-xs font-bold mb-1" data-bn="হিরো সংক্ষিপ্ত বিবরণ" data-en="Hero Short Description">হিরো সংক্ষিপ্ত বিবরণ</label>
+                  <textarea id="set-hero-desc" rows="2" class="w-full px-3 py-1.5 rounded-lg border dark:border-slate-700 dark:bg-slate-800"></textarea>
+                </div>
+                <div>
+                  <label class="block text-xs font-bold mb-1" data-bn="নোটিশ বার" data-en="Notice Bar">নোটিশ বার</label>
+                  <input type="text" id="set-notice" class="w-full px-3 py-1.5 rounded-lg border dark:border-slate-700 dark:bg-slate-800">
+                </div>
+                <div>
+                  <label class="block text-xs font-bold mb-1" data-bn="ফাউন্ডেশনের ঠিকানা" data-en="Foundation Address">ফাউন্ডেশনের ঠিকানা</label>
+                  <input type="text" id="set-address-bn" class="w-full px-3 py-1.5 rounded-lg border dark:border-slate-700 dark:bg-slate-800">
+                </div>
+                <div>
+                  <label class="block text-xs font-bold mb-1" data-bn="লোগো পরিবর্তন" data-en="Upload Logo">লোগো পরিবর্তন</label>
+                  <input type="file" id="set-logo-file" accept="image/*" class="w-full text-xs">
+                </div>
+                <div class="pt-2 border-t dark:border-slate-800 grid grid-cols-2 gap-2">
+                  <div>
+                    <label class="block text-[11px] font-bold mb-0.5" data-bn="কন্ট্রিবিউটর নাম" data-en="Contributor Name">কন্ট্রিবিউটর নাম</label>
+                    <input type="text" id="set-credit-name" class="w-full px-3 py-1.5 rounded-lg border dark:border-slate-700 dark:bg-slate-800">
+                  </div>
+                  <div>
+                    <label class="block text-[11px] font-bold mb-0.5" data-bn="পদবী" data-en="Designation">পদবী</label>
+                    <input type="text" id="set-credit-role" class="w-full px-3 py-1.5 rounded-lg border dark:border-slate-700 dark:bg-slate-800">
+                  </div>
+                  <div>
+                    <label class="block text-[11px] font-bold mb-0.5" data-bn="লিংকডইন লিংক" data-en="LinkedIn URL">লিংকডইন লিংক</label>
+                    <input type="url" id="set-credit-linkedin" class="w-full px-3 py-1.5 rounded-lg border dark:border-slate-700 dark:bg-slate-800">
+                  </div>
+                  <div>
+                    <label class="block text-[11px] font-bold mb-0.5" data-bn="ছবি পরিবর্তন" data-en="Photo">ছবি পরিবর্তন</label>
+                    <input type="file" id="set-credit-photo" accept="image/*" class="w-full text-xs">
+                  </div>
+                </div>
+                <button type="submit" class="btn-solid-green w-full py-2.5 font-bold" data-bn="সেটিংস সেভ করুন" data-en="Save Settings">সেটিংস সেভ করুন</button>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div class="stitched-box">
+            <div class="solid-card p-5 sm:p-6 space-y-4">
+              <h3 class="font-bold text-base border-b pb-2.5 dark:border-slate-800 text-asf-600" data-bn="প্রোডাকশন যুক্ত ও ক্যাটাগরি নিয়ন্ত্রণ" data-en="Featured Productions & Categories">প্রোডাকশন যুক্ত ও ক্যাটাগরি নিয়ন্ত্রণ</h3>
+              <form onsubmit="addPortfolioVideo(event)" class="space-y-3 text-xs sm:text-sm">
+                <div>
+                  <label class="block text-xs font-bold mb-1" data-bn="প্রোডাকশনের শিরোনাম *" data-en="Title *">প্রোডাকশনের শিরোনাম *</label>
+                  <input type="text" id="port-title" required class="w-full px-3 py-2 rounded-lg border dark:border-slate-700 dark:bg-slate-800">
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <div>
+                    <label class="block text-xs font-bold mb-1" data-bn="ভিডিও লিংক *" data-en="Video URL *">ভিডিও লিংক *</label>
+                    <input type="url" id="port-url" required class="w-full px-3 py-2 rounded-lg border dark:border-slate-700 dark:bg-slate-800">
+                  </div>
+                  <div>
+                    <label class="block text-xs font-bold mb-1" data-bn="ক্যাটাগরি *" data-en="Category *">ক্যাটাগরি *</label>
+                    <select id="port-cat" class="w-full px-3 py-2 rounded-lg border dark:border-slate-700 dark:bg-slate-800 font-bold"></select>
+                  </div>
+                </div>
+                <label class="inline-flex items-center gap-2 font-bold text-xs text-amber-600 cursor-pointer">
+                  <input type="checkbox" id="port-popular" checked class="rounded text-asf-600">
+                  <span data-bn="★ পপুলার প্রোডাকশন হিসেবে হোম পেজে দেখান" data-en="★ Mark as Popular Production">★ পপুলার প্রোডাকশন হিসেবে হোম পেজে দেখান</span>
+                </label>
+                <div>
+                  <button type="submit" class="btn-solid-green px-4 py-2 text-xs font-bold" data-bn="+ প্রোডাকশন যুক্ত করুন" data-en="+ Add Production">+ প্রোডাকশন যুক্ত করুন</button>
+                </div>
+              </form>
+              <div id="admin-portfolio-list" class="space-y-1.5 max-h-36 overflow-y-auto pt-2 border-t dark:border-slate-800"></div>
+
+              <div class="pt-3 border-t dark:border-slate-800 space-y-2">
+                <label class="block text-xs font-bold text-asf-600" data-bn="প্রোডাকশন ক্যাটাগরি যুক্ত বা বিয়োগ করুন" data-en="Manage Production Categories">প্রোডাকশন ক্যাটাগরি যুক্ত বা বিয়োগ করুন</label>
+                <div class="flex gap-2">
+                  <input type="text" id="new-port-cat-input" class="flex-grow px-3 py-1.5 rounded-lg border text-xs dark:border-slate-700 dark:bg-slate-800">
+                  <button type="button" onclick="addNewPortfolioCategory()" class="btn-solid-green px-3.5 py-1.5 text-xs font-bold" data-bn="+ যুক্ত করুন" data-en="+ Add">+ যুক্ত করুন</button>
+                </div>
+                <div id="admin-port-cat-tags" class="flex flex-wrap gap-1.5 pt-1"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="stitched-box">
+            <div class="solid-card p-5 sm:p-6 space-y-5">
+              <div class="space-y-2.5">
+                <div class="flex items-center justify-between border-b pb-2 dark:border-slate-800">
+                  <h3 class="font-bold text-base text-asf-600" data-bn="মূল কাজের ধরন (Core Activities)" data-en="Core Work Activities">মূল কাজের ধরন (Core Activities)</h3>
+                  <button type="button" onclick="resetToCleanCoreActivities()" class="text-[11px] bg-amber-100 text-amber-900 px-2.5 py-1 rounded font-bold hover:bg-amber-200" data-bn="মূল ১২টি কাজে রিসেট করুন" data-en="Reset Core Activities">মূল ১২টি কাজে রিসেট করুন</button>
+                </div>
+                <div class="flex gap-2">
+                  <input type="text" id="new-activity-input" class="flex-grow px-3 py-1.5 rounded-lg border text-xs dark:border-slate-700 dark:bg-slate-800">
+                  <button type="button" onclick="addNewActivity()" class="btn-solid-green px-3.5 py-1.5 text-xs font-bold" data-bn="+ যুক্ত করুন" data-en="+ Add">+ যুক্ত করুন</button>
+                </div>
+                <div id="admin-activity-tags" class="flex flex-wrap gap-1.5 max-h-40 overflow-y-auto p-1"></div>
+              </div>
+
+              <div class="space-y-2.5">
+                <h3 class="font-bold text-base border-b pb-2 dark:border-slate-800 text-asf-600" data-bn="প্ল্যাটফর্ম বা চ্যানেলসমূহ" data-en="Managed Platforms">প্ল্যাটফর্ম বা চ্যানেলসমূহ</h3>
+                <div class="flex gap-2">
+                  <input type="text" id="new-platform-input" class="flex-grow px-3 py-1.5 rounded-lg border text-xs dark:border-slate-700 dark:bg-slate-800">
+                  <button type="button" onclick="addNewPlatform()" class="btn-solid-green px-3.5 py-1.5 text-xs font-bold" data-bn="+ যুক্ত করুন" data-en="+ Add">+ যুক্ত করুন</button>
+                </div>
+                <div id="admin-platform-tags" class="flex flex-wrap gap-1.5 max-h-36 overflow-y-auto p-1"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- ================= FLOATING LIVE CHAT BUTTON & MESSENGER DRAWER ================= -->
+  <div id="floating-chat-wrapper" class="fixed bottom-16 lg:bottom-6 right-4 sm:right-6 z-50">
+    <!-- Chat Drawer -->
+    <div id="live-chat-drawer" class="hidden mb-3 w-80 sm:w-96 solid-card shadow-2xl border-2 border-asf-600 overflow-hidden flex-col" style="height: 430px;">
+      <div class="asf-hero-solid text-white p-3.5 flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <i data-lucide="message-circle" class="w-5 h-5 text-emerald-300"></i>
+          <div>
+            <h4 class="font-bold text-xs sm:text-sm" data-bn="টিম লাইভ মেসেঞ্জার" data-en="Team Live Messenger">টিম লাইভ মেসেঞ্জার</h4>
+            <p class="text-[10px] text-emerald-200" data-bn="তাৎক্ষণিক বার্তা পাঠান" data-en="Instant Team & Direct Chat">তাৎক্ষণিক বার্তা পাঠান</p>
+          </div>
+        </div>
+        <button type="button" onclick="toggleChatDrawer()" class="text-white hover:text-emerald-300"><i data-lucide="x" class="w-5 h-5"></i></button>
+      </div>
+
+      <!-- Recipient Selector -->
+      <div class="p-2 bg-slate-100 dark:bg-slate-800 border-b dark:border-slate-700 flex items-center gap-2 text-xs">
+        <span class="font-bold shrink-0" data-bn="প্রাপক:" data-en="To:">প্রাপক:</span>
+        <select id="chat-recipient" onchange="renderChatMessages()" class="w-full px-2 py-1 rounded border dark:bg-slate-900 font-bold text-asf-600"></select>
+      </div>
+
+      <!-- Messages Feed -->
+      <div id="chat-messages-feed" class="flex-1 p-3 overflow-y-auto space-y-2.5 bg-slate-50/50 dark:bg-[#091510]"></div>
+
+      <!-- Send Input -->
+      <form onsubmit="sendLiveMessage(event)" class="p-2.5 bg-white dark:bg-slate-900 border-t dark:border-slate-800 flex gap-2">
+        <input type="text" id="chat-input-text" required class="flex-1 px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-700 dark:bg-slate-800 text-xs">
+        <button type="submit" class="btn-solid-green px-3.5 py-2 text-xs font-bold flex items-center gap-1">
+          <i data-lucide="send" class="w-3.5 h-3.5"></i>
+        </button>
+      </form>
+    </div>
+
+    <!-- Round Floating Button -->
+    <button type="button" onclick="toggleChatDrawer()" class="relative w-13 h-13 w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-asf-600 hover:bg-asf-700 text-white shadow-2xl flex items-center justify-center border-2 border-white ml-auto transition transform hover:scale-105">
+      <i data-lucide="message-circle" class="w-6 h-6"></i>
+      <span id="chat-unread-badge" class="hidden absolute -top-1 -right-1 min-w-[20px] h-5 px-1 rounded-full bg-red-600 text-white text-[10px] font-bold flex items-center justify-center">0</span>
+    </button>
+  </div>
+
+  <!-- FOOTER (With Contributor Label) -->
+  <footer class="asf-footer-solid text-white pt-10 pb-7 mt-14 border-t border-emerald-900">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+      
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+        
+        <div class="md:col-span-5 space-y-2.5 text-center md:text-left">
+          <div class="flex items-center justify-center md:justify-start gap-3">
+            <img id="footer-brand-logo" src="https://assunnahfoundation.org/assets/images/logo.png" onerror="this.src='https://ui-avatars.com/api/?name=ASF&background=006837&color=fff&bold=true'" class="w-10 h-10 rounded-lg bg-white p-0.5 object-contain">
+            <span class="text-lg font-bold text-white" data-bn="আস-সুন্নাহ ফাউন্ডেশন দাওয়াহ মিডিয়া" data-en="As-Sunnah Foundation Dawah Media">আস-সুন্নাহ ফাউন্ডেশন দাওয়াহ মিডিয়া</span>
+          </div>
+          <p class="text-xs text-emerald-100/90 flex items-center justify-center md:justify-start gap-1.5">
+            <i data-lucide="map-pin" class="w-3.5 h-3.5 text-emerald-400 shrink-0"></i>
+            <span id="footer-address-text">প্লট-৭০, রোড-৩, ব্লক-সি, আফতাবনগর, ঢাকা-১২১২, বাংলাদেশ</span>
+          </p>
+        </div>
+
+        <div class="md:col-span-3 flex flex-wrap justify-center gap-4 text-xs font-semibold text-emerald-200">
+          <button type="button" onclick="switchTab('home')" class="hover:text-white" data-bn="হোম" data-en="Home">হোম</button>
+          <button type="button" onclick="switchTab('pipeline')" class="hover:text-white" data-bn="পাইপলাইন" data-en="Pipeline">পাইপলাইন</button>
+          <button type="button" onclick="switchTab('dashboard')" class="hover:text-white" data-bn="ড্যাশবোর্ড" data-en="Dashboard">ড্যাশবোর্ড</button>
+          <a href="https://assunnahfoundation.org/" target="_blank" rel="noopener noreferrer" class="hover:text-white">assunnahfoundation.org ↗</a>
+        </div>
+
+        <div class="md:col-span-4 flex justify-center md:justify-end">
+          <div class="flex items-center gap-3 bg-[#083823] border border-emerald-700/70 px-4 py-2.5 rounded-xl">
+            <img id="footer-credit-img" src="https://ui-avatars.com/api/?name=TA&background=006837&color=fff&bold=true" alt="Contributor" class="w-10 h-10 rounded-full object-cover border border-emerald-400">
+            <div class="text-left">
+              <p id="footer-credit-label" class="text-[10px] uppercase tracking-wider text-emerald-300 font-bold">Contributor</p>
+              <a id="footer-credit-link" href="https://www.linkedin.com/company/assunnahfoundation" target="_blank" rel="noopener noreferrer" class="text-sm font-bold text-white hover:text-emerald-300 inline-flex items-center gap-1.5">
+                <span id="footer-credit-name">Tarek Ahmad</span>
+                <svg class="w-3.5 h-3.5 text-[#38bdf8]" fill="currentColor" viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+              </a>
+              <p id="footer-credit-role" class="text-[11px] text-emerald-200/80 leading-none mt-0.5">Social Media Executive</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="border-t border-emerald-800/80 pt-5 text-center">
+        <p class="text-xs font-semibold text-emerald-200">
+          <span data-bn="স্বত্বাধিকারী © ২০২৬" data-en="Copyright © 2026">স্বত্বাধিকারী © ২০২৬</span>
+          <a href="https://assunnahfoundation.org/" target="_blank" rel="noopener noreferrer" class="text-white hover:underline ml-1" data-bn="আস-সুন্নাহ ফাউন্ডেশন" data-en="As-Sunnah Foundation">আস-সুন্নাহ ফাউন্ডেশন</a>
+        </p>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- ================= MODALS ================= -->
+
+  <!-- Auth Modal -->
+  <div id="auth-modal" class="fixed inset-0 z-50 bg-slate-950/60 backdrop-blur-sm hidden items-center justify-center p-4">
+    <div class="solid-card max-w-md w-full p-6 shadow-2xl space-y-5 max-h-[90vh] overflow-y-auto">
+      <div class="flex justify-between items-center border-b pb-3 dark:border-slate-800">
+        <h3 class="text-lg font-bold text-asf-600" data-bn="টিম মেম্বার লগইন ও জয়েন" data-en="Team Member Login & Join">টিম মেম্বার লগইন ও জয়েন</h3>
+        <button type="button" onclick="closeAuthModal()" class="text-slate-400 hover:text-slate-600"><i data-lucide="x" class="w-5 h-5"></i></button>
+      </div>
+
+      <div class="grid grid-cols-2 gap-2 bg-slate-100 dark:bg-slate-800 p-1 rounded-xl text-xs sm:text-sm font-bold">
+        <button type="button" id="tab-login-btn" onclick="switchAuthMode('login')" class="py-2 rounded-lg bg-white dark:bg-slate-900 shadow text-asf-600" data-bn="লগইন" data-en="Login">লগইন</button>
+        <button type="button" id="tab-signup-btn" onclick="switchAuthMode('signup')" class="py-2 rounded-lg text-slate-600 dark:text-slate-300" data-bn="নতুন প্রোফাইল" data-en="Create Profile">নতুন প্রোফাইল</button>
+      </div>
+
+      <form id="login-form" onsubmit="handleLogin(event)" class="space-y-3.5 text-sm">
+        <div>
+          <label class="block text-xs font-bold mb-1" data-bn="ইমেইল অ্যাড্রেস" data-en="Email Address">ইমেইল অ্যাড্রেস</label>
+          <input type="email" id="login-email" required class="w-full px-3.5 py-2 rounded-lg border dark:border-slate-700 dark:bg-slate-800">
+        </div>
+        <div>
+          <label class="block text-xs font-bold mb-1" data-bn="পাসওয়ার্ড" data-en="Password">পাসওয়ার্ড</label>
+          <input type="password" id="login-pass" required class="w-full px-3.5 py-2 rounded-lg border dark:border-slate-700 dark:bg-slate-800">
+        </div>
+        <button type="submit" class="btn-solid-green w-full font-bold py-2.5" data-bn="লগইন করুন" data-en="Login">লগইন করুন</button>
+      </form>
+
+      <form id="signup-form" onsubmit="handleSignup(event)" class="hidden space-y-3 text-sm">
+        <div>
+          <label class="block text-xs font-bold mb-1" data-bn="পূর্ণ নাম *" data-en="Full Name *">পূর্ণ নাম *</label>
+          <input type="text" id="reg-name" required class="w-full px-3 py-2 rounded-lg border dark:border-slate-700 dark:bg-slate-800">
+        </div>
+        <div>
+          <label class="block text-xs font-bold mb-1" data-bn="পদবী *" data-en="Designation *">পদবী *</label>
+          <input type="text" id="reg-designation" required class="w-full px-3 py-2 rounded-lg border dark:border-slate-700 dark:bg-slate-800">
+        </div>
+        <div>
+          <label class="block text-xs font-bold mb-1" data-bn="কাজের সংক্ষিপ্ত বিবরণ *" data-en="Role Description *">কাজের সংক্ষিপ্ত বিবরণ *</label>
+          <input type="text" id="reg-bio" required class="w-full px-3 py-2 rounded-lg border dark:border-slate-700 dark:bg-slate-800">
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-bold mb-1" data-bn="ইমেইল *" data-en="Email *">ইমেইল *</label>
+            <input type="email" id="reg-email" required class="w-full px-3 py-2 rounded-lg border dark:border-slate-700 dark:bg-slate-800">
+          </div>
+          <div>
+            <label class="block text-xs font-bold mb-1" data-bn="পাসওয়ার্ড (৬+ অক্ষর) *" data-en="Password *">পাসওয়ার্ড (৬+ অক্ষর) *</label>
+            <input type="password" id="reg-pass" required minlength="6" class="w-full px-3 py-2 rounded-lg border dark:border-slate-700 dark:bg-slate-800">
+          </div>
+        </div>
+        <div>
+          <label class="block text-xs font-bold mb-1" data-bn="প্রোফাইল ছবি" data-en="Profile Photo">প্রোফাইল ছবি</label>
+          <input type="file" id="reg-photo" accept="image/*" class="w-full text-xs">
+        </div>
+        <div>
+          <label class="block text-xs font-bold mb-1" data-bn="আপনার নির্ধারিত কাজসমূহ" data-en="Your Core Activities">আপনার নির্ধারিত কাজসমূহ</label>
+          <div id="reg-activities-checkboxes" class="max-h-32 overflow-y-auto border dark:border-slate-700 rounded-lg p-2 space-y-1 text-xs"></div>
+        </div>
+        <button type="submit" class="btn-solid-green w-full font-bold py-2.5" data-bn="প্রোফাইল তৈরি করুন" data-en="Create Profile">প্রোফাইল তৈরি করুন</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Member Personal Portfolio Modal -->
+  <div id="member-modal" class="fixed inset-0 z-50 bg-slate-950/65 backdrop-blur-sm hidden items-center justify-center p-2 sm:p-4">
+    <div class="solid-card max-w-5xl w-full p-4 sm:p-7 shadow-2xl space-y-6 max-h-[92vh] overflow-y-auto">
+      
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b pb-4 dark:border-slate-800">
+        <div class="flex items-center gap-4">
+          <img id="mod-member-img" src="" class="w-16 h-16 rounded-2xl object-cover border-2 border-asf-600">
+          <div>
+            <div class="flex items-center gap-2">
+              <h3 id="mod-member-name" class="text-lg sm:text-2xl font-bold"></h3>
+              <span id="mod-member-rating-avg" class="text-xs font-bold px-2.5 py-0.5 rounded bg-amber-100 text-amber-800"></span>
+            </div>
+            <p id="mod-member-role" class="text-xs sm:text-sm text-asf-600 dark:text-emerald-400 font-bold"></p>
+            <p id="mod-member-bio" class="text-xs text-slate-500 mt-0.5"></p>
+          </div>
+        </div>
+        <div class="flex flex-wrap items-center gap-2">
+          <button type="button" id="mod-add-port-btn" onclick="openAddPortfolioItemModal()" class="hidden px-3 py-2 rounded-lg bg-amber-500 text-slate-950 text-xs font-bold hover:bg-amber-400 items-center gap-1">
+            <i data-lucide="plus" class="w-4 h-4"></i>
+            <span data-bn="পোর্টফোলিও যুক্ত করুন" data-en="Add Portfolio">পোর্টফোলিও যুক্ত করুন</span>
+          </button>
+          <input type="month" id="mod-member-month" onchange="refreshOpenedMemberModal()" class="px-3 py-1.5 rounded-lg border dark:border-slate-700 dark:bg-slate-800 text-xs font-bold">
+          <button type="button" onclick="closeMemberModal()" class="p-2 rounded-lg text-slate-400 hover:bg-slate-100"><i data-lucide="x" class="w-5 h-5"></i></button>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center">
+        <div class="p-3 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800">
+          <p class="text-xl sm:text-2xl font-bold text-asf-600" id="mod-stat-completed">0</p>
+          <p class="text-xs font-bold text-slate-500" data-bn="সম্পন্ন কাজ" data-en="Completed">সম্পন্ন কাজ</p>
+        </div>
+        <div class="p-3 rounded-xl bg-blue-50 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-800">
+          <p class="text-xl sm:text-2xl font-bold text-blue-600" id="mod-stat-ongoing">0</p>
+          <p class="text-xs font-bold text-slate-500" data-bn="চলমান কাজ" data-en="Ongoing">চলমান কাজ</p>
+        </div>
+        <div class="p-3 rounded-xl bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800">
+          <p class="text-xl sm:text-2xl font-bold text-amber-600" id="mod-stat-pending">0</p>
+          <p class="text-xs font-bold text-slate-500" data-bn="পেন্ডিং" data-en="Pending">পেন্ডিং</p>
+        </div>
+        <div class="p-3 rounded-xl bg-purple-50 dark:bg-purple-950/40 border border-purple-200 dark:border-purple-800">
+          <p class="text-xl sm:text-2xl font-bold text-purple-600" id="mod-stat-days">0</p>
+          <p class="text-xs font-bold text-slate-500" data-bn="সক্রিয় কর্মদিবস" data-en="Active Days">সক্রিয় কর্মদিবস</p>
+        </div>
+      </div>
+
+      <div class="space-y-6">
+        <div id="mod-photocard-section" class="space-y-3 hidden">
+          <h4 class="font-bold text-sm sm:text-base text-asf-600 border-b pb-1.5 dark:border-slate-800" data-bn="ফটোকার্ড ডিজাইন (১:১ স্কয়ার)" data-en="Photocard Designs (1:1 Square)">ফটোকার্ড ডিজাইন (১:১ স্কয়ার)</h4>
+          <div id="mod-photocard-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4"></div>
+        </div>
+
+        <div id="mod-thumbnail-section" class="space-y-3 hidden">
+          <h4 class="font-bold text-sm sm:text-base text-asf-600 border-b pb-1.5 dark:border-slate-800" data-bn="থাম্বনেইল ডিজাইন (১০৮০×১০৮০)" data-en="Thumbnail Designs (1080×1080)">থাম্বনেইল ডিজাইন (১০৮০×১০৮০)</h4>
+          <div id="mod-thumbnail-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4"></div>
+        </div>
+
+        <div id="mod-video-section" class="space-y-3 hidden">
+          <h4 class="font-bold text-sm sm:text-base text-asf-600 border-b pb-1.5 dark:border-slate-800" data-bn="ভিডিও প্রোডাকশন পোর্টফোলিও" data-en="Video Productions">ভিডিও প্রোডাকশন পোর্টফোলিও</h4>
+          <div id="mod-video-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4"></div>
+        </div>
+      </div>
+
+      <div class="border dark:border-slate-800 rounded-xl p-4 space-y-3">
+        <h4 class="font-bold text-sm border-b pb-2 dark:border-slate-800" data-bn="মাসভিত্তিক কাজের তালিকা" data-en="Monthly Work History">মাসভিত্তিক কাজের তালিকা</h4>
+        <div class="overflow-x-auto max-h-64">
+          <table class="w-full text-left border-collapse text-xs">
+            <thead>
+              <tr class="border-b dark:border-
 
