@@ -45,8 +45,12 @@
 </head>
 <body class="min-h-screen flex flex-col pb-20 md:pb-0">
 
-  <!-- Toast Status Popup -->
+  <!-- Toast Status Popup & Live Message Toast -->
   <div id="toast-msg" class="fixed top-5 right-5 z-50 hidden bg-asf-700 text-white px-4 py-3 rounded-xl shadow-2xl border border-emerald-400 text-xs sm:text-sm font-bold"></div>
+  <div id="live-msg-toast" onclick="openChatBox()" class="fixed bottom-20 right-5 z-50 hidden cursor-pointer bg-white dark:bg-slate-900 border-2 border-asf-600 p-3.5 rounded-2xl shadow-2xl max-w-xs">
+    <p class="text-[11px] font-bold text-asf-600" id="toast-sender"></p>
+    <p class="text-xs font-semibold text-slate-800 dark:text-slate-100 line-clamp-2 mt-0.5" id="toast-preview"></p>
+  </div>
 
   <!-- Top Notice Bar -->
   <div id="notice-bar" class="bg-asf-700 text-white text-xs py-2 px-4 text-center font-medium hidden">
@@ -54,7 +58,7 @@
     <span id="notice-text"></span>
   </div>
 
-  <!-- Header (Widescreen 95% Layout) -->
+  <!-- Header (Widescreen 95% Layout + Notification Bell) -->
   <header class="sticky top-0 z-40 bg-white dark:bg-[#0a1912] border-b border-slate-200 dark:border-emerald-950">
     <div class="w-[95%] max-w-[1600px] mx-auto h-16 sm:h-20 flex items-center justify-between gap-2">
       <div class="flex items-center gap-2.5 cursor-pointer shrink-0" onclick="switchTab('home')">
@@ -76,10 +80,26 @@
         <button onclick="switchTab('admin')" id="nav-admin" class="admin-only px-3.5 py-2 text-sm font-semibold text-slate-700 dark:text-slate-300" data-bn="অ্যাডমিন" data-en="Admin">অ্যাডমিন</button>
       </nav>
 
-      <div class="flex items-center gap-1.5">
+      <div class="flex items-center gap-1.5 relative">
         <button onclick="triggerAppInstall()" class="px-2.5 py-1.5 text-xs font-bold rounded-lg bg-emerald-50 text-asf-600 border border-asf-600/30">📲 <span data-bn="অ্যাপ" data-en="App">অ্যাপ</span></button>
         <button onclick="toggleLanguage()" id="lang-btn" class="px-2.5 py-1.5 text-xs font-bold rounded-lg bg-slate-100 dark:bg-slate-800 border">EN</button>
         <button onclick="toggleTheme()" class="p-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 border text-xs">🌙</button>
+
+        <!-- Notification Bell Button & Dropdown -->
+        <div class="relative">
+          <button onclick="toggleNotifDropdown()" class="p-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 border text-xs relative flex items-center justify-center w-8 h-8" title="নোটিফিকেশন">
+            🔔
+            <span id="notif-badge" class="hidden absolute -top-1 -right-1 w-4 h-4 rounded-full bg-red-600 text-white text-[9px] font-bold flex items-center justify-center">0</span>
+          </button>
+          <div id="notif-dropdown" class="hidden absolute right-0 mt-2 w-72 sm:w-80 solid-card shadow-2xl border-2 border-asf-600 z-50 overflow-hidden">
+            <div class="bg-asf-700 text-white px-3.5 py-2.5 flex items-center justify-between text-xs font-bold">
+              <span>🔔 নোটিফিকেশন ও আপডেট</span>
+              <button onclick="document.getElementById('notif-dropdown').classList.add('hidden')" class="text-white">✕</button>
+            </div>
+            <div id="notif-list" class="max-h-64 overflow-y-auto divide-y dark:divide-slate-800 text-xs p-2 space-y-1"></div>
+          </div>
+        </div>
+
         <div id="auth-buttons">
           <button onclick="openAuthModal()" class="btn-green px-4 py-1.5 text-xs sm:text-sm font-bold" data-bn="লগইন" data-en="Login">লগইন</button>
         </div>
@@ -107,26 +127,18 @@
 
     <!-- ================= 1. HOME TAB ================= -->
     <section id="tab-home" class="space-y-8">
-      <!-- Stitched Solid Hero Banner -->
+      <!-- Stitched Solid Hero Banner (Perfectly Centered, Redundant Progress Box Removed) -->
       <div class="stitched-box">
-        <div class="bg-asf-700 rounded-2xl p-6 sm:p-10 text-white grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
-          <div class="lg:col-span-8 text-center flex flex-col items-center justify-center space-y-2">
-            <h2 class="text-2xl sm:text-4xl lg:text-5xl font-bold leading-snug">
-              <span id="hero-line-1" class="block">আস-সুন্নাহ ফাউন্ডেশন</span>
-              <span id="hero-line-2" class="block text-emerald-300 mt-1">দাওয়াহ মিডিয়া</span>
-            </h2>
-            <p id="hero-desc" class="text-emerald-100 text-xs sm:text-base max-w-xl"></p>
-          </div>
-          <div class="lg:col-span-4 bg-[#0b462c] border border-emerald-700 rounded-2xl p-4 space-y-2.5 text-xs sm:text-sm">
-            <h4 class="font-bold border-b border-emerald-700 pb-2" data-bn="চলতি মাসের অগ্রগতি" data-en="Current Month Progress">চলতি মাসের অগ্রগতি</h4>
-            <div class="flex justify-between bg-[#07301e] px-3 py-2 rounded-xl"><span data-bn="সম্পন্ন প্রোডাকশন" data-en="Completed Productions">সম্পন্ন প্রোডাকশন</span><b id="hero-stat-comp">0</b></div>
-            <div class="flex justify-between bg-[#07301e] px-3 py-2 rounded-xl"><span data-bn="চলমান প্রজেক্ট" data-en="Ongoing Projects">চলমান প্রজেক্ট</span><b id="hero-stat-ong" class="text-sky-300">0</b></div>
-            <div class="flex justify-between bg-[#07301e] px-3 py-2 rounded-xl"><span data-bn="রেডি টু পাবলিশ ও পেন্ডিং" data-en="Ready & Pending">রেডি টু পাবলিশ ও পেন্ডিং</span><b id="hero-stat-pend" class="text-amber-300">0</b></div>
-          </div>
+        <div class="bg-asf-700 rounded-2xl py-8 sm:py-12 px-4 sm:px-10 text-white flex flex-col items-center justify-center text-center space-y-3">
+          <h2 class="text-2xl sm:text-4xl lg:text-5xl font-bold leading-snug tracking-tight">
+            <span id="hero-line-1" class="block">আস-সুন্নাহ ফাউন্ডেশন</span>
+            <span id="hero-line-2" class="block text-emerald-300 mt-1">দাওয়াহ মিডিয়া</span>
+          </h2>
+          <p id="hero-desc" class="text-emerald-100 text-xs sm:text-base max-w-2xl mx-auto leading-relaxed"></p>
         </div>
       </div>
 
-      <!-- 5 Counter Status Cards -->
+      <!-- 5 Counter Status Cards (Quantity-Aware) -->
       <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
         <div onclick="openQuickStatusModal('Completed')" class="stitched-box cursor-pointer">
           <div class="solid-card p-4 flex items-center gap-3.5">
@@ -189,39 +201,37 @@
         </div>
       </div>
 
-      <!-- Roadmap & Comparison Chart -->
+      <!-- Planning Overview (Current, Next Month Report, Next 3 Months) & Comparison Chart -->
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
         <div class="lg:col-span-7 stitched-box">
-          <div class="solid-card p-5 space-y-4 h-full">
-            <div class="flex justify-between items-center border-b pb-2.5 dark:border-slate-800">
-              <h3 class="font-bold text-base" data-bn="মাসিক কাজের প্ল্যানিং ও চলমান ওভারভিউ" data-en="Monthly Planning & Overview">মাসিক কাজের প্ল্যানিং ও চলমান ওভারভিউ</h3>
-              <button onclick="switchTab('pipeline')" class="text-xs font-bold text-asf-600" data-bn="প্রোডাকশন পাইপলাইন →" data-en="Pipeline →">প্রোডাকশন পাইপলাইন →</button>
-            </div>
-            <div class="bg-emerald-50/70 dark:bg-slate-800 p-3.5 rounded-xl border border-emerald-200 dark:border-slate-700 space-y-1.5">
-              <div class="flex justify-between text-xs font-bold">
-                <span data-bn="চলতি মাসের প্ল্যানিং বাস্তবায়ন" data-en="Current Month Plan Execution">চলতি মাসের প্ল্যানিং বাস্তবায়ন</span>
-                <span id="home-plan-percent" class="text-asf-600">0%</span>
+          <div class="solid-card p-5 space-y-4 h-full flex flex-col justify-between">
+            <div class="space-y-4">
+              <div class="flex justify-between items-center border-b pb-2.5 dark:border-slate-800">
+                <h3 class="font-bold text-base" data-bn="মাসিক কাজের প্ল্যানিং ও ওভারভিউ" data-en="Monthly Planning & Overview">মাসিক কাজের প্ল্যানিং ও ওভারভিউ</h3>
+                <button onclick="switchTab('pipeline')" class="text-xs font-bold text-asf-600" data-bn="প্রোডাকশন পাইপলাইন →" data-en="Pipeline →">প্রোডাকশন পাইপলাইন →</button>
               </div>
-              <div class="w-full h-2.5 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
-                <div id="home-plan-bar" class="h-full bg-asf-600 rounded-full" style="width:0%"></div>
+              <div class="bg-emerald-50/70 dark:bg-slate-800 p-3.5 rounded-xl border border-emerald-200 dark:border-slate-700 space-y-1.5">
+                <div class="flex justify-between text-xs font-bold">
+                  <span data-bn="চলতি মাসের প্ল্যানিং বাস্তবায়ন" data-en="Current Month Plan Execution">চলতি মাসের প্ল্যানিং বাস্তবায়ন</span>
+                  <span id="home-plan-percent" class="text-asf-600">0%</span>
+                </div>
+                <div class="w-full h-2.5 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
+                  <div id="home-plan-bar" class="h-full bg-asf-600 rounded-full" style="width:0%"></div>
+                </div>
               </div>
-            </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
-              <div onclick="openPlanningDetailModal('currentPlan')" class="p-3.5 rounded-xl border hover:border-asf-600 cursor-pointer">
-                <div class="flex justify-between font-bold text-asf-600 mb-1"><span data-bn="চলতি মাসের প্ল্যানিং" data-en="Current Month Plan">চলতি মাসের প্ল্যানিং</span><span>দেখুন ↗</span></div>
-                <p id="home-current-plan-preview" class="text-slate-600 dark:text-slate-300 line-clamp-2"></p>
-              </div>
-              <div onclick="openPlanningDetailModal('next3Months')" class="p-3.5 rounded-xl border hover:border-purple-600 cursor-pointer">
-                <div class="flex justify-between font-bold text-purple-600 mb-1"><span data-bn="আগামী ৩ মাসের পরিকল্পনা" data-en="Next 3 Months Plan">আগামী ৩ মাসের পরিকল্পনা</span><span>দেখুন ↗</span></div>
-                <p id="home-next3-plan-preview" class="text-slate-600 dark:text-slate-300 line-clamp-2"></p>
-              </div>
-              <div onclick="openQuickStatusModal('Ongoing')" class="p-3.5 rounded-xl border hover:border-blue-600 cursor-pointer">
-                <div class="flex justify-between font-bold text-blue-600 mb-1"><span data-bn="বর্তমানে চলমান প্রজেক্ট" data-en="Ongoing Projects">বর্তমানে চলমান প্রজেক্ট</span><span>তালিকা ↗</span></div>
-                <p id="home-ongoing-preview" class="text-slate-600 dark:text-slate-300 line-clamp-2"></p>
-              </div>
-              <div onclick="openQuickStatusModal('Ready')" class="p-3.5 rounded-xl border hover:border-rose-600 cursor-pointer">
-                <div class="flex justify-between font-bold text-rose-600 mb-1"><span data-bn="রেডি টু পাবলিশ ও পেন্ডিং" data-en="Ready & Pending">রেডি টু পাবলিশ ও পেন্ডিং</span><span>তালিকা ↗</span></div>
-                <p id="home-pending-preview" class="text-slate-600 dark:text-slate-300 line-clamp-2"></p>
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+                <div onclick="openPlanningDetailModal('currentPlan')" class="p-3.5 rounded-xl border hover:border-asf-600 cursor-pointer bg-slate-50/50 dark:bg-slate-800/40">
+                  <div class="flex justify-between font-bold text-asf-600 mb-1.5"><span data-bn="চলতি মাসের প্ল্যানিং" data-en="Current Month Plan">চলতি মাসের প্ল্যানিং</span><span>দেখুন ↗</span></div>
+                  <p id="home-current-plan-preview" class="text-slate-600 dark:text-slate-300 line-clamp-3 leading-relaxed"></p>
+                </div>
+                <div onclick="openPlanningDetailModal('nextMonthPlan')" class="p-3.5 rounded-xl border hover:border-blue-600 cursor-pointer bg-slate-50/50 dark:bg-slate-800/40">
+                  <div class="flex justify-between font-bold text-blue-600 mb-1.5"><span data-bn="আগামী মাসের পরিকল্পনা ও রিপোর্ট" data-en="Next Month Plan & Report">আগামী মাসের পরিকল্পনা ও রিপোর্ট</span><span>দেখুন ↗</span></div>
+                  <p id="home-next1-plan-preview" class="text-slate-600 dark:text-slate-300 line-clamp-3 leading-relaxed"></p>
+                </div>
+                <div onclick="openPlanningDetailModal('next3Months')" class="p-3.5 rounded-xl border hover:border-purple-600 cursor-pointer bg-slate-50/50 dark:bg-slate-800/40">
+                  <div class="flex justify-between font-bold text-purple-600 mb-1.5"><span data-bn="আগামী ৩ মাসের পরিকল্পনা" data-en="Next 3 Months Plan">আগামী ৩ মাসের পরিকল্পনা</span><span>দেখুন ↗</span></div>
+                  <p id="home-next3-plan-preview" class="text-slate-600 dark:text-slate-300 line-clamp-3 leading-relaxed"></p>
+                </div>
               </div>
             </div>
           </div>
@@ -242,7 +252,7 @@
         </div>
       </div>
 
-      <!-- NEW: Team Members Overview on Home Page (Above Featured Productions — Photo, Name, Designation & Bio Only, No Task Counts) -->
+      <!-- Team Members Overview on Home Page (Above Featured Productions — Photo, Name, Designation & Bio Only, No Task Counts) -->
       <div class="space-y-4">
         <div class="flex items-center justify-between">
           <h3 class="text-lg sm:text-xl font-bold flex items-center gap-2">
@@ -415,9 +425,9 @@
                   <th class="p-3 font-bold">তারিখ</th>
                   <th class="p-3 font-bold">টিম মেম্বার</th>
                   <th class="p-3 font-bold">কাজের শিরোনাম ও ধরন</th>
+                  <th class="p-3 font-bold">সংখ্যা</th>
                   <th class="p-3 font-bold">প্ল্যাটফর্ম</th>
                   <th class="p-3 font-bold">অবস্থা</th>
-                  <th class="p-3 font-bold">রেটিং</th>
                   <th class="p-3 font-bold">লিংক ও অ্যাকশন</th>
                 </tr>
               </thead>
@@ -428,7 +438,7 @@
       </div>
     </section>
 
-    <!-- ================= 4. TEAM MEMBERS TAB (Bio Visible on Card Surface + Task Counts) ================= -->
+    <!-- ================= 4. TEAM MEMBERS TAB ================= -->
     <section id="tab-team" class="hidden space-y-6">
       <div class="stitched-box">
         <div class="solid-card p-5 flex items-center justify-between">
@@ -538,7 +548,7 @@
                   </select>
                 </div>
                 <div>
-                  <label class="block text-xs font-bold mb-1">সংখ্যা</label>
+                  <label class="block text-xs font-bold mb-1">সংখ্যা (Quantity) *</label>
                   <input type="number" id="task-qty" value="1" min="1" class="w-full px-2.5 py-2 rounded-lg border dark:bg-slate-800 font-bold">
                 </div>
                 <div>
@@ -684,14 +694,15 @@
         </div>
       </div>
 
-      <!-- Row 3: Planning & Meetings -->
+      <!-- Row 3: Planning (Including Next Month Report) & Meetings -->
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div class="stitched-box">
           <div class="solid-card p-5 space-y-3">
-            <h3 class="font-bold text-base text-asf-600 border-b pb-2">মাসিক ও আগামী ৩ মাসের পরিকল্পনা</h3>
+            <h3 class="font-bold text-base text-asf-600 border-b pb-2">চলতি মাস, আগামী মাস ও আগামী ৩ মাসের পরিকল্পনা</h3>
             <form onsubmit="savePlanningSettings(event)" class="space-y-2.5 text-xs">
-              <div><label class="font-bold">লক্ষ্যমাত্রা (Target)</label><input type="number" id="plan-target-count" value="50" class="w-full px-3 py-1.5 rounded border dark:bg-slate-800 font-bold"></div>
+              <div><label class="font-bold">চলতি মাসের লক্ষ্যমাত্রা (Target)</label><input type="number" id="plan-target-count" value="50" class="w-full px-3 py-1.5 rounded border dark:bg-slate-800 font-bold"></div>
               <div><label class="font-bold">চলতি মাসের প্ল্যানিং</label><textarea id="plan-current-text" rows="2" class="w-full px-3 py-1.5 rounded border dark:bg-slate-800"></textarea></div>
+              <div><label class="font-bold">আগামী মাসের পরিকল্পনা ও রিপোর্ট</label><textarea id="plan-next1-text" rows="2" class="w-full px-3 py-1.5 rounded border dark:bg-slate-800"></textarea></div>
               <div><label class="font-bold">আগামী ৩ মাসের পরিকল্পনা</label><textarea id="plan-next3-text" rows="2" class="w-full px-3 py-1.5 rounded border dark:bg-slate-800"></textarea></div>
               <button type="submit" class="btn-green w-full py-2 font-bold">পরিকল্পনা সেভ করুন</button>
             </form>
@@ -757,6 +768,32 @@
 
   </main>
 
+  <!-- Floating Live Chat Button & Messenger Drawer -->
+  <button onclick="openChatBox()" class="fixed bottom-16 md:bottom-6 right-5 z-40 w-12 h-12 rounded-full bg-asf-600 hover:bg-asf-700 text-white shadow-2xl flex items-center justify-center border-2 border-white" title="লাইভ টিম মেসেঞ্জার">
+    <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
+    <span id="chat-unread-badge" class="hidden absolute -top-1 -right-1 w-5 h-5 rounded-full bg-red-600 text-white text-[10px] font-bold flex items-center justify-center">!</span>
+  </button>
+
+  <div id="chat-drawer" class="fixed bottom-20 right-5 z-50 w-80 sm:w-96 solid-card shadow-2xl hidden flex-col overflow-hidden border-2 border-asf-600">
+    <div class="bg-asf-700 text-white p-3.5 flex items-center justify-between relative">
+      <div>
+        <h4 class="font-bold text-sm">লাইভ টিম মেসেঞ্জার</h4>
+        <p class="text-[10px] text-emerald-200">যেকোনো মেম্বার বা সবাইকে মেসেজ দিন</p>
+      </div>
+      <button onclick="document.getElementById('chat-drawer').classList.add('hidden')" class="w-7 h-7 rounded-lg bg-emerald-800 text-white font-bold flex items-center justify-center">✕</button>
+    </div>
+    <div class="p-2 bg-slate-100 dark:bg-slate-800 border-b">
+      <select id="chat-recipient" class="w-full px-2.5 py-1.5 rounded-lg border text-xs font-bold dark:bg-slate-900">
+        <option value="ALL">📢 সকল টিম মেম্বার (Group Chat)</option>
+      </select>
+    </div>
+    <div id="chat-messages-box" class="p-3 space-y-2 h-64 overflow-y-auto bg-slate-50 dark:bg-slate-950 text-xs"></div>
+    <form onsubmit="sendLiveChatMessage(event)" class="p-2.5 bg-white dark:bg-slate-900 border-t flex gap-1.5">
+      <input type="text" id="chat-input" required placeholder="মেসেজ লিখুন..." class="flex-grow px-3 py-2 rounded-lg border text-xs dark:bg-slate-800">
+      <button type="submit" class="btn-green px-3.5 py-2 text-xs font-bold">পাঠান</button>
+    </form>
+  </div>
+
   <!-- Footer -->
   <footer class="bg-asf-800 text-white pt-10 pb-7 mt-12 border-t border-emerald-900">
     <div class="w-[95%] max-w-[1600px] mx-auto space-y-6">
@@ -806,14 +843,18 @@
           <label class="block font-bold mb-1">শিরোনাম / টপিক *</label>
           <input type="text" id="edit-task-title" required class="w-full px-3 py-2 rounded-lg border dark:bg-slate-800 font-bold">
         </div>
-        <div class="grid grid-cols-2 gap-2">
+        <div class="grid grid-cols-3 gap-2">
           <div>
             <label class="block font-bold mb-1">তারিখ</label>
-            <input type="date" id="edit-task-date" required class="w-full px-3 py-2 rounded-lg border dark:bg-slate-800 font-bold">
+            <input type="date" id="edit-task-date" required class="w-full px-2.5 py-2 rounded-lg border dark:bg-slate-800 font-bold">
           </div>
           <div>
-            <label class="block font-bold mb-1">শুটিং সময় (যদি থাকে)</label>
-            <input type="time" id="edit-task-time" class="w-full px-3 py-2 rounded-lg border dark:bg-slate-800 font-bold">
+            <label class="block font-bold mb-1">সংখ্যা (Qty)</label>
+            <input type="number" id="edit-task-qty" min="1" value="1" required class="w-full px-2.5 py-2 rounded-lg border dark:bg-slate-800 font-bold">
+          </div>
+          <div>
+            <label class="block font-bold mb-1">শুটিং সময়</label>
+            <input type="time" id="edit-task-time" class="w-full px-2.5 py-2 rounded-lg border dark:bg-slate-800 font-bold">
           </div>
         </div>
         <div class="grid grid-cols-2 gap-2">
@@ -875,7 +916,7 @@
     </div>
   </div>
 
-  <!-- Member Profile Modal (With Full Photocard, Thumbnail & Video Portfolio Sections + Add Button) -->
+  <!-- Member Profile Modal -->
   <div id="member-modal" class="fixed inset-0 z-50 bg-slate-950/65 hidden items-center justify-center p-2 sm:p-4">
     <div class="solid-card relative max-w-4xl w-full p-5 sm:p-6 space-y-5 max-h-[90vh] overflow-y-auto">
       <button onclick="closeMemberModal()" class="absolute top-4 right-4 w-9 h-9 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-red-100 hover:text-red-600 font-bold flex items-center justify-center text-sm shadow-sm">✕</button>
@@ -895,14 +936,14 @@
         </div>
       </div>
 
-      <!-- 3 Clean Counters (সম্পন্ন, চলমান, পেন্ডিং/শুটিং — No কর্মদিবস) -->
+      <!-- 3 Clean Counters (Quantity-Aware) -->
       <div class="grid grid-cols-3 gap-3 text-center text-xs">
         <div class="p-3 rounded-xl bg-emerald-50 dark:bg-slate-800 border border-emerald-200 dark:border-slate-700"><p class="text-xl font-bold text-asf-600" id="mod-stat-completed">0</p><p class="font-bold text-slate-500">সম্পন্ন</p></div>
         <div class="p-3 rounded-xl bg-blue-50 dark:bg-slate-800 border border-blue-200 dark:border-slate-700"><p class="text-xl font-bold text-blue-600" id="mod-stat-ongoing">0</p><p class="font-bold text-slate-500">চলমান</p></div>
         <div class="p-3 rounded-xl bg-amber-50 dark:bg-slate-800 border border-amber-200 dark:border-slate-700"><p class="text-xl font-bold text-amber-600" id="mod-stat-pending">0</p><p class="font-bold text-slate-500">পেন্ডিং / শুটিং</p></div>
       </div>
 
-      <!-- RESTORED: 3 Distinct Portfolio Sections (Photocard, Thumbnail, Published Video) -->
+      <!-- 3 Distinct Portfolio Sections (Photocard, Thumbnail, Published Video) -->
       <div class="space-y-5">
         <div id="mod-photocard-section" class="space-y-2.5 hidden">
           <h4 class="font-bold text-xs sm:text-sm text-asf-600 border-b pb-1">ফটোকার্ড ডিজাইন (১:১ স্কয়ার)</h4>
@@ -931,7 +972,7 @@
     </div>
   </div>
 
-  <!-- RESTORED: Add Portfolio Modal with Type Selection (Photocard / Thumbnail / Video Link) -->
+  <!-- Add Portfolio Modal with Type Selection (Photocard / Thumbnail / Video Link) -->
   <div id="add-portfolio-item-modal" class="fixed inset-0 z-50 bg-slate-950/60 hidden items-center justify-center p-4">
     <div class="solid-card relative max-w-md w-full p-6 space-y-3.5 text-xs">
       <button onclick="document.getElementById('add-portfolio-item-modal').classList.add('hidden')" class="absolute top-4 right-4 w-8 h-8 rounded-lg bg-slate-100 dark:bg-slate-800 font-bold flex items-center justify-center">✕</button>
@@ -1016,6 +1057,10 @@
     window.cleanUrl = (u) => (u && /^https?:\/\//i.test(String(u).trim())) ? window.clean(String(u).trim()) : '';
     window.showToast = (m) => { const el = document.getElementById('toast-msg'); el.innerText = m; el.classList.remove('hidden'); setTimeout(() => el.classList.add('hidden'), 3200); };
 
+    // Quantity Helper: Accurately sums task quantities (e.g., 3 or 4 items logged at once)
+    window.getQty = (t) => Math.max(1, parseInt(t?.quantity, 10) || 1);
+    window.sumQty = (list) => (list || []).reduce((acc, t) => acc + window.getQty(t), 0);
+
     const CORE_ACTIVITIES = [
       "টিম ম্যানেজমেন্ট ও কাজের তদারকি", "কোয়ালিটি কন্ট্রোল ও ফাইনাল রিভিউ",
       "সোশ্যাল মিডিয়া কন্টেন্ট পাবলিশিং ও পেজ ম্যানেজমেন্ট", "টাইটেল, ক্যাপশন ও কপিরাইটিং",
@@ -1093,25 +1138,28 @@
     window.allPortfolio = [];
     window.allMemberPortfolio = [];
     window.allMeetings = [];
+    window.allMessages = [];
     window.homeProdMode = 'popular';
     window.portfolioViewMode = 'all';
     window.selectedPortfolioCategory = 'ALL';
     window.activePipelineStage = 'Upcoming';
     window.openedModalMemberId = null;
+    window.initialMsgLoad = true;
 
     window.siteSettings = {
       title: "ASF Dawah Media", subtitle: "As-Sunnah Foundation",
       logo: "https://assunnahfoundation.org/assets/images/logo.png",
       heroLine1: "আস-সুন্নাহ ফাউন্ডেশন", heroLine2: "দাওয়াহ মিডিয়া",
-      heroDesc: "আস-সুন্নাহ ফাউন্ডেশন ও শায়খ আহমাদুল্লাহ দাওয়াহ মিডিয়া সকল ধরণের কাজ।",
+      heroDesc: "শায়খ আহমাদুল্লাহ ও আস-সুন্নাহ ফাউন্ডেশনের ভিডিও কনটেন্ট এবং গ্রাফিক্যাল দাওয়াতি কার্যক্রম পরিচালনা।",
       notice: "",
       addressBn: "প্লট-৭০, রোড-৩, ব্লক-সি, আফতাবনগর, ঢাকা-১২১২, বাংলাদেশ",
       creditName: "Tarek Ahmad",
       creditRole: "Social Media Executive",
       creditLinkedin: "https://www.linkedin.com/company/assunnahfoundation",
       planTargetCount: 50,
-      planCurrentText: "১. নিয়মিত লেকচার ও প্রশ্নোত্তর প্রোডাকশন\n২. চলমান প্রজেক্টের ডকুমেন্টারি ও ওভিসি নির্মাণ",
-      planNext3Text: "১. আসন্ন বিশেষ দাওয়াহ ক্যাম্পেইন ও প্রামাণ্যচিত্র সিরিজ নির্মাণ",
+      planCurrentText: "১. শায়খ আহমাদুল্লাহর নিয়মিত লেকচার ও প্রশ্নোত্তর পর্ব প্রোডাকশন\n২. চলমান প্রজেক্টের ডকুমেন্টারি ও ওভিসি নির্মাণ",
+      planNext1Text: "১. আগামী মাসের বিশেষ দাওয়াহ প্রোডাকশন লক্ষ্যমাত্রা নির্ধারণ ও বিগত মাসের পারফরম্যান্স রিপোর্ট পর্যালোচনা",
+      planNext3Text: "১. আসন্ন বিশেষ দাওয়াহ ক্যাম্পেইন ও প্রামাণ্যচিত্র সিরিজ নির্মাণ\n২. নতুন পডকাস্ট ও শর্টফিল্ম প্রজেক্ট বাস্তবায়ন",
       activities: CORE_ACTIVITIES,
       platforms: SHORT_PLATFORMS,
       portfolioCategories: DEFAULT_PORTFOLIO_CATEGORIES,
@@ -1184,6 +1232,7 @@
       renderHomeSection();
       renderDashboard();
       renderAdminPanel();
+      renderNotifications();
     });
 
     onSnapshot(collection(db, "users"), (snap) => {
@@ -1201,7 +1250,7 @@
     onSnapshot(collection(db, "tasks"), (snap) => {
       window.allTasks = []; snap.forEach(d => window.allTasks.push({ id: d.id, ...d.data() }));
       window.allTasks.sort((a,b) => (b.date||"").localeCompare(a.date||""));
-      renderHomeSection(); renderPipelineBoard(); renderTeamSection(); renderDashboard(); renderPortfolio(); renderWorkspaceTasks();
+      renderHomeSection(); renderPipelineBoard(); renderTeamSection(); renderDashboard(); renderPortfolio(); renderWorkspaceTasks(); renderNotifications();
       if (window.openedModalMemberId) refreshOpenedMemberModal();
     });
 
@@ -1219,7 +1268,26 @@
     onSnapshot(collection(db, "meetings"), (snap) => {
       window.allMeetings = []; snap.forEach(d => window.allMeetings.push({ id: d.id, ...d.data() }));
       window.allMeetings.sort((a,b) => (b.date||"").localeCompare(a.date||""));
-      renderHomeSection(); renderAdminPanel();
+      renderHomeSection(); renderAdminPanel(); renderNotifications();
+    });
+
+    onSnapshot(collection(db, "messages"), (snap) => {
+      const prevLen = window.allMessages.length;
+      window.allMessages = []; snap.forEach(d => window.allMessages.push({ id: d.id, ...d.data() }));
+      window.allMessages.sort((a,b) => (a.createdAt||"").localeCompare(b.createdAt||""));
+      renderChatMessages();
+      if (!window.initialMsgLoad && window.allMessages.length > prevLen) {
+        const latest = window.allMessages[window.allMessages.length - 1];
+        const myUid = window.currentUserProfile ? window.currentUserProfile.uid : null;
+        if (latest && latest.senderUid !== myUid && (latest.recipientUid === 'ALL' || latest.recipientUid === myUid)) {
+          document.getElementById('toast-sender').innerText = `💬 ${latest.senderName}`;
+          document.getElementById('toast-preview').innerText = latest.text;
+          document.getElementById('live-msg-toast').classList.remove('hidden');
+          document.getElementById('chat-unread-badge').classList.remove('hidden');
+          setTimeout(() => document.getElementById('live-msg-toast').classList.add('hidden'), 6000);
+        }
+      }
+      window.initialMsgLoad = false;
     });
 
     onAuthStateChanged(auth, async (user) => {
@@ -1232,6 +1300,7 @@
       updateAuthUI();
       renderPipelineBoard();
       renderDashboard();
+      renderNotifications();
     });
 
     function applySiteSettingsUI() {
@@ -1293,6 +1362,11 @@
 
       const cleanOptions = members.map(m => `<option value="${m.uid}">${window.clean(m.name)}</option>`).join('');
       if (document.getElementById('assign-member-uid')) document.getElementById('assign-member-uid').innerHTML = cleanOptions;
+
+      if (document.getElementById('chat-recipient')) {
+        document.getElementById('chat-recipient').innerHTML = `<option value="ALL">📢 সকল টিম মেম্বার (Group Chat)</option>` +
+          members.map(m => `<option value="${m.uid}">👤 ${window.clean(m.name)}</option>`).join('');
+      }
     }
 
     function updateAuthUI() {
@@ -1316,6 +1390,92 @@
           switchTab('home');
         }
       }
+    }
+
+    // Notification Bell System
+    window.toggleNotifDropdown = () => {
+      const dd = document.getElementById('notif-dropdown');
+      dd.classList.toggle('hidden');
+      document.getElementById('notif-badge').classList.add('hidden');
+    };
+
+    function renderNotifications() {
+      const listEl = document.getElementById('notif-list');
+      const badgeEl = document.getElementById('notif-badge');
+      if (!listEl || !badgeEl) return;
+
+      const myUid = window.currentUserProfile ? window.currentUserProfile.uid : null;
+      const items = [];
+
+      if (window.siteSettings.notice && window.siteSettings.notice.trim() !== "") {
+        items.push({ title: `📢 নোটিশ: ${window.siteSettings.notice}`, sub: "অ্যাডমিন ঘোষণা", tab: 'home' });
+      }
+
+      const activePipe = getMasterPipelineProjects().filter(t => t.status === 'Upcoming' || t.status === 'Ongoing' || t.status === 'Ready');
+      activePipe.slice(0, 5).forEach(t => {
+        const isMine = myUid && isMemberInTask(t, myUid);
+        items.push({
+          title: `${isMine ? '🎯 আপনার প্রজেক্ট:' : '🎬 পাইপলাইন:'} ${t.cleanTitle}`,
+          sub: `${t.status} • 📅 ${window.formatFullDate(t.date)}`,
+          tab: 'pipeline'
+        });
+      });
+
+      window.allMeetings.slice(0, 2).forEach(m => {
+        items.push({ title: `📋 মিটিং: ${m.title}`, sub: window.formatFullDate(m.date), tab: 'home' });
+      });
+
+      if (items.length > 0) {
+        badgeEl.innerText = items.length;
+        badgeEl.classList.remove('hidden');
+        listEl.innerHTML = items.map(n => `
+          <div onclick="switchTab('${n.tab}');document.getElementById('notif-dropdown').classList.add('hidden')" class="p-2 rounded-lg hover:bg-emerald-50 dark:hover:bg-slate-800 cursor-pointer">
+            <p class="font-bold text-slate-800 dark:text-slate-100">${window.clean(n.title)}</p>
+            <p class="text-[10px] text-asf-600 font-semibold">${window.clean(n.sub)}</p>
+          </div>
+        `).join('');
+      } else {
+        badgeEl.classList.add('hidden');
+        listEl.innerHTML = `<p class="text-center text-slate-400 py-4">কোনো নতুন নোটিফিকেশন নেই।</p>`;
+      }
+    }
+
+    // Live Chat Functions
+    window.openChatBox = () => {
+      document.getElementById('chat-drawer').classList.remove('hidden');
+      document.getElementById('chat-drawer').classList.add('flex');
+      document.getElementById('chat-unread-badge').classList.add('hidden');
+      document.getElementById('live-msg-toast').classList.add('hidden');
+      renderChatMessages();
+    };
+    window.sendLiveChatMessage = async (e) => {
+      e.preventDefault();
+      const p = window.currentUserProfile;
+      if (!p) return alert("মেসেজ পাঠাতে প্রথমে লগইন করুন।");
+      const text = document.getElementById('chat-input').value.trim();
+      const rec = document.getElementById('chat-recipient').value;
+      if (!text) return;
+      try {
+        await addDoc(collection(db, "messages"), {
+          senderUid: p.uid, senderName: p.name, recipientUid: rec, text, createdAt: new Date().toISOString()
+        });
+        document.getElementById('chat-input').value = '';
+      } catch (err) {
+        alert("মেসেজ পাঠাতে সমস্যা হয়েছে। ফায়ারবেস রুলস চেক করুন।");
+      }
+    };
+    function renderChatMessages() {
+      const box = document.getElementById('chat-messages-box');
+      if (!box) return;
+      const myUid = window.currentUserProfile ? window.currentUserProfile.uid : null;
+      const visible = window.allMessages.filter(m => m.recipientUid === 'ALL' || m.recipientUid === myUid || m.senderUid === myUid);
+      box.innerHTML = visible.length === 0 ? `<p class="text-center text-slate-400 py-8">কোনো মেসেজ নেই।</p>` : visible.slice(-35).map(m => `
+        <div class="p-2 rounded-xl ${m.senderUid === myUid ? 'bg-emerald-100 dark:bg-emerald-950 ml-6' : 'bg-white dark:bg-slate-800 mr-6'} border">
+          <p class="text-[10px] font-bold text-asf-600">${window.clean(m.senderName)} ${m.recipientUid !== 'ALL' ? '🔒' : ''}</p>
+          <p class="text-xs font-medium">${window.clean(m.text)}</p>
+        </div>
+      `).join('');
+      box.scrollTop = box.scrollHeight;
     }
 
     function getMasterPipelineProjects() {
@@ -1349,7 +1509,7 @@
       return Array.from(groupedMap.values());
     }
 
-    // 1. Render Home (Including Team Members Overview Above Featured Productions)
+    // 1. Render Home (Quantity-Aware Counters + Next Month Plan/Report + Team Members Overview)
     function renderHomeSection() {
       const s = window.siteSettings;
       const curMonth = getCurrentMonthStr();
@@ -1359,10 +1519,11 @@
       const prevMonthTasks = window.allTasks.filter(t => t.month === prevMonth);
       const masterProjects = getMasterPipelineProjects();
 
-      const compCount = curMonthTasks.filter(t => t.status === 'Completed').length;
-      const ongCount = window.allTasks.filter(t => t.status === 'Ongoing').length;
-      const pendCount = masterProjects.filter(t => t.status === 'Pending').length + window.allTasks.filter(t => !t.isPipeline && t.status === 'Pending').length;
-      const readyCount = masterProjects.filter(t => t.status === 'Ready' || t.status === 'In Review').length;
+      // Sum by Quantity!
+      const compCount = window.sumQty(curMonthTasks.filter(t => t.status === 'Completed'));
+      const ongCount = window.sumQty(window.allTasks.filter(t => t.status === 'Ongoing'));
+      const pendCount = masterProjects.filter(t => t.status === 'Pending').length + window.sumQty(window.allTasks.filter(t => !t.isPipeline && t.status === 'Pending'));
+      const readyCount = masterProjects.filter(t => t.status === 'Ready' || t.status === 'In Review').length + window.sumQty(window.allTasks.filter(t => !t.isPipeline && (t.status === 'Ready' || t.status === 'In Review')));
       const upCount = masterProjects.filter(t => t.status === 'Upcoming').length;
 
       document.getElementById('stat-completed').innerText = compCount;
@@ -1371,22 +1532,20 @@
       document.getElementById('stat-ready').innerText = readyCount;
       document.getElementById('stat-upcoming').innerText = upCount;
 
-      document.getElementById('hero-stat-comp').innerText = compCount;
-      document.getElementById('hero-stat-ong').innerText = ongCount;
-      document.getElementById('hero-stat-pend').innerText = readyCount + pendCount;
-
       const target = Number(s.planTargetCount) || 50;
       const pct = Math.min(100, Math.round((compCount / target) * 100));
       document.getElementById('home-plan-percent').innerText = `${pct}% (${compCount}/${target})`;
       document.getElementById('home-plan-bar').style.width = `${pct}%`;
 
       document.getElementById('home-current-plan-preview').innerText = s.planCurrentText || "";
+      document.getElementById('home-next1-plan-preview').innerText = s.planNext1Text || "আগামী মাসের পরিকল্পনা ও বিগত মাসের রিপোর্ট...";
       document.getElementById('home-next3-plan-preview').innerText = s.planNext3Text || "";
-      document.getElementById('home-ongoing-preview').innerText = window.allTasks.filter(t => t.status === 'Ongoing').map(t => `• ${cleanProjectTitle(t.title)}`).join(' ') || 'কোনো চলমান প্রজেক্ট নেই।';
-      document.getElementById('home-pending-preview').innerText = window.allTasks.filter(t => t.status === 'Ready' || t.status === 'Pending').map(t => `• ${cleanProjectTitle(t.title)}`).join(' ') || 'কোনো পেন্ডিং বা রেডি কাজ নেই।';
 
-      const prevComp = prevMonthTasks.filter(t => t.status === 'Completed').length;
-      const maxBar = Math.max(8, prevComp, compCount, prevMonthTasks.length, curMonthTasks.length);
+      const prevComp = window.sumQty(prevMonthTasks.filter(t => t.status === 'Completed'));
+      const prevTotal = window.sumQty(prevMonthTasks);
+      const curTotal = window.sumQty(curMonthTasks);
+      const maxBar = Math.max(8, prevComp, compCount, prevTotal, curTotal);
+
       document.getElementById('legend-prev-month').innerText = window.formatMonthName(prevMonth);
       document.getElementById('legend-cur-month').innerText = window.formatMonthName(curMonth);
       document.getElementById('home-growth-badge').innerText = `${compCount - prevComp >= 0 ? '+' : ''}${compCount - prevComp}`;
@@ -1402,10 +1561,10 @@
           </div>
           <div class="flex flex-col items-center">
             <div class="flex items-end justify-center gap-4 h-36 w-full border-b pb-2">
-              <div class="flex flex-col items-center"><span class="text-xs font-bold">${prevMonthTasks.length}</span><div class="w-10 bg-slate-400 rounded-t-lg" style="height:${Math.max(14,Math.round((prevMonthTasks.length/maxBar)*120))}px"></div></div>
-              <div class="flex flex-col items-center"><span class="text-xs font-bold text-blue-600">${curMonthTasks.length}</span><div class="w-10 bg-blue-600 rounded-t-lg" style="height:${Math.max(14,Math.round((curMonthTasks.length/maxBar)*120))}px"></div></div>
+              <div class="flex flex-col items-center"><span class="text-xs font-bold">${prevTotal}</span><div class="w-10 bg-slate-400 rounded-t-lg" style="height:${Math.max(14,Math.round((prevTotal/maxBar)*120))}px"></div></div>
+              <div class="flex flex-col items-center"><span class="text-xs font-bold text-blue-600">${curTotal}</span><div class="w-10 bg-blue-600 rounded-t-lg" style="height:${Math.max(14,Math.round((curTotal/maxBar)*120))}px"></div></div>
             </div>
-            <p class="text-xs font-bold mt-2">মোট প্রজেক্ট</p>
+            <p class="text-xs font-bold mt-2">মোট প্রজেক্ট ও কাজ</p>
           </div>
         </div>
       `;
@@ -1549,6 +1708,7 @@
       document.getElementById('edit-task-id').value = t.id;
       document.getElementById('edit-task-title').value = cleanProjectTitle(t.title);
       document.getElementById('edit-task-date').value = t.date || getTodayStr();
+      document.getElementById('edit-task-qty').value = window.getQty(t);
       document.getElementById('edit-task-time').value = t.shootTime || "";
       document.getElementById('edit-task-status').value = t.status || "Upcoming";
       document.getElementById('edit-task-platform').value = formatShortPlatformLabel(t.platform || "");
@@ -1566,6 +1726,7 @@
         title: document.getElementById('edit-task-title').value.trim(),
         date: dt,
         month: dt.slice(0,7),
+        quantity: Math.max(1, parseInt(document.getElementById('edit-task-qty').value, 10) || 1),
         shootTime: document.getElementById('edit-task-time').value,
         status: document.getElementById('edit-task-status').value,
         platform: document.getElementById('edit-task-platform').value.trim(),
@@ -1738,7 +1899,7 @@
       }).join('');
     }
 
-    // 3. Dashboard
+    // 3. Dashboard (Quantity-Aware)
     window.renderDashboard = () => {
       const month = document.getElementById('filter-month').value || getCurrentMonthStr();
       document.getElementById('dashboard-month-heading').innerText = `${window.formatMonthName(month)} — মাসিক ড্যাশবোর্ড`;
@@ -1751,14 +1912,15 @@
 
       const stFilter = document.getElementById('filter-status').value || 'ALL';
       const monthTasks = window.allTasks.filter(t => t.month === month);
-      const done = monthTasks.filter(t => t.status === 'Completed').length;
-      const ong = monthTasks.filter(t => t.status === 'Ongoing').length;
-      const rem = monthTasks.filter(t => t.status !== 'Completed' && t.status !== 'Ongoing').length;
-      const pct = monthTasks.length ? Math.round((done/monthTasks.length)*100) : 0;
+      const totalQty = window.sumQty(monthTasks);
+      const done = window.sumQty(monthTasks.filter(t => t.status === 'Completed'));
+      const ong = window.sumQty(monthTasks.filter(t => t.status === 'Ongoing'));
+      const rem = window.sumQty(monthTasks.filter(t => t.status !== 'Completed' && t.status !== 'Ongoing'));
+      const pct = totalQty ? Math.round((done/totalQty)*100) : 0;
 
       document.getElementById('dash-visual-summary-chart').innerHTML = `
         <div class="grid grid-cols-2 gap-3 text-center text-xs">
-          <div class="p-3 rounded-xl bg-slate-100 dark:bg-slate-800"><p class="text-xl font-bold">${monthTasks.length}</p><p class="font-bold text-slate-500">মোট প্রজেক্ট</p></div>
+          <div class="p-3 rounded-xl bg-slate-100 dark:bg-slate-800"><p class="text-xl font-bold">${totalQty}</p><p class="font-bold text-slate-500">মোট প্রজেক্ট ও কাজ</p></div>
           <div class="p-3 rounded-xl bg-emerald-50 dark:bg-slate-800"><p class="text-xl font-bold text-asf-600">${done} (${pct}%)</p><p class="font-bold text-asf-600">সম্পন্ন প্রোডাকশন</p></div>
           <div class="p-3 rounded-xl bg-blue-50 dark:bg-slate-800"><p class="text-xl font-bold text-blue-600">${ong}</p><p class="font-bold text-blue-600">চলমান</p></div>
           <div class="p-3 rounded-xl bg-amber-50 dark:bg-slate-800"><p class="text-xl font-bold text-amber-600">${rem}</p><p class="font-bold text-amber-600">রেডি / পেন্ডিং / আপকামিং</p></div>
@@ -1770,7 +1932,7 @@
       if (stFilter !== 'ALL') filtered = filtered.filter(t => t.status === stFilter);
 
       const catCounts = {};
-      filtered.forEach(t => { catCounts[window.tAct(t.category)] = (catCounts[window.tAct(t.category)] || 0) + (parseInt(t.quantity)||1); });
+      filtered.forEach(t => { catCounts[window.tAct(t.category)] = (catCounts[window.tAct(t.category)] || 0) + window.getQty(t); });
       document.getElementById('dashboard-category-list').innerHTML = Object.entries(catCounts).map(([c,n]) => `
         <div class="flex justify-between p-2.5 rounded-lg bg-slate-50 dark:bg-slate-800 text-xs font-bold"><span>${window.clean(c)}</span><span class="px-2 py-0.5 rounded bg-asf-600 text-white">${n}</span></div>
       `).join('');
@@ -1781,9 +1943,9 @@
           <td class="p-3 font-bold whitespace-nowrap">${window.formatFullDate(t.date)}</td>
           <td class="p-3 font-bold">${window.clean(t.memberName)}</td>
           <td class="p-3"><p class="font-bold">${window.clean(cleanProjectTitle(t.title))}</p><p class="text-[11px] text-slate-500">${window.clean(window.tAct(t.category))}</p></td>
+          <td class="p-3 font-bold text-asf-600">${window.getQty(t)}</td>
           <td class="p-3 text-xs font-semibold">${window.clean(formatShortPlatformLabel(t.platform))}</td>
           <td class="p-3"><span class="px-2 py-0.5 rounded text-xs font-bold bg-emerald-100 text-asf-700">${window.clean(t.status)}</span></td>
-          <td class="p-3 text-amber-500 font-bold">${t.rating ? '⭐'.repeat(t.rating) : '-'}</td>
           <td class="p-3 space-x-2 whitespace-nowrap">
             ${t.link ? `<a href="${window.cleanUrl(t.link)}" target="_blank" class="text-asf-600 underline font-bold">ফাইল ↗</a>` : ''}
             ${t.topViewLink ? `<a href="${window.cleanUrl(t.topViewLink)}" target="_blank" class="text-red-600 underline font-bold">ভিউ ↗</a>` : ''}
@@ -1796,15 +1958,15 @@
       `).join('');
     };
 
-    // 4. Team Members Tab (With Visible Role Description / Bio on Card Surface + Task Counts)
+    // 4. Team Members Tab (Visible Bio on Card Surface + Quantity-Aware Task Counts)
     function renderTeamSection() {
       const curMonth = getCurrentMonthStr();
       const monthTasks = window.allTasks.filter(t => t.month === curMonth);
       document.getElementById('full-team-grid').innerHTML = getSortedMembers(true).map(m => {
         const mTasks = monthTasks.filter(t => isMemberInTask(t, m.uid));
-        const comp = mTasks.filter(t => t.status === 'Completed').length;
-        const ong = mTasks.filter(t => t.status === 'Ongoing').length;
-        const pend = mTasks.filter(t => t.status !== 'Completed' && t.status !== 'Ongoing').length;
+        const comp = window.sumQty(mTasks.filter(t => t.status === 'Completed'));
+        const ong = window.sumQty(mTasks.filter(t => t.status === 'Ongoing'));
+        const pend = window.sumQty(mTasks.filter(t => t.status !== 'Completed' && t.status !== 'Ongoing'));
         return `
           <div onclick="openMemberModal('${m.uid}')" class="stitched-box cursor-pointer group">
             <div class="solid-card p-5 h-full flex flex-col justify-between space-y-3.5">
@@ -1816,7 +1978,6 @@
                     <p class="text-xs font-bold text-asf-600 dark:text-emerald-400 truncate">${window.clean(m.designation)}</p>
                   </div>
                 </div>
-                <!-- Visible Bio / Work Description Floating Directly on Card Surface -->
                 <p class="text-xs text-slate-600 dark:text-slate-300 bg-slate-50 dark:bg-slate-800/70 p-2.5 rounded-xl line-clamp-2 leading-relaxed">
                   ${window.clean(getMemberBioText(m))}
                 </p>
@@ -1921,6 +2082,7 @@
       const checkedPlats = Array.from(document.querySelectorAll('#task-platform-checkboxes input:checked')).map(i => i.value);
       const platformStr = checkedPlats.length > 0 ? checkedPlats.join(', ') : SHORT_PLATFORMS[0];
       const dt = document.getElementById('task-date').value || getTodayStr();
+      const qty = Math.max(1, parseInt(document.getElementById('task-qty').value, 10) || 1);
 
       await addDoc(collection(db, "tasks"), {
         uid: p.uid, memberName: p.name, memberRole: p.designation,
@@ -1930,13 +2092,14 @@
         platform: platformStr,
         status: document.getElementById('task-status').value,
         isPipeline: false,
-        quantity: parseInt(document.getElementById('task-qty').value) || 1,
+        quantity: qty,
         link: document.getElementById('task-link').value.trim(),
         topViewLink: document.getElementById('task-top-link').value.trim(),
         rating: 0, createdAt: new Date().toISOString()
       });
       document.getElementById('task-title').value = '';
-      window.showToast("আলহামদুলিল্লাহ! কাজ সেভ হয়েছে।");
+      document.getElementById('task-qty').value = '1';
+      window.showToast(`আলহামদুলিল্লাহ! ${qty}টি কাজ সেভ হয়েছে।`);
     };
 
     function renderWorkspaceTasks() {
@@ -1957,7 +2120,7 @@
       const myToday = window.allTasks.filter(t => isMemberInTask(t, p.uid) && t.date === getTodayStr());
       document.getElementById('my-today-tasks-list').innerHTML = myToday.map(t => `
         <div class="p-2.5 rounded-lg border flex justify-between items-center text-xs">
-          <div><p class="font-bold">${window.clean(cleanProjectTitle(t.title))}</p><p class="text-[10px] text-slate-500">${window.clean(formatShortPlatformLabel(t.platform))}</p></div>
+          <div><p class="font-bold">${window.clean(cleanProjectTitle(t.title))} <span class="text-asf-600">(${window.getQty(t)}টি)</span></p><p class="text-[10px] text-slate-500">${window.clean(formatShortPlatformLabel(t.platform))}</p></div>
           <div class="flex gap-2">
             <button onclick="openEditTaskModal('${t.id}')" class="text-amber-600 font-bold">✎</button>
             <button onclick="deleteTaskByAdmin('${t.id}')" class="text-red-500 font-bold">🗑️</button>
@@ -1966,7 +2129,7 @@
       `).join('');
     }
 
-    // Modals & Full Member Portfolio Logic (Photocard, Thumbnail, Video Link + Lightbox)
+    // Modals & Full Member Portfolio Logic
     window.openImageLightbox = (src) => {
       document.getElementById('lightbox-img').src = src;
       document.getElementById('image-lightbox-modal').classList.remove('hidden');
@@ -1984,7 +2147,7 @@
 
       document.getElementById('quick-modal-body').innerHTML = list.length === 0 ? `<p class="text-center py-6 text-slate-400">কোনো প্রজেক্ট নেই।</p>` : list.map(t => `
         <div class="p-3 rounded-xl border flex justify-between items-center">
-          <div><p class="font-bold">${window.clean(cleanProjectTitle(t.title))}</p><p class="text-slate-500">${window.clean(t.memberName)} • ${window.formatFullDate(t.date)} • ${window.clean(formatShortPlatformLabel(t.platform))}</p></div>
+          <div><p class="font-bold">${window.clean(cleanProjectTitle(t.title))} <span class="text-asf-600">(${window.getQty(t)}টি)</span></p><p class="text-slate-500">${window.clean(t.memberName)} • ${window.formatFullDate(t.date)} • ${window.clean(formatShortPlatformLabel(t.platform))}</p></div>
           ${t.link ? `<a href="${window.cleanUrl(t.link)}" target="_blank" class="text-asf-600 font-bold underline">ড্রাইভ ↗</a>` : ''}
         </div>
       `).join('');
@@ -1993,8 +2156,18 @@
 
     window.openPlanningDetailModal = (type) => {
       const modal = document.getElementById('quick-detail-modal');
-      document.getElementById('quick-modal-title').innerText = type === 'currentPlan' ? 'চলতি মাসের প্ল্যানিং' : 'আগামী ৩ মাসের পরিকল্পনা';
-      document.getElementById('quick-modal-body').innerHTML = `<div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800 whitespace-pre-line">${window.clean(type === 'currentPlan' ? window.siteSettings.planCurrentText : window.siteSettings.planNext3Text)}</div>`;
+      const titleMap = {
+        currentPlan: 'চলতি মাসের প্ল্যানিং',
+        nextMonthPlan: 'আগামী মাসের পরিকল্পনা ও রিপোর্ট',
+        next3Months: 'আগামী ৩ মাসের পরিকল্পনা'
+      };
+      const textMap = {
+        currentPlan: window.siteSettings.planCurrentText,
+        nextMonthPlan: window.siteSettings.planNext1Text,
+        next3Months: window.siteSettings.planNext3Text
+      };
+      document.getElementById('quick-modal-title').innerText = titleMap[type] || 'পরিকল্পনা';
+      document.getElementById('quick-modal-body').innerHTML = `<div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800 whitespace-pre-line leading-relaxed">${window.clean(textMap[type] || '')}</div>`;
       modal.classList.remove('hidden'); modal.classList.add('flex');
     };
 
@@ -2022,16 +2195,15 @@
 
       const month = document.getElementById('mod-member-month').value || getCurrentMonthStr();
       const mTasks = window.allTasks.filter(t => isMemberInTask(t, uid) && t.month === month);
-      document.getElementById('mod-stat-completed').innerText = mTasks.filter(t => t.status === 'Completed').length;
-      document.getElementById('mod-stat-ongoing').innerText = mTasks.filter(t => t.status === 'Ongoing').length;
-      document.getElementById('mod-stat-pending').innerText = mTasks.filter(t => t.status !== 'Completed' && t.status !== 'Ongoing').length;
+      document.getElementById('mod-stat-completed').innerText = window.sumQty(mTasks.filter(t => t.status === 'Completed'));
+      document.getElementById('mod-stat-ongoing').innerText = window.sumQty(mTasks.filter(t => t.status === 'Ongoing'));
+      document.getElementById('mod-stat-pending').innerText = window.sumQty(mTasks.filter(t => t.status !== 'Completed' && t.status !== 'Ongoing'));
 
       const memberItems = window.allMemberPortfolio.filter(x => x.uid === uid);
       const photocards = memberItems.filter(p => !p.type || p.type === 'photocard');
       const thumbnails = memberItems.filter(p => p.type === 'thumbnail');
       const videos = memberItems.filter(p => p.type === 'video');
 
-      // 1. Photocards Section
       const pcSec = document.getElementById('mod-photocard-section');
       if (photocards.length > 0) {
         pcSec.classList.remove('hidden');
@@ -2048,7 +2220,6 @@
         `).join('');
       } else pcSec.classList.add('hidden');
 
-      // 2. Thumbnails Section
       const thSec = document.getElementById('mod-thumbnail-section');
       if (thumbnails.length > 0) {
         thSec.classList.remove('hidden');
@@ -2065,7 +2236,6 @@
         `).join('');
       } else thSec.classList.add('hidden');
 
-      // 3. Video Productions Section
       const vidSec = document.getElementById('mod-video-section');
       if (videos.length > 0) {
         vidSec.classList.remove('hidden');
@@ -2089,7 +2259,7 @@
       document.getElementById('mod-tasks-tbody').innerHTML = mTasks.map(t => `
         <tr>
           <td class="p-2.5 font-bold whitespace-nowrap">${window.formatFullDate(t.date)}</td>
-          <td class="p-2.5"><p class="font-bold">${window.clean(cleanProjectTitle(t.title))}</p><p class="text-[10px] text-asf-600 font-bold">দায়িত্ব: ${window.clean(getMemberRoleInTask(t, uid))}</p></td>
+          <td class="p-2.5"><p class="font-bold">${window.clean(cleanProjectTitle(t.title))} <span class="text-asf-600">(${window.getQty(t)}টি)</span></p><p class="text-[10px] text-asf-600 font-bold">দায়িত্ব: ${window.clean(getMemberRoleInTask(t, uid))}</p></td>
           <td class="p-2.5 font-bold">${window.clean(t.status)}</td>
         </tr>
       `).join('');
@@ -2148,6 +2318,7 @@
       const s = window.siteSettings;
       document.getElementById('plan-target-count').value = s.planTargetCount || 50;
       document.getElementById('plan-current-text').value = s.planCurrentText || "";
+      if (document.getElementById('plan-next1-text')) document.getElementById('plan-next1-text').value = s.planNext1Text || "";
       document.getElementById('plan-next3-text').value = s.planNext3Text || "";
 
       if (document.getElementById('set-title')) {
@@ -2395,6 +2566,7 @@
       await setDoc(doc(db, "config", "siteSettings"), {
         planTargetCount: parseInt(document.getElementById('plan-target-count').value)||50,
         planCurrentText: document.getElementById('plan-current-text').value.trim(),
+        planNext1Text: document.getElementById('plan-next1-text').value.trim(),
         planNext3Text: document.getElementById('plan-next3-text').value.trim()
       }, { merge: true });
       window.showToast("পরিকল্পনা সেভ হয়েছে!");
@@ -2549,7 +2721,7 @@
     };
     window.triggerAppInstall = () => alert("মোবাইলের ব্রাউজার মেনু (⋮) থেকে 'Add to Home screen' বা 'Install App' সিলেক্ট করুন।");
     window.exportTasksToCSV = () => {
-      const csv = "\uFEFFDate,Member,Category,Title,Platform,Status\n" + window.allTasks.map(t => `${t.date},"${t.memberName}","${t.category}","${cleanProjectTitle(t.title)}","${formatShortPlatformLabel(t.platform)}",${t.status}`).join("\n");
+      const csv = "\uFEFFDate,Member,Category,Title,Quantity,Platform,Status\n" + window.allTasks.map(t => `${t.date},"${t.memberName}","${t.category}","${cleanProjectTitle(t.title)}",${window.getQty(t)},"${formatShortPlatformLabel(t.platform)}",${t.status}`).join("\n");
       const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([csv],{type:"text/csv"})); a.download = "ASF_Report.csv"; a.click();
     };
     window.downloadFullJSONBackup = () => {
