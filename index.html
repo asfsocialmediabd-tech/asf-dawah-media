@@ -34,26 +34,21 @@
     .btn-green { background-color: #006837; color: #fff; border-radius: 0.75rem; transition: 0.2s; }
     .btn-green:hover { background-color: #083823; }
     /* Strict Security Locks: Hidden by default until verified by Firebase Auth */
-    .auth-only, .admin-only { display: none !important; }
+    .auth-only, .admin-only, .auth-only-block, .admin-only-block { display: none !important; }
     body.is-logged-in .auth-only { display: inline-flex !important; }
     body.is-logged-in .auth-only-block { display: block !important; }
     body.is-admin-or-dir .admin-only { display: inline-flex !important; }
     body.is-admin-or-dir .admin-only-block { display: block !important; }
-    .auth-only-block, .admin-only-block { display: none !important; }
     ::-webkit-scrollbar { width: 6px; height: 6px; }
     ::-webkit-scrollbar-thumb { background: #006837; border-radius: 9999px; }
   </style>
 </head>
 <body class="min-h-screen flex flex-col pb-20 md:pb-0">
 
-  <!-- Toast & Live Message Popup -->
+  <!-- Toast Status Popup -->
   <div id="toast-msg" class="fixed top-5 right-5 z-50 hidden bg-asf-700 text-white px-4 py-3 rounded-xl shadow-2xl border border-emerald-400 text-xs sm:text-sm font-bold"></div>
-  <div id="live-msg-toast" onclick="openChatBox()" class="fixed bottom-20 right-5 z-50 hidden cursor-pointer bg-white dark:bg-slate-900 border-2 border-asf-600 p-3.5 rounded-2xl shadow-2xl max-w-xs">
-    <p class="text-[11px] font-bold text-asf-600" id="toast-sender"></p>
-    <p class="text-xs font-semibold text-slate-800 dark:text-slate-100 line-clamp-2 mt-0.5" id="toast-preview"></p>
-  </div>
 
-  <!-- Notice Bar -->
+  <!-- Top Notice Bar -->
   <div id="notice-bar" class="bg-asf-700 text-white text-xs py-2 px-4 text-center font-medium hidden">
     <span class="px-2 py-0.5 text-[10px] font-bold bg-amber-400 text-slate-950 rounded mr-2">নোটিশ</span>
     <span id="notice-text"></span>
@@ -70,7 +65,7 @@
         </div>
       </div>
 
-      <!-- Desktop Menu (Strictly Locked for Guests) -->
+      <!-- Desktop Navigation -->
       <nav class="hidden md:flex items-center gap-1">
         <button onclick="switchTab('home')" id="nav-home" class="px-3.5 py-2 text-sm font-bold text-asf-600 border-b-2 border-asf-600" data-bn="হোম" data-en="Home">হোম</button>
         <button onclick="switchTab('pipeline')" id="nav-pipeline" class="px-3.5 py-2 text-sm font-semibold text-slate-700 dark:text-slate-300" data-bn="প্রোডাকশন পাইপলাইন" data-en="Production Pipeline">প্রোডাকশন পাইপলাইন</button>
@@ -107,7 +102,7 @@
     <button onclick="switchTab('admin')" id="mnav-admin" class="admin-only text-slate-500 py-1 px-2" data-bn="অ্যাডমিন" data-en="Admin">অ্যাডমিন</button>
   </nav>
 
-  <!-- MAIN CONTENT (Widescreen 95% Layout — Fixes Empty Side Margins on PC) -->
+  <!-- MAIN CONTENT (Widescreen 95% Layout) -->
   <main class="flex-grow w-[95%] max-w-[1600px] mx-auto py-6 space-y-8">
 
     <!-- ================= 1. HOME TAB ================= -->
@@ -260,6 +255,17 @@
         <div id="home-portfolio-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"></div>
       </div>
 
+      <!-- NEW: Managed Official Pages & Channels Directory (Clickable Links) -->
+      <div class="stitched-box">
+        <div class="solid-card p-5 space-y-4">
+          <div class="flex items-center justify-between border-b pb-2.5 dark:border-slate-800">
+            <h3 class="font-bold text-base text-asf-700 dark:text-emerald-400" data-bn="আমাদের পরিচালিত পেজ ও চ্যানেলসমূহ" data-en="Our Managed Official Pages & Channels">আমাদের পরিচালিত পেজ ও চ্যানেলসমূহ</h3>
+            <span class="text-xs text-slate-400 font-semibold" data-bn="ক্লিক করলে সরাসরি পেজ বা চ্যানেলে যাবে" data-en="Click to visit official channel">ক্লিক করলে সরাসরি পেজ বা চ্যানেলে যাবে</span>
+          </div>
+          <div id="home-channel-links-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3"></div>
+        </div>
+      </div>
+
       <!-- Meeting Agenda at the Very Bottom -->
       <div class="stitched-box">
         <div class="solid-card p-5 space-y-4">
@@ -269,7 +275,7 @@
       </div>
     </section>
 
-    <!-- ================= 2. PRODUCTION PIPELINE TAB (SINGLE MASTER PROJECT CARD & ROLE ASSIGNMENT) ================= -->
+    <!-- ================= 2. PRODUCTION PIPELINE TAB ================= -->
     <section id="tab-pipeline" class="hidden space-y-6">
       <div class="stitched-box">
         <div class="solid-card p-5 space-y-4">
@@ -278,7 +284,6 @@
             <span class="text-xs font-semibold text-slate-500" data-bn="প্রি-প্রোডাকশন, শুটিং, এডিটিং ও পাবলিশিং মাস্টার ট্র্যাকার" data-en="Master Project Tracker">প্রি-প্রোডাকশন, শুটিং, এডিটিং ও পাবলিশিং মাস্টার ট্র্যাকার</span>
           </div>
 
-          <!-- 5 Stage Filter Pills -->
           <div class="grid grid-cols-2 sm:grid-cols-5 gap-3 text-xs font-bold">
             <button onclick="setPipelineFilter('Upcoming')" id="pstage-Upcoming" class="p-3 rounded-xl border-2 border-asf-600 bg-emerald-50 dark:bg-slate-800 text-asf-700 dark:text-emerald-300 flex items-center justify-between">
               <span data-bn="১. আপকামিং শুটিং" data-en="1. Upcoming Shoot">১. আপকামিং শুটিং</span>
@@ -304,7 +309,7 @@
         </div>
       </div>
 
-      <!-- Admin / Director Schedule Shooting Form (Strictly Locked for Non-Admins) -->
+      <!-- Admin / Director Schedule Shooting Form -->
       <div class="admin-only-block stitched-box">
         <div class="solid-card p-5 space-y-4">
           <h3 class="font-bold text-base text-asf-600 border-b pb-2" data-bn="নতুন প্রজেক্ট ও শুটিং শিডিউল অ্যাসাইন করুন (১টি মাস্টার কার্ড তৈরি হবে)" data-en="Schedule New Production Project">নতুন প্রজেক্ট ও শুটিং শিডিউল অ্যাসাইন করুন (১টি মাস্টার কার্ড তৈরি হবে)</h3>
@@ -331,15 +336,13 @@
             </div>
 
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-4">
-              <!-- Team & Role Assignment (Pre-Production to Post-Production) -->
               <div class="lg:col-span-7">
-                <label class="block text-xs font-bold mb-1.5 text-asf-600" data-bn="এই প্রজেক্টে কে কী দায়িত্ব পালন করবেন? (টিক দিন ও পাশে কাজের ধরন সিলেক্ট করুন)" data-en="Assign Team Members & Specific Roles">এই প্রজেক্টে কে কী দায়িত্ব পালন করবেন? (টিক দিন ও পাশে কাজের ধরন সিলেক্ট করুন)</label>
+                <label class="block text-xs font-bold mb-1.5 text-asf-600" data-bn="এই প্রজেক্টে কে কী দায়িত্ব পালন করবেন? (টিক দিন ও পাশে কাজের ধরন সিলেক্ট করুন)" data-en="Assign Team Members & Roles">এই প্রজেক্টে কে কী দায়িত্ব পালন করবেন? (টিক দিন ও পাশে কাজের ধরন সিলেক্ট করুন)</label>
                 <div id="pipe-crew-role-list" class="max-h-44 overflow-y-auto border rounded-xl p-2.5 grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs bg-slate-50/50 dark:bg-slate-900"></div>
               </div>
 
-              <!-- Multi-Platform Selection -->
               <div class="lg:col-span-5">
-                <label class="block text-xs font-bold mb-1.5 text-asf-600" data-bn="প্ল্যাটফর্মসমূহ (একাধিক সিলেক্ট করা যাবে)" data-en="Select Platforms (Multiple)">প্ল্যাটফর্মসমূহ (একাধিক সিলেক্ট করা যাবে)</label>
+                <label class="block text-xs font-bold mb-1.5 text-asf-600" data-bn="প্ল্যাটফর্মসমূহ (সংক্ষিপ্ত নাম — একাধিক সিলেক্ট করা যাবে)" data-en="Select Platforms (Multiple)">প্ল্যাটফর্মসমূহ (সংক্ষিপ্ত নাম — একাধিক সিলেক্ট করা যাবে)</label>
                 <div id="pipe-platform-checkboxes" class="max-h-44 overflow-y-auto border rounded-xl p-2.5 grid grid-cols-1 sm:grid-cols-2 gap-1.5 text-xs bg-slate-50/50 dark:bg-slate-900"></div>
               </div>
             </div>
@@ -404,7 +407,7 @@
                   <th class="p-3 font-bold">প্ল্যাটফর্ম</th>
                   <th class="p-3 font-bold">অবস্থা</th>
                   <th class="p-3 font-bold">রেটিং</th>
-                  <th class="p-3 font-bold">লিংক</th>
+                  <th class="p-3 font-bold">লিংক ও অ্যাকশন</th>
                 </tr>
               </thead>
               <tbody id="dashboard-logs-tbody" class="divide-y dark:divide-slate-800"></tbody>
@@ -506,8 +509,8 @@
               </div>
 
               <div>
-                <label class="block text-xs font-bold mb-1 text-asf-600">প্ল্যাটফর্ম বা চ্যানেল (একাধিক টিক দেওয়া যাবে) *</label>
-                <div id="task-platform-checkboxes" class="max-h-28 overflow-y-auto border rounded-lg p-2 grid grid-cols-1 sm:grid-cols-2 gap-1 text-xs"></div>
+                <label class="block text-xs font-bold mb-1 text-asf-600">প্ল্যাটফর্মসমূহ (সংক্ষিপ্ত নাম — একাধিক টিক দেওয়া যাবে) *</label>
+                <div id="task-platform-checkboxes" class="border rounded-xl p-2.5 grid grid-cols-2 sm:grid-cols-3 gap-1.5 text-xs bg-slate-50/50 dark:bg-slate-900"></div>
               </div>
 
               <div class="grid grid-cols-3 gap-3">
@@ -561,25 +564,121 @@
       </div>
     </section>
 
-    <!-- ================= 7. ADMIN PANEL (STRICTLY PROTECTED) ================= -->
+    <!-- ================= 7. FULL NO-CODE ADMIN CMS PANEL ================= -->
     <section id="tab-admin" class="hidden space-y-6">
       <div class="stitched-box">
         <div class="bg-asf-700 text-white p-5 rounded-2xl flex flex-wrap items-center justify-between gap-3">
-          <h2 class="text-xl font-bold">অ্যাডমিন ও ডিরেক্টর কন্ট্রোল প্যানেল</h2>
+          <div>
+            <h2 class="text-xl font-bold">পূর্ণাঙ্গ অ্যাডমিন ও ডিরেক্টর কন্ট্রোল প্যানেল (No-Code CMS)</h2>
+            <p class="text-xs text-emerald-200">কোডে হাত না দিয়ে এখান থেকেই পুরো ওয়েবসাইটের সকল ক্যাটাগরি, লিংক, ব্যানার ও প্রজেক্ট নিয়ন্ত্রণ করুন</p>
+          </div>
           <div class="flex flex-wrap gap-2 text-xs font-bold">
-            <button onclick="exportTasksToCSV()" class="bg-white text-asf-700 px-3 py-2 rounded-lg">এক্সেল ব্যাকআপ</button>
-            <button onclick="downloadFullJSONBackup()" class="bg-emerald-800 border border-emerald-500 px-3 py-2 rounded-lg">ডাটাবেস ব্যাকআপ</button>
-            <button onclick="clearAllTestTasks()" class="bg-red-600 px-3 py-2 rounded-lg">সব টেস্ট কাজ মুছুন</button>
+            <button onclick="exportTasksToCSV()" class="bg-white text-asf-700 px-3 py-2 rounded-lg">📥 এক্সেল ব্যাকআপ</button>
+            <button onclick="downloadFullJSONBackup()" class="bg-emerald-800 border border-emerald-500 px-3 py-2 rounded-lg">💾 ডাটাবেস ব্যাকআপ</button>
+            <button onclick="clearAllTestTasks()" class="bg-red-600 px-3 py-2 rounded-lg">🗑️ সব টেস্ট কাজ মুছুন</button>
           </div>
         </div>
       </div>
 
+      <!-- Row 1: Managed Official Channels Directory (Name + Link) & Featured Productions -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div class="stitched-box">
+          <div class="solid-card p-5 space-y-3">
+            <div class="flex items-center justify-between border-b pb-2">
+              <h3 class="font-bold text-base text-asf-600">হোম পেজের পরিচালিত পেজ ও চ্যানেল (নাম ও লিংক)</h3>
+              <button onclick="resetDefaultChannelLinks()" class="text-[11px] bg-emerald-50 text-asf-700 px-2.5 py-1 rounded font-bold">ডিফল্ট লিংক সেট করুন</button>
+            </div>
+            <form onsubmit="addManagedChannelLink(event)" class="grid grid-cols-1 sm:grid-cols-12 gap-2 text-xs">
+              <input type="text" id="ch-link-name" required placeholder="নাম (যেমন: Ahmadullah FB)" class="sm:col-span-5 px-3 py-2 rounded-lg border dark:bg-slate-800 font-bold">
+              <input type="url" id="ch-link-url" required placeholder="লিংক (https://...)" class="sm:col-span-5 px-3 py-2 rounded-lg border dark:bg-slate-800">
+              <button type="submit" class="sm:col-span-2 btn-green py-2 font-bold">+ যুক্ত</button>
+            </form>
+            <div id="admin-channel-links-list" class="space-y-1.5 max-h-48 overflow-y-auto pt-2"></div>
+          </div>
+        </div>
+
+        <div class="stitched-box">
+          <div class="solid-card p-5 space-y-3">
+            <h3 class="font-bold text-base text-asf-600 border-b pb-2">প্রোডাকশন ভিডিও যুক্ত ও এডিট করুন</h3>
+            <form onsubmit="addPortfolioVideo(event)" class="space-y-2.5 text-xs">
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                <input type="text" id="port-title" required placeholder="প্রোডাকশন শিরোনাম *" class="sm:col-span-2 px-3 py-2 rounded-lg border dark:bg-slate-800 font-bold">
+                <select id="port-cat" class="px-2 py-2 rounded-lg border dark:bg-slate-800 font-bold"></select>
+              </div>
+              <div class="flex flex-wrap items-center justify-between gap-2">
+                <input type="url" id="port-url" required placeholder="ইউটিউব / ফেসবুক ভিডিও লিংক *" class="flex-grow px-3 py-2 rounded-lg border dark:bg-slate-800">
+                <label class="flex items-center gap-1.5 font-bold text-amber-600 cursor-pointer px-2">
+                  <input type="checkbox" id="port-popular" checked> ★ পপুলার
+                </label>
+                <button type="submit" class="btn-green px-4 py-2 font-bold">+ যুক্ত করুন</button>
+              </div>
+            </form>
+            <div id="admin-portfolio-list" class="space-y-1.5 max-h-44 overflow-y-auto pt-2 border-t"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Row 2: Dynamic Categories, Short Platforms & Production Roles Control -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <!-- Short Platforms Manager -->
+        <div class="stitched-box">
+          <div class="solid-card p-5 space-y-3 h-full">
+            <div class="flex items-center justify-between border-b pb-2">
+              <h3 class="font-bold text-sm text-asf-600">প্ল্যাটফর্ম অপশন (সংক্ষিপ্ত নাম)</h3>
+              <button onclick="resetShortPlatforms()" class="text-[11px] bg-amber-100 text-amber-900 px-2 py-0.5 rounded font-bold">সংক্ষিপ্ত নামে রিসেট</button>
+            </div>
+            <div class="flex gap-1.5 text-xs">
+              <input type="text" id="new-platform-input" placeholder="যেমন: Ahmadullah (FB)" class="flex-grow px-2.5 py-1.5 rounded-lg border dark:bg-slate-800">
+              <button onclick="addNewPlatform()" class="btn-green px-3 py-1.5 font-bold">+ যুক্ত</button>
+            </div>
+            <div id="admin-platform-tags" class="flex flex-wrap gap-1.5 max-h-44 overflow-y-auto pt-1"></div>
+          </div>
+        </div>
+
+        <!-- Core Activities & Production Categories -->
+        <div class="stitched-box">
+          <div class="solid-card p-5 space-y-3 h-full">
+            <div class="flex items-center justify-between border-b pb-2">
+              <h3 class="font-bold text-sm text-asf-600">কাজের ধরন (Core Activities)</h3>
+              <button onclick="resetCoreActivities()" class="text-[11px] bg-amber-100 text-amber-900 px-2 py-0.5 rounded font-bold">ডিফল্ট ১২টি</button>
+            </div>
+            <div class="flex gap-1.5 text-xs">
+              <input type="text" id="new-activity-input" placeholder="নতুন কাজের ধরন..." class="flex-grow px-2.5 py-1.5 rounded-lg border dark:bg-slate-800">
+              <button onclick="addNewActivity()" class="btn-green px-3 py-1.5 font-bold">+ যুক্ত</button>
+            </div>
+            <div id="admin-activity-tags" class="flex flex-wrap gap-1.5 max-h-44 overflow-y-auto pt-1"></div>
+          </div>
+        </div>
+
+        <!-- Production Categories & Pipeline Roles -->
+        <div class="stitched-box">
+          <div class="solid-card p-5 space-y-3 h-full">
+            <h3 class="font-bold text-sm text-asf-600 border-b pb-2">প্রোডাকশন ক্যাটাগরি ও শুটিং দায়িত্ব</h3>
+            <div class="space-y-2 text-xs">
+              <div class="flex gap-1.5">
+                <input type="text" id="new-port-cat-input" placeholder="নতুন প্রোডাকশন ক্যাটাগরি..." class="flex-grow px-2.5 py-1.5 rounded-lg border dark:bg-slate-800">
+                <button onclick="addNewPortfolioCategory()" class="btn-green px-3 py-1.5 font-bold">+ ক্যাটাগরি</button>
+              </div>
+              <div id="admin-port-cat-tags" class="flex flex-wrap gap-1.5 max-h-20 overflow-y-auto"></div>
+            </div>
+            <div class="space-y-2 text-xs pt-2 border-t">
+              <div class="flex gap-1.5">
+                <input type="text" id="new-prod-role-input" placeholder="নতুন শুটিং/প্রজেক্ট দায়িত্ব..." class="flex-grow px-2.5 py-1.5 rounded-lg border dark:bg-slate-800">
+                <button onclick="addNewProductionRole()" class="btn-green px-3 py-1.5 font-bold">+ দায়িত্ব</button>
+              </div>
+              <div id="admin-prod-role-tags" class="flex flex-wrap gap-1.5 max-h-20 overflow-y-auto"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Row 3: Planning & Meetings -->
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div class="stitched-box">
           <div class="solid-card p-5 space-y-3">
             <h3 class="font-bold text-base text-asf-600 border-b pb-2">মাসিক ও আগামী ৩ মাসের পরিকল্পনা</h3>
             <form onsubmit="savePlanningSettings(event)" class="space-y-2.5 text-xs">
-              <div><label class="font-bold">লক্ষ্যমাত্রা (Target)</label><input type="number" id="plan-target-count" value="50" class="w-full px-3 py-1.5 rounded border dark:bg-slate-800"></div>
+              <div><label class="font-bold">লক্ষ্যমাত্রা (Target)</label><input type="number" id="plan-target-count" value="50" class="w-full px-3 py-1.5 rounded border dark:bg-slate-800 font-bold"></div>
               <div><label class="font-bold">চলতি মাসের প্ল্যানিং</label><textarea id="plan-current-text" rows="2" class="w-full px-3 py-1.5 rounded border dark:bg-slate-800"></textarea></div>
               <div><label class="font-bold">আগামী ৩ মাসের পরিকল্পনা</label><textarea id="plan-next3-text" rows="2" class="w-full px-3 py-1.5 rounded border dark:bg-slate-800"></textarea></div>
               <button type="submit" class="btn-green w-full py-2 font-bold">পরিকল্পনা সেভ করুন</button>
@@ -604,61 +703,47 @@
         </div>
       </div>
 
+      <!-- Row 4: Team Members Order/Role & Site Branding CMS -->
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
         <div class="lg:col-span-7 stitched-box">
           <div class="solid-card p-5 space-y-3">
-            <h3 class="font-bold text-base text-asf-600 border-b pb-2">টিম মেম্বার সিরিয়াল (▲ ▼), অনুমোদন ও পদবী</h3>
-            <div id="admin-members-list" class="space-y-2 max-h-96 overflow-y-auto"></div>
+            <h3 class="font-bold text-base text-asf-600 border-b pb-2">টিম মেম্বার সিরিয়াল (▲ ▼), অনুমোদন, পদবী ও ডিলিট</h3>
+            <div id="admin-members-list" class="space-y-2 max-h-[500px] overflow-y-auto"></div>
           </div>
         </div>
 
         <div class="lg:col-span-5 stitched-box">
           <div class="solid-card p-5 space-y-3">
-            <h3 class="font-bold text-base text-asf-600 border-b pb-2">প্রোডাকশন যুক্ত করুন (পপুলার ও চলতি মাস)</h3>
-            <form onsubmit="addPortfolioVideo(event)" class="space-y-2.5 text-xs">
-              <div><label class="font-bold">শিরোনাম *</label><input type="text" id="port-title" required class="w-full px-3 py-1.5 rounded border dark:bg-slate-800"></div>
+            <h3 class="font-bold text-base text-asf-600 border-b pb-2">সাইট ব্যানার, নোটিশ, ঠিকানা ও কন্ট্রিবিউটর সেটিংস</h3>
+            <form onsubmit="saveSiteSettings(event)" class="space-y-2 text-xs">
               <div class="grid grid-cols-2 gap-2">
-                <div><label class="font-bold">ভিডিও লিংক *</label><input type="url" id="port-url" required class="w-full px-3 py-1.5 rounded border dark:bg-slate-800"></div>
-                <div><label class="font-bold">ক্যাটাগরি *</label><select id="port-cat" class="w-full px-2 py-1.5 rounded border dark:bg-slate-800 font-bold"></select></div>
+                <div><label class="font-bold">সাইটের নাম</label><input type="text" id="set-title" class="w-full px-2.5 py-1.5 rounded border dark:bg-slate-800"></div>
+                <div><label class="font-bold">সাব-টাইটেল</label><input type="text" id="set-subtitle" class="w-full px-2.5 py-1.5 rounded border dark:bg-slate-800"></div>
               </div>
-              <label class="flex items-center gap-2 font-bold text-amber-600 cursor-pointer">
-                <input type="checkbox" id="port-popular" checked> ★ পপুলার প্রোডাকশন হিসেবে হোম পেজে দেখান
-              </label>
-              <button type="submit" class="btn-green w-full py-2 font-bold">+ প্রোডাকশন যুক্ত করুন</button>
+              <div class="grid grid-cols-2 gap-2">
+                <div><label class="font-bold">হিরো ১ম লাইন</label><input type="text" id="set-hero-line1" class="w-full px-2.5 py-1.5 rounded border dark:bg-slate-800"></div>
+                <div><label class="font-bold">হিরো ২য় লাইন</label><input type="text" id="set-hero-line2" class="w-full px-2.5 py-1.5 rounded border dark:bg-slate-800"></div>
+              </div>
+              <div><label class="font-bold">হিরো বিবরণ</label><input type="text" id="set-hero-desc" class="w-full px-2.5 py-1.5 rounded border dark:bg-slate-800"></div>
+              <div><label class="font-bold">টপ নোটিশ বার (খালি রাখলে বন্ধ থাকবে)</label><input type="text" id="set-notice" class="w-full px-2.5 py-1.5 rounded border dark:bg-slate-800"></div>
+              <div><label class="font-bold">ফাউন্ডেশনের ঠিকানা</label><input type="text" id="set-address-bn" class="w-full px-2.5 py-1.5 rounded border dark:bg-slate-800"></div>
+              <div class="grid grid-cols-2 gap-2 pt-1 border-t">
+                <div><label class="font-bold">Contributor নাম</label><input type="text" id="set-credit-name" class="w-full px-2.5 py-1.5 rounded border dark:bg-slate-800"></div>
+                <div><label class="font-bold">Contributor পদবী</label><input type="text" id="set-credit-role" class="w-full px-2.5 py-1.5 rounded border dark:bg-slate-800"></div>
+              </div>
+              <div><label class="font-bold">Contributor প্রোফাইল লিংক</label><input type="url" id="set-credit-linkedin" class="w-full px-2.5 py-1.5 rounded border dark:bg-slate-800"></div>
+              <div class="grid grid-cols-2 gap-2">
+                <div><label class="font-bold">সাইট লোগো পরিবর্তন</label><input type="file" id="set-logo-file" accept="image/*" class="w-full text-[10px]"></div>
+                <div><label class="font-bold">Contributor ছবি</label><input type="file" id="set-credit-photo" accept="image/*" class="w-full text-[10px]"></div>
+              </div>
+              <button type="submit" class="btn-green w-full py-2.5 font-bold mt-2">সব সেটিংস সেভ করুন</button>
             </form>
-            <div id="admin-portfolio-list" class="space-y-1.5 max-h-36 overflow-y-auto pt-2 border-t"></div>
           </div>
         </div>
       </div>
     </section>
 
   </main>
-
-  <!-- Floating Live Chat Button -->
-  <button onclick="openChatBox()" class="fixed bottom-16 md:bottom-6 right-5 z-40 w-12 h-12 rounded-full bg-asf-600 hover:bg-asf-700 text-white shadow-2xl flex items-center justify-center border-2 border-white">
-    <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
-    <span id="chat-unread-badge" class="hidden absolute -top-1 -right-1 w-5 h-5 rounded-full bg-red-600 text-white text-[10px] font-bold flex items-center justify-center">!</span>
-  </button>
-
-  <div id="chat-drawer" class="fixed bottom-20 right-5 z-50 w-80 sm:w-96 solid-card shadow-2xl hidden flex-col overflow-hidden border-2 border-asf-600">
-    <div class="bg-asf-700 text-white p-3.5 flex items-center justify-between relative">
-      <div>
-        <h4 class="font-bold text-sm">লাইভ টিম মেসেঞ্জার</h4>
-        <p class="text-[10px] text-emerald-200">যেকোনো মেম্বার বা সবাইকে মেসেজ দিন</p>
-      </div>
-      <button onclick="document.getElementById('chat-drawer').classList.add('hidden')" class="w-7 h-7 rounded-lg bg-emerald-800 text-white font-bold flex items-center justify-center">✕</button>
-    </div>
-    <div class="p-2 bg-slate-100 dark:bg-slate-800 border-b">
-      <select id="chat-recipient" class="w-full px-2.5 py-1.5 rounded-lg border text-xs font-bold dark:bg-slate-900">
-        <option value="ALL">📢 সকল টিম মেম্বার (Group Chat)</option>
-      </select>
-    </div>
-    <div id="chat-messages-box" class="p-3 space-y-2 h-64 overflow-y-auto bg-slate-50 dark:bg-slate-950 text-xs"></div>
-    <form onsubmit="sendLiveChatMessage(event)" class="p-2.5 bg-white dark:bg-slate-900 border-t flex gap-1.5">
-      <input type="text" id="chat-input" required class="flex-grow px-3 py-2 rounded-lg border text-xs dark:bg-slate-800">
-      <button type="submit" class="btn-green px-3.5 py-2 text-xs font-bold">পাঠান</button>
-    </form>
-  </div>
 
   <!-- Footer -->
   <footer class="bg-asf-800 text-white pt-10 pb-7 mt-12 border-t border-emerald-900">
@@ -698,6 +783,58 @@
 
   <!-- ================= MODALS (ALL WITH FIXED TOP-RIGHT ✕ CLOSE BUTTON) ================= -->
 
+  <!-- Universal Edit Task / Pipeline Project Modal -->
+  <div id="edit-task-modal" class="fixed inset-0 z-50 bg-slate-950/60 hidden items-center justify-center p-4">
+    <div class="solid-card relative max-w-lg w-full p-6 space-y-4 text-xs">
+      <button onclick="document.getElementById('edit-task-modal').classList.add('hidden')" class="absolute top-4 right-4 w-8 h-8 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-red-100 hover:text-red-600 font-bold flex items-center justify-center">✕</button>
+      <h3 class="font-bold text-base text-asf-600 border-b pb-2 pr-8">প্রজেক্ট / কাজের তথ্য এডিট করুন</h3>
+      <form onsubmit="saveEditedTask(event)" class="space-y-3">
+        <input type="hidden" id="edit-task-id">
+        <div>
+          <label class="block font-bold mb-1">শিরোনাম / টপিক *</label>
+          <input type="text" id="edit-task-title" required class="w-full px-3 py-2 rounded-lg border dark:bg-slate-800 font-bold">
+        </div>
+        <div class="grid grid-cols-2 gap-2">
+          <div>
+            <label class="block font-bold mb-1">তারিখ</label>
+            <input type="date" id="edit-task-date" required class="w-full px-3 py-2 rounded-lg border dark:bg-slate-800 font-bold">
+          </div>
+          <div>
+            <label class="block font-bold mb-1">শুটিং সময় (যদি থাকে)</label>
+            <input type="time" id="edit-task-time" class="w-full px-3 py-2 rounded-lg border dark:bg-slate-800 font-bold">
+          </div>
+        </div>
+        <div class="grid grid-cols-2 gap-2">
+          <div>
+            <label class="block font-bold mb-1">অবস্থা (Status)</label>
+            <select id="edit-task-status" class="w-full px-3 py-2 rounded-lg border dark:bg-slate-800 font-bold">
+              <option value="Upcoming">Upcoming (আপকামিং শুটিং)</option>
+              <option value="Pending">Pending (পেন্ডিং)</option>
+              <option value="Ongoing">Ongoing (চলমান)</option>
+              <option value="Ready">Ready (রেডি টু পাবলিশ)</option>
+              <option value="Completed">Completed (সম্পন্ন)</option>
+            </select>
+          </div>
+          <div>
+            <label class="block font-bold mb-1">প্ল্যাটফর্মসমূহ</label>
+            <input type="text" id="edit-task-platform" class="w-full px-3 py-2 rounded-lg border dark:bg-slate-800">
+          </div>
+        </div>
+        <div class="grid grid-cols-2 gap-2">
+          <div>
+            <label class="block font-bold mb-1">ড্রাইভ বা ফাইল লিংক</label>
+            <input type="url" id="edit-task-link" class="w-full px-3 py-2 rounded-lg border dark:bg-slate-800">
+          </div>
+          <div>
+            <label class="block font-bold mb-1">পাবলিশড লিংক</label>
+            <input type="url" id="edit-task-toplink" class="w-full px-3 py-2 rounded-lg border dark:bg-slate-800">
+          </div>
+        </div>
+        <button type="submit" class="btn-green w-full py-2.5 font-bold">পরিবর্তন সেভ করুন</button>
+      </form>
+    </div>
+  </div>
+
   <!-- Auth Modal -->
   <div id="auth-modal" class="fixed inset-0 z-50 bg-slate-950/60 hidden items-center justify-center p-4">
     <div class="solid-card relative max-w-md w-full p-6 space-y-4">
@@ -733,7 +870,7 @@
       
       <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b pb-4 pr-12">
         <div class="flex items-center gap-3.5">
-          <img id="mod-member-img" src="" class="w-15 h-15 w-14 h-14 rounded-2xl object-cover border-2 border-asf-600">
+          <img id="mod-member-img" src="" class="w-14 h-14 rounded-2xl object-cover border-2 border-asf-600">
           <div>
             <h3 id="mod-member-name" class="text-lg font-bold"></h3>
             <p id="mod-member-role" class="text-xs text-asf-600 font-bold"></p>
@@ -745,7 +882,6 @@
         </div>
       </div>
 
-      <!-- Only 3 Clean Boxes (সম্পন্ন, চলমান, পেন্ডিং/শুটিং — No কর্মদিবস) -->
       <div class="grid grid-cols-3 gap-3 text-center text-xs">
         <div class="p-3 rounded-xl bg-emerald-50 dark:bg-slate-800 border border-emerald-200 dark:border-slate-700"><p class="text-xl font-bold text-asf-600" id="mod-stat-completed">0</p><p class="font-bold text-slate-500">সম্পন্ন</p></div>
         <div class="p-3 rounded-xl bg-blue-50 dark:bg-slate-800 border border-blue-200 dark:border-slate-700"><p class="text-xl font-bold text-blue-600" id="mod-stat-ongoing">0</p><p class="font-bold text-slate-500">চলমান</p></div>
@@ -838,7 +974,7 @@
       "গ্রাফিক ডিজাইন, থাম্বনেইল ও ফটোকার্ড", "শরয়ী পরামর্শ ও যাচাইকরণ"
     ];
 
-    const PRODUCTION_ROLES = [
+    const DEFAULT_PRODUCTION_ROLES = [
       "ক্যামেরা ও শুটিং",
       "ডিরেকশন ও তদারকি",
       "স্ক্রিপ্ট ও প্ল্যানিং",
@@ -849,17 +985,54 @@
       "প্রোডাকশন অ্যাসিস্ট্যান্ট"
     ];
 
-    const DEFAULT_PLATFORMS = [
-      "Facebook: Ahmadullah", "Facebook: As-Sunnah Foundation", "Facebook: ইসলামী প্রশ্নোত্তর",
-      "Facebook: শরয়ী সমাধান", "YouTube: Ahmadullah", "YouTube: As-Sunnah Foundation",
-      "YouTube: ইসলামী প্রশ্নোত্তর", "YouTube: শরয়ী সমাধান", "LinkedIn: As-Sunnah Foundation"
+    // Option A: Clean Short Platform Names (Name + FB/YT)
+    const SHORT_PLATFORMS = [
+      "Ahmadullah (FB)",
+      "Ahmadullah (YT)",
+      "As-Sunnah Foundation (FB)",
+      "As-Sunnah Foundation (YT)",
+      "ইসলামী প্রশ্নোত্তর (FB)",
+      "ইসলামী প্রশ্নোত্তর (YT)",
+      "শরয়ী সমাধান (FB)",
+      "শরয়ী সমাধান (YT)",
+      "As-Sunnah (LinkedIn)",
+      "All Platforms"
     ];
+
+    // Default Official Channel Links for Home Page Directory
+    const DEFAULT_CHANNEL_LINKS = [
+      { name: "Shaykh Ahmadullah (FB)", url: "https://www.facebook.com/sheikhahmadullahofficial" },
+      { name: "Shaykh Ahmadullah (YT)", url: "https://www.youtube.com/@sheikhahmadullah" },
+      { name: "As-Sunnah Foundation (FB)", url: "https://www.facebook.com/assunnahfoundationbd" },
+      { name: "As-Sunnah Foundation (YT)", url: "https://www.youtube.com/@assunnahfoundation" },
+      { name: "ইসলামী প্রশ্নোত্তর (FB)", url: "https://www.facebook.com/islamiproshnottor" },
+      { name: "ইসলামী প্রশ্নোত্তর (YT)", url: "https://www.youtube.com/@islamiproshnottor" },
+      { name: "শরয়ী সমাধান (FB)", url: "https://www.facebook.com/shoroyisomadhan" },
+      { name: "শরয়ী সমাধান (YT)", url: "https://www.youtube.com/@shoroyisomadhan" },
+      { name: "As-Sunnah Website", url: "https://assunnahfoundation.org" },
+      { name: "As-Sunnah LinkedIn", url: "https://www.linkedin.com/company/assunnahfoundation" }
+    ];
+
     const DEFAULT_PORTFOLIO_CATEGORIES = ["লেকচার", "ডকুমেন্টারি", "শর্টফিল্ম", "ওভিসি", "শর্টস / রিলস", "ফটোকার্ড / থাম্বনেইল"];
     const MONTHS_BN = ["জানুয়ারি","ফেব্রুয়ারি","মার্চ","এপ্রিল","মে","জুন","জুলাই","আগস্ট","সেপ্টেম্বর","অক্টোবর","নভেম্বর","ডিসেম্বর"];
 
     window.tAct = (a) => a ? String(a).replace(/^[A-Z0-9]+\.\s*/i, '').trim() : '';
     window.formatMonthName = (ym) => { if(!ym || !ym.includes('-')) return ym||''; const [y,m] = ym.split('-'); return `${MONTHS_BN[parseInt(m,10)-1] || m} ${y}`; };
     window.formatFullDate = (ymd) => { if(!ymd || !ymd.includes('-')) return ymd||''; const [y,m,d] = ymd.split('-'); return `${parseInt(d,10)} ${MONTHS_BN[parseInt(m,10)-1] || m} ${y}`; };
+
+    // Auto-shorten any old long platform strings
+    function formatShortPlatformLabel(platStr) {
+      if (!platStr) return '';
+      return String(platStr)
+        .replace(/Facebook:\s*Ahmadullah/gi, 'Ahmadullah (FB)')
+        .replace(/YouTube:\s*Ahmadullah/gi, 'Ahmadullah (YT)')
+        .replace(/Facebook:\s*As-Sunnah Foundation/gi, 'As-Sunnah Foundation (FB)')
+        .replace(/YouTube:\s*As-Sunnah Foundation/gi, 'As-Sunnah Foundation (YT)')
+        .replace(/Facebook:\s*ইসলামী প্রশ্নোত্তর/gi, 'ইসলামী প্রশ্নোত্তর (FB)')
+        .replace(/YouTube:\s*ইসলামী প্রশ্নোত্তর/gi, 'ইসলামী প্রশ্নোত্তর (YT)')
+        .replace(/Facebook:\s*শরয়ী সমাধান/gi, 'শরয়ী সমাধান (FB)')
+        .replace(/YouTube:\s*শরয়ী সমাধান/gi, 'শরয়ী সমাধান (YT)');
+    }
 
     function getTodayStr() { const d = new Date(); return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`; }
     function getCurrentMonthStr() { return getTodayStr().slice(0,7); }
@@ -872,23 +1045,30 @@
     window.allPortfolio = [];
     window.allMemberPortfolio = [];
     window.allMeetings = [];
-    window.allMessages = [];
     window.homeProdMode = 'popular';
     window.portfolioViewMode = 'all';
     window.selectedPortfolioCategory = 'ALL';
     window.activePipelineStage = 'Upcoming';
     window.openedModalMemberId = null;
-    window.initialMsgLoad = true;
 
     window.siteSettings = {
       title: "ASF Dawah Media", subtitle: "As-Sunnah Foundation",
       logo: "https://assunnahfoundation.org/assets/images/logo.png",
       heroLine1: "আস-সুন্নাহ ফাউন্ডেশন", heroLine2: "দাওয়াহ মিডিয়া",
       heroDesc: "আস-সুন্নাহ ফাউন্ডেশন ও শায়খ আহমাদুল্লাহ দাওয়াহ মিডিয়া সকল ধরণের কাজ।",
+      notice: "",
+      addressBn: "প্লট-৭০, রোড-৩, ব্লক-সি, আফতাবনগর, ঢাকা-১২১২, বাংলাদেশ",
+      creditName: "Tarek Ahmad",
+      creditRole: "Social Media Executive",
+      creditLinkedin: "https://www.linkedin.com/company/assunnahfoundation",
       planTargetCount: 50,
       planCurrentText: "১. নিয়মিত লেকচার ও প্রশ্নোত্তর প্রোডাকশন\n২. চলমান প্রজেক্টের ডকুমেন্টারি ও ওভিসি নির্মাণ",
       planNext3Text: "১. আসন্ন বিশেষ দাওয়াহ ক্যাম্পেইন ও প্রামাণ্যচিত্র সিরিজ নির্মাণ",
-      activities: CORE_ACTIVITIES, platforms: DEFAULT_PLATFORMS, portfolioCategories: DEFAULT_PORTFOLIO_CATEGORIES
+      activities: CORE_ACTIVITIES,
+      platforms: SHORT_PLATFORMS,
+      portfolioCategories: DEFAULT_PORTFOLIO_CATEGORIES,
+      productionRoles: DEFAULT_PRODUCTION_ROLES,
+      channelLinks: DEFAULT_CHANNEL_LINKS
     };
 
     document.getElementById('filter-month').value = getCurrentMonthStr();
@@ -908,7 +1088,6 @@
       return Boolean(auth.currentUser && p && (p.role === 'superadmin' || p.role === 'director' || auth.currentUser.email === SUPER_ADMIN_EMAIL));
     }
 
-    // Check if member is involved in a task (either direct owner or part of Master Project crew)
     function isMemberInTask(t, uid) {
       if (!t || !uid) return false;
       if (t.uid === uid) return true;
@@ -924,7 +1103,6 @@
       return window.tAct(t.category);
     }
 
-    // Clean Title Helper (Removes legacy duplicate [Type] and (শুটিং: time) from title)
     function cleanProjectTitle(rawTitle) {
       if (!rawTitle) return '';
       return String(rawTitle)
@@ -935,8 +1113,21 @@
 
     // Real-time Listeners
     onSnapshot(doc(db, "config", "siteSettings"), (s) => {
-      if (s.exists()) window.siteSettings = { ...window.siteSettings, ...s.data() };
-      applySiteSettingsUI(); renderHomeSection(); renderDashboard(); renderAdminPanel();
+      if (s.exists()) {
+        const data = s.data();
+        window.siteSettings = {
+          ...window.siteSettings,
+          ...data,
+          platforms: (data.platforms && data.platforms.length > 0) ? data.platforms.map(formatShortPlatformLabel) : SHORT_PLATFORMS,
+          channelLinks: (data.channelLinks && data.channelLinks.length > 0) ? data.channelLinks : DEFAULT_CHANNEL_LINKS,
+          productionRoles: (data.productionRoles && data.productionRoles.length > 0) ? data.productionRoles : DEFAULT_PRODUCTION_ROLES
+        };
+      }
+      applySiteSettingsUI();
+      populateCleanMemberNamesEverywhere();
+      renderHomeSection();
+      renderDashboard();
+      renderAdminPanel();
     });
 
     onSnapshot(collection(db, "users"), (snap) => {
@@ -974,25 +1165,6 @@
       renderHomeSection(); renderAdminPanel();
     });
 
-    onSnapshot(collection(db, "messages"), (snap) => {
-      const prevLen = window.allMessages.length;
-      window.allMessages = []; snap.forEach(d => window.allMessages.push({ id: d.id, ...d.data() }));
-      window.allMessages.sort((a,b) => (a.createdAt||"").localeCompare(b.createdAt||""));
-      renderChatMessages();
-      if (!window.initialMsgLoad && window.allMessages.length > prevLen) {
-        const latest = window.allMessages[window.allMessages.length - 1];
-        const myUid = window.currentUserProfile ? window.currentUserProfile.uid : null;
-        if (latest && latest.senderUid !== myUid && (latest.recipientUid === 'ALL' || latest.recipientUid === myUid)) {
-          document.getElementById('toast-sender').innerText = `💬 ${latest.senderName}`;
-          document.getElementById('toast-preview').innerText = latest.text;
-          document.getElementById('live-msg-toast').classList.remove('hidden');
-          document.getElementById('chat-unread-badge').classList.remove('hidden');
-          setTimeout(() => document.getElementById('live-msg-toast').classList.add('hidden'), 6000);
-        }
-      }
-      window.initialMsgLoad = false;
-    });
-
     onAuthStateChanged(auth, async (user) => {
       if (user) {
         const uDoc = await getDoc(doc(db, "users", user.uid));
@@ -1013,11 +1185,20 @@
       document.getElementById('hero-line-1').innerText = window.currentLang === 'en' ? "As-Sunnah Foundation" : (s.heroLine1 || "আস-সুন্নাহ ফাউন্ডেশন");
       document.getElementById('hero-line-2').innerText = window.currentLang === 'en' ? "Dawah Media" : (s.heroLine2 || "দাওয়াহ মিডিয়া");
       document.getElementById('hero-desc').innerText = s.heroDesc || "";
+      document.getElementById('footer-address-text').innerText = s.addressBn || "প্লট-৭০, রোড-৩, ব্লক-সি, আফতাবনগর, ঢাকা-১২১২, বাংলাদেশ";
+
+      const noticeBar = document.getElementById('notice-bar');
+      if (s.notice && s.notice.trim() !== "") {
+        document.getElementById('notice-text').innerText = s.notice;
+        noticeBar.classList.remove('hidden');
+      } else noticeBar.classList.add('hidden');
+
       if (s.creditPhoto) document.getElementById('footer-credit-img').src = s.creditPhoto;
       if (s.creditName) document.getElementById('footer-credit-name').innerText = s.creditName;
       if (s.creditRole) document.getElementById('footer-credit-role').innerText = s.creditRole;
+      if (s.creditLinkedin) document.getElementById('footer-credit-link').href = window.cleanUrl(s.creditLinkedin);
 
-      const acts = CORE_ACTIVITIES.map(a => `<option value="${window.clean(a)}">${window.clean(a)}</option>`).join('');
+      const acts = (s.activities || CORE_ACTIVITIES).map(a => `<option value="${window.clean(a)}">${window.clean(a)}</option>`).join('');
       document.getElementById('task-category').innerHTML = acts;
       document.getElementById('assign-category').innerHTML = acts;
 
@@ -1025,19 +1206,21 @@
       document.getElementById('port-cat').innerHTML = cats;
       document.getElementById('pipe-type').innerHTML = cats;
 
-      const platChecks = (s.platforms || DEFAULT_PLATFORMS).map(p => `
-        <label class="flex items-center gap-1.5 p-1 hover:bg-slate-100 dark:hover:bg-slate-800 rounded cursor-pointer">
-          <input type="checkbox" value="${window.clean(p)}" class="rounded text-asf-600"> <span>${window.clean(p)}</span>
+      const shortPlats = (s.platforms || SHORT_PLATFORMS);
+      const platChecks = shortPlats.map(p => `
+        <label class="flex items-center gap-1.5 p-1.5 rounded-lg border bg-white dark:bg-slate-800 hover:border-asf-600 cursor-pointer font-semibold">
+          <input type="checkbox" value="${window.clean(p)}" class="rounded text-asf-600">
+          <span class="truncate">${window.clean(p)}</span>
         </label>
       `).join('');
       document.getElementById('task-platform-checkboxes').innerHTML = platChecks;
       document.getElementById('pipe-platform-checkboxes').innerHTML = platChecks;
     }
 
-    // Populate Clean Member Names + Specific Role Selector for Pipeline
     function populateCleanMemberNamesEverywhere() {
       const members = getSortedMembers(true);
-      const roleOpts = PRODUCTION_ROLES.map(r => `<option value="${r}">${r}</option>`).join('');
+      const roles = window.siteSettings.productionRoles || DEFAULT_PRODUCTION_ROLES;
+      const roleOpts = roles.map(r => `<option value="${window.clean(r)}">${window.clean(r)}</option>`).join('');
 
       document.getElementById('pipe-crew-role-list').innerHTML = members.map(m => `
         <div class="flex items-center justify-between gap-1.5 p-1.5 rounded-lg border bg-white dark:bg-slate-800">
@@ -1053,12 +1236,8 @@
 
       const cleanOptions = members.map(m => `<option value="${m.uid}">${window.clean(m.name)}</option>`).join('');
       if (document.getElementById('assign-member-uid')) document.getElementById('assign-member-uid').innerHTML = cleanOptions;
-
-      document.getElementById('chat-recipient').innerHTML = `<option value="ALL">📢 সকল টিম মেম্বার (Group Chat)</option>` +
-        members.map(m => `<option value="${m.uid}">👤 ${window.clean(m.name)}</option>`).join('');
     }
 
-    // Strict CSS Class Lock for Auth & Admin Access
     function updateAuthUI() {
       const p = window.currentUserProfile;
       const isLogged = Boolean(auth.currentUser && p);
@@ -1081,7 +1260,6 @@
       }
     }
 
-    // Group Legacy Duplicate Pipeline Cards into Single Master Projects Automatically
     function getMasterPipelineProjects() {
       const rawPipe = window.allTasks.filter(t => t.isPipeline === true);
       const groupedMap = new Map();
@@ -1113,7 +1291,7 @@
       return Array.from(groupedMap.values());
     }
 
-    // 1. Render Home
+    // 1. Render Home (Including Managed Channels Directory)
     function renderHomeSection() {
       const s = window.siteSettings;
       const curMonth = getCurrentMonthStr();
@@ -1174,18 +1352,43 @@
         </div>
       `;
 
+      // Managed Channels Directory Grid
+      const chLinks = s.channelLinks || DEFAULT_CHANNEL_LINKS;
+      document.getElementById('home-channel-links-grid').innerHTML = chLinks.map(ch => {
+        const isYT = /yt|youtube/i.test(ch.name) || /youtube\.com|youtu\.be/i.test(ch.url);
+        const isFB = /fb|facebook/i.test(ch.name) || /facebook\.com/i.test(ch.url);
+        const badgeColor = isYT ? 'bg-red-600 text-white' : (isFB ? 'bg-blue-600 text-white' : 'bg-asf-600 text-white');
+        const badgeText = isYT ? 'YT' : (isFB ? 'FB' : 'Link');
+        return `
+          <a href="${window.cleanUrl(ch.url)}" target="_blank" rel="noopener noreferrer" class="p-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/70 dark:bg-slate-900 hover:border-asf-600 hover:shadow-md transition flex items-center justify-between gap-2 group">
+            <div class="flex items-center gap-2 truncate">
+              <span class="px-2 py-0.5 rounded text-[10px] font-bold shrink-0 ${badgeColor}">${badgeText}</span>
+              <span class="text-xs font-bold text-slate-800 dark:text-slate-100 group-hover:text-asf-600 truncate">${window.clean(ch.name)}</span>
+            </div>
+            <span class="text-xs font-bold text-slate-400 group-hover:text-asf-600 shrink-0">↗</span>
+          </a>
+        `;
+      }).join('');
+
+      const canManage = isManagerLoggedIn();
       document.getElementById('home-meetings-list').innerHTML = window.allMeetings.length === 0
         ? `<p class="col-span-full text-xs text-slate-400 text-center py-4">কোনো মিটিং সিদ্ধান্ত নেই।</p>`
         : window.allMeetings.slice(0,4).map(m => `
-            <div class="p-3.5 rounded-xl border space-y-1 text-xs">
-              <div class="flex justify-between font-bold text-asf-600"><span>${window.clean(m.title)}</span><span>${window.formatFullDate(m.date)}</span></div>
+            <div class="p-3.5 rounded-xl border space-y-1 text-xs relative">
+              <div class="flex justify-between font-bold text-asf-600">
+                <span>${window.clean(m.title)}</span>
+                <div class="flex items-center gap-2">
+                  <span>${window.formatFullDate(m.date)}</span>
+                  ${canManage ? `<button onclick="deleteMeetingRecord('${m.id}')" class="text-red-500 font-bold" title="ডিলিট">🗑️</button>` : ''}
+                </div>
+              </div>
               <p><b>এজেন্ডা:</b> ${window.clean(m.agenda)}</p>
               <p class="bg-emerald-50 dark:bg-slate-800 p-2 rounded"><b>সিদ্ধান্ত:</b> ${window.clean(m.decisions)}</p>
             </div>
           `).join('');
     }
 
-    // 2. SINGLE MASTER PROJECT PIPELINE SYSTEM
+    // 2. PRODUCTION PIPELINE (With Single Project Edit & Delete Options)
     window.setPipelineFilter = (stage) => {
       window.activePipelineStage = stage;
       ['Upcoming','Pending','Ongoing','Ready','Completed'].forEach(st => {
@@ -1199,7 +1402,6 @@
       renderPipelineBoard();
     };
 
-    // Creates 1 Single Master Project Card (Syncs to all assigned members' profiles automatically)
     window.createPipelineProject = async (e) => {
       e.preventDefault();
       if (!isManagerLoggedIn()) return alert("শুধুমাত্র অ্যাডমিন বা ডিরেক্টর প্রজেক্ট অ্যাসাইন করতে পারবেন।");
@@ -1249,6 +1451,49 @@
       window.showToast("আলহামদুলিল্লাহ! ১টি মাস্টার প্রজেক্ট কার্ড ও সবার প্রোফাইলে যুক্ত হয়েছে।");
     };
 
+    window.deleteMasterProject = async (idsStr) => {
+      if (!isManagerLoggedIn()) return;
+      if (!confirm("আপনি কি এই প্রজেক্টটি মুছে ফেলতে চান? (শুধুমাত্র এই প্রজেক্টটিই মুছবে)")) return;
+      const ids = idsStr.split(',');
+      for (const id of ids) {
+        await deleteDoc(doc(db, "tasks", id));
+      }
+      window.showToast("প্রজেক্টটি মুছে ফেলা হয়েছে!");
+    };
+
+    window.openEditTaskModal = (taskId) => {
+      const t = window.allTasks.find(x => x.id === taskId);
+      if (!t) return;
+      document.getElementById('edit-task-id').value = t.id;
+      document.getElementById('edit-task-title').value = cleanProjectTitle(t.title);
+      document.getElementById('edit-task-date').value = t.date || getTodayStr();
+      document.getElementById('edit-task-time').value = t.shootTime || "";
+      document.getElementById('edit-task-status').value = t.status || "Upcoming";
+      document.getElementById('edit-task-platform').value = formatShortPlatformLabel(t.platform || "");
+      document.getElementById('edit-task-link').value = t.link || "";
+      document.getElementById('edit-task-toplink').value = t.topViewLink || "";
+      document.getElementById('edit-task-modal').classList.remove('hidden');
+      document.getElementById('edit-task-modal').classList.add('flex');
+    };
+
+    window.saveEditedTask = async (e) => {
+      e.preventDefault();
+      const id = document.getElementById('edit-task-id').value;
+      const dt = document.getElementById('edit-task-date').value;
+      await updateDoc(doc(db, "tasks", id), {
+        title: document.getElementById('edit-task-title').value.trim(),
+        date: dt,
+        month: dt.slice(0,7),
+        shootTime: document.getElementById('edit-task-time').value,
+        status: document.getElementById('edit-task-status').value,
+        platform: document.getElementById('edit-task-platform').value.trim(),
+        link: document.getElementById('edit-task-link').value.trim(),
+        topViewLink: document.getElementById('edit-task-toplink').value.trim()
+      });
+      document.getElementById('edit-task-modal').classList.add('hidden');
+      window.showToast("তথ্য আপডেট হয়েছে!");
+    };
+
     window.advanceMasterProject = async (idsStr, nextStatus, cardId) => {
       if (!auth.currentUser) return alert("অনুগ্রহ করে প্রথমে লগইন করুন।");
       const ids = idsStr.split(',');
@@ -1268,7 +1513,6 @@
 
         const updatedUids = [...new Set(updatedCrew.map(c => c.uid))];
 
-        // Update primary card and remove any old duplicates
         await updateDoc(doc(db, "tasks", ids[0]), {
           status: 'Ongoing',
           uid: edMem.uid,
@@ -1387,19 +1631,23 @@
               <div class="space-y-3">
                 <div class="flex items-center justify-between gap-2">
                   <span class="px-2.5 py-0.5 rounded-md bg-emerald-100 text-asf-700 text-xs font-bold">${window.clean(t.productionType || 'প্রোডাকশন')}</span>
-                  <span class="text-xs font-bold text-slate-500">📅 ${window.formatFullDate(t.date)} ${t.shootTime ? `• ⏰ ${window.clean(t.shootTime)}` : ''}</span>
+                  <div class="flex items-center gap-1.5">
+                    <span class="text-xs font-bold text-slate-500">📅 ${window.formatFullDate(t.date)} ${t.shootTime ? `• ⏰ ${window.clean(t.shootTime)}` : ''}</span>
+                    ${canManage ? `
+                      <button onclick="openEditTaskModal('${t.id}')" class="px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 hover:bg-amber-100 text-amber-700 font-bold text-xs" title="এডিট">✎</button>
+                      <button onclick="deleteMasterProject('${idsStr}')" class="px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 hover:bg-red-100 text-red-600 font-bold text-xs" title="মুছুন">🗑️</button>
+                    ` : ''}
+                  </div>
                 </div>
 
-                <!-- Clean Single Title (No Duplicate Prefix/Time) -->
                 <h4 class="font-bold text-lg text-slate-900 dark:text-white leading-snug">${window.clean(t.cleanTitle)}</h4>
 
-                <!-- Team & Specific Roles List Inside 1 Single Card -->
                 <div class="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/60 space-y-1.5">
                   <p class="text-[11px] font-bold text-slate-500 mb-1">প্রজেক্ট টিম ও দায়িত্ব (${t.masterCrew.length} জন):</p>
                   <div class="space-y-1.5 max-h-40 overflow-y-auto pr-0.5">${crewBadges}</div>
                 </div>
 
-                <p class="text-[11px] font-semibold text-slate-500">📺 ${window.clean(t.platform)}</p>
+                <p class="text-[11px] font-semibold text-slate-500">📺 ${window.clean(formatShortPlatformLabel(t.platform))}</p>
               </div>
               <div>${actionHtml}</div>
             </div>
@@ -1451,13 +1699,16 @@
           <td class="p-3 font-bold whitespace-nowrap">${window.formatFullDate(t.date)}</td>
           <td class="p-3 font-bold">${window.clean(t.memberName)}</td>
           <td class="p-3"><p class="font-bold">${window.clean(cleanProjectTitle(t.title))}</p><p class="text-[11px] text-slate-500">${window.clean(window.tAct(t.category))}</p></td>
-          <td class="p-3 text-xs">${window.clean(t.platform)}</td>
+          <td class="p-3 text-xs font-semibold">${window.clean(formatShortPlatformLabel(t.platform))}</td>
           <td class="p-3"><span class="px-2 py-0.5 rounded text-xs font-bold bg-emerald-100 text-asf-700">${window.clean(t.status)}</span></td>
           <td class="p-3 text-amber-500 font-bold">${t.rating ? '⭐'.repeat(t.rating) : '-'}</td>
-          <td class="p-3 space-x-2">
+          <td class="p-3 space-x-2 whitespace-nowrap">
             ${t.link ? `<a href="${window.cleanUrl(t.link)}" target="_blank" class="text-asf-600 underline font-bold">ফাইল ↗</a>` : ''}
             ${t.topViewLink ? `<a href="${window.cleanUrl(t.topViewLink)}" target="_blank" class="text-red-600 underline font-bold">ভিউ ↗</a>` : ''}
-            ${isAdmin ? `<button onclick="deleteTaskByAdmin('${t.id}')" class="text-red-500 font-bold">মুছুন</button>` : ''}
+            ${isAdmin ? `
+              <button onclick="openEditTaskModal('${t.id}')" class="text-amber-600 font-bold" title="এডিট">✎</button>
+              <button onclick="deleteTaskByAdmin('${t.id}')" class="text-red-500 font-bold" title="মুছুন">🗑️</button>
+            ` : ''}
           </td>
         </tr>
       `).join('');
@@ -1511,22 +1762,31 @@
         <button onclick="setPortfolioCategoryFilter('${window.clean(c)}')" class="px-3 py-1 rounded-lg text-xs font-bold ${window.selectedPortfolioCategory === c ? 'btn-green' : 'bg-slate-100 dark:bg-slate-800'}">${c === 'ALL' ? 'সকল ক্যাটাগরি' : window.clean(c)}</button>
       `).join('');
 
+      const canManage = isManagerLoggedIn();
       const buildCards = (items) => items.length === 0
         ? `<div class="col-span-full solid-card p-6 text-center text-xs text-slate-400">কোনো প্রোডাকশন পাওয়া যায়নি।</div>`
         : items.map(v => {
             const yt = extractYouTubeId(v.url);
             const th = yt ? `https://img.youtube.com/vi/${yt}/hqdefault.jpg` : 'https://via.placeholder.com/480x270?text=ASF+Media';
             return `
-              <a href="${window.cleanUrl(v.url)}" target="_blank" class="stitched-box block group">
-                <div class="solid-card overflow-hidden h-full">
-                  <div class="relative aspect-video bg-slate-900">
-                    <img src="${th}" class="w-full h-full object-cover">
-                    <span class="absolute top-2 left-2 bg-asf-700 text-white text-[10px] font-bold px-2 py-0.5 rounded">${window.clean(v.category)}</span>
-                    ${v.popular ? `<span class="absolute top-2 right-2 bg-amber-400 text-slate-950 text-[10px] font-bold px-2 py-0.5 rounded">★ Popular</span>` : ''}
-                  </div>
-                  <div class="p-3.5"><h4 class="font-bold text-sm line-clamp-2 group-hover:text-asf-600">${window.clean(v.title)}</h4></div>
+              <div class="stitched-box group relative">
+                <div class="solid-card overflow-hidden h-full flex flex-col justify-between">
+                  <a href="${window.cleanUrl(v.url)}" target="_blank" class="block">
+                    <div class="relative aspect-video bg-slate-900">
+                      <img src="${th}" class="w-full h-full object-cover">
+                      <span class="absolute top-2 left-2 bg-asf-700 text-white text-[10px] font-bold px-2 py-0.5 rounded">${window.clean(v.category)}</span>
+                      ${v.popular ? `<span class="absolute top-2 right-2 bg-amber-400 text-slate-950 text-[10px] font-bold px-2 py-0.5 rounded">★ Popular</span>` : ''}
+                    </div>
+                    <div class="p-3.5"><h4 class="font-bold text-sm line-clamp-2 group-hover:text-asf-600">${window.clean(v.title)}</h4></div>
+                  </a>
+                  ${canManage ? `
+                    <div class="px-3.5 pb-2.5 flex justify-end gap-2 text-xs border-t pt-2">
+                      <button onclick="editPortfolioVideo('${v.id}')" class="text-amber-600 font-bold">✎ এডিট</button>
+                      <button onclick="deletePortfolioVideo('${v.id}')" class="text-red-500 font-bold">🗑️ ডিলিট</button>
+                    </div>
+                  ` : ''}
                 </div>
-              </a>
+              </div>
             `;
           }).join('');
 
@@ -1568,7 +1828,7 @@
       const p = window.currentUserProfile;
       if (!p) return alert("লগইন করুন।");
       const checkedPlats = Array.from(document.querySelectorAll('#task-platform-checkboxes input:checked')).map(i => i.value);
-      const platformStr = checkedPlats.length > 0 ? checkedPlats.join(', ') : DEFAULT_PLATFORMS[0];
+      const platformStr = checkedPlats.length > 0 ? checkedPlats.join(', ') : SHORT_PLATFORMS[0];
       const dt = document.getElementById('task-date').value || getTodayStr();
 
       await addDoc(collection(db, "tasks"), {
@@ -1606,47 +1866,16 @@
       const myToday = window.allTasks.filter(t => isMemberInTask(t, p.uid) && t.date === getTodayStr());
       document.getElementById('my-today-tasks-list').innerHTML = myToday.map(t => `
         <div class="p-2.5 rounded-lg border flex justify-between items-center text-xs">
-          <div><p class="font-bold">${window.clean(cleanProjectTitle(t.title))}</p><p class="text-[10px] text-slate-500">${window.clean(t.platform)}</p></div>
-          <button onclick="deleteTaskByAdmin('${t.id}')" class="text-red-500 font-bold">মুছুন</button>
+          <div><p class="font-bold">${window.clean(cleanProjectTitle(t.title))}</p><p class="text-[10px] text-slate-500">${window.clean(formatShortPlatformLabel(t.platform))}</p></div>
+          <div class="flex gap-2">
+            <button onclick="openEditTaskModal('${t.id}')" class="text-amber-600 font-bold">✎</button>
+            <button onclick="deleteTaskByAdmin('${t.id}')" class="text-red-500 font-bold">🗑️</button>
+          </div>
         </div>
       `).join('');
     }
 
-    // 7. Live Chat
-    window.openChatBox = () => {
-      document.getElementById('chat-drawer').classList.remove('hidden');
-      document.getElementById('chat-drawer').classList.add('flex');
-      document.getElementById('chat-unread-badge').classList.add('hidden');
-      document.getElementById('live-msg-toast').classList.add('hidden');
-      renderChatMessages();
-    };
-    window.sendLiveChatMessage = async (e) => {
-      e.preventDefault();
-      const p = window.currentUserProfile;
-      if (!p) return alert("মেসেজ পাঠাতে প্রথমে লগইন করুন।");
-      const text = document.getElementById('chat-input').value.trim();
-      const rec = document.getElementById('chat-recipient').value;
-      if (!text) return;
-      await addDoc(collection(db, "messages"), {
-        senderUid: p.uid, senderName: p.name, recipientUid: rec, text, createdAt: new Date().toISOString()
-      });
-      document.getElementById('chat-input').value = '';
-    };
-    function renderChatMessages() {
-      const box = document.getElementById('chat-messages-box');
-      if (!box) return;
-      const myUid = window.currentUserProfile ? window.currentUserProfile.uid : null;
-      const visible = window.allMessages.filter(m => m.recipientUid === 'ALL' || m.recipientUid === myUid || m.senderUid === myUid);
-      box.innerHTML = visible.length === 0 ? `<p class="text-center text-slate-400 py-8">কোনো মেসেজ নেই।</p>` : visible.slice(-30).map(m => `
-        <div class="p-2 rounded-xl ${m.senderUid === myUid ? 'bg-emerald-100 dark:bg-emerald-950 ml-6' : 'bg-white dark:bg-slate-800 mr-6'} border">
-          <p class="text-[10px] font-bold text-asf-600">${window.clean(m.senderName)} ${m.recipientUid !== 'ALL' ? '🔒' : ''}</p>
-          <p class="text-xs font-medium">${window.clean(m.text)}</p>
-        </div>
-      `).join('');
-      box.scrollTop = box.scrollHeight;
-    }
-
-    // Modals & Admin
+    // Modals & Full Admin CMS Controls
     window.openQuickStatusModal = (st) => {
       const modal = document.getElementById('quick-detail-modal');
       document.getElementById('quick-modal-title').innerText = `${st} প্রোডাকশন তালিকা`;
@@ -1658,7 +1887,7 @@
 
       document.getElementById('quick-modal-body').innerHTML = list.length === 0 ? `<p class="text-center py-6 text-slate-400">কোনো প্রজেক্ট নেই।</p>` : list.map(t => `
         <div class="p-3 rounded-xl border flex justify-between items-center">
-          <div><p class="font-bold">${window.clean(cleanProjectTitle(t.title))}</p><p class="text-slate-500">${window.clean(t.memberName)} • ${window.formatFullDate(t.date)} • ${window.clean(t.platform)}</p></div>
+          <div><p class="font-bold">${window.clean(cleanProjectTitle(t.title))}</p><p class="text-slate-500">${window.clean(t.memberName)} • ${window.formatFullDate(t.date)} • ${window.clean(formatShortPlatformLabel(t.platform))}</p></div>
           ${t.link ? `<a href="${window.cleanUrl(t.link)}" target="_blank" class="text-asf-600 font-bold underline">ড্রাইভ ↗</a>` : ''}
         </div>
       `).join('');
@@ -1710,8 +1939,62 @@
       document.getElementById('plan-current-text').value = s.planCurrentText || "";
       document.getElementById('plan-next3-text').value = s.planNext3Text || "";
 
+      if (document.getElementById('set-title')) {
+        document.getElementById('set-title').value = s.title || "";
+        document.getElementById('set-subtitle').value = s.subtitle || "";
+        document.getElementById('set-hero-line1').value = s.heroLine1 || "";
+        document.getElementById('set-hero-line2').value = s.heroLine2 || "";
+        document.getElementById('set-hero-desc').value = s.heroDesc || "";
+        document.getElementById('set-notice').value = s.notice || "";
+        document.getElementById('set-address-bn').value = s.addressBn || "";
+        document.getElementById('set-credit-name').value = s.creditName || "";
+        document.getElementById('set-credit-role').value = s.creditRole || "";
+        document.getElementById('set-credit-linkedin').value = s.creditLinkedin || "";
+      }
+
+      // Managed Channels Directory List in Admin
+      const chList = s.channelLinks || DEFAULT_CHANNEL_LINKS;
+      document.getElementById('admin-channel-links-list').innerHTML = chList.map((ch, idx) => `
+        <div class="flex items-center justify-between p-2 rounded-lg bg-slate-50 dark:bg-slate-800 text-xs">
+          <div class="truncate pr-2"><b class="text-asf-600">${window.clean(ch.name)}</b> — <span class="text-slate-400">${window.clean(ch.url)}</span></div>
+          <div class="flex gap-2 shrink-0">
+            <button onclick="editManagedChannelLink(${idx})" class="text-amber-600 font-bold">✎</button>
+            <button onclick="removeManagedChannelLink(${idx})" class="text-red-500 font-bold">🗑️</button>
+          </div>
+        </div>
+      `).join('');
+
+      // Short Platforms Tags
+      document.getElementById('admin-platform-tags').innerHTML = (s.platforms || SHORT_PLATFORMS).map(p => `
+        <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-xs font-bold">
+          ${window.clean(p)} <button onclick="removePlatform('${window.clean(p)}')" class="text-red-500 ml-1">×</button>
+        </span>
+      `).join('');
+
+      // Core Activities Tags
+      document.getElementById('admin-activity-tags').innerHTML = (s.activities || CORE_ACTIVITIES).map(a => `
+        <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-xs font-semibold">
+          ${window.clean(a)} <button onclick="removeActivity('${window.clean(a)}')" class="text-red-500 ml-1">×</button>
+        </span>
+      `).join('');
+
+      // Portfolio Categories Tags
+      document.getElementById('admin-port-cat-tags').innerHTML = (s.portfolioCategories || DEFAULT_PORTFOLIO_CATEGORIES).map(c => `
+        <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-emerald-50 dark:bg-slate-800 text-asf-700 text-xs font-bold">
+          ${window.clean(c)} <button onclick="removePortfolioCategory('${window.clean(c)}')" class="text-red-500 ml-1">×</button>
+        </span>
+      `).join('');
+
+      // Production Roles Tags
+      document.getElementById('admin-prod-role-tags').innerHTML = (s.productionRoles || DEFAULT_PRODUCTION_ROLES).map(r => `
+        <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-purple-50 dark:bg-slate-800 text-purple-700 text-xs font-bold">
+          ${window.clean(r)} <button onclick="removeProductionRole('${window.clean(r)}')" class="text-red-500 ml-1">×</button>
+        </span>
+      `).join('');
+
+      // Team Members List
       document.getElementById('admin-members-list').innerHTML = getSortedMembers(false).map((m, idx) => `
-        <div class="p-2.5 rounded-xl border flex items-center justify-between gap-2 text-xs">
+        <div class="p-2.5 rounded-xl border flex flex-wrap items-center justify-between gap-2 text-xs">
           <div class="flex items-center gap-2">
             <button onclick="moveMemberOrder('${m.uid}',-1)" class="px-1.5 py-0.5 bg-slate-100 rounded font-bold">▲</button>
             <button onclick="moveMemberOrder('${m.uid}',1)" class="px-1.5 py-0.5 bg-slate-100 rounded font-bold">▼</button>
@@ -1720,22 +2003,160 @@
           </div>
           <div class="flex items-center gap-1.5">
             <button onclick="toggleApproveMember('${m.uid}',${!m.approved})" class="px-2 py-1 rounded font-bold ${m.approved ? 'bg-emerald-100 text-asf-700' : 'bg-asf-600 text-white'}">${m.approved ? 'অনুমোদিত ✓' : 'অনুমোদন দিন'}</button>
-            <select onchange="changeMemberRole('${m.uid}',this.value)" class="px-2 py-1 rounded border font-bold">
+            <select onchange="changeMemberRole('${m.uid}',this.value)" class="px-2 py-1 rounded border font-bold dark:bg-slate-800">
               <option value="member" ${m.role==='member'?'selected':''}>Member</option>
               <option value="director" ${m.role==='director'?'selected':''}>Director</option>
               <option value="superadmin" ${m.role==='superadmin'?'selected':''}>Super Admin</option>
             </select>
+            <button onclick="deleteMemberProfile('${m.uid}')" class="text-red-500 font-bold px-1" title="মুছুন">🗑️</button>
           </div>
         </div>
       `).join('');
 
+      // Portfolio Videos List
       document.getElementById('admin-portfolio-list').innerHTML = window.allPortfolio.map(v => `
-        <div class="flex justify-between items-center text-xs p-1.5 bg-slate-50 rounded">
-          <span class="truncate font-bold">${window.clean(v.title)}</span>
-          <button onclick="deletePortfolioVideo('${v.id}')" class="text-red-500 font-bold">ডিলিট</button>
+        <div class="flex justify-between items-center text-xs p-2 bg-slate-50 dark:bg-slate-800 rounded-lg">
+          <span class="truncate font-bold pr-2">${window.clean(v.title)} (${window.clean(v.category)})</span>
+          <div class="flex gap-2 shrink-0">
+            <button onclick="editPortfolioVideo('${v.id}')" class="text-amber-600 font-bold">✎</button>
+            <button onclick="deletePortfolioVideo('${v.id}')" class="text-red-500 font-bold">🗑️</button>
+          </div>
+        </div>
+      `).join('');
+
+      // Meetings List
+      document.getElementById('admin-meetings-list').innerHTML = window.allMeetings.map(m => `
+        <div class="flex justify-between items-center text-xs p-2 bg-slate-50 dark:bg-slate-800 rounded-lg">
+          <span class="truncate font-bold pr-2">${window.formatFullDate(m.date)} — ${window.clean(m.title)}</span>
+          <button onclick="deleteMeetingRecord('${m.id}')" class="text-red-500 font-bold">🗑️</button>
         </div>
       `).join('');
     }
+
+    // Admin Dynamic Actions
+    window.addManagedChannelLink = async (e) => {
+      e.preventDefault();
+      if (!isManagerLoggedIn()) return;
+      const name = document.getElementById('ch-link-name').value.trim();
+      const url = document.getElementById('ch-link-url').value.trim();
+      const updated = [...(window.siteSettings.channelLinks || DEFAULT_CHANNEL_LINKS), { name, url }];
+      await setDoc(doc(db, "config", "siteSettings"), { channelLinks: updated }, { merge: true });
+      document.getElementById('ch-link-name').value = '';
+      document.getElementById('ch-link-url').value = '';
+      window.showToast("নতুন পেজ/চ্যানেল লিংক যুক্ত হয়েছে!");
+    };
+    window.editManagedChannelLink = async (idx) => {
+      if (!isManagerLoggedIn()) return;
+      const list = [...(window.siteSettings.channelLinks || DEFAULT_CHANNEL_LINKS)];
+      const item = list[idx];
+      if (!item) return;
+      const newName = prompt("পেজ বা চ্যানেলের নাম:", item.name);
+      if (newName === null) return;
+      const newUrl = prompt("পেজ বা চ্যানেলের লিংক:", item.url);
+      if (newUrl === null) return;
+      list[idx] = { name: newName.trim(), url: newUrl.trim() };
+      await setDoc(doc(db, "config", "siteSettings"), { channelLinks: list }, { merge: true });
+      window.showToast("লিংক আপডেট হয়েছে!");
+    };
+    window.removeManagedChannelLink = async (idx) => {
+      if (!isManagerLoggedIn()) return;
+      const list = (window.siteSettings.channelLinks || DEFAULT_CHANNEL_LINKS).filter((_, i) => i !== idx);
+      await setDoc(doc(db, "config", "siteSettings"), { channelLinks: list }, { merge: true });
+    };
+    window.resetDefaultChannelLinks = async () => {
+      if (!isManagerLoggedIn()) return;
+      await setDoc(doc(db, "config", "siteSettings"), { channelLinks: DEFAULT_CHANNEL_LINKS }, { merge: true });
+      window.showToast("ডিফল্ট চ্যানেল লিংক সেট হয়েছে!");
+    };
+
+    window.resetShortPlatforms = async () => {
+      if (!isManagerLoggedIn()) return;
+      await setDoc(doc(db, "config", "siteSettings"), { platforms: SHORT_PLATFORMS }, { merge: true });
+      window.showToast("প্ল্যাটফর্মের নাম সংক্ষিপ্ত (FB/YT) করা হয়েছে!");
+    };
+    window.addNewPlatform = async () => {
+      if (!isManagerLoggedIn()) return;
+      const val = document.getElementById('new-platform-input').value.trim();
+      if (!val) return;
+      const updated = [...new Set([...(window.siteSettings.platforms || SHORT_PLATFORMS), val])];
+      await setDoc(doc(db, "config", "siteSettings"), { platforms: updated }, { merge: true });
+      document.getElementById('new-platform-input').value = '';
+    };
+    window.removePlatform = async (val) => {
+      if (!isManagerLoggedIn()) return;
+      const updated = (window.siteSettings.platforms || SHORT_PLATFORMS).filter(x => x !== val);
+      await setDoc(doc(db, "config", "siteSettings"), { platforms: updated }, { merge: true });
+    };
+
+    window.resetCoreActivities = async () => {
+      if (!isManagerLoggedIn()) return;
+      await setDoc(doc(db, "config", "siteSettings"), { activities: CORE_ACTIVITIES }, { merge: true });
+      window.showToast("মূল ১২টি কাজের ধরন সেট হয়েছে!");
+    };
+    window.addNewActivity = async () => {
+      if (!isManagerLoggedIn()) return;
+      const val = document.getElementById('new-activity-input').value.trim();
+      if (!val) return;
+      const updated = [...new Set([...(window.siteSettings.activities || CORE_ACTIVITIES), val])];
+      await setDoc(doc(db, "config", "siteSettings"), { activities: updated }, { merge: true });
+      document.getElementById('new-activity-input').value = '';
+    };
+    window.removeActivity = async (val) => {
+      if (!isManagerLoggedIn()) return;
+      const updated = (window.siteSettings.activities || CORE_ACTIVITIES).filter(x => x !== val);
+      await setDoc(doc(db, "config", "siteSettings"), { activities: updated }, { merge: true });
+    };
+
+    window.addNewPortfolioCategory = async () => {
+      if (!isManagerLoggedIn()) return;
+      const val = document.getElementById('new-port-cat-input').value.trim();
+      if (!val) return;
+      const updated = [...new Set([...(window.siteSettings.portfolioCategories || DEFAULT_PORTFOLIO_CATEGORIES), val])];
+      await setDoc(doc(db, "config", "siteSettings"), { portfolioCategories: updated }, { merge: true });
+      document.getElementById('new-port-cat-input').value = '';
+    };
+    window.removePortfolioCategory = async (val) => {
+      if (!isManagerLoggedIn()) return;
+      const updated = (window.siteSettings.portfolioCategories || DEFAULT_PORTFOLIO_CATEGORIES).filter(x => x !== val);
+      await setDoc(doc(db, "config", "siteSettings"), { portfolioCategories: updated }, { merge: true });
+    };
+
+    window.addNewProductionRole = async () => {
+      if (!isManagerLoggedIn()) return;
+      const val = document.getElementById('new-prod-role-input').value.trim();
+      if (!val) return;
+      const updated = [...new Set([...(window.siteSettings.productionRoles || DEFAULT_PRODUCTION_ROLES), val])];
+      await setDoc(doc(db, "config", "siteSettings"), { productionRoles: updated }, { merge: true });
+      document.getElementById('new-prod-role-input').value = '';
+    };
+    window.removeProductionRole = async (val) => {
+      if (!isManagerLoggedIn()) return;
+      const updated = (window.siteSettings.productionRoles || DEFAULT_PRODUCTION_ROLES).filter(x => x !== val);
+      await setDoc(doc(db, "config", "siteSettings"), { productionRoles: updated }, { merge: true });
+    };
+
+    window.saveSiteSettings = async (e) => {
+      e.preventDefault();
+      if (!isManagerLoggedIn()) return;
+      const updates = {
+        title: document.getElementById('set-title').value.trim(),
+        subtitle: document.getElementById('set-subtitle').value.trim(),
+        heroLine1: document.getElementById('set-hero-line1').value.trim(),
+        heroLine2: document.getElementById('set-hero-line2').value.trim(),
+        heroDesc: document.getElementById('set-hero-desc').value.trim(),
+        notice: document.getElementById('set-notice').value.trim(),
+        addressBn: document.getElementById('set-address-bn').value.trim(),
+        creditName: document.getElementById('set-credit-name').value.trim(),
+        creditRole: document.getElementById('set-credit-role').value.trim(),
+        creditLinkedin: document.getElementById('set-credit-linkedin').value.trim()
+      };
+      const logoFile = document.getElementById('set-logo-file').files[0];
+      const creditFile = document.getElementById('set-credit-photo').files[0];
+      if (logoFile) updates.logo = await compressImg(logoFile, 220);
+      if (creditFile) updates.creditPhoto = await compressImg(creditFile, 220);
+      await setDoc(doc(db, "config", "siteSettings"), updates, { merge: true });
+      window.showToast("সাইট সেটিংস সেভ হয়েছে!");
+    };
 
     window.moveMemberOrder = async (uid, dir) => {
       if (!isManagerLoggedIn()) return;
@@ -1747,6 +2168,8 @@
     };
     window.toggleApproveMember = async (uid, st) => { if (isManagerLoggedIn()) await setDoc(doc(db, "users", uid), { approved: st }, { merge: true }); };
     window.changeMemberRole = async (uid, role) => { if (isManagerLoggedIn()) await setDoc(doc(db, "users", uid), { role, approved: true }, { merge: true }); };
+    window.deleteMemberProfile = async (uid) => { if (isManagerLoggedIn() && confirm("এই সদস্যের প্রোফাইল মুছে ফেলতে চান?")) await deleteDoc(doc(db, "users", uid)); };
+
     window.savePlanningSettings = async (e) => {
       e.preventDefault();
       if (!isManagerLoggedIn()) return;
@@ -1769,6 +2192,8 @@
       });
       e.target.reset();
     };
+    window.deleteMeetingRecord = async (id) => { if (isManagerLoggedIn() && confirm("এই মিটিং রেকর্ডটি মুছে ফেলতে চান?")) await deleteDoc(doc(db, "meetings", id)); };
+
     window.addPortfolioVideo = async (e) => {
       e.preventDefault();
       if (!isManagerLoggedIn()) return;
@@ -1781,9 +2206,21 @@
         createdAt: new Date().toISOString()
       });
       e.target.reset();
+      window.showToast("প্রোডাকশন যুক্ত হয়েছে!");
     };
-    window.deletePortfolioVideo = async (id) => { if (isManagerLoggedIn()) await deleteDoc(doc(db, "portfolio", id)); };
-    window.deleteTaskByAdmin = async (id) => { if (auth.currentUser && confirm("মুছে ফেলতে চান?")) await deleteDoc(doc(db, "tasks", id)); };
+    window.editPortfolioVideo = async (id) => {
+      if (!isManagerLoggedIn()) return;
+      const v = window.allPortfolio.find(x => x.id === id);
+      if (!v) return;
+      const newTitle = prompt("প্রোডাকশনের শিরোনাম এডিট করুন:", v.title);
+      if (newTitle === null) return;
+      const newUrl = prompt("ভিডিও লিংক এডিট করুন:", v.url);
+      if (newUrl === null) return;
+      await updateDoc(doc(db, "portfolio", id), { title: newTitle.trim(), url: newUrl.trim() });
+      window.showToast("প্রোডাকশন আপডেট হয়েছে!");
+    };
+    window.deletePortfolioVideo = async (id) => { if (isManagerLoggedIn() && confirm("এই প্রোডাকশনটি মুছে ফেলতে চান?")) await deleteDoc(doc(db, "portfolio", id)); };
+    window.deleteTaskByAdmin = async (id) => { if (auth.currentUser && confirm("এই কাজটি মুছে ফেলতে চান?")) await deleteDoc(doc(db, "tasks", id)); };
     window.clearAllTestTasks = async () => { if (isManagerLoggedIn() && confirm("সব টেস্ট কাজ মুছে ফেলতে চান?")) { for(const t of window.allTasks) await deleteDoc(doc(db, "tasks", t.id)); } };
 
     // Auth & Profile
@@ -1867,7 +2304,6 @@
       document.getElementById('add-portfolio-item-modal').classList.add('hidden');
     };
 
-    // Strict Tab Switcher with Permission Guard
     window.switchTab = (t) => {
       if (t === 'workspace' && !auth.currentUser) {
         openAuthModal();
@@ -1904,11 +2340,11 @@
     };
     window.triggerAppInstall = () => alert("মোবাইলের ব্রাউজার মেনু (⋮) থেকে 'Add to Home screen' বা 'Install App' সিলেক্ট করুন।");
     window.exportTasksToCSV = () => {
-      const csv = "\uFEFFDate,Member,Category,Title,Platform,Status\n" + window.allTasks.map(t => `${t.date},"${t.memberName}","${t.category}","${t.title}","${t.platform}",${t.status}`).join("\n");
+      const csv = "\uFEFFDate,Member,Category,Title,Platform,Status\n" + window.allTasks.map(t => `${t.date},"${t.memberName}","${t.category}","${cleanProjectTitle(t.title)}","${formatShortPlatformLabel(t.platform)}",${t.status}`).join("\n");
       const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([csv],{type:"text/csv"})); a.download = "ASF_Report.csv"; a.click();
     };
     window.downloadFullJSONBackup = () => {
-      const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([JSON.stringify({tasks:window.allTasks,members:window.allMembers},null,2)],{type:"application/json"})); a.download = "ASF_Backup.json"; a.click();
+      const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([JSON.stringify({tasks:window.allTasks,members:window.allMembers,settings:window.siteSettings},null,2)],{type:"application/json"})); a.download = "ASF_Backup.json"; a.click();
     };
 
     updateAuthUI();
