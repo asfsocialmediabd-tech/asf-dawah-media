@@ -2,1416 +2,1599 @@
 <html lang="bn" class="light scroll-smooth">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#083823">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <title>ASF Dawah Media | As-Sunnah Foundation</title>
-  <link id="favicon" rel="icon" type="image/png" href="https://assunnahfoundation.org/assets/images/logo.png">
+  <link id="favicon" rel="icon" type="image/png" href="https://ui-avatars.com/api/?name=ASF&background=006837&color=fff&bold=true">
   <link id="pwa-manifest" rel="manifest" href="">
-
-  <!-- Preload Official Bornomala Fonts for Bangla -->
   <link rel="preload" href="./Bornomala-Regular.ttf" as="font" type="font/ttf" crossorigin>
   <link rel="preload" href="./Bornomala-Bold.ttf" as="font" type="font/ttf" crossorigin>
-
-  <!-- Clean Sans-Serif Font (Inter) for English Mode & Numbers -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  
-  <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
       darkMode: 'class',
-      theme: {
-        extend: {
-          colors: {
-            asf: {
-              50: '#f0fdf4',
-              100: '#dcfce7',
-              500: '#008055',
-              600: '#006837',
-              700: '#083823',
-              800: '#062c1b',
-              900: '#041f13',
-            }
-          }
-        }
-      }
+      theme: { extend: { colors: { asf: { 50: '#f0fdf4', 100: '#dcfce7', 600: '#006837', 700: '#083823', 800: '#06291a' } } } }
     }
   </script>
-
-  <!-- Lucide Icons -->
-  <script src="https://unpkg.com/lucide@latest"></script>
-
   <style>
-    @font-face {
-      font-family: 'Bornomala';
-      src: url('./Bornomala-Regular.ttf') format('truetype');
-      font-weight: 400;
-      font-style: normal;
-      font-display: swap;
-      unicode-range: U+0980-09FF, U+200C-200D, U+25CC;
-    }
-    @font-face {
-      font-family: 'Bornomala';
-      src: url('./Bornomala-Regular.ttf') format('truetype');
-      font-weight: 500;
-      font-style: normal;
-      font-display: swap;
-      unicode-range: U+0980-09FF, U+200C-200D, U+25CC;
-    }
-    @font-face {
-      font-family: 'Bornomala';
-      src: url('./Bornomala-Bold.ttf') format('truetype');
-      font-weight: 600;
-      font-style: normal;
-      font-display: swap;
-      unicode-range: U+0980-09FF, U+200C-200D, U+25CC;
-    }
-    @font-face {
-      font-family: 'Bornomala';
-      src: url('./Bornomala-Bold.ttf') format('truetype');
-      font-weight: 700;
-      font-style: normal;
-      font-display: swap;
-      unicode-range: U+0980-09FF, U+200C-200D, U+25CC;
-    }
-
-    body {
-      font-family: 'Inter', 'Bornomala', sans-serif;
-      background-color: #f6f8f7;
-      color: #1e293b;
-      -webkit-font-smoothing: antialiased;
-      line-height: 1.6;
-    }
-    html.lang-en body {
-      font-family: 'Inter', sans-serif !important;
-    }
-    .dark body {
-      background-color: #07130e;
-      color: #f1f5f9;
-    }
-
-    .stitched-box {
-      padding: 5px;
-      border: 1.5px dashed #006837;
-      border-radius: 1.35rem;
-      transition: all 0.25s ease;
-    }
-    .dark .stitched-box {
-      border-color: rgba(16, 185, 129, 0.45);
-    }
-    .stitched-box-blue {
-      padding: 5px;
-      border: 1.5px dashed #2563eb;
-      border-radius: 1.35rem;
-    }
-    .stitched-box-amber {
-      padding: 5px;
-      border: 1.5px dashed #d97706;
-      border-radius: 1.35rem;
-    }
-    .stitched-box-purple {
-      padding: 5px;
-      border: 1.5px dashed #7c3aed;
-      border-radius: 1.35rem;
-    }
-    .stitched-box-rose {
-      padding: 5px;
-      border: 1.5px dashed #e11d48;
-      border-radius: 1.35rem;
-    }
-
-    .solid-card {
-      background-color: #ffffff;
-      border-radius: 1.1rem;
-      border: 1px solid #e2e8f0;
-    }
-    .dark .solid-card {
-      background-color: #0d1f17;
-      border-color: #1e3a2f;
-    }
-
-    .btn-solid-green {
-      background-color: #006837;
-      color: #ffffff;
-      border-radius: 0.85rem;
-      transition: background-color 0.2s ease;
-    }
-    .btn-solid-green:hover {
-      background-color: #083823;
-    }
-
-    .asf-hero-solid {
-      background-color: #083823;
-    }
-    .asf-footer-solid {
-      background-color: #06291a;
-    }
-
-    ::-webkit-scrollbar { width: 6px; height: 6px; }
-    ::-webkit-scrollbar-track { background: transparent; }
-    ::-webkit-scrollbar-thumb { background: #006837; border-radius: 9999px; }
-
-    @media print {
-      header, footer, #mobile-bottom-nav, #floating-chat-wrapper { display: none !important; }
-    }
+    @font-face { font-family: 'Bornomala'; src: url('./Bornomala-Regular.ttf') format('truetype'); font-weight: 400; unicode-range: U+0980-09FF, U+200C-200D, U+25CC; }
+    @font-face { font-family: 'Bornomala'; src: url('./Bornomala-Bold.ttf') format('truetype'); font-weight: 700; unicode-range: U+0980-09FF, U+200C-200D, U+25CC; }
+    body { font-family: 'Inter', 'Bornomala', sans-serif; background-color: #f6f8f7; color: #1e293b; line-height: 1.6; }
+    html.lang-en body { font-family: 'Inter', sans-serif !important; }
+    .dark body { background-color: #07130e; color: #f1f5f9; }
+    .stitched-box { padding: 5px; border: 1.5px dashed #006837; border-radius: 1.25rem; }
+    .dark .stitched-box { border-color: rgba(16,185,129,0.45); }
+    .stitched-blue { padding: 5px; border: 1.5px dashed #2563eb; border-radius: 1.25rem; }
+    .stitched-amber { padding: 5px; border: 1.5px dashed #d97706; border-radius: 1.25rem; }
+    .stitched-rose { padding: 5px; border: 1.5px dashed #e11d48; border-radius: 1.25rem; }
+    .stitched-purple { padding: 5px; border: 1.5px dashed #7c3aed; border-radius: 1.25rem; }
+    .solid-card { background: #ffffff; border-radius: 1rem; border: 1px solid #e2e8f0; }
+    .dark .solid-card { background: #0d1f17; border-color: #1e3a2f; }
+    .btn-green { background-color: #006837; color: #fff; border-radius: 0.75rem; transition: 0.2s; }
+    .btn-green:hover { background-color: #083823; }
   </style>
 </head>
-<body class="min-h-screen flex flex-col pb-20 md:pb-0 selection:bg-asf-600 selection:text-white">
+<body class="min-h-screen flex flex-col pb-20 md:pb-0">
 
-  <!-- Toast Status Notification -->
+  <!-- Toast Popup & Live Chat Popup -->
   <div id="toast-msg" class="fixed top-5 right-5 z-50 hidden bg-asf-700 text-white px-4 py-3 rounded-xl shadow-2xl border border-emerald-400 text-xs sm:text-sm font-bold"></div>
-
-  <!-- Live Incoming Chat Screen Popup -->
-  <div id="live-msg-popup" onclick="openChatFromPopup()" class="fixed top-20 right-4 z-50 hidden max-w-xs w-full solid-card p-3.5 shadow-2xl border-2 border-asf-600 cursor-pointer animate-bounce">
-    <div class="flex items-start gap-2.5">
-      <div class="w-8 h-8 rounded-full bg-asf-600 text-white flex items-center justify-center shrink-0 font-bold text-xs">💬</div>
-      <div class="flex-1 min-w-0">
-        <p id="popup-sender-name" class="text-xs font-bold text-asf-600 truncate"></p>
-        <p id="popup-msg-text" class="text-xs text-slate-700 dark:text-slate-200 line-clamp-2 mt-0.5"></p>
-        <span class="text-[10px] font-bold text-emerald-600 underline mt-1 inline-block" data-bn="ক্লিক করে বিস্তারিত দেখুন ↗" data-en="Click to view & reply ↗">ক্লিক করে বিস্তারিত দেখুন ↗</span>
-      </div>
-    </div>
+  <div id="live-msg-toast" onclick="openChatBox()" class="fixed bottom-20 right-5 z-50 hidden cursor-pointer bg-white dark:bg-slate-900 border-2 border-asf-600 p-3.5 rounded-2xl shadow-2xl max-w-xs">
+    <p class="text-[11px] font-bold text-asf-600" id="toast-sender"></p>
+    <p class="text-xs font-semibold text-slate-800 dark:text-slate-100 line-clamp-2 mt-0.5" id="toast-preview"></p>
   </div>
 
-  <!-- Top Urgent Notice Bar -->
-  <div id="notice-bar" class="bg-asf-700 text-white text-xs sm:text-sm py-2 px-4 text-center font-medium hidden border-b border-emerald-800">
-    <span class="inline-flex items-center gap-2">
-      <span class="px-2 py-0.5 text-[11px] font-bold bg-amber-400 text-slate-950 rounded" data-bn="নোটিশ" data-en="NOTICE">নোটিশ</span>
-      <span id="notice-text"></span>
-    </span>
+  <!-- Top Notice Bar -->
+  <div id="notice-bar" class="bg-asf-700 text-white text-xs py-2 px-4 text-center font-medium hidden">
+    <span class="px-2 py-0.5 text-[10px] font-bold bg-amber-400 text-slate-950 rounded mr-2">নোটিশ</span>
+    <span id="notice-text"></span>
   </div>
 
   <!-- Header -->
   <header class="sticky top-0 z-40 bg-white dark:bg-[#0a1912] border-b border-slate-200 dark:border-emerald-950">
-    <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between gap-2">
-      
-      <div class="flex items-center gap-2.5 sm:gap-3 cursor-pointer shrink-0" onclick="switchTab('home')">
-        <img id="brand-logo" src="https://assunnahfoundation.org/assets/images/logo.png" onerror="this.src='https://ui-avatars.com/api/?name=ASF&background=006837&color=fff&bold=true'" alt="Logo" class="w-10 h-10 sm:w-11 sm:h-11 rounded-xl object-contain bg-white p-0.5 border border-slate-200">
+    <div class="max-w-7xl mx-auto px-3 sm:px-6 h-16 sm:h-20 flex items-center justify-between gap-2">
+      <div class="flex items-center gap-2.5 cursor-pointer shrink-0" onclick="switchTab('home')">
+        <img id="brand-logo" src="https://ui-avatars.com/api/?name=ASF&background=006837&color=fff&bold=true" alt="Logo" class="w-10 h-10 rounded-xl object-contain bg-white border border-slate-200 p-0.5">
         <div>
           <h1 id="brand-title" class="text-base sm:text-xl font-bold text-asf-700 dark:text-white leading-tight">ASF Dawah Media</h1>
-          <p id="brand-subtitle" class="text-[10px] sm:text-xs font-medium text-slate-500 dark:text-slate-400">As-Sunnah Foundation</p>
+          <p id="brand-subtitle" class="text-[10px] sm:text-xs font-medium text-slate-500">As-Sunnah Foundation</p>
         </div>
       </div>
 
-      <!-- Desktop Navigation -->
-      <nav class="hidden lg:flex items-center gap-1">
-        <button type="button" onclick="switchTab('home')" id="nav-home" class="nav-btn px-3 py-2 rounded-lg text-sm font-bold text-asf-600 dark:text-emerald-400 border-b-2 border-asf-600">
-          <span data-bn="হোম" data-en="Home">হোম</span>
-        </button>
-        <button type="button" onclick="switchTab('pipeline')" id="nav-pipeline" class="nav-btn px-3 py-2 rounded-lg text-sm font-semibold text-slate-700 dark:text-slate-300 hover:text-asf-600">
-          <span data-bn="প্রোডাকশন পাইপলাইন" data-en="Pipeline">প্রোডাকশন পাইপলাইন</span>
-        </button>
-        <button type="button" onclick="switchTab('dashboard')" id="nav-dashboard" class="nav-btn px-3 py-2 rounded-lg text-sm font-semibold text-slate-700 dark:text-slate-300 hover:text-asf-600">
-          <span data-bn="মাসিক ড্যাশবোর্ড" data-en="Dashboard">মাসিক ড্যাশবোর্ড</span>
-        </button>
-        <button type="button" onclick="switchTab('team')" id="nav-team" class="nav-btn px-3 py-2 rounded-lg text-sm font-semibold text-slate-700 dark:text-slate-300 hover:text-asf-600">
-          <span data-bn="টিম মেম্বার" data-en="Team">টিম মেম্বার</span>
-        </button>
-        <button type="button" onclick="switchTab('portfolio')" id="nav-portfolio" class="nav-btn px-3 py-2 rounded-lg text-sm font-semibold text-slate-700 dark:text-slate-300 hover:text-asf-600">
-          <span data-bn="আমাদের কাজ" data-en="Productions">আমাদের কাজ</span>
-        </button>
-        <button type="button" onclick="switchTab('workspace')" id="nav-workspace" class="nav-btn hidden px-3 py-2 rounded-lg text-sm font-semibold text-slate-700 dark:text-slate-300 hover:text-asf-600">
-          <span data-bn="কাজ লিখুন" data-en="Log Work">কাজ লিখুন</span>
-        </button>
-        <button type="button" onclick="switchTab('admin')" id="nav-admin" class="nav-btn hidden px-3 py-2 rounded-lg text-sm font-semibold text-slate-700 dark:text-slate-300 hover:text-asf-600">
-          <span data-bn="অ্যাডমিন" data-en="Admin">অ্যাডমিন</span>
-        </button>
+      <nav class="hidden md:flex items-center gap-1">
+        <button onclick="switchTab('home')" id="nav-home" class="px-3 py-2 text-sm font-bold text-asf-600 border-b-2 border-asf-600" data-bn="হোম" data-en="Home">হোম</button>
+        <button onclick="switchTab('pipeline')" id="nav-pipeline" class="px-3 py-2 text-sm font-semibold text-slate-700 dark:text-slate-300" data-bn="প্রোডাকশন পাইপলাইন" data-en="Production Pipeline">প্রোডাকশন পাইপলাইন</button>
+        <button onclick="switchTab('dashboard')" id="nav-dashboard" class="px-3 py-2 text-sm font-semibold text-slate-700 dark:text-slate-300" data-bn="মাসিক ড্যাশবোর্ড" data-en="Monthly Dashboard">মাসিক ড্যাশবোর্ড</button>
+        <button onclick="switchTab('team')" id="nav-team" class="px-3 py-2 text-sm font-semibold text-slate-700 dark:text-slate-300" data-bn="টিম মেম্বার" data-en="Team Members">টিম মেম্বার</button>
+        <button onclick="switchTab('portfolio')" id="nav-portfolio" class="px-3 py-2 text-sm font-semibold text-slate-700 dark:text-slate-300" data-bn="আমাদের কাজ" data-en="Productions">আমাদের কাজ</button>
+        <button onclick="switchTab('workspace')" id="nav-workspace" class="hidden px-3 py-2 text-sm font-semibold text-slate-700 dark:text-slate-300" data-bn="কাজ লিখুন" data-en="Log Work">কাজ লিখুন</button>
+        <button onclick="switchTab('admin')" id="nav-admin" class="hidden px-3 py-2 text-sm font-semibold text-slate-700 dark:text-slate-300" data-bn="অ্যাডমিন" data-en="Admin">অ্যাডমিন</button>
       </nav>
 
-      <!-- Right Controls -->
-      <div class="flex items-center gap-1.5 sm:gap-2">
-        <button type="button" onclick="triggerAppInstall()" id="pwa-install-btn" class="inline-flex items-center gap-1 px-2.5 py-1.5 sm:px-3 sm:py-2 text-xs font-bold rounded-lg bg-emerald-50 dark:bg-emerald-950 text-asf-600 dark:text-emerald-300 border border-asf-600/30 hover:bg-emerald-100 transition">
-          <i data-lucide="download" class="w-3.5 h-3.5"></i>
-          <span data-bn="অ্যাপ" data-en="App">অ্যাপ</span>
-        </button>
-
-        <div id="notif-wrapper" class="relative hidden">
-          <button type="button" onclick="toggleNotifDropdown()" class="relative p-2 rounded-lg bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
-            <i data-lucide="bell" class="w-4 h-4 text-slate-700 dark:text-slate-200"></i>
-            <span id="notif-badge" class="hidden absolute -top-1 -right-1 min-w-[17px] h-[17px] px-1 rounded-full bg-red-600 text-white text-[10px] font-bold flex items-center justify-center">0</span>
-          </button>
-          <div id="notif-dropdown" class="hidden absolute right-0 mt-2 w-72 sm:w-80 solid-card shadow-xl p-4 z-50">
-            <div class="flex items-center justify-between border-b pb-2 mb-2 dark:border-slate-800">
-              <h4 class="font-bold text-xs sm:text-sm" data-bn="অ্যাসাইন করা কাজ" data-en="Assigned Tasks">অ্যাসাইন করা কাজ</h4>
-            </div>
-            <div id="notif-list" class="space-y-2 max-h-64 overflow-y-auto"></div>
-          </div>
-        </div>
-
-        <button type="button" onclick="toggleLanguage()" id="lang-btn" class="px-2.5 py-1.5 sm:px-3 sm:py-2 text-xs font-bold rounded-lg bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-asf-600">
-          EN
-        </button>
-
-        <button type="button" onclick="toggleTheme()" class="p-2 rounded-lg bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-amber-300">
-          <i data-lucide="moon" class="w-4 h-4"></i>
-        </button>
-        
+      <div class="flex items-center gap-1.5">
+        <button onclick="triggerAppInstall()" class="px-2.5 py-1.5 text-xs font-bold rounded-lg bg-emerald-50 text-asf-600 border border-asf-600/30">📲 <span data-bn="অ্যাপ" data-en="App">অ্যাপ</span></button>
+        <button onclick="toggleLanguage()" id="lang-btn" class="px-2.5 py-1.5 text-xs font-bold rounded-lg bg-slate-100 dark:bg-slate-800 border">EN</button>
+        <button onclick="toggleTheme()" class="p-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 border text-xs">🌙</button>
         <div id="auth-buttons">
-          <button type="button" onclick="openAuthModal()" class="btn-solid-green px-3 sm:px-4 py-2 text-xs sm:text-sm font-bold flex items-center gap-1.5">
-            <i data-lucide="user" class="w-4 h-4"></i>
-            <span data-bn="লগইন" data-en="Login">লগইন</span>
-          </button>
+          <button onclick="openAuthModal()" class="btn-green px-3.5 py-1.5 text-xs sm:text-sm font-bold" data-bn="লগইন" data-en="Login">লগইন</button>
         </div>
-
-        <div id="user-menu" class="hidden items-center gap-1.5 bg-slate-100 dark:bg-slate-800 p-1 pr-2 rounded-full border border-slate-200 dark:border-slate-700">
-          <img id="current-user-img" src="" class="w-7 h-7 sm:w-8 sm:h-8 rounded-full object-cover border border-asf-600 cursor-pointer" onclick="switchTab('workspace')">
-          <button type="button" onclick="logoutUser()" class="text-xs font-bold text-red-600 p-1" title="Logout">
-            <i data-lucide="log-out" class="w-3.5 h-3.5"></i>
-          </button>
+        <div id="user-menu" class="hidden items-center gap-1.5 bg-slate-100 dark:bg-slate-800 p-1 pr-2 rounded-full border">
+          <img id="current-user-img" src="" class="w-7 h-7 rounded-full object-cover border border-asf-600 cursor-pointer" onclick="switchTab('workspace')">
+          <button onclick="logoutUser()" class="text-xs font-bold text-red-600 px-1" title="Logout">✕</button>
         </div>
       </div>
-
     </div>
   </header>
 
-  <!-- Mobile Bottom Navigation -->
-  <nav id="mobile-bottom-nav" class="lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-white dark:bg-[#0a1912] border-t border-slate-200 dark:border-emerald-950 px-1 py-1.5 flex items-center justify-around shadow-lg">
-    <button type="button" onclick="switchTab('home')" id="mnav-home" class="flex flex-col items-center gap-0.5 py-1 px-1.5 rounded-lg text-asf-600 dark:text-emerald-400 font-bold text-[10px]">
-      <i data-lucide="home" class="w-4 h-4"></i>
-      <span data-bn="হোম" data-en="Home">হোম</span>
-    </button>
-    <button type="button" onclick="switchTab('pipeline')" id="mnav-pipeline" class="flex flex-col items-center gap-0.5 py-1 px-1.5 rounded-lg text-slate-500 font-bold text-[10px]">
-      <i data-lucide="clapperboard" class="w-4 h-4"></i>
-      <span data-bn="পাইপলাইন" data-en="Pipeline">পাইপলাইন</span>
-    </button>
-    <button type="button" onclick="switchTab('dashboard')" id="mnav-dashboard" class="flex flex-col items-center gap-0.5 py-1 px-1.5 rounded-lg text-slate-500 font-bold text-[10px]">
-      <i data-lucide="bar-chart-2" class="w-4 h-4"></i>
-      <span data-bn="ড্যাশবোর্ড" data-en="Dashboard">ড্যাশবোর্ড</span>
-    </button>
-    <button type="button" onclick="switchTab('team')" id="mnav-team" class="flex flex-col items-center gap-0.5 py-1 px-1.5 rounded-lg text-slate-500 font-bold text-[10px]">
-      <i data-lucide="users" class="w-4 h-4"></i>
-      <span data-bn="টিম" data-en="Team">টিম</span>
-    </button>
-    <button type="button" onclick="switchTab('portfolio')" id="mnav-portfolio" class="flex flex-col items-center gap-0.5 py-1 px-1.5 rounded-lg text-slate-500 font-bold text-[10px]">
-      <i data-lucide="film" class="w-4 h-4"></i>
-      <span data-bn="কাজ" data-en="Works">কাজ</span>
-    </button>
-    <button type="button" onclick="switchTab('workspace')" id="mnav-workspace" class="hidden flex-col items-center gap-0.5 py-1 px-1.5 rounded-lg text-slate-500 font-bold text-[10px]">
-      <i data-lucide="edit-3" class="w-4 h-4"></i>
-      <span data-bn="লিখুন" data-en="Log">লিখুন</span>
-    </button>
-    <button type="button" onclick="switchTab('admin')" id="mnav-admin" class="hidden flex-col items-center gap-0.5 py-1 px-1.5 rounded-lg text-slate-500 font-bold text-[10px]">
-      <i data-lucide="settings" class="w-4 h-4"></i>
-      <span data-bn="অ্যাডমিন" data-en="Admin">অ্যাডমিন</span>
-    </button>
+  <!-- Mobile Bottom Bar -->
+  <nav id="mobile-bottom-nav" class="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-white dark:bg-[#0a1912] border-t px-1 py-1.5 flex items-center justify-around text-[11px] font-bold">
+    <button onclick="switchTab('home')" id="mnav-home" class="text-asf-600 py-1 px-2" data-bn="হোম" data-en="Home">হোম</button>
+    <button onclick="switchTab('pipeline')" id="mnav-pipeline" class="text-slate-500 py-1 px-2" data-bn="পাইপলাইন" data-en="Pipeline">পাইপলাইন</button>
+    <button onclick="switchTab('dashboard')" id="mnav-dashboard" class="text-slate-500 py-1 px-2" data-bn="ড্যাশবোর্ড" data-en="Dashboard">ড্যাশবোর্ড</button>
+    <button onclick="switchTab('team')" id="mnav-team" class="text-slate-500 py-1 px-2" data-bn="টিম" data-en="Team">টিম</button>
+    <button onclick="switchTab('portfolio')" id="mnav-portfolio" class="text-slate-500 py-1 px-2" data-bn="কাজ" data-en="Works">কাজ</button>
+    <button onclick="switchTab('workspace')" id="mnav-workspace" class="hidden text-slate-500 py-1 px-2" data-bn="লিখুন" data-en="Log">লিখুন</button>
+    <button onclick="switchTab('admin')" id="mnav-admin" class="hidden text-slate-500 py-1 px-2" data-bn="অ্যাডমিন" data-en="Admin">অ্যাডমিন</button>
   </nav>
 
-  <!-- MAIN WORKSPACE CONTENT -->
-  <main class="flex-grow max-w-7xl w-full mx-auto px-3 sm:px-6 lg:px-8 py-6 sm:py-8">
+  <!-- MAIN CONTENT -->
+  <main class="flex-grow max-w-7xl w-full mx-auto px-3 sm:px-6 py-6 space-y-8">
 
-    <!-- ================= 1. HOME SECTION ================= -->
-    <section id="tab-home" class="space-y-8 sm:space-y-10">
-      
-      <!-- Stitched Solid Hero Banner -->
+    <!-- ================= 1. HOME TAB ================= -->
+    <section id="tab-home" class="space-y-8">
+      <!-- Hero Banner -->
       <div class="stitched-box">
-        <div class="asf-hero-solid rounded-2xl p-6 sm:p-10 text-white">
-          <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
-            
-            <div class="lg:col-span-8 text-center flex flex-col items-center justify-center space-y-3 py-2">
-              <h2 class="text-2xl sm:text-4xl lg:text-5xl font-bold leading-snug text-white tracking-tight">
-                <span id="hero-line-1" class="block">আস-সুন্নাহ ফাউন্ডেশন</span>
-                <span id="hero-line-2" class="block text-emerald-300 mt-1">দাওয়াহ মিডিয়া</span>
-              </h2>
-              <p id="hero-desc" class="text-emerald-100 text-xs sm:text-base max-w-xl font-normal">
-                আস-সুন্নাহ ফাউন্ডেশন ও শায়খ আহমাদুল্লাহ দাওয়াহ মিডিয়া সকল ধরণের কাজ।
-              </p>
-            </div>
-
-            <div class="lg:col-span-4">
-              <div class="bg-[#0b462c] border border-emerald-700/70 rounded-2xl p-5 space-y-3">
-                <div class="flex items-center justify-between border-b border-emerald-700/60 pb-2.5">
-                  <h4 class="text-sm sm:text-base font-bold text-white" data-bn="চলতি মাসের অগ্রগতি" data-en="Current Month Progress">চলতি মাসের অগ্রগতি</h4>
-                  <i data-lucide="activity" class="w-4 h-4 text-emerald-300"></i>
-                </div>
-                <div class="space-y-2 text-xs sm:text-sm">
-                  <div class="flex items-center justify-between bg-[#07301e] px-3.5 py-2 rounded-xl">
-                    <span class="text-emerald-100" data-bn="সম্পন্ন প্রোডাকশন" data-en="Completed Productions">সম্পন্ন প্রোডাকশন</span>
-                    <span id="hero-stat-comp" class="text-base font-bold text-white">0</span>
-                  </div>
-                  <div class="flex items-center justify-between bg-[#07301e] px-3.5 py-2 rounded-xl">
-                    <span class="text-emerald-100" data-bn="চলমান প্রজেক্ট" data-en="Ongoing Projects">চলমান প্রজেক্ট</span>
-                    <span id="hero-stat-ong" class="text-base font-bold text-sky-300">0</span>
-                  </div>
-                  <div class="flex items-center justify-between bg-[#07301e] px-3.5 py-2 rounded-xl">
-                    <span class="text-emerald-100" data-bn="রেডি টু পাবলিশ ও পেন্ডিং" data-en="Ready & Pending">রেডি টু পাবলিশ ও পেন্ডিং</span>
-                    <span id="hero-stat-pend" class="text-base font-bold text-amber-300">0</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
+        <div class="bg-asf-700 rounded-2xl p-6 sm:p-10 text-white grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+          <div class="lg:col-span-8 text-center flex flex-col items-center justify-center space-y-2">
+            <h2 class="text-2xl sm:text-4xl lg:text-5xl font-bold leading-snug">
+              <span id="hero-line-1" class="block">আস-সুন্নাহ ফাউন্ডেশন</span>
+              <span id="hero-line-2" class="block text-emerald-300 mt-1">দাওয়াহ মিডিয়া</span>
+            </h2>
+            <p id="hero-desc" class="text-emerald-100 text-xs sm:text-base max-w-xl"></p>
+          </div>
+          <div class="lg:col-span-4 bg-[#0b462c] border border-emerald-700 rounded-2xl p-4 space-y-2.5 text-xs sm:text-sm">
+            <h4 class="font-bold border-b border-emerald-700 pb-2" data-bn="চলতি মাসের অগ্রগতি" data-en="Current Month Progress">চলতি মাসের অগ্রগতি</h4>
+            <div class="flex justify-between bg-[#07301e] px-3 py-2 rounded-xl"><span data-bn="সম্পন্ন প্রোডাকশন" data-en="Completed Productions">সম্পন্ন প্রোডাকশন</span><b id="hero-stat-comp">0</b></div>
+            <div class="flex justify-between bg-[#07301e] px-3 py-2 rounded-xl"><span data-bn="চলমান প্রজেক্ট" data-en="Ongoing Projects">চলমান প্রজেক্ট</span><b id="hero-stat-ong" class="text-sky-300">0</b></div>
+            <div class="flex justify-between bg-[#07301e] px-3 py-2 rounded-xl"><span data-bn="রেডি টু পাবলিশ ও পেন্ডিং" data-en="Ready & Pending">রেডি টু পাবলিশ ও পেন্ডিং</span><b id="hero-stat-pend" class="text-amber-300">0</b></div>
           </div>
         </div>
       </div>
 
-      <!-- 5 Stitched Counter Buttons (Completed Productions, Ongoing, Pending, Ready to Publish, Upcoming) -->
-      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3.5 sm:gap-4">
+      <!-- 5 Counter Status Buttons (With Built-in SVG Icons) -->
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3.5">
         <div onclick="openQuickStatusModal('Completed')" class="stitched-box cursor-pointer">
           <div class="solid-card p-4 flex items-center gap-3">
-            <div class="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-asf-600 text-white flex items-center justify-center shrink-0">
-              <i data-lucide="check-circle-2" class="w-5 h-5"></i>
-            </div>
+            <div class="w-11 h-11 rounded-xl bg-asf-600 text-white flex items-center justify-center shrink-0 font-bold text-lg">✓</div>
             <div>
-              <p class="text-xl sm:text-2xl font-bold" id="stat-completed">0</p>
-              <p class="text-[11px] font-bold text-slate-500 dark:text-slate-400" data-bn="চলতি মাসে সম্পন্ন প্রোডাকশন" data-en="Completed Productions">চলতি মাসে সম্পন্ন প্রোডাকশন</p>
+              <p class="text-xl font-bold" id="stat-completed">0</p>
+              <p class="text-[11px] font-bold text-slate-500" data-bn="চলতি মাসে সম্পন্ন প্রোডাকশন" data-en="Completed Productions">চলতি মাসে সম্পন্ন প্রোডাকশন</p>
             </div>
           </div>
         </div>
 
-        <div onclick="openQuickStatusModal('Ongoing')" class="stitched-box-blue cursor-pointer">
+        <div onclick="openQuickStatusModal('Ongoing')" class="stitched-blue cursor-pointer">
           <div class="solid-card p-4 flex items-center gap-3">
-            <div class="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-blue-600 text-white flex items-center justify-center shrink-0">
-              <i data-lucide="clock" class="w-5 h-5"></i>
-            </div>
+            <div class="w-11 h-11 rounded-xl bg-blue-600 text-white flex items-center justify-center shrink-0 font-bold text-lg">⚙</div>
             <div>
-              <p class="text-xl sm:text-2xl font-bold" id="stat-ongoing">0</p>
-              <p class="text-[11px] font-bold text-slate-500 dark:text-slate-400" data-bn="বর্তমানে চলমান প্রজেক্ট" data-en="Ongoing Projects">বর্তমানে চলমান প্রজেক্ট</p>
+              <p class="text-xl font-bold" id="stat-ongoing">0</p>
+              <p class="text-[11px] font-bold text-slate-500" data-bn="বর্তমানে চলমান প্রজেক্ট" data-en="Ongoing Projects">বর্তমানে চলমান প্রজেক্ট</p>
             </div>
           </div>
         </div>
 
-        <div onclick="openQuickStatusModal('Pending')" class="stitched-box-amber cursor-pointer">
+        <div onclick="openQuickStatusModal('Pending')" class="stitched-amber cursor-pointer">
           <div class="solid-card p-4 flex items-center gap-3">
-            <div class="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-amber-600 text-white flex items-center justify-center shrink-0">
-              <i data-lucide="alert-circle" class="w-5 h-5"></i>
-            </div>
+            <div class="w-11 h-11 rounded-xl bg-amber-600 text-white flex items-center justify-center shrink-0 font-bold text-lg">⏳</div>
             <div>
-              <p class="text-xl sm:text-2xl font-bold" id="stat-pending">0</p>
-              <p class="text-[11px] font-bold text-slate-500 dark:text-slate-400" data-bn="পেন্ডিং প্রজেক্ট" data-en="Pending Projects">পেন্ডিং প্রজেক্ট</p>
+              <p class="text-xl font-bold" id="stat-pending">0</p>
+              <p class="text-[11px] font-bold text-slate-500" data-bn="পেন্ডিং প্রজেক্ট" data-en="Pending Projects">পেন্ডিং প্রজেক্ট</p>
             </div>
           </div>
         </div>
 
-        <div onclick="openQuickStatusModal('Ready')" class="stitched-box-rose cursor-pointer">
+        <div onclick="openQuickStatusModal('Ready')" class="stitched-rose cursor-pointer">
           <div class="solid-card p-4 flex items-center gap-3">
-            <div class="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-rose-600 text-white flex items-center justify-center shrink-0">
-              <i data-lucide="upload-cloud" class="w-5 h-5"></i>
-            </div>
+            <div class="w-11 h-11 rounded-xl bg-rose-600 text-white flex items-center justify-center shrink-0 font-bold text-lg">🚀</div>
             <div>
-              <p class="text-xl sm:text-2xl font-bold" id="stat-ready">0</p>
-              <p class="text-[11px] font-bold text-slate-500 dark:text-slate-400" data-bn="রেডি টু পাবলিশ" data-en="Ready to Publish">রেডি টু পাবলিশ</p>
+              <p class="text-xl font-bold" id="stat-ready">0</p>
+              <p class="text-[11px] font-bold text-slate-500" data-bn="রেডি টু পাবলিশ" data-en="Ready to Publish">রেডি টু পাবলিশ</p>
             </div>
           </div>
         </div>
 
-        <div onclick="openQuickStatusModal('Upcoming')" class="stitched-box-purple cursor-pointer col-span-2 sm:col-span-1">
+        <div onclick="openQuickStatusModal('Upcoming')" class="stitched-purple cursor-pointer col-span-2 sm:col-span-1">
           <div class="solid-card p-4 flex items-center gap-3">
-            <div class="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-purple-600 text-white flex items-center justify-center shrink-0">
-              <i data-lucide="calendar-clock" class="w-5 h-5"></i>
-            </div>
+            <div class="w-11 h-11 rounded-xl bg-purple-600 text-white flex items-center justify-center shrink-0 font-bold text-lg">📅</div>
             <div>
-              <p class="text-xl sm:text-2xl font-bold" id="stat-upcoming">0</p>
-              <p class="text-[11px] font-bold text-slate-500 dark:text-slate-400" data-bn="আপকামিং প্রোডাকশন" data-en="Upcoming Productions">আপকামিং প্রোডাকশন</p>
+              <p class="text-xl font-bold" id="stat-upcoming">0</p>
+              <p class="text-[11px] font-bold text-slate-500" data-bn="আপকামিং প্রোডাকশন" data-en="Upcoming Productions">আপকামিং প্রোডাকশন</p>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Roadmap & Visual Column Comparison Chart -->
+      <!-- Roadmap & Comparison Chart -->
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
-        
         <div class="lg:col-span-7 stitched-box">
-          <div class="solid-card p-5 sm:p-6 h-full space-y-5">
-            <div class="flex items-center justify-between border-b pb-3 dark:border-slate-800">
-              <h3 class="text-base sm:text-lg font-bold flex items-center gap-2">
-                <i data-lucide="compass" class="w-5 h-5 text-asf-600"></i>
-                <span data-bn="মাসিক কাজের প্ল্যানিং ও চলমান ওভারভিউ" data-en="Monthly Planning & Active Overview">মাসিক কাজের প্ল্যানিং ও চলমান ওভারভিউ</span>
-              </h3>
-              <button type="button" onclick="switchTab('pipeline')" class="text-xs font-bold text-asf-600 hover:underline" data-bn="পাইপলাইন →" data-en="Pipeline →">পাইপলাইন →</button>
+          <div class="solid-card p-5 space-y-4 h-full">
+            <div class="flex justify-between items-center border-b pb-2.5 dark:border-slate-800">
+              <h3 class="font-bold text-base" data-bn="মাসিক কাজের প্ল্যানিং ও চলমান ওভারভিউ" data-en="Monthly Planning & Overview">মাসিক কাজের প্ল্যানিং ও চলমান ওভারভিউ</h3>
+              <button onclick="switchTab('pipeline')" class="text-xs font-bold text-asf-600" data-bn="পাইপলাইন →" data-en="Pipeline →">পাইপলাইন →</button>
             </div>
-
-            <div class="bg-emerald-50/70 dark:bg-slate-800/70 p-4 rounded-xl border border-emerald-200 dark:border-slate-700 space-y-2">
-              <div class="flex justify-between items-center text-xs font-bold">
+            <div class="bg-emerald-50/70 dark:bg-slate-800 p-3.5 rounded-xl border border-emerald-200 dark:border-slate-700 space-y-1.5">
+              <div class="flex justify-between text-xs font-bold">
                 <span data-bn="চলতি মাসের প্ল্যানিং বাস্তবায়ন" data-en="Current Month Plan Execution">চলতি মাসের প্ল্যানিং বাস্তবায়ন</span>
-                <span id="home-plan-percent" class="text-sm font-bold text-asf-600 dark:text-emerald-400">0%</span>
+                <span id="home-plan-percent" class="text-asf-600">0%</span>
               </div>
-              <div class="w-full h-3 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
-                <div id="home-plan-bar" class="h-full bg-asf-600 rounded-full transition-all duration-500" style="width: 0%"></div>
+              <div class="w-full h-2.5 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
+                <div id="home-plan-bar" class="h-full bg-asf-600 rounded-full" style="width:0%"></div>
               </div>
-              <p id="home-plan-subtext" class="text-xs text-slate-600 dark:text-slate-400"></p>
             </div>
-
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
-              <div onclick="openPlanningDetailModal('currentPlan')" class="p-4 rounded-xl border border-slate-200 dark:border-slate-800 hover:border-asf-600 cursor-pointer transition">
-                <div class="flex items-center justify-between mb-1">
-                  <span class="text-xs font-bold text-asf-600" data-bn="চলতি মাসের প্ল্যানিং" data-en="Current Month Plan">চলতি মাসের প্ল্যানিং</span>
-                  <span class="text-[11px] font-bold text-slate-400" data-bn="দেখুন ↗" data-en="View ↗">দেখুন ↗</span>
-                </div>
-                <p id="home-current-plan-preview" class="text-xs text-slate-600 dark:text-slate-300 line-clamp-2"></p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+              <div onclick="openPlanningDetailModal('currentPlan')" class="p-3.5 rounded-xl border hover:border-asf-600 cursor-pointer">
+                <div class="flex justify-between font-bold text-asf-600 mb-1"><span data-bn="চলতি মাসের প্ল্যানিং" data-en="Current Month Plan">চলতি মাসের প্ল্যানিং</span><span>↗</span></div>
+                <p id="home-current-plan-preview" class="text-slate-600 dark:text-slate-300 line-clamp-2"></p>
               </div>
-
-              <div onclick="openPlanningDetailModal('next3Months')" class="p-4 rounded-xl border border-slate-200 dark:border-slate-800 hover:border-purple-600 cursor-pointer transition">
-                <div class="flex items-center justify-between mb-1">
-                  <span class="text-xs font-bold text-purple-600" data-bn="আগামী ৩ মাসের পরিকল্পনা" data-en="Next 3 Months Plan">আগামী ৩ মাসের পরিকল্পনা</span>
-                  <span class="text-[11px] font-bold text-slate-400" data-bn="দেখুন ↗" data-en="View ↗">দেখুন ↗</span>
-                </div>
-                <p id="home-next3-plan-preview" class="text-xs text-slate-600 dark:text-slate-300 line-clamp-2"></p>
+              <div onclick="openPlanningDetailModal('next3Months')" class="p-3.5 rounded-xl border hover:border-purple-600 cursor-pointer">
+                <div class="flex justify-between font-bold text-purple-600 mb-1"><span data-bn="আগামী ৩ মাসের পরিকল্পনা" data-en="Next 3 Months Plan">আগামী ৩ মাসের পরিকল্পনা</span><span>↗</span></div>
+                <p id="home-next3-plan-preview" class="text-slate-600 dark:text-slate-300 line-clamp-2"></p>
               </div>
-
-              <div onclick="openQuickStatusModal('Ongoing')" class="p-4 rounded-xl border border-slate-200 dark:border-slate-800 hover:border-blue-600 cursor-pointer transition">
-                <div class="flex items-center justify-between mb-1">
-                  <span class="text-xs font-bold text-blue-600" data-bn="বর্তমানে চলমান প্রজেক্ট" data-en="Ongoing Projects">বর্তমানে চলমান প্রজেক্ট</span>
-                  <span class="text-[11px] font-bold text-slate-400" data-bn="তালিকা ↗" data-en="List ↗">তালিকা ↗</span>
-                </div>
-                <p id="home-ongoing-preview" class="text-xs text-slate-600 dark:text-slate-300 line-clamp-2"></p>
+              <div onclick="openQuickStatusModal('Ongoing')" class="p-3.5 rounded-xl border hover:border-blue-600 cursor-pointer">
+                <div class="flex justify-between font-bold text-blue-600 mb-1"><span data-bn="বর্তমানে চলমান প্রজেক্ট" data-en="Ongoing Projects">বর্তমানে চলমান প্রজেক্ট</span><span>↗</span></div>
+                <p id="home-ongoing-preview" class="text-slate-600 dark:text-slate-300 line-clamp-2"></p>
               </div>
-
-              <div onclick="openQuickStatusModal('Ready')" class="p-4 rounded-xl border border-slate-200 dark:border-slate-800 hover:border-rose-600 cursor-pointer transition">
-                <div class="flex items-center justify-between mb-1">
-                  <span class="text-xs font-bold text-rose-600" data-bn="রেডি টু পাবলিশ ও পেন্ডিং" data-en="Ready to Publish & Pending">রেডি টু পাবলিশ ও পেন্ডিং</span>
-                  <span class="text-[11px] font-bold text-slate-400" data-bn="তালিকা ↗" data-en="List ↗">তালিকা ↗</span>
-                </div>
-                <p id="home-pending-preview" class="text-xs text-slate-600 dark:text-slate-300 line-clamp-2"></p>
+              <div onclick="openQuickStatusModal('Ready')" class="p-3.5 rounded-xl border hover:border-rose-600 cursor-pointer">
+                <div class="flex justify-between font-bold text-rose-600 mb-1"><span data-bn="রেডি টু পাবলিশ ও পেন্ডিং" data-en="Ready & Pending">রেডি টু পাবলিশ ও পেন্ডিং</span><span>↗</span></div>
+                <p id="home-pending-preview" class="text-slate-600 dark:text-slate-300 line-clamp-2"></p>
               </div>
             </div>
           </div>
         </div>
 
         <div class="lg:col-span-5 stitched-box">
-          <div class="solid-card p-5 sm:p-6 h-full flex flex-col justify-between space-y-4">
-            <div class="border-b pb-3 dark:border-slate-800 flex items-center justify-between">
-              <h3 class="text-base sm:text-lg font-bold flex items-center gap-2">
-                <i data-lucide="bar-chart-3" class="w-5 h-5 text-asf-600"></i>
-                <span data-bn="বিগত মাস বনাম চলতি মাসের গ্রাফ" data-en="Previous vs Current Month Chart">বিগত মাস বনাম চলতি মাসের গ্রাফ</span>
-              </h3>
-              <span id="home-growth-badge" class="px-2.5 py-0.5 rounded-md bg-emerald-100 text-asf-700 text-xs font-bold"></span>
+          <div class="solid-card p-5 h-full flex flex-col justify-between space-y-4">
+            <div class="flex justify-between items-center border-b pb-2.5 dark:border-slate-800">
+              <h3 class="font-bold text-base" data-bn="বিগত মাস বনাম চলতি মাসের গ্রাফ" data-en="Previous vs Current Month Chart">বিগত মাস বনাম চলতি মাসের গ্রাফ</h3>
+              <span id="home-growth-badge" class="px-2 py-0.5 rounded bg-emerald-100 text-asf-700 text-xs font-bold"></span>
             </div>
-
             <div id="home-comparison-chart" class="my-auto py-2"></div>
-
-            <div class="pt-3 border-t dark:border-slate-800 flex items-center justify-center gap-6 text-xs font-bold">
-              <span class="flex items-center gap-1.5"><span class="w-3.5 h-3.5 rounded bg-slate-400 inline-block"></span> <span id="legend-prev-month"></span></span>
-              <span class="flex items-center gap-1.5"><span class="w-3.5 h-3.5 rounded bg-asf-600 inline-block"></span> <span id="legend-cur-month"></span></span>
+            <div class="pt-2 border-t flex justify-center gap-6 text-xs font-bold">
+              <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded bg-slate-400 inline-block"></span><span id="legend-prev-month"></span></span>
+              <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded bg-asf-600 inline-block"></span><span id="legend-cur-month"></span></span>
             </div>
           </div>
         </div>
-
       </div>
 
-      <!-- Featured & Popular Productions Below Roadmap -->
+      <!-- Featured Productions Below Chart (With Popular & Current Month Filter) -->
       <div class="space-y-4">
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-          <h3 class="text-lg sm:text-2xl font-bold flex items-center gap-2">
-            <i data-lucide="play-circle" class="w-5 h-5 sm:w-6 sm:h-6 text-asf-600"></i>
-            <span data-bn="ফিচারড ও পপুলার প্রোডাকশন" data-en="Featured & Popular Productions">ফিচারড ও পপুলার প্রোডাকশন</span>
-          </h3>
+        <div class="flex flex-wrap items-center justify-between gap-2">
+          <h3 class="text-lg sm:text-xl font-bold" data-bn="আমাদের প্রোডাকশন" data-en="Our Productions">আমাদের প্রোডাকশন</h3>
           <div class="flex items-center gap-2">
-            <button type="button" onclick="setHomeProdFilter('popular')" id="hprod-popular" class="px-3 py-1.5 rounded-lg text-xs font-bold btn-solid-green">
-              <span data-bn="★ পপুলার প্রোডাকশন" data-en="★ Popular">★ পপুলার প্রোডাকশন</span>
-            </button>
-            <button type="button" onclick="setHomeProdFilter('current')" id="hprod-current" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300">
-              <span data-bn="চলতি মাসের কাজ" data-en="This Month">চলতি মাসের কাজ</span>
-            </button>
-            <button type="button" onclick="switchTab('portfolio')" class="text-xs sm:text-sm text-asf-600 dark:text-emerald-400 font-bold hover:underline ml-2" data-bn="সব দেখুন →" data-en="View All →">সব দেখুন →</button>
+            <button onclick="setHomeProdMode('popular')" id="hprod-popular" class="px-3 py-1.5 rounded-lg text-xs font-bold btn-green" data-bn="★ পপুলার প্রোডাকশন" data-en="★ Popular">★ পপুলার প্রোডাকশন</button>
+            <button onclick="setHomeProdMode('current')" id="hprod-current" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-200 dark:bg-slate-800" data-bn="চলতি মাসের কাজ" data-en="This Month">চলতি মাসের কাজ</button>
+            <button onclick="switchTab('portfolio')" class="text-xs font-bold text-asf-600 ml-2" data-bn="সব দেখুন →" data-en="View All →">সব দেখুন →</button>
           </div>
         </div>
         <div id="home-portfolio-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"></div>
       </div>
 
-      <!-- Meeting Decisions at the Very Bottom of Home -->
+      <!-- Meeting Agenda at the Very Bottom of Home -->
       <div class="stitched-box">
-        <div class="solid-card p-5 sm:p-6 space-y-4">
-          <div class="border-b pb-3 dark:border-slate-800">
-            <h3 class="text-base sm:text-lg font-bold flex items-center gap-2">
-              <i data-lucide="clipboard-check" class="w-5 h-5 text-asf-600"></i>
-              <span data-bn="মিটিং এজেন্ডা ও গৃহীত সিদ্ধান্তসমূহ" data-en="Meeting Agendas & Decisions">মিটিং এজেন্ডা ও গৃহীত সিদ্ধান্তসমূহ</span>
-            </h3>
-          </div>
+        <div class="solid-card p-5 space-y-4">
+          <h3 class="font-bold text-base border-b pb-2.5 dark:border-slate-800" data-bn="মিটিং এজেন্ডা ও গৃহীত সিদ্ধান্তসমূহ" data-en="Meeting Agendas & Decisions">মিটিং এজেন্ডা ও গৃহীত সিদ্ধান্তসমূহ</h3>
           <div id="home-meetings-list" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
         </div>
       </div>
-
     </section>
 
     <!-- ================= 2. PRODUCTION PIPELINE TAB (SEPARATE TAB) ================= -->
     <section id="tab-pipeline" class="hidden space-y-6">
-      
       <div class="stitched-box">
-        <div class="solid-card p-5 sm:p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div class="solid-card p-5 flex flex-wrap items-center justify-between gap-3">
           <div>
-            <h2 class="text-xl sm:text-2xl font-bold flex items-center gap-2 text-asf-600">
-              <i data-lucide="clapperboard" class="w-6 h-6"></i>
-              <span data-bn="প্রোডাকশন পাইপলাইন (শুটিং থেকে পাবলিশ)" data-en="Production Pipeline (Shooting to Publish)">প্রোডাকশন পাইপলাইন (শুটিং থেকে পাবলিশ)</span>
-            </h2>
+            <h2 class="text-xl font-bold" data-bn="প্রোডাকশন পাইপলাইন (শুটিং থেকে পাবলিশ)" data-en="Production Pipeline (Shooting to Publish)">প্রোডাকশন পাইপলাইন (শুটিং থেকে পাবলিশ)</h2>
           </div>
           <div class="flex flex-wrap gap-2 text-xs font-bold">
-            <span class="px-3 py-1.5 rounded-lg bg-purple-100 text-purple-800" id="pipe-count-upcoming">আপকামিং শুটিং: 0</span>
-            <span class="px-3 py-1.5 rounded-lg bg-amber-100 text-amber-800" id="pipe-count-pending">পেন্ডিং (শুটিং শেষ): 0</span>
-            <span class="px-3 py-1.5 rounded-lg bg-blue-100 text-blue-800" id="pipe-count-editing">এডিটিং চলমান: 0</span>
-            <span class="px-3 py-1.5 rounded-lg bg-rose-100 text-rose-800" id="pipe-count-ready">রেডি টু পাবলিশ: 0</span>
+            <span class="px-3 py-1 rounded-lg bg-purple-100 text-purple-800"><span data-bn="আপকামিং শুটিং:" data-en="Upcoming:">আপকামিং শুটিং:</span> <b id="pipe-count-up">0</b></span>
+            <span class="px-3 py-1 rounded-lg bg-amber-100 text-amber-800"><span data-bn="শুটিং শেষ (পেন্ডিং):" data-en="Pending Edit:">শুটিং শেষ (পেন্ডিং):</span> <b id="pipe-count-pend">0</b></span>
+            <span class="px-3 py-1 rounded-lg bg-blue-100 text-blue-800"><span data-bn="এডিটিং চলমান:" data-en="Editing:">এডিটিং চলমান:</span> <b id="pipe-count-edit">0</b></span>
+            <span class="px-3 py-1 rounded-lg bg-rose-100 text-rose-800"><span data-bn="রেডি টু পাবলিশ:" data-en="Ready:">রেডি টু পাবলিশ:</span> <b id="pipe-count-ready">0</b></span>
           </div>
         </div>
       </div>
 
-      <!-- Admin & Director Form: Schedule Shooting & Assign Shooting Crew -->
+      <!-- Admin/Director Schedule Shooting Form -->
       <div id="pipeline-create-box" class="hidden stitched-box">
-        <div class="solid-card p-5 sm:p-6 space-y-4">
-          <h3 class="font-bold text-base text-asf-600 border-b pb-2.5 dark:border-slate-800 flex items-center gap-2">
-            <i data-lucide="video" class="w-5 h-5"></i>
-            <span data-bn="আগামী শুটিং শিডিউল ও টিম অ্যাসাইন করুন (আপকামিং প্রোডাকশন)" data-en="Schedule Upcoming Shooting & Assign Crew">আগামী শুটিং শিডিউল ও টিম অ্যাসাইন করুন (আপকামিং প্রোডাকশন)</span>
-          </h3>
-          <form onsubmit="createPipelineProduction(event)" class="space-y-4 text-xs sm:text-sm">
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-              <div class="sm:col-span-2">
-                <label class="block text-xs font-bold mb-1" data-bn="প্রোডাকশনের শিরোনাম / শুটিং টপিক *" data-en="Production Topic / Title *">প্রোডাকশনের শিরোনাম / শুটিং টপিক *</label>
-                <input type="text" id="pipe-title" required class="w-full px-3.5 py-2 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800">
+        <div class="solid-card p-5 space-y-4">
+          <h3 class="font-bold text-base text-asf-600 border-b pb-2" data-bn="নতুন শুটিং ও প্রোডাকশন শিডিউল অ্যাসাইন করুন" data-en="Schedule New Shooting & Production">নতুন শুটিং ও প্রোডাকশন শিডিউল অ্যাসাইন করুন</h3>
+          <form onsubmit="createPipelineProject(event)" class="space-y-4 text-xs sm:text-sm">
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+              <div>
+                <label class="block text-xs font-bold mb-1" data-bn="প্রোডাকশনের টপিক / শিরোনাম *" data-en="Topic / Title *">প্রোডাকশনের টপিক / শিরোনাম *</label>
+                <input type="text" id="pipe-title" required class="w-full px-3 py-2 rounded-lg border dark:bg-slate-800">
               </div>
               <div>
                 <label class="block text-xs font-bold mb-1" data-bn="প্রোডাকশনের ধরন *" data-en="Production Type *">প্রোডাকশনের ধরন *</label>
-                <select id="pipe-type" required class="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 font-bold"></select>
+                <select id="pipe-type" class="w-full px-3 py-2 rounded-lg border dark:bg-slate-800 font-bold"></select>
+              </div>
+              <div class="grid grid-cols-2 gap-2">
+                <div>
+                  <label class="block text-xs font-bold mb-1" data-bn="শুটিং তারিখ *" data-en="Shoot Date *">শুটিং তারিখ *</label>
+                  <input type="date" id="pipe-date" required class="w-full px-2.5 py-2 rounded-lg border dark:bg-slate-800 font-bold">
+                </div>
+                <div>
+                  <label class="block text-xs font-bold mb-1" data-bn="শুটিং সময় *" data-en="Shoot Time *">শুটিং সময় *</label>
+                  <input type="time" id="pipe-time" required class="w-full px-2.5 py-2 rounded-lg border dark:bg-slate-800 font-bold">
+                </div>
               </div>
             </div>
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label class="block text-xs font-bold mb-1" data-bn="শুটিংয়ের তারিখ *" data-en="Shooting Date *">শুটিংয়ের তারিখ *</label>
-                <input type="date" id="pipe-shoot-date" required class="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 font-bold">
+                <label class="block text-xs font-bold mb-1 text-asf-600" data-bn="শুটিংয়ে কারা কারা কাজ করবেন? (টিক দিন — প্রোফাইলে চলে যাবে)" data-en="Select Shooting Crew (Auto-syncs to profile)">শুটিংয়ে কারা কারা কাজ করবেন? (টিক দিন — প্রোফাইলে চলে যাবে)</label>
+                <div id="pipe-crew-checkboxes" class="max-h-28 overflow-y-auto border rounded-lg p-2 grid grid-cols-1 sm:grid-cols-2 gap-1 text-xs"></div>
               </div>
               <div>
-                <label class="block text-xs font-bold mb-1" data-bn="শুটিং শুরুর সময় *" data-en="Shooting Time *">শুটিং শুরুর সময় *</label>
-                <input type="time" id="pipe-shoot-time" required class="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 font-bold">
-              </div>
-            </div>
-
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
-              <div>
-                <label class="block text-xs font-bold mb-1 text-asf-600" data-bn="শুটিংয়ে কে কে থাকবেন? (টিক দিন — তাদের প্রোফাইলে কাজ চলে যাবে) *" data-en="Select Shooting Crew (Will auto-assign to their profile) *">শুটিংয়ে কে কে থাকবেন? (টিক দিন — তাদের প্রোফাইলে কাজ চলে যাবে) *</label>
-                <div id="pipe-crew-checkboxes" class="max-h-36 overflow-y-auto border border-slate-300 dark:border-slate-700 rounded-lg p-2.5 grid grid-cols-1 sm:grid-cols-2 gap-1.5 bg-slate-50 dark:bg-slate-800/50 text-xs"></div>
-              </div>
-              <div>
-                <label class="block text-xs font-bold mb-1 text-asf-600" data-bn="প্ল্যাটফর্ম বা চ্যানেলসমূহ (মাল্টিপল সিলেক্ট করা যাবে) *" data-en="Select Platforms (Multiple allowed) *">প্ল্যাটফর্ম বা চ্যানেলসমূহ (মাল্টিপল সিলেক্ট করা যাবে) *</label>
-                <div id="pipe-platform-checkboxes" class="max-h-36 overflow-y-auto border border-slate-300 dark:border-slate-700 rounded-lg p-2.5 grid grid-cols-1 sm:grid-cols-2 gap-1.5 bg-slate-50 dark:bg-slate-800/50 text-xs"></div>
+                <label class="block text-xs font-bold mb-1 text-asf-600" data-bn="প্ল্যাটফর্মসমূহ (একাধিক সিলেক্ট করা যাবে)" data-en="Select Platforms (Multiple)">প্ল্যাটফর্মসমূহ (একাধিক সিলেক্ট করা যাবে)</label>
+                <div id="pipe-platform-checkboxes" class="max-h-28 overflow-y-auto border rounded-lg p-2 grid grid-cols-1 sm:grid-cols-2 gap-1 text-xs"></div>
               </div>
             </div>
 
-            <button type="submit" class="btn-solid-green w-full py-2.5 font-bold flex items-center justify-center gap-2">
-              <i data-lucide="calendar-plus" class="w-4 h-4"></i>
-              <span data-bn="শুটিং অ্যাসাইন করুন ও আপকামিংয়ে পাঠান" data-en="Assign Shooting & Add to Upcoming">শুটিং অ্যাসাইন করুন ও আপকামিংয়ে পাঠান</span>
-            </button>
+            <button type="submit" class="btn-green px-6 py-2.5 font-bold" data-bn="শুটিং অ্যাসাইন করুন (আপকামিং-এ যুক্ত হবে)" data-en="Assign Shooting (Add to Upcoming)">শুটিং অ্যাসাইন করুন (আপকামিং-এ যুক্ত হবে)</button>
           </form>
         </div>
       </div>
 
-      <!-- 5-Stage Pipeline Columns -->
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-        
-        <!-- Stage 1: Upcoming Shooting -->
-        <div class="stitched-box-purple">
-          <div class="solid-card p-4 space-y-3 h-full">
-            <div class="flex items-center justify-between border-b pb-2 dark:border-slate-800">
-              <h4 class="font-bold text-sm text-purple-700 dark:text-purple-400" data-bn="১. আপকামিং শুটিং" data-en="1. Upcoming Shooting">১. আপকামিং শুটিং</h4>
-              <span id="stage1-badge" class="px-2 py-0.5 rounded bg-purple-100 text-purple-800 text-xs font-bold">0</span>
-            </div>
-            <div id="pipeline-stage-upcoming" class="space-y-3 max-h-96 overflow-y-auto pr-1"></div>
-          </div>
-        </div>
-
-        <!-- Stage 2: Shooting Done -> Pending Editor Assignment -->
-        <div class="stitched-box-amber">
-          <div class="solid-card p-4 space-y-3 h-full">
-            <div class="flex items-center justify-between border-b pb-2 dark:border-slate-800">
-              <h4 class="font-bold text-sm text-amber-700 dark:text-amber-400" data-bn="২. শুটিং সম্পন্ন (এডিটিং পেন্ডিং)" data-en="2. Shooting Done (Pending Edit)">২. শুটিং সম্পন্ন (এডিটিং পেন্ডিং)</h4>
-              <span id="stage2-badge" class="px-2 py-0.5 rounded bg-amber-100 text-amber-800 text-xs font-bold">0</span>
-            </div>
-            <div id="pipeline-stage-pending" class="space-y-3 max-h-96 overflow-y-auto pr-1"></div>
-          </div>
-        </div>
-
-        <!-- Stage 3: In Editing (Ongoing) -->
-        <div class="stitched-box-blue">
-          <div class="solid-card p-4 space-y-3 h-full">
-            <div class="flex items-center justify-between border-b pb-2 dark:border-slate-800">
-              <h4 class="font-bold text-sm text-blue-700 dark:text-blue-400" data-bn="৩. এডিটিং চলমান (Ongoing)" data-en="3. Editing (Ongoing)">৩. এডিটিং চলমান (Ongoing)</h4>
-              <span id="stage3-badge" class="px-2 py-0.5 rounded bg-blue-100 text-blue-800 text-xs font-bold">0</span>
-            </div>
-            <div id="pipeline-stage-editing" class="space-y-3 max-h-96 overflow-y-auto pr-1"></div>
-          </div>
-        </div>
-
-        <!-- Stage 4: Ready to Publish -->
-        <div class="stitched-box-rose">
-          <div class="solid-card p-4 space-y-3 h-full">
-            <div class="flex items-center justify-between border-b pb-2 dark:border-slate-800">
-              <h4 class="font-bold text-sm text-rose-700 dark:text-rose-400" data-bn="৪. রেডি টু পাবলিশ" data-en="4. Ready to Publish">৪. রেডি টু পাবলিশ</h4>
-              <span id="stage4-badge" class="px-2 py-0.5 rounded bg-rose-100 text-rose-800 text-xs font-bold">0</span>
-            </div>
-            <div id="pipeline-stage-ready" class="space-y-3 max-h-96 overflow-y-auto pr-1"></div>
-          </div>
-        </div>
-
-        <!-- Stage 5: Published & Rated -->
-        <div class="stitched-box md:col-span-2 lg:col-span-2">
-          <div class="solid-card p-4 space-y-3 h-full">
-            <div class="flex items-center justify-between border-b pb-2 dark:border-slate-800">
-              <h4 class="font-bold text-sm text-asf-600" data-bn="৫. পাবলিশড প্রোডাকশন ও রেটিং" data-en="5. Published & Rated Productions">৫. পাবলিশড প্রোডাকশন ও রেটিং</h4>
-              <span id="stage5-badge" class="px-2 py-0.5 rounded bg-emerald-100 text-asf-700 text-xs font-bold">0</span>
-            </div>
-            <div id="pipeline-stage-published" class="grid grid-cols-1 sm:grid-cols-2 gap-3 max-h-96 overflow-y-auto pr-1"></div>
-          </div>
-        </div>
-
-      </div>
-
+      <!-- 5 Columns Pipeline Board -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4" id="pipeline-board"></div>
     </section>
 
-    <!-- ================= 3. MONTHLY DASHBOARD SECTION (NO DUPLICATE MEMBER SUMMARY) ================= -->
+    <!-- ================= 3. MONTHLY DASHBOARD TAB (NO DUPLICATE MEMBER LIST) ================= -->
     <section id="tab-dashboard" class="hidden space-y-6">
-      
       <div class="stitched-box">
-        <div class="solid-card p-5 sm:p-6 flex flex-col lg:flex-row lg:items-center justify-between gap-4">
-          <div class="flex items-center gap-2.5">
-            <i data-lucide="pie-chart" class="w-6 h-6 text-asf-600"></i>
-            <h2 id="dashboard-month-heading" class="text-xl sm:text-2xl font-bold">মাসিক ড্যাশবোর্ড</h2>
-          </div>
-          <div class="flex flex-wrap items-center gap-2">
-            <input type="month" id="filter-month" onchange="renderDashboard()" class="px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-xs sm:text-sm font-bold">
-            <select id="filter-member" onchange="renderDashboard()" class="px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-xs sm:text-sm font-bold"></select>
-            <select id="filter-status" onchange="renderDashboard()" class="px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-xs sm:text-sm font-bold">
-              <option value="ALL" data-bn="সকল অবস্থা" data-en="All Status">সকল অবস্থা</option>
-              <option value="Completed" data-bn="সম্পন্ন" data-en="Completed">সম্পন্ন</option>
-              <option value="Ongoing" data-bn="চলমান" data-en="Ongoing">চলমান</option>
-              <option value="Ready" data-bn="রেডি টু পাবলিশ" data-en="Ready to Publish">রেডি টু পাবলিশ</option>
-              <option value="Pending" data-bn="পেন্ডিং" data-en="Pending">পেন্ডিং</option>
+        <div class="solid-card p-5 flex flex-wrap items-center justify-between gap-3">
+          <h2 id="dashboard-month-heading" class="text-xl font-bold">মাসিক ড্যাশবোর্ড</h2>
+          <div class="flex flex-wrap items-center gap-2 text-xs">
+            <input type="month" id="filter-month" onchange="renderDashboard()" class="px-3 py-2 rounded-lg border font-bold dark:bg-slate-800">
+            <select id="filter-member" onchange="renderDashboard()" class="px-3 py-2 rounded-lg border font-bold dark:bg-slate-800"></select>
+            <select id="filter-status" onchange="renderDashboard()" class="px-3 py-2 rounded-lg border font-bold dark:bg-slate-800">
+              <option value="ALL">সকল অবস্থা</option>
+              <option value="Completed">সম্পন্ন</option>
+              <option value="Ongoing">চলমান</option>
+              <option value="Ready">রেডি টু পাবলিশ</option>
+              <option value="Pending">পেন্ডিং</option>
+              <option value="Upcoming">আপকামিং</option>
             </select>
-            <button type="button" onclick="exportTasksToCSV()" class="btn-solid-green px-3.5 py-2 text-xs font-bold flex items-center gap-1.5">
-              <i data-lucide="download" class="w-4 h-4"></i>
-              <span data-bn="এক্সেল ডাউনলোড" data-en="Export Excel">এক্সেল ডাউনলোড</span>
-            </button>
+            <button onclick="exportTasksToCSV()" class="btn-green px-3.5 py-2 font-bold">📥 এক্সেল ডাউনলোড</button>
           </div>
         </div>
       </div>
 
-      <!-- Visual Graphical Summary & Monthly Checklist -->
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
         <div class="lg:col-span-5 stitched-box">
-          <div class="solid-card p-5 sm:p-6 h-full flex flex-col justify-between space-y-5">
-            <h3 class="font-bold text-base border-b pb-2.5 dark:border-slate-800" data-bn="মাসিক কাজের ভিজ্যুয়াল গ্রাফ" data-en="Monthly Visual Progress Graph">মাসিক কাজের ভিজ্যুয়াল গ্রাফ</h3>
-            <div id="dash-visual-summary-chart" class="space-y-4 my-auto"></div>
+          <div class="solid-card p-5 h-full space-y-4">
+            <h3 class="font-bold text-base border-b pb-2" data-bn="মাসিক কাজের ভিজ্যুয়াল গ্রাফ" data-en="Monthly Visual Progress">মাসিক কাজের ভিজ্যুয়াল গ্রাফ</h3>
+            <div id="dash-visual-summary-chart" class="space-y-4"></div>
           </div>
         </div>
-
         <div class="lg:col-span-7 stitched-box">
-          <div class="solid-card p-5 sm:p-6 h-full space-y-4">
-            <div class="flex items-center justify-between border-b pb-2.5 dark:border-slate-800">
-              <h3 class="font-bold text-base" data-bn="এই মাসে কী কী কাজ আছে (সম্পন্ন বনাম বাকি)" data-en="Monthly Tasks Checklist (Completed vs Remaining)">এই মাসে কী কী কাজ আছে (সম্পন্ন বনাম বাকি)</h3>
+          <div class="solid-card p-5 h-full space-y-3">
+            <div class="flex justify-between items-center border-b pb-2">
+              <h3 class="font-bold text-base" data-bn="কাজের ধরন অনুযায়ী হিসাব" data-en="Category Summary">কাজের ধরন অনুযায়ী হিসাব</h3>
               <span id="dash-checklist-counter" class="text-xs font-bold text-asf-600"></span>
             </div>
-            <div id="dash-tasks-checklist" class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 max-h-72 overflow-y-auto pr-1"></div>
+            <div id="dashboard-category-list" class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 max-h-64 overflow-y-auto"></div>
           </div>
         </div>
       </div>
 
-      <!-- Clean Category Summary Only (Member Summary Removed to Avoid Duplication) -->
-      <div class="stitched-box">
-        <div class="solid-card p-5 sm:p-6 space-y-3.5">
-          <h3 class="font-bold text-base border-b pb-2.5 dark:border-slate-800" data-bn="কাজের ধরন অনুযায়ী হিসাব" data-en="Category Summary">কাজের ধরন অনুযায়ী হিসাব</h3>
-          <div id="dashboard-category-list" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5"></div>
-        </div>
-      </div>
-
-      <!-- Detailed Monthly Table -->
       <div class="stitched-box">
         <div class="solid-card overflow-hidden">
-          <div class="p-5 border-b border-slate-200 dark:border-slate-800 flex justify-between items-center">
-            <h3 id="dash-table-month-title" class="font-bold text-base">মাসিক কাজের বিস্তারিত তালিকা</h3>
-          </div>
+          <div class="p-4 border-b"><h3 id="dash-table-month-title" class="font-bold text-base">বিস্তারিত কাজের তালিকা</h3></div>
           <div class="overflow-x-auto">
             <table class="w-full text-left border-collapse text-xs sm:text-sm">
-              <thead class="bg-slate-100 dark:bg-slate-800/90 text-slate-700 dark:text-slate-200">
+              <thead class="bg-slate-100 dark:bg-slate-800">
                 <tr>
-                  <th class="p-3.5 font-bold" data-bn="তারিখ" data-en="Date">তারিখ</th>
-                  <th class="p-3.5 font-bold" data-bn="টিম মেম্বার" data-en="Member">টিম মেম্বার</th>
-                  <th class="p-3.5 font-bold" data-bn="কাজের শিরোনাম ও ধরন" data-en="Title & Category">কাজের শিরোনাম ও ধরন</th>
-                  <th class="p-3.5 font-bold" data-bn="প্ল্যাটফর্ম" data-en="Platform">প্ল্যাটফর্ম</th>
-                  <th class="p-3.5 font-bold" data-bn="অবস্থা" data-en="Status">অবস্থা</th>
-                  <th class="p-3.5 font-bold" data-bn="রেটিং" data-en="Rating">রেটিং</th>
-                  <th class="p-3.5 font-bold" data-bn="লিংক" data-en="Links">লিংক</th>
+                  <th class="p-3 font-bold">তারিখ</th>
+                  <th class="p-3 font-bold">টিম মেম্বার</th>
+                  <th class="p-3 font-bold">কাজের শিরোনাম ও ধরন</th>
+                  <th class="p-3 font-bold">প্ল্যাটফর্ম</th>
+                  <th class="p-3 font-bold">অবস্থা</th>
+                  <th class="p-3 font-bold">রেটিং</th>
+                  <th class="p-3 font-bold">লিংক</th>
                 </tr>
               </thead>
-              <tbody id="dashboard-logs-tbody" class="divide-y divide-slate-200 dark:divide-slate-800"></tbody>
+              <tbody id="dashboard-logs-tbody" class="divide-y dark:divide-slate-800"></tbody>
             </table>
           </div>
         </div>
       </div>
-
     </section>
 
-    <!-- ================= 4. TEAM MEMBERS SECTION ================= -->
+    <!-- ================= 4. TEAM MEMBERS TAB ================= -->
     <section id="tab-team" class="hidden space-y-6">
       <div class="stitched-box">
-        <div class="solid-card p-5 sm:p-6 flex items-center justify-between">
-          <h2 class="text-xl sm:text-2xl font-bold flex items-center gap-2">
-            <i data-lucide="users" class="w-6 h-6 text-asf-600"></i>
-            <span data-bn="আমাদের টিম মেম্বার" data-en="Our Team Members">আমাদের টিম মেম্বার</span>
-          </h2>
-        </div>
+        <div class="solid-card p-5"><h2 class="text-xl font-bold" data-bn="আমাদের টিম মেম্বার" data-en="Our Team Members">আমাদের টিম মেম্বার</h2></div>
       </div>
       <div id="full-team-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"></div>
     </section>
 
-    <!-- ================= 5. PRODUCTIONS (আমাদের কাজ) SECTION ================= -->
+    <!-- ================= 5. PRODUCTIONS TAB (চলতি মাসের কাজ ও পপুলার) ================= -->
     <section id="tab-portfolio" class="hidden space-y-6">
       <div class="stitched-box">
-        <div class="solid-card p-5 sm:p-6 space-y-4">
-          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-            <h2 class="text-xl sm:text-2xl font-bold flex items-center gap-2">
-              <i data-lucide="film" class="w-6 h-6 text-asf-600"></i>
-              <span data-bn="আমাদের প্রোডাকশনসমূহ" data-en="Our Productions">আমাদের প্রোডাকশনসমূহ</span>
-            </h2>
-            <div class="flex flex-wrap gap-2">
-              <button type="button" onclick="setPortfolioViewMode('ALL')" id="pmod-all" class="px-3.5 py-1.5 rounded-lg text-xs font-bold btn-solid-green" data-bn="সব প্রোডাকশন" data-en="All">সব প্রোডাকশন</button>
-              <button type="button" onclick="setPortfolioViewMode('CURRENT_MONTH')" id="pmod-month" class="px-3.5 py-1.5 rounded-lg text-xs font-bold bg-slate-100 dark:bg-slate-800" data-bn="চলতি মাসের প্রোডাকশন" data-en="This Month">চলতি মাসের প্রোডাকশন</button>
-              <button type="button" onclick="setPortfolioViewMode('POPULAR')" id="pmod-pop" class="px-3.5 py-1.5 rounded-lg text-xs font-bold bg-slate-100 dark:bg-slate-800" data-bn="★ পপুলার প্রোডাকশন" data-en="★ Popular">★ পপুলার প্রোডাকশন</button>
+        <div class="solid-card p-5 space-y-4">
+          <div class="flex flex-wrap items-center justify-between gap-2">
+            <h2 class="text-xl font-bold" data-bn="আমাদের কাজ ও প্রোডাকশন" data-en="Our Productions">আমাদের কাজ ও প্রোডাকশন</h2>
+            <div class="flex gap-2">
+              <button onclick="setPortfolioViewMode('all')" id="pmode-all" class="px-3 py-1.5 rounded-lg text-xs font-bold btn-green">সব প্রোডাকশন</button>
+              <button onclick="setPortfolioViewMode('current')" id="pmode-current" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-200 dark:bg-slate-800">চলতি মাসের কাজ</button>
+              <button onclick="setPortfolioViewMode('popular')" id="pmode-popular" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-200 dark:bg-slate-800">★ পপুলার প্রোডাকশন</button>
             </div>
           </div>
-          <div id="portfolio-category-pills" class="flex flex-wrap gap-2 pt-2 border-t dark:border-slate-800"></div>
+          <div id="portfolio-category-pills" class="flex flex-wrap gap-2"></div>
         </div>
       </div>
       <div id="full-portfolio-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"></div>
     </section>
 
-    <!-- ================= 6. LOG WORK (কাজ লিখুন) — MULTI-PLATFORM SUPPORT ================= -->
-    <section id="tab-workspace" class="hidden space-y-7">
-      
+    <!-- ================= 6. WORKSPACE (কাজ লিখুন — মাল্টিপল প্ল্যাটফর্মসহ) ================= -->
+    <section id="tab-workspace" class="hidden space-y-6">
       <div class="stitched-box">
-        <div class="solid-card p-5 sm:p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-          <div class="flex items-center gap-4">
-            <img id="ws-user-img" src="" class="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl object-cover border-2 border-asf-600">
+        <div class="solid-card p-5 flex flex-wrap items-center justify-between gap-4">
+          <div class="flex items-center gap-3.5">
+            <img id="ws-user-img" src="" class="w-14 h-14 rounded-2xl object-cover border-2 border-asf-600">
             <div>
               <div class="flex items-center gap-2">
-                <h2 id="ws-user-name" class="text-lg sm:text-2xl font-bold"></h2>
-                <span id="ws-user-role-badge" class="text-xs px-2.5 py-0.5 rounded bg-emerald-100 text-asf-700 font-bold"></span>
+                <h2 id="ws-user-name" class="text-lg font-bold"></h2>
+                <span id="ws-user-role-badge" class="text-xs px-2 py-0.5 rounded bg-emerald-100 text-asf-700 font-bold"></span>
               </div>
-              <p id="ws-user-designation" class="text-xs sm:text-sm font-bold text-asf-600 dark:text-emerald-400"></p>
-              <p id="ws-user-bio" class="text-xs text-slate-500 mt-0.5"></p>
+              <p id="ws-user-designation" class="text-xs font-bold text-asf-600"></p>
             </div>
           </div>
-          <div class="flex flex-wrap gap-2">
-            <button type="button" onclick="openEditProfileModal()" class="px-3.5 py-2 rounded-lg border border-slate-300 dark:border-slate-700 text-xs font-bold hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center gap-1.5">
-              <i data-lucide="user-cog" class="w-4 h-4"></i>
-              <span data-bn="প্রোফাইল এডিট" data-en="Edit Profile">প্রোফাইল এডিট</span>
-            </button>
-            <button type="button" onclick="openAddPortfolioItemModal()" class="px-3.5 py-2 rounded-lg bg-amber-500 text-slate-950 text-xs font-bold hover:bg-amber-400 flex items-center gap-1.5">
-              <i data-lucide="plus-circle" class="w-4 h-4"></i>
-              <span data-bn="পোর্টফোলিও যুক্ত করুন" data-en="Add to Portfolio">পোর্টফোলিও যুক্ত করুন</span>
-            </button>
-            <button type="button" onclick="openMemberModal(currentUserProfile.uid)" class="btn-solid-green px-4 py-2 text-xs font-bold flex items-center gap-1.5">
-              <i data-lucide="layout-grid" class="w-4 h-4"></i>
-              <span data-bn="আমার পোর্টফোলিও দেখুন" data-en="My Portfolio">আমার পোর্টফোলিও দেখুন</span>
-            </button>
+          <div class="flex flex-wrap gap-2 text-xs font-bold">
+            <button onclick="openEditProfileModal()" class="px-3 py-2 rounded-lg border">প্রোফাইল এডিট</button>
+            <button onclick="openAddPortfolioItemModal()" class="px-3 py-2 rounded-lg bg-amber-500 text-slate-950">+ পোর্টফোলিও যুক্ত করুন</button>
+            <button onclick="openMemberModal(currentUserProfile.uid)" class="btn-green px-3.5 py-2">আমার পোর্টফোলিও</button>
           </div>
         </div>
       </div>
 
-      <div id="my-assigned-alert-box" class="hidden stitched-box-amber">
-        <div class="solid-card p-5 space-y-3 bg-amber-50/50 dark:bg-amber-950/20">
-          <div class="flex items-center justify-between">
-            <h3 class="font-bold text-sm sm:text-base text-amber-800 dark:text-amber-300 flex items-center gap-2">
-              <i data-lucide="bell-ring" class="w-5 h-5 text-amber-600"></i>
-              <span data-bn="আপনার জন্য নির্ধারিত কাজ" data-en="Your Assigned Tasks">আপনার জন্য নির্ধারিত কাজ</span>
-            </h3>
-          </div>
-          <div id="my-assigned-tasks-list" class="grid grid-cols-1 md:grid-cols-2 gap-3"></div>
-        </div>
-      </div>
-
-      <div id="director-control-lounge" class="hidden grid grid-cols-1 lg:grid-cols-2 gap-6">
-        
-        <div class="stitched-box">
-          <div class="solid-card p-5 sm:p-6 space-y-4 h-full">
-            <h3 class="font-bold text-base text-asf-600 border-b pb-2.5 dark:border-slate-800 flex items-center gap-2">
-              <i data-lucide="send" class="w-4 h-4"></i>
-              <span data-bn="টিম মেম্বারকে কাজ দিন" data-en="Assign Task to Member">টিম মেম্বারকে কাজ দিন</span>
-            </h3>
-            <form onsubmit="assignTaskToMember(event)" class="space-y-3 text-xs sm:text-sm">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <div class="lg:col-span-7 stitched-box">
+          <div class="solid-card p-5 space-y-4">
+            <div class="flex justify-between items-center border-b pb-2.5">
+              <h3 class="font-bold text-base text-asf-600" data-bn="আজকের কাজ লিখুন" data-en="Log Today's Work">আজকের কাজ লিখুন</h3>
+              <span id="today-date-badge" class="text-xs font-bold text-asf-600"></span>
+            </div>
+            <form onsubmit="submitDailyTask(event)" class="space-y-3.5 text-xs sm:text-sm">
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
-                  <label class="block text-xs font-bold mb-1" data-bn="টিম মেম্বার *" data-en="Team Member *">টিম মেম্বার *</label>
-                  <select id="assign-member-uid" required class="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 font-bold"></select>
+                  <label class="block text-xs font-bold mb-1">কাজের ধরন *</label>
+                  <select id="task-category" required class="w-full px-3 py-2 rounded-lg border dark:bg-slate-800 font-bold"></select>
                 </div>
                 <div>
-                  <label class="block text-xs font-bold mb-1" data-bn="কাজের ধরন *" data-en="Work Category *">কাজের ধরন *</label>
-                  <select id="assign-category" required class="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800"></select>
+                  <label class="block text-xs font-bold mb-1">কাজের শিরোনাম *</label>
+                  <input type="text" id="task-title" required class="w-full px-3 py-2 rounded-lg border dark:bg-slate-800">
                 </div>
               </div>
-              <div>
-                <label class="block text-xs font-bold mb-1" data-bn="কাজের শিরোনাম ও নির্দেশনা *" data-en="Task Title & Instructions *">কাজের শিরোনাম ও নির্দেশনা *</label>
-                <input type="text" id="assign-title" required class="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800">
-              </div>
-              <div>
-                <label class="block text-xs font-bold mb-1" data-bn="প্ল্যাটফর্মসমূহ (একাধিক সিলেক্ট করা যাবে)" data-en="Platforms (Multiple allowed)">প্ল্যাটফর্মসমূহ (একাধিক সিলেক্ট করা যাবে)</label>
-                <div id="assign-platform-checkboxes" class="max-h-28 overflow-y-auto border border-slate-300 dark:border-slate-700 rounded-lg p-2 grid grid-cols-1 sm:grid-cols-2 gap-1 bg-slate-50 dark:bg-slate-800 text-xs"></div>
-              </div>
-              <div>
-                <label class="block text-xs font-bold mb-1" data-bn="ডেডলাইন তারিখ" data-en="Deadline">ডেডলাইন তারিখ</label>
-                <input type="date" id="assign-deadline" class="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 font-bold">
-              </div>
-              <button type="submit" class="btn-solid-green w-full py-2.5 font-bold flex items-center justify-center gap-2">
-                <i data-lucide="bell-plus" class="w-4 h-4"></i>
-                <span data-bn="কাজ পাঠান" data-en="Send Task">কাজ পাঠান</span>
-              </button>
-            </form>
-          </div>
-        </div>
-
-        <div class="stitched-box-amber">
-          <div class="solid-card p-5 sm:p-6 space-y-4 h-full">
-            <h3 class="font-bold text-base text-amber-700 dark:text-amber-400 border-b pb-2.5 dark:border-slate-800 flex items-center gap-2">
-              <i data-lucide="star" class="w-4 h-4"></i>
-              <span data-bn="কাজের মান যাচাই ও রেটিং" data-en="Quality Review & Rating">কাজের মান যাচাই ও রেটিং</span>
-            </h3>
-            <div id="director-review-list" class="space-y-2.5 max-h-80 overflow-y-auto pr-1"></div>
-          </div>
-        </div>
-
-      </div>
-
-      <!-- Daily Work Entry Form with Multi-Platform Checkboxes -->
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
-        
-        <div class="lg:col-span-7 stitched-box">
-          <div class="solid-card p-5 sm:p-7 space-y-5">
-            <div class="flex items-center justify-between border-b pb-3 dark:border-slate-800">
-              <h3 class="text-lg font-bold text-asf-600 dark:text-emerald-400 flex items-center gap-2">
-                <i data-lucide="check-square" class="w-5 h-5"></i>
-                <span data-bn="আজকের কাজ লিখুন" data-en="Log Today's Work">আজকের কাজ লিখুন</span>
-              </h3>
-              <span id="today-date-badge" class="bg-emerald-50 text-asf-700 dark:bg-emerald-950 dark:text-emerald-300 text-xs font-bold px-3 py-1 rounded-lg border border-emerald-300/60"></span>
-            </div>
-
-            <form id="task-entry-form" onsubmit="submitDailyTask(event)" class="space-y-4">
-              <div>
-                <div class="flex justify-between items-center mb-1">
-                  <label class="block text-xs font-bold" data-bn="কাজের ধরন *" data-en="Work Category *">কাজের ধরন *</label>
-                  <button type="button" onclick="toggleAllCategoriesInForm()" id="toggle-cat-btn" class="text-[11px] font-bold text-asf-600 hover:underline"></button>
-                </div>
-                <select id="task-category" required class="w-full px-3 py-2.5 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm font-medium"></select>
-              </div>
 
               <div>
-                <label class="block text-xs font-bold mb-1 text-asf-600" data-bn="প্ল্যাটফর্ম বা চ্যানেলসমূহ (একাধিক সিলেক্ট করা যাবে) *" data-en="Platforms / Channels (Select one or multiple) *">প্ল্যাটফর্ম বা চ্যানেলসমূহ (একাধিক সিলেক্ট করা যাবে) *</label>
-                <div id="task-platform-checkboxes" class="max-h-36 overflow-y-auto border border-slate-300 dark:border-slate-700 rounded-lg p-2.5 grid grid-cols-1 sm:grid-cols-2 gap-1.5 bg-slate-50 dark:bg-slate-800/60 text-xs"></div>
+                <label class="block text-xs font-bold mb-1 text-asf-600">প্ল্যাটফর্ম বা চ্যানেল (একাধিক টিক দেওয়া যাবে) *</label>
+                <div id="task-platform-checkboxes" class="max-h-28 overflow-y-auto border rounded-lg p-2 grid grid-cols-1 sm:grid-cols-2 gap-1 text-xs"></div>
               </div>
 
-              <div>
-                <label class="block text-xs font-bold mb-1" data-bn="কাজের শিরোনাম *" data-en="Work Title *">কাজের শিরোনাম *</label>
-                <input type="text" id="task-title" required class="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm">
-              </div>
-
-              <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <div class="grid grid-cols-3 gap-3">
                 <div>
-                  <label class="block text-xs font-bold mb-1" data-bn="কাজের অবস্থা *" data-en="Status *">কাজের অবস্থা *</label>
-                  <select id="task-status" required class="w-full px-3 py-2.5 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm font-bold">
-                    <option value="Completed" data-bn="সম্পন্ন" data-en="Completed">সম্পন্ন</option>
-                    <option value="Ongoing" data-bn="চলমান" data-en="Ongoing">চলমান</option>
-                    <option value="Ready" data-bn="রেডি টু পাবলিশ" data-en="Ready to Publish">রেডি টু পাবলিশ</option>
+                  <label class="block text-xs font-bold mb-1">অবস্থা *</label>
+                  <select id="task-status" class="w-full px-2.5 py-2 rounded-lg border dark:bg-slate-800 font-bold">
+                    <option value="Completed">সম্পন্ন</option>
+                    <option value="Ongoing">চলমান</option>
+                    <option value="Ready">রেডি টু পাবলিশ</option>
                   </select>
                 </div>
-
                 <div>
-                  <label class="block text-xs font-bold mb-1" data-bn="কাজের সংখ্যা" data-en="Quantity">কাজের সংখ্যা</label>
-                  <input type="number" min="1" max="500" id="task-qty" value="1" class="w-full px-3 py-2.5 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm font-bold">
+                  <label class="block text-xs font-bold mb-1">সংখ্যা</label>
+                  <input type="number" id="task-qty" value="1" min="1" class="w-full px-2.5 py-2 rounded-lg border dark:bg-slate-800 font-bold">
                 </div>
-
                 <div>
-                  <label class="block text-xs font-bold mb-1" data-bn="তারিখ" data-en="Date">তারিখ</label>
-                  <input type="date" id="task-date" required readonly class="w-full px-3 py-2.5 rounded-lg border border-slate-300 dark:border-slate-700 bg-slate-100 dark:bg-slate-800 text-sm font-bold cursor-not-allowed">
+                  <label class="block text-xs font-bold mb-1">তারিখ</label>
+                  <input type="date" id="task-date" required class="w-full px-2.5 py-2 rounded-lg border dark:bg-slate-800 font-bold">
                 </div>
               </div>
 
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
-                  <label class="block text-xs font-bold mb-1 text-slate-600 dark:text-slate-300" data-bn="গুগল ড্রাইভ বা প্রজেক্ট লিংক (ঐচ্ছিক)" data-en="Drive / File Link (Optional)">গুগল ড্রাইভ বা প্রজেক্ট লিংক (ঐচ্ছিক)</label>
-                  <input type="url" id="task-link" class="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-xs">
+                  <label class="block text-xs font-bold mb-1">ড্রাইভ বা ফাইল লিংক</label>
+                  <input type="url" id="task-link" class="w-full px-3 py-2 rounded-lg border dark:bg-slate-800">
                 </div>
                 <div>
-                  <label class="block text-xs font-bold mb-1 text-slate-600 dark:text-slate-300" data-bn="পাবলিশড লিংক (ঐচ্ছিক)" data-en="Published Link (Optional)">পাবলিশড লিংক (ঐচ্ছিক)</label>
-                  <input type="url" id="task-top-link" class="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-xs">
+                  <label class="block text-xs font-bold mb-1">পাবলিশড লিংক</label>
+                  <input type="url" id="task-top-link" class="w-full px-3 py-2 rounded-lg border dark:bg-slate-800">
                 </div>
               </div>
-
-              <button type="submit" class="btn-solid-green w-full py-3 font-bold text-sm flex items-center justify-center gap-2">
-                <i data-lucide="save" class="w-4 h-4"></i>
-                <span data-bn="কাজ সেভ করুন" data-en="Save Work">কাজ সেভ করুন</span>
-              </button>
+              <button type="submit" class="btn-green w-full py-2.5 font-bold">কাজ সেভ করুন</button>
             </form>
           </div>
         </div>
 
-        <div class="lg:col-span-5 space-y-6">
-          <div class="stitched-box-blue">
+        <div class="lg:col-span-5 space-y-5">
+          <div class="stitched-blue">
             <div class="solid-card p-5 space-y-3">
-              <h3 class="font-bold text-base text-blue-600 border-b pb-2.5 dark:border-slate-800" data-bn="আমার চলমান কাজসমূহ" data-en="My Ongoing Works">আমার চলমান কাজসমূহ</h3>
-              <div id="my-ongoing-list" class="space-y-2.5 max-h-60 overflow-y-auto pr-1"></div>
+              <h3 class="font-bold text-sm text-blue-600 border-b pb-2">আমার চলমান ও অ্যাসাইনকৃত কাজ</h3>
+              <div id="my-ongoing-list" class="space-y-2 max-h-60 overflow-y-auto"></div>
             </div>
           </div>
-
           <div class="stitched-box">
             <div class="solid-card p-5 space-y-3">
-              <h3 class="font-bold text-base text-asf-600 border-b pb-2.5 dark:border-slate-800" data-bn="আজকে আমার জমা দেওয়া কাজ" data-en="Works Logged Today">আজকে আমার জমা দেওয়া কাজ</h3>
-              <div id="my-today-tasks-list" class="space-y-2 max-h-60 overflow-y-auto pr-1"></div>
+              <h3 class="font-bold text-sm text-asf-600 border-b pb-2">আজকে আমার জমা দেওয়া কাজ</h3>
+              <div id="my-today-tasks-list" class="space-y-2 max-h-56 overflow-y-auto"></div>
             </div>
           </div>
         </div>
-
       </div>
     </section>
 
-    <!-- ================= 7. SUPER ADMIN & DIRECTOR CMS ================= -->
-    <section id="tab-admin" class="hidden space-y-8">
-      
+    <!-- ================= 7. ADMIN PANEL ================= -->
+    <section id="tab-admin" class="hidden space-y-6">
       <div class="stitched-box">
-        <div class="asf-hero-solid text-white p-6 rounded-2xl flex flex-col lg:flex-row lg:items-center justify-between gap-4">
-          <div>
-            <h2 class="text-xl sm:text-2xl font-bold flex items-center gap-2">
-              <i data-lucide="shield-check" class="w-6 h-6 text-emerald-300"></i>
-              <span data-bn="অ্যাডমিন ও ডিরেক্টর কন্ট্রোল প্যানেল" data-en="Admin & Director Control Panel">অ্যাডমিন ও ডিরেক্টর কন্ট্রোল প্যানেল</span>
-            </h2>
+        <div class="bg-asf-700 text-white p-5 rounded-2xl flex flex-wrap items-center justify-between gap-3">
+          <h2 class="text-xl font-bold">অ্যাডমিন ও ডিরেক্টর কন্ট্রোল প্যানেল</h2>
+          <div class="flex flex-wrap gap-2 text-xs font-bold">
+            <button onclick="exportTasksToCSV()" class="bg-white text-asf-700 px-3 py-2 rounded-lg">এক্সেল ব্যাকআপ</button>
+            <button onclick="downloadFullJSONBackup()" class="bg-emerald-800 border border-emerald-500 px-3 py-2 rounded-lg">ডাটাবেস ব্যাকআপ</button>
+            <button onclick="clearAllTestTasks()" class="bg-red-600 px-3 py-2 rounded-lg">সব টেস্ট কাজ মুছুন</button>
           </div>
-          <div class="flex flex-wrap gap-2">
-            <button type="button" onclick="exportTasksToCSV()" class="bg-white text-asf-700 px-3.5 py-2 rounded-lg text-xs font-bold flex items-center gap-1.5">
-              <i data-lucide="file-spreadsheet" class="w-4 h-4"></i>
-              <span data-bn="এক্সেল ব্যাকআপ" data-en="Excel Backup">এক্সেল ব্যাকআপ</span>
-            </button>
-            <button type="button" onclick="downloadFullJSONBackup()" class="bg-emerald-800 text-white border border-emerald-600 px-3.5 py-2 rounded-lg text-xs font-bold flex items-center gap-1.5">
-              <i data-lucide="database" class="w-4 h-4"></i>
-              <span data-bn="ডাটাবেস ব্যাকআপ" data-en="Full Backup">ডাটাবেস ব্যাকআপ</span>
-            </button>
-            <button type="button" onclick="clearAllTestTasks()" id="btn-clear-test-data" class="bg-red-600 hover:bg-red-700 text-white px-3.5 py-2 rounded-lg text-xs font-bold flex items-center gap-1.5">
-              <i data-lucide="trash-2" class="w-4 h-4"></i>
-              <span data-bn="সব টেস্ট কাজ মুছুন" data-en="Clear All Test Tasks">সব টেস্ট কাজ মুছুন</span>
-            </button>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div class="stitched-box">
+          <div class="solid-card p-5 space-y-3">
+            <h3 class="font-bold text-base text-asf-600 border-b pb-2">মাসিক ও আগামী ৩ মাসের পরিকল্পনা</h3>
+            <form onsubmit="savePlanningSettings(event)" class="space-y-2.5 text-xs">
+              <div><label class="font-bold">লক্ষ্যমাত্রা (Target)</label><input type="number" id="plan-target-count" value="50" class="w-full px-3 py-1.5 rounded border dark:bg-slate-800"></div>
+              <div><label class="font-bold">চলতি মাসের প্ল্যানিং</label><textarea id="plan-current-text" rows="2" class="w-full px-3 py-1.5 rounded border dark:bg-slate-800"></textarea></div>
+              <div><label class="font-bold">আগামী ৩ মাসের পরিকল্পনা</label><textarea id="plan-next3-text" rows="2" class="w-full px-3 py-1.5 rounded border dark:bg-slate-800"></textarea></div>
+              <button type="submit" class="btn-green w-full py-2 font-bold">পরিকল্পনা সেভ করুন</button>
+            </form>
+          </div>
+        </div>
+
+        <div class="stitched-box">
+          <div class="solid-card p-5 space-y-3">
+            <h3 class="font-bold text-base text-asf-600 border-b pb-2">মিটিং এজেন্ডা ও সিদ্ধান্ত যুক্ত করুন</h3>
+            <form onsubmit="addMeetingRecord(event)" class="space-y-2.5 text-xs">
+              <div class="grid grid-cols-2 gap-2">
+                <div><label class="font-bold">শিরোনাম *</label><input type="text" id="meet-title" required class="w-full px-3 py-1.5 rounded border dark:bg-slate-800"></div>
+                <div><label class="font-bold">তারিখ *</label><input type="date" id="meet-date" required class="w-full px-3 py-1.5 rounded border dark:bg-slate-800"></div>
+              </div>
+              <div><label class="font-bold">এজেন্ডা *</label><input type="text" id="meet-agenda" required class="w-full px-3 py-1.5 rounded border dark:bg-slate-800"></div>
+              <div><label class="font-bold">সিদ্ধান্তসমূহ *</label><input type="text" id="meet-decisions" required class="w-full px-3 py-1.5 rounded border dark:bg-slate-800"></div>
+              <button type="submit" class="btn-green w-full py-2 font-bold">মিটিং সিদ্ধান্ত প্রকাশ করুন</button>
+            </form>
+            <div id="admin-meetings-list" class="space-y-1.5 max-h-28 overflow-y-auto pt-2 border-t"></div>
           </div>
         </div>
       </div>
 
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
-        <div class="lg:col-span-6 stitched-box">
-          <div class="solid-card p-5 sm:p-6 space-y-4 h-full">
-            <h3 class="font-bold text-base border-b pb-2.5 dark:border-slate-800 text-asf-600" data-bn="মাসিক ও আগামী ৩ মাসের পরিকল্পনা নির্ধারণ" data-en="Monthly & 3-Month Planning">মাসিক ও আগামী ৩ মাসের পরিকল্পনা নির্ধারণ</h3>
-            <form onsubmit="savePlanningSettings(event)" class="space-y-3 text-xs sm:text-sm">
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <div>
-                  <label class="block text-xs font-bold mb-1" data-bn="চলতি মাসের প্রোডাকশন লক্ষ্যমাত্রা (Target)" data-en="Current Month Target">চলতি মাসের প্রোডাকশন লক্ষ্যমাত্রা (Target)</label>
-                  <input type="number" id="plan-target-count" min="1" value="50" class="w-full px-3 py-2 rounded-lg border dark:border-slate-700 dark:bg-slate-800 font-bold">
-                </div>
-                <div>
-                  <label class="block text-xs font-bold mb-1" data-bn="বিগত মাসের সারসংক্ষেপ নোট" data-en="Previous Month Note">বিগত মাসের সারসংক্ষেপ নোট</label>
-                  <input type="text" id="plan-prev-note" class="w-full px-3 py-2 rounded-lg border dark:border-slate-700 dark:bg-slate-800">
-                </div>
-              </div>
-              <div>
-                <label class="block text-xs font-bold mb-1" data-bn="চলতি মাসের বিস্তারিত কর্মপরিকল্পনা" data-en="Current Month Plan">চলতি মাসের বিস্তারিত কর্মপরিকল্পনা</label>
-                <textarea id="plan-current-text" rows="3" class="w-full px-3 py-2 rounded-lg border dark:border-slate-700 dark:bg-slate-800"></textarea>
-              </div>
-              <div>
-                <label class="block text-xs font-bold mb-1" data-bn="আগামী ৩ মাসের পরিকল্পনা" data-en="Next 3 Months Plan">আগামী ৩ মাসের পরিকল্পনা</label>
-                <textarea id="plan-next3-text" rows="3" class="w-full px-3 py-2 rounded-lg border dark:border-slate-700 dark:bg-slate-800"></textarea>
-              </div>
-              <button type="submit" class="btn-solid-green w-full py-2.5 font-bold" data-bn="পরিকল্পনা সেভ করুন" data-en="Save Planning">পরিকল্পনা সেভ করুন</button>
-            </form>
+        <div class="lg:col-span-7 stitched-box">
+          <div class="solid-card p-5 space-y-3">
+            <h3 class="font-bold text-base text-asf-600 border-b pb-2">টিম মেম্বার সিরিয়াল (▲ ▼), অনুমোদন ও পদবী</h3>
+            <div id="admin-members-list" class="space-y-2 max-h-96 overflow-y-auto"></div>
           </div>
         </div>
 
-        <div class="lg:col-span-6 stitched-box">
-          <div class="solid-card p-5 sm:p-6 space-y-4 h-full">
-            <h3 class="font-bold text-base border-b pb-2.5 dark:border-slate-800 text-asf-600" data-bn="মিটিং এজেন্ডা ও সিদ্ধান্ত যুক্ত করুন" data-en="Add Meeting Agenda & Decisions">মিটিং এজেন্ডা ও সিদ্ধান্ত যুক্ত করুন</h3>
-            <form onsubmit="addMeetingRecord(event)" class="space-y-3 text-xs sm:text-sm">
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <div>
-                  <label class="block text-xs font-bold mb-1" data-bn="মিটিংয়ের শিরোনাম *" data-en="Meeting Title *">মিটিংয়ের শিরোনাম *</label>
-                  <input type="text" id="meet-title" required class="w-full px-3 py-2 rounded-lg border dark:border-slate-700 dark:bg-slate-800">
-                </div>
-                <div>
-                  <label class="block text-xs font-bold mb-1" data-bn="মিটিংয়ের তারিখ *" data-en="Date *">মিটিংয়ের তারিখ *</label>
-                  <input type="date" id="meet-date" required class="w-full px-3 py-2 rounded-lg border dark:border-slate-700 dark:bg-slate-800 font-bold">
-                </div>
+        <div class="lg:col-span-5 stitched-box">
+          <div class="solid-card p-5 space-y-3">
+            <h3 class="font-bold text-base text-asf-600 border-b pb-2">প্রোডাকশন যুক্ত করুন (পপুলার ও চলতি মাস)</h3>
+            <form onsubmit="addPortfolioVideo(event)" class="space-y-2.5 text-xs">
+              <div><label class="font-bold">শিরোনাম *</label><input type="text" id="port-title" required class="w-full px-3 py-1.5 rounded border dark:bg-slate-800"></div>
+              <div class="grid grid-cols-2 gap-2">
+                <div><label class="font-bold">ভিডিও লিংক *</label><input type="url" id="port-url" required class="w-full px-3 py-1.5 rounded border dark:bg-slate-800"></div>
+                <div><label class="font-bold">ক্যাটাগরি *</label><select id="port-cat" class="w-full px-2 py-1.5 rounded border dark:bg-slate-800 font-bold"></select></div>
               </div>
-              <div>
-                <label class="block text-xs font-bold mb-1" data-bn="আলোচ্য বিষয় (Agenda) *" data-en="Agenda *">আলোচ্য বিষয় (Agenda) *</label>
-                <textarea id="meet-agenda" rows="2" required class="w-full px-3 py-2 rounded-lg border dark:border-slate-700 dark:bg-slate-800"></textarea>
-              </div>
-              <div>
-                <label class="block text-xs font-bold mb-1" data-bn="গৃহীত সিদ্ধান্তসমূহ (Decisions) *" data-en="Decisions *">গৃহীত সিদ্ধান্তসমূহ (Decisions) *</label>
-                <textarea id="meet-decisions" rows="2" required class="w-full px-3 py-2 rounded-lg border dark:border-slate-700 dark:bg-slate-800"></textarea>
-              </div>
-              <button type="submit" class="btn-solid-green w-full py-2.5 font-bold" data-bn="মিটিং সিদ্ধান্ত প্রকাশ করুন" data-en="Publish Meeting Record">মিটিং সিদ্ধান্ত প্রকাশ করুন</button>
+              <label class="flex items-center gap-2 font-bold text-amber-600 cursor-pointer">
+                <input type="checkbox" id="port-popular" checked> ★ পপুলার প্রোডাকশন হিসেবে হোম পেজে দেখান
+              </label>
+              <button type="submit" class="btn-green w-full py-2 font-bold">+ প্রোডাকশন যুক্ত করুন</button>
             </form>
-            <div id="admin-meetings-list" class="space-y-2 max-h-36 overflow-y-auto pt-2 border-t dark:border-slate-800"></div>
+            <div id="admin-portfolio-list" class="space-y-1.5 max-h-36 overflow-y-auto pt-2 border-t"></div>
           </div>
         </div>
       </div>
-
-      <div id="superadmin-only-cms" class="space-y-6">
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
-          
-          <div class="lg:col-span-7 stitched-box">
-            <div class="solid-card p-5 sm:p-6 space-y-4">
-              <div class="flex items-center justify-between border-b pb-2.5 dark:border-slate-800">
-                <h3 class="font-bold text-base text-asf-600" data-bn="টিম মেম্বার সিরিয়াল (▲ ▼), অনুমোদন ও পদবী নিয়ন্ত্রণ" data-en="Team Member Order (▲ ▼), Approval & Roles">টিম মেম্বার সিরিয়াল (▲ ▼), অনুমোদন ও পদবী নিয়ন্ত্রণ</h3>
-              </div>
-              <div id="admin-members-list" class="space-y-2.5 max-h-[560px] overflow-y-auto pr-1"></div>
-            </div>
-          </div>
-
-          <div class="lg:col-span-5 stitched-box">
-            <div class="solid-card p-5 sm:p-6 space-y-4">
-              <h3 class="font-bold text-base border-b pb-2.5 dark:border-slate-800 text-asf-600" data-bn="হিরো ব্যানার, ঠিকানা ও কন্ট্রিবিউটর ক্রেডিট" data-en="Hero Banner, Address & Contributor">হিরো ব্যানার, ঠিকানা ও কন্ট্রিবিউটর ক্রেডিট</h3>
-              <form onsubmit="saveSiteSettings(event)" class="space-y-2.5 text-xs sm:text-sm">
-                <div class="grid grid-cols-2 gap-2">
-                  <div>
-                    <label class="block text-xs font-bold mb-1" data-bn="সাইটের নাম" data-en="Site Title">সাইটের নাম</label>
-                    <input type="text" id="set-title" required class="w-full px-3 py-1.5 rounded-lg border dark:border-slate-700 dark:bg-slate-800">
-                  </div>
-                  <div>
-                    <label class="block text-xs font-bold mb-1" data-bn="সাব-টাইটেল" data-en="Subtitle">সাব-টাইটেল</label>
-                    <input type="text" id="set-subtitle" class="w-full px-3 py-1.5 rounded-lg border dark:border-slate-700 dark:bg-slate-800">
-                  </div>
-                </div>
-                <div class="grid grid-cols-2 gap-2">
-                  <div>
-                    <label class="block text-xs font-bold mb-1" data-bn="হিরো ১ম লাইন (বাংলা)" data-en="Hero Line 1 (BN)">হিরো ১ম লাইন (বাংলা)</label>
-                    <input type="text" id="set-hero-line1" class="w-full px-3 py-1.5 rounded-lg border dark:border-slate-700 dark:bg-slate-800">
-                  </div>
-                  <div>
-                    <label class="block text-xs font-bold mb-1" data-bn="হিরো ২য় লাইন (বাংলা)" data-en="Hero Line 2 (BN)">হিরো ২য় লাইন (বাংলা)</label>
-                    <input type="text" id="set-hero-line2" class="w-full px-3 py-1.5 rounded-lg border dark:border-slate-700 dark:bg-slate-800">
-                  </div>
-                </div>
-                <div>
-                  <label class="block text-xs font-bold mb-1" data-bn="হিরো সংক্ষিপ্ত বিবরণ" data-en="Hero Short Description">হিরো সংক্ষিপ্ত বিবরণ</label>
-                  <textarea id="set-hero-desc" rows="2" class="w-full px-3 py-1.5 rounded-lg border dark:border-slate-700 dark:bg-slate-800"></textarea>
-                </div>
-                <div>
-                  <label class="block text-xs font-bold mb-1" data-bn="নোটিশ বার" data-en="Notice Bar">নোটিশ বার</label>
-                  <input type="text" id="set-notice" class="w-full px-3 py-1.5 rounded-lg border dark:border-slate-700 dark:bg-slate-800">
-                </div>
-                <div>
-                  <label class="block text-xs font-bold mb-1" data-bn="ফাউন্ডেশনের ঠিকানা" data-en="Foundation Address">ফাউন্ডেশনের ঠিকানা</label>
-                  <input type="text" id="set-address-bn" class="w-full px-3 py-1.5 rounded-lg border dark:border-slate-700 dark:bg-slate-800">
-                </div>
-                <div>
-                  <label class="block text-xs font-bold mb-1" data-bn="লোগো পরিবর্তন" data-en="Upload Logo">লোগো পরিবর্তন</label>
-                  <input type="file" id="set-logo-file" accept="image/*" class="w-full text-xs">
-                </div>
-                <div class="pt-2 border-t dark:border-slate-800 grid grid-cols-2 gap-2">
-                  <div>
-                    <label class="block text-[11px] font-bold mb-0.5" data-bn="কন্ট্রিবিউটর নাম" data-en="Contributor Name">কন্ট্রিবিউটর নাম</label>
-                    <input type="text" id="set-credit-name" class="w-full px-3 py-1.5 rounded-lg border dark:border-slate-700 dark:bg-slate-800">
-                  </div>
-                  <div>
-                    <label class="block text-[11px] font-bold mb-0.5" data-bn="পদবী" data-en="Designation">পদবী</label>
-                    <input type="text" id="set-credit-role" class="w-full px-3 py-1.5 rounded-lg border dark:border-slate-700 dark:bg-slate-800">
-                  </div>
-                  <div>
-                    <label class="block text-[11px] font-bold mb-0.5" data-bn="লিংকডইন লিংক" data-en="LinkedIn URL">লিংকডইন লিংক</label>
-                    <input type="url" id="set-credit-linkedin" class="w-full px-3 py-1.5 rounded-lg border dark:border-slate-700 dark:bg-slate-800">
-                  </div>
-                  <div>
-                    <label class="block text-[11px] font-bold mb-0.5" data-bn="ছবি পরিবর্তন" data-en="Photo">ছবি পরিবর্তন</label>
-                    <input type="file" id="set-credit-photo" accept="image/*" class="w-full text-xs">
-                  </div>
-                </div>
-                <button type="submit" class="btn-solid-green w-full py-2.5 font-bold" data-bn="সেটিংস সেভ করুন" data-en="Save Settings">সেটিংস সেভ করুন</button>
-              </form>
-            </div>
-          </div>
-        </div>
-
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <div class="stitched-box">
-            <div class="solid-card p-5 sm:p-6 space-y-4">
-              <h3 class="font-bold text-base border-b pb-2.5 dark:border-slate-800 text-asf-600" data-bn="প্রোডাকশন যুক্ত ও ক্যাটাগরি নিয়ন্ত্রণ" data-en="Featured Productions & Categories">প্রোডাকশন যুক্ত ও ক্যাটাগরি নিয়ন্ত্রণ</h3>
-              <form onsubmit="addPortfolioVideo(event)" class="space-y-3 text-xs sm:text-sm">
-                <div>
-                  <label class="block text-xs font-bold mb-1" data-bn="প্রোডাকশনের শিরোনাম *" data-en="Title *">প্রোডাকশনের শিরোনাম *</label>
-                  <input type="text" id="port-title" required class="w-full px-3 py-2 rounded-lg border dark:border-slate-700 dark:bg-slate-800">
-                </div>
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  <div>
-                    <label class="block text-xs font-bold mb-1" data-bn="ভিডিও লিংক *" data-en="Video URL *">ভিডিও লিংক *</label>
-                    <input type="url" id="port-url" required class="w-full px-3 py-2 rounded-lg border dark:border-slate-700 dark:bg-slate-800">
-                  </div>
-                  <div>
-                    <label class="block text-xs font-bold mb-1" data-bn="ক্যাটাগরি *" data-en="Category *">ক্যাটাগরি *</label>
-                    <select id="port-cat" class="w-full px-3 py-2 rounded-lg border dark:border-slate-700 dark:bg-slate-800 font-bold"></select>
-                  </div>
-                </div>
-                <label class="inline-flex items-center gap-2 font-bold text-xs text-amber-600 cursor-pointer">
-                  <input type="checkbox" id="port-popular" checked class="rounded text-asf-600">
-                  <span data-bn="★ পপুলার প্রোডাকশন হিসেবে হোম পেজে দেখান" data-en="★ Mark as Popular Production">★ পপুলার প্রোডাকশন হিসেবে হোম পেজে দেখান</span>
-                </label>
-                <div>
-                  <button type="submit" class="btn-solid-green px-4 py-2 text-xs font-bold" data-bn="+ প্রোডাকশন যুক্ত করুন" data-en="+ Add Production">+ প্রোডাকশন যুক্ত করুন</button>
-                </div>
-              </form>
-              <div id="admin-portfolio-list" class="space-y-1.5 max-h-36 overflow-y-auto pt-2 border-t dark:border-slate-800"></div>
-
-              <div class="pt-3 border-t dark:border-slate-800 space-y-2">
-                <label class="block text-xs font-bold text-asf-600" data-bn="প্রোডাকশন ক্যাটাগরি যুক্ত বা বিয়োগ করুন" data-en="Manage Production Categories">প্রোডাকশন ক্যাটাগরি যুক্ত বা বিয়োগ করুন</label>
-                <div class="flex gap-2">
-                  <input type="text" id="new-port-cat-input" class="flex-grow px-3 py-1.5 rounded-lg border text-xs dark:border-slate-700 dark:bg-slate-800">
-                  <button type="button" onclick="addNewPortfolioCategory()" class="btn-solid-green px-3.5 py-1.5 text-xs font-bold" data-bn="+ যুক্ত করুন" data-en="+ Add">+ যুক্ত করুন</button>
-                </div>
-                <div id="admin-port-cat-tags" class="flex flex-wrap gap-1.5 pt-1"></div>
-              </div>
-            </div>
-          </div>
-
-          <div class="stitched-box">
-            <div class="solid-card p-5 sm:p-6 space-y-5">
-              <div class="space-y-2.5">
-                <div class="flex items-center justify-between border-b pb-2 dark:border-slate-800">
-                  <h3 class="font-bold text-base text-asf-600" data-bn="মূল কাজের ধরন (Core Activities)" data-en="Core Work Activities">মূল কাজের ধরন (Core Activities)</h3>
-                  <button type="button" onclick="resetToCleanCoreActivities()" class="text-[11px] bg-amber-100 text-amber-900 px-2.5 py-1 rounded font-bold hover:bg-amber-200" data-bn="মূল ১২টি কাজে রিসেট করুন" data-en="Reset Core Activities">মূল ১২টি কাজে রিসেট করুন</button>
-                </div>
-                <div class="flex gap-2">
-                  <input type="text" id="new-activity-input" class="flex-grow px-3 py-1.5 rounded-lg border text-xs dark:border-slate-700 dark:bg-slate-800">
-                  <button type="button" onclick="addNewActivity()" class="btn-solid-green px-3.5 py-1.5 text-xs font-bold" data-bn="+ যুক্ত করুন" data-en="+ Add">+ যুক্ত করুন</button>
-                </div>
-                <div id="admin-activity-tags" class="flex flex-wrap gap-1.5 max-h-40 overflow-y-auto p-1"></div>
-              </div>
-
-              <div class="space-y-2.5">
-                <h3 class="font-bold text-base border-b pb-2 dark:border-slate-800 text-asf-600" data-bn="প্ল্যাটফর্ম বা চ্যানেলসমূহ" data-en="Managed Platforms">প্ল্যাটফর্ম বা চ্যানেলসমূহ</h3>
-                <div class="flex gap-2">
-                  <input type="text" id="new-platform-input" class="flex-grow px-3 py-1.5 rounded-lg border text-xs dark:border-slate-700 dark:bg-slate-800">
-                  <button type="button" onclick="addNewPlatform()" class="btn-solid-green px-3.5 py-1.5 text-xs font-bold" data-bn="+ যুক্ত করুন" data-en="+ Add">+ যুক্ত করুন</button>
-                </div>
-                <div id="admin-platform-tags" class="flex flex-wrap gap-1.5 max-h-36 overflow-y-auto p-1"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
     </section>
 
   </main>
 
-  <!-- ================= FLOATING LIVE CHAT BUTTON & MESSENGER DRAWER ================= -->
-  <div id="floating-chat-wrapper" class="fixed bottom-16 lg:bottom-6 right-4 sm:right-6 z-50">
-    <!-- Chat Drawer -->
-    <div id="live-chat-drawer" class="hidden mb-3 w-80 sm:w-96 solid-card shadow-2xl border-2 border-asf-600 overflow-hidden flex-col" style="height: 430px;">
-      <div class="asf-hero-solid text-white p-3.5 flex items-center justify-between">
-        <div class="flex items-center gap-2">
-          <i data-lucide="message-circle" class="w-5 h-5 text-emerald-300"></i>
-          <div>
-            <h4 class="font-bold text-xs sm:text-sm" data-bn="টিম লাইভ মেসেঞ্জার" data-en="Team Live Messenger">টিম লাইভ মেসেঞ্জার</h4>
-            <p class="text-[10px] text-emerald-200" data-bn="তাৎক্ষণিক বার্তা পাঠান" data-en="Instant Team & Direct Chat">তাৎক্ষণিক বার্তা পাঠান</p>
-          </div>
-        </div>
-        <button type="button" onclick="toggleChatDrawer()" class="text-white hover:text-emerald-300"><i data-lucide="x" class="w-5 h-5"></i></button>
+  <!-- ================= FLOATING LIVE CHAT BUTTON & DRAWER ================= -->
+  <button onclick="openChatBox()" class="fixed bottom-16 md:bottom-6 right-5 z-40 w-13 h-13 w-12 h-12 rounded-full bg-asf-600 hover:bg-asf-700 text-white shadow-2xl flex items-center justify-center border-2 border-white">
+    <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
+    <span id="chat-unread-badge" class="hidden absolute -top-1 -right-1 w-5 h-5 rounded-full bg-red-600 text-white text-[10px] font-bold flex items-center justify-center">!</span>
+  </button>
+
+  <div id="chat-drawer" class="fixed bottom-20 right-5 z-50 w-80 sm:w-96 solid-card shadow-2xl hidden flex-col overflow-hidden border-2 border-asf-600">
+    <div class="bg-asf-700 text-white p-3.5 flex items-center justify-between">
+      <div>
+        <h4 class="font-bold text-sm">লাইভ টিম মেসেঞ্জার</h4>
+        <p class="text-[10px] text-emerald-200">যেকোনো মেম্বার বা সবাইকে মেসেজ দিন</p>
       </div>
-
-      <!-- Recipient Selector -->
-      <div class="p-2 bg-slate-100 dark:bg-slate-800 border-b dark:border-slate-700 flex items-center gap-2 text-xs">
-        <span class="font-bold shrink-0" data-bn="প্রাপক:" data-en="To:">প্রাপক:</span>
-        <select id="chat-recipient" onchange="renderChatMessages()" class="w-full px-2 py-1 rounded border dark:bg-slate-900 font-bold text-asf-600"></select>
-      </div>
-
-      <!-- Messages Feed -->
-      <div id="chat-messages-feed" class="flex-1 p-3 overflow-y-auto space-y-2.5 bg-slate-50/50 dark:bg-[#091510]"></div>
-
-      <!-- Send Input -->
-      <form onsubmit="sendLiveMessage(event)" class="p-2.5 bg-white dark:bg-slate-900 border-t dark:border-slate-800 flex gap-2">
-        <input type="text" id="chat-input-text" required class="flex-1 px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-700 dark:bg-slate-800 text-xs">
-        <button type="submit" class="btn-solid-green px-3.5 py-2 text-xs font-bold flex items-center gap-1">
-          <i data-lucide="send" class="w-3.5 h-3.5"></i>
-        </button>
-      </form>
+      <button onclick="document.getElementById('chat-drawer').classList.add('hidden')" class="text-white font-bold">✕</button>
     </div>
-
-    <!-- Round Floating Button -->
-    <button type="button" onclick="toggleChatDrawer()" class="relative w-13 h-13 w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-asf-600 hover:bg-asf-700 text-white shadow-2xl flex items-center justify-center border-2 border-white ml-auto transition transform hover:scale-105">
-      <i data-lucide="message-circle" class="w-6 h-6"></i>
-      <span id="chat-unread-badge" class="hidden absolute -top-1 -right-1 min-w-[20px] h-5 px-1 rounded-full bg-red-600 text-white text-[10px] font-bold flex items-center justify-center">0</span>
-    </button>
+    <div class="p-2 bg-slate-100 dark:bg-slate-800 border-b">
+      <select id="chat-recipient" class="w-full px-2.5 py-1.5 rounded-lg border text-xs font-bold dark:bg-slate-900">
+        <option value="ALL">📢 সকল টিম মেম্বার (Group Chat)</option>
+      </select>
+    </div>
+    <div id="chat-messages-box" class="p-3 space-y-2 h-64 overflow-y-auto bg-slate-50 dark:bg-slate-950 text-xs"></div>
+    <form onsubmit="sendLiveChatMessage(event)" class="p-2.5 bg-white dark:bg-slate-900 border-t flex gap-1.5">
+      <input type="text" id="chat-input" required class="flex-grow px-3 py-2 rounded-lg border text-xs dark:bg-slate-800">
+      <button type="submit" class="btn-green px-3.5 py-2 text-xs font-bold">পাঠান</button>
+    </form>
   </div>
 
-  <!-- FOOTER (With Contributor Label) -->
-  <footer class="asf-footer-solid text-white pt-10 pb-7 mt-14 border-t border-emerald-900">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
-      
-      <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
-        
-        <div class="md:col-span-5 space-y-2.5 text-center md:text-left">
-          <div class="flex items-center justify-center md:justify-start gap-3">
-            <img id="footer-brand-logo" src="https://assunnahfoundation.org/assets/images/logo.png" onerror="this.src='https://ui-avatars.com/api/?name=ASF&background=006837&color=fff&bold=true'" class="w-10 h-10 rounded-lg bg-white p-0.5 object-contain">
-            <span class="text-lg font-bold text-white" data-bn="আস-সুন্নাহ ফাউন্ডেশন দাওয়াহ মিডিয়া" data-en="As-Sunnah Foundation Dawah Media">আস-সুন্নাহ ফাউন্ডেশন দাওয়াহ মিডিয়া</span>
+  <!-- ================= FOOTER (Contributor Label) ================= -->
+  <footer class="bg-asf-800 text-white pt-10 pb-7 mt-12 border-t border-emerald-900">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 space-y-6">
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
+        <div class="md:col-span-5 space-y-2 text-center md:text-left">
+          <div class="flex items-center justify-center md:justify-start gap-2.5">
+            <img id="footer-brand-logo" src="https://ui-avatars.com/api/?name=ASF&background=006837&color=fff&bold=true" class="w-9 h-9 rounded-lg bg-white p-0.5 object-contain">
+            <span class="text-base font-bold">আস-সুন্নাহ ফাউন্ডেশন দাওয়াহ মিডিয়া</span>
           </div>
-          <p class="text-xs text-emerald-100/90 flex items-center justify-center md:justify-start gap-1.5">
-            <i data-lucide="map-pin" class="w-3.5 h-3.5 text-emerald-400 shrink-0"></i>
-            <span id="footer-address-text">প্লট-৭০, রোড-৩, ব্লক-সি, আফতাবনগর, ঢাকা-১২১২, বাংলাদেশ</span>
-          </p>
+          <p id="footer-address-text" class="text-xs text-emerald-200">প্লট-৭০, রোড-৩, ব্লক-সি, আফতাবনগর, ঢাকা-১২১২, বাংলাদেশ</p>
         </div>
-
-        <div class="md:col-span-3 flex flex-wrap justify-center gap-4 text-xs font-semibold text-emerald-200">
-          <button type="button" onclick="switchTab('home')" class="hover:text-white" data-bn="হোম" data-en="Home">হোম</button>
-          <button type="button" onclick="switchTab('pipeline')" class="hover:text-white" data-bn="পাইপলাইন" data-en="Pipeline">পাইপলাইন</button>
-          <button type="button" onclick="switchTab('dashboard')" class="hover:text-white" data-bn="ড্যাশবোর্ড" data-en="Dashboard">ড্যাশবোর্ড</button>
-          <a href="https://assunnahfoundation.org/" target="_blank" rel="noopener noreferrer" class="hover:text-white">assunnahfoundation.org ↗</a>
+        <div class="md:col-span-3 flex justify-center gap-4 text-xs font-semibold text-emerald-200">
+          <button onclick="switchTab('home')">হোম</button>
+          <button onclick="switchTab('pipeline')">পাইপলাইন</button>
+          <button onclick="switchTab('dashboard')">ড্যাশবোর্ড</button>
+          <button onclick="switchTab('team')">টিম মেম্বার</button>
         </div>
-
         <div class="md:col-span-4 flex justify-center md:justify-end">
-          <div class="flex items-center gap-3 bg-[#083823] border border-emerald-700/70 px-4 py-2.5 rounded-xl">
-            <img id="footer-credit-img" src="https://ui-avatars.com/api/?name=TA&background=006837&color=fff&bold=true" alt="Contributor" class="w-10 h-10 rounded-full object-cover border border-emerald-400">
+          <div class="flex items-center gap-3 bg-asf-700 border border-emerald-700 px-4 py-2.5 rounded-xl">
+            <img id="footer-credit-img" src="https://ui-avatars.com/api/?name=TA&background=006837&color=fff&bold=true" class="w-10 h-10 rounded-full object-cover border border-emerald-400">
             <div class="text-left">
-              <p id="footer-credit-label" class="text-[10px] uppercase tracking-wider text-emerald-300 font-bold">Contributor</p>
-              <a id="footer-credit-link" href="https://www.linkedin.com/company/assunnahfoundation" target="_blank" rel="noopener noreferrer" class="text-sm font-bold text-white hover:text-emerald-300 inline-flex items-center gap-1.5">
-                <span id="footer-credit-name">Tarek Ahmad</span>
-                <svg class="w-3.5 h-3.5 text-[#38bdf8]" fill="currentColor" viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+              <p class="text-[10px] uppercase tracking-wider text-emerald-300 font-bold">Contributor</p>
+              <a id="footer-credit-link" href="https://www.linkedin.com/company/assunnahfoundation" target="_blank" class="text-sm font-bold text-white hover:text-emerald-300">
+                <span id="footer-credit-name">Tarek Ahmad</span> ↗
               </a>
-              <p id="footer-credit-role" class="text-[11px] text-emerald-200/80 leading-none mt-0.5">Social Media Executive</p>
+              <p id="footer-credit-role" class="text-[11px] text-emerald-200">Social Media Executive</p>
             </div>
           </div>
         </div>
-
       </div>
-
-      <div class="border-t border-emerald-800/80 pt-5 text-center">
-        <p class="text-xs font-semibold text-emerald-200">
-          <span data-bn="স্বত্বাধিকারী © ২০২৬" data-en="Copyright © 2026">স্বত্বাধিকারী © ২০২৬</span>
-          <a href="https://assunnahfoundation.org/" target="_blank" rel="noopener noreferrer" class="text-white hover:underline ml-1" data-bn="আস-সুন্নাহ ফাউন্ডেশন" data-en="As-Sunnah Foundation">আস-সুন্নাহ ফাউন্ডেশন</a>
-        </p>
+      <div class="border-t border-emerald-900 pt-4 text-center text-xs text-emerald-200 font-semibold">
+        স্বত্বাধিকারী © ২০২৬ আস-সুন্নাহ ফাউন্ডেশন
       </div>
-
     </div>
   </footer>
 
   <!-- ================= MODALS ================= -->
-
-  <!-- Auth Modal -->
-  <div id="auth-modal" class="fixed inset-0 z-50 bg-slate-950/60 backdrop-blur-sm hidden items-center justify-center p-4">
-    <div class="solid-card max-w-md w-full p-6 shadow-2xl space-y-5 max-h-[90vh] overflow-y-auto">
-      <div class="flex justify-between items-center border-b pb-3 dark:border-slate-800">
-        <h3 class="text-lg font-bold text-asf-600" data-bn="টিম মেম্বার লগইন ও জয়েন" data-en="Team Member Login & Join">টিম মেম্বার লগইন ও জয়েন</h3>
-        <button type="button" onclick="closeAuthModal()" class="text-slate-400 hover:text-slate-600"><i data-lucide="x" class="w-5 h-5"></i></button>
+  <div id="auth-modal" class="fixed inset-0 z-50 bg-slate-950/60 hidden items-center justify-center p-4">
+    <div class="solid-card max-w-md w-full p-6 space-y-4">
+      <div class="flex justify-between items-center border-b pb-2"><h3 class="font-bold text-asf-600">টিম মেম্বার লগইন ও জয়েন</h3><button onclick="closeAuthModal()">✕</button></div>
+      <div class="grid grid-cols-2 gap-2 bg-slate-100 dark:bg-slate-800 p-1 rounded-xl text-xs font-bold">
+        <button id="tab-login-btn" onclick="switchAuthMode('login')" class="py-2 rounded-lg bg-white dark:bg-slate-900 text-asf-600">লগইন</button>
+        <button id="tab-signup-btn" onclick="switchAuthMode('signup')" class="py-2 rounded-lg">নতুন প্রোফাইল</button>
       </div>
-
-      <div class="grid grid-cols-2 gap-2 bg-slate-100 dark:bg-slate-800 p-1 rounded-xl text-xs sm:text-sm font-bold">
-        <button type="button" id="tab-login-btn" onclick="switchAuthMode('login')" class="py-2 rounded-lg bg-white dark:bg-slate-900 shadow text-asf-600" data-bn="লগইন" data-en="Login">লগইন</button>
-        <button type="button" id="tab-signup-btn" onclick="switchAuthMode('signup')" class="py-2 rounded-lg text-slate-600 dark:text-slate-300" data-bn="নতুন প্রোফাইল" data-en="Create Profile">নতুন প্রোফাইল</button>
-      </div>
-
-      <form id="login-form" onsubmit="handleLogin(event)" class="space-y-3.5 text-sm">
-        <div>
-          <label class="block text-xs font-bold mb-1" data-bn="ইমেইল অ্যাড্রেস" data-en="Email Address">ইমেইল অ্যাড্রেস</label>
-          <input type="email" id="login-email" required class="w-full px-3.5 py-2 rounded-lg border dark:border-slate-700 dark:bg-slate-800">
-        </div>
-        <div>
-          <label class="block text-xs font-bold mb-1" data-bn="পাসওয়ার্ড" data-en="Password">পাসওয়ার্ড</label>
-          <input type="password" id="login-pass" required class="w-full px-3.5 py-2 rounded-lg border dark:border-slate-700 dark:bg-slate-800">
-        </div>
-        <button type="submit" class="btn-solid-green w-full font-bold py-2.5" data-bn="লগইন করুন" data-en="Login">লগইন করুন</button>
+      <form id="login-form" onsubmit="handleLogin(event)" class="space-y-3 text-xs">
+        <div><label class="font-bold">ইমেইল</label><input type="email" id="login-email" required class="w-full px-3 py-2 rounded border dark:bg-slate-800"></div>
+        <div><label class="font-bold">পাসওয়ার্ড</label><input type="password" id="login-pass" required class="w-full px-3 py-2 rounded border dark:bg-slate-800"></div>
+        <button type="submit" class="btn-green w-full py-2.5 font-bold">লগইন করুন</button>
       </form>
-
-      <form id="signup-form" onsubmit="handleSignup(event)" class="hidden space-y-3 text-sm">
-        <div>
-          <label class="block text-xs font-bold mb-1" data-bn="পূর্ণ নাম *" data-en="Full Name *">পূর্ণ নাম *</label>
-          <input type="text" id="reg-name" required class="w-full px-3 py-2 rounded-lg border dark:border-slate-700 dark:bg-slate-800">
+      <form id="signup-form" onsubmit="handleSignup(event)" class="hidden space-y-2.5 text-xs">
+        <div><label class="font-bold">পূর্ণ নাম *</label><input type="text" id="reg-name" required class="w-full px-3 py-1.5 rounded border dark:bg-slate-800"></div>
+        <div><label class="font-bold">পদবী *</label><input type="text" id="reg-designation" required class="w-full px-3 py-1.5 rounded border dark:bg-slate-800"></div>
+        <div><label class="font-bold">কাজের সংক্ষিপ্ত বিবরণ *</label><input type="text" id="reg-bio" required class="w-full px-3 py-1.5 rounded border dark:bg-slate-800"></div>
+        <div class="grid grid-cols-2 gap-2">
+          <div><label class="font-bold">ইমেইল *</label><input type="email" id="reg-email" required class="w-full px-3 py-1.5 rounded border dark:bg-slate-800"></div>
+          <div><label class="font-bold">পাসওয়ার্ড *</label><input type="password" id="reg-pass" required minlength="6" class="w-full px-3 py-1.5 rounded border dark:bg-slate-800"></div>
         </div>
-        <div>
-          <label class="block text-xs font-bold mb-1" data-bn="পদবী *" data-en="Designation *">পদবী *</label>
-          <input type="text" id="reg-designation" required class="w-full px-3 py-2 rounded-lg border dark:border-slate-700 dark:bg-slate-800">
-        </div>
-        <div>
-          <label class="block text-xs font-bold mb-1" data-bn="কাজের সংক্ষিপ্ত বিবরণ *" data-en="Role Description *">কাজের সংক্ষিপ্ত বিবরণ *</label>
-          <input type="text" id="reg-bio" required class="w-full px-3 py-2 rounded-lg border dark:border-slate-700 dark:bg-slate-800">
-        </div>
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-          <div>
-            <label class="block text-xs font-bold mb-1" data-bn="ইমেইল *" data-en="Email *">ইমেইল *</label>
-            <input type="email" id="reg-email" required class="w-full px-3 py-2 rounded-lg border dark:border-slate-700 dark:bg-slate-800">
-          </div>
-          <div>
-            <label class="block text-xs font-bold mb-1" data-bn="পাসওয়ার্ড (৬+ অক্ষর) *" data-en="Password *">পাসওয়ার্ড (৬+ অক্ষর) *</label>
-            <input type="password" id="reg-pass" required minlength="6" class="w-full px-3 py-2 rounded-lg border dark:border-slate-700 dark:bg-slate-800">
-          </div>
-        </div>
-        <div>
-          <label class="block text-xs font-bold mb-1" data-bn="প্রোফাইল ছবি" data-en="Profile Photo">প্রোফাইল ছবি</label>
-          <input type="file" id="reg-photo" accept="image/*" class="w-full text-xs">
-        </div>
-        <div>
-          <label class="block text-xs font-bold mb-1" data-bn="আপনার নির্ধারিত কাজসমূহ" data-en="Your Core Activities">আপনার নির্ধারিত কাজসমূহ</label>
-          <div id="reg-activities-checkboxes" class="max-h-32 overflow-y-auto border dark:border-slate-700 rounded-lg p-2 space-y-1 text-xs"></div>
-        </div>
-        <button type="submit" class="btn-solid-green w-full font-bold py-2.5" data-bn="প্রোফাইল তৈরি করুন" data-en="Create Profile">প্রোফাইল তৈরি করুন</button>
+        <div><label class="font-bold">প্রোফাইল ছবি</label><input type="file" id="reg-photo" accept="image/*" class="w-full text-xs"></div>
+        <button type="submit" class="btn-green w-full py-2 font-bold">প্রোফাইল তৈরি করুন</button>
       </form>
     </div>
   </div>
 
-  <!-- Member Personal Portfolio Modal -->
-  <div id="member-modal" class="fixed inset-0 z-50 bg-slate-950/65 backdrop-blur-sm hidden items-center justify-center p-2 sm:p-4">
-    <div class="solid-card max-w-5xl w-full p-4 sm:p-7 shadow-2xl space-y-6 max-h-[92vh] overflow-y-auto">
-      
-      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b pb-4 dark:border-slate-800">
-        <div class="flex items-center gap-4">
-          <img id="mod-member-img" src="" class="w-16 h-16 rounded-2xl object-cover border-2 border-asf-600">
+  <!-- Member Portfolio Modal -->
+  <div id="member-modal" class="fixed inset-0 z-50 bg-slate-950/65 hidden items-center justify-center p-2 sm:p-4">
+    <div class="solid-card max-w-4xl w-full p-5 space-y-5 max-h-[90vh] overflow-y-auto">
+      <div class="flex flex-wrap items-center justify-between gap-3 border-b pb-3">
+        <div class="flex items-center gap-3.5">
+          <img id="mod-member-img" src="" class="w-14 h-14 rounded-2xl object-cover border-2 border-asf-600">
           <div>
-            <div class="flex items-center gap-2">
-              <h3 id="mod-member-name" class="text-lg sm:text-2xl font-bold"></h3>
-              <span id="mod-member-rating-avg" class="text-xs font-bold px-2.5 py-0.5 rounded bg-amber-100 text-amber-800"></span>
-            </div>
-            <p id="mod-member-role" class="text-xs sm:text-sm text-asf-600 dark:text-emerald-400 font-bold"></p>
-            <p id="mod-member-bio" class="text-xs text-slate-500 mt-0.5"></p>
+            <h3 id="mod-member-name" class="text-lg font-bold"></h3>
+            <p id="mod-member-role" class="text-xs text-asf-600 font-bold"></p>
+            <p id="mod-member-bio" class="text-xs text-slate-500"></p>
           </div>
         </div>
-        <div class="flex flex-wrap items-center gap-2">
-          <button type="button" id="mod-add-port-btn" onclick="openAddPortfolioItemModal()" class="hidden px-3 py-2 rounded-lg bg-amber-500 text-slate-950 text-xs font-bold hover:bg-amber-400 items-center gap-1">
-            <i data-lucide="plus" class="w-4 h-4"></i>
-            <span data-bn="পোর্টফোলিও যুক্ত করুন" data-en="Add Portfolio">পোর্টফোলিও যুক্ত করুন</span>
-          </button>
-          <input type="month" id="mod-member-month" onchange="refreshOpenedMemberModal()" class="px-3 py-1.5 rounded-lg border dark:border-slate-700 dark:bg-slate-800 text-xs font-bold">
-          <button type="button" onclick="closeMemberModal()" class="p-2 rounded-lg text-slate-400 hover:bg-slate-100"><i data-lucide="x" class="w-5 h-5"></i></button>
+        <div class="flex items-center gap-2">
+          <input type="month" id="mod-member-month" onchange="refreshOpenedMemberModal()" class="px-2.5 py-1.5 rounded border text-xs font-bold dark:bg-slate-800">
+          <button onclick="closeMemberModal()" class="px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 font-bold">✕</button>
         </div>
       </div>
 
-      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center">
-        <div class="p-3 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800">
-          <p class="text-xl sm:text-2xl font-bold text-asf-600" id="mod-stat-completed">0</p>
-          <p class="text-xs font-bold text-slate-500" data-bn="সম্পন্ন কাজ" data-en="Completed">সম্পন্ন কাজ</p>
-        </div>
-        <div class="p-3 rounded-xl bg-blue-50 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-800">
-          <p class="text-xl sm:text-2xl font-bold text-blue-600" id="mod-stat-ongoing">0</p>
-          <p class="text-xs font-bold text-slate-500" data-bn="চলমান কাজ" data-en="Ongoing">চলমান কাজ</p>
-        </div>
-        <div class="p-3 rounded-xl bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800">
-          <p class="text-xl sm:text-2xl font-bold text-amber-600" id="mod-stat-pending">0</p>
-          <p class="text-xs font-bold text-slate-500" data-bn="পেন্ডিং" data-en="Pending">পেন্ডিং</p>
-        </div>
-        <div class="p-3 rounded-xl bg-purple-50 dark:bg-purple-950/40 border border-purple-200 dark:border-purple-800">
-          <p class="text-xl sm:text-2xl font-bold text-purple-600" id="mod-stat-days">0</p>
-          <p class="text-xs font-bold text-slate-500" data-bn="সক্রিয় কর্মদিবস" data-en="Active Days">সক্রিয় কর্মদিবস</p>
-        </div>
+      <div class="grid grid-cols-4 gap-2 text-center text-xs">
+        <div class="p-2.5 rounded-xl bg-emerald-50 dark:bg-slate-800"><p class="text-lg font-bold text-asf-600" id="mod-stat-completed">0</p><p class="font-bold text-slate-500">সম্পন্ন</p></div>
+        <div class="p-2.5 rounded-xl bg-blue-50 dark:bg-slate-800"><p class="text-lg font-bold text-blue-600" id="mod-stat-ongoing">0</p><p class="font-bold text-slate-500">চলমান</p></div>
+        <div class="p-2.5 rounded-xl bg-amber-50 dark:bg-slate-800"><p class="text-lg font-bold text-amber-600" id="mod-stat-pending">0</p><p class="font-bold text-slate-500">পেন্ডিং/আপকামিং</p></div>
+        <div class="p-2.5 rounded-xl bg-purple-50 dark:bg-slate-800"><p class="text-lg font-bold text-purple-600" id="mod-stat-days">0</p><p class="font-bold text-slate-500">কর্মদিবস</p></div>
       </div>
 
-      <div class="space-y-6">
-        <div id="mod-photocard-section" class="space-y-3 hidden">
-          <h4 class="font-bold text-sm sm:text-base text-asf-600 border-b pb-1.5 dark:border-slate-800" data-bn="ফটোকার্ড ডিজাইন (১:১ স্কয়ার)" data-en="Photocard Designs (1:1 Square)">ফটোকার্ড ডিজাইন (১:১ স্কয়ার)</h4>
-          <div id="mod-photocard-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4"></div>
-        </div>
-
-        <div id="mod-thumbnail-section" class="space-y-3 hidden">
-          <h4 class="font-bold text-sm sm:text-base text-asf-600 border-b pb-1.5 dark:border-slate-800" data-bn="থাম্বনেইল ডিজাইন (১০৮০×১০৮০)" data-en="Thumbnail Designs (1080×1080)">থাম্বনেইল ডিজাইন (১০৮০×১০৮০)</h4>
-          <div id="mod-thumbnail-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4"></div>
-        </div>
-
-        <div id="mod-video-section" class="space-y-3 hidden">
-          <h4 class="font-bold text-sm sm:text-base text-asf-600 border-b pb-1.5 dark:border-slate-800" data-bn="ভিডিও প্রোডাকশন পোর্টফোলিও" data-en="Video Productions">ভিডিও প্রোডাকশন পোর্টফোলিও</h4>
-          <div id="mod-video-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4"></div>
-        </div>
+      <div id="mod-photocard-section" class="space-y-2 hidden">
+        <h4 class="font-bold text-xs text-asf-600 border-b pb-1">ফটোকার্ড ও থাম্বনেইল ডিজাইন (১:১ স্কয়ার)</h4>
+        <div id="mod-photocard-grid" class="grid grid-cols-2 sm:grid-cols-4 gap-3"></div>
       </div>
 
-      <div class="border dark:border-slate-800 rounded-xl p-4 space-y-3">
-        <h4 class="font-bold text-sm border-b pb-2 dark:border-slate-800" data-bn="মাসভিত্তিক কাজের তালিকা" data-en="Monthly Work History">মাসভিত্তিক কাজের তালিকা</h4>
-        <div class="overflow-x-auto max-h-64">
-          <table class="w-full text-left border-collapse text-xs">
-            <thead>
-              <tr class="border-b dark:border-
+      <div class="border rounded-xl p-3 space-y-2">
+        <h4 class="font-bold text-xs border-b pb-1.5">কাজের তালিকা (শুটিং, এডিটিং ও প্রোডাকশন)</h4>
+        <div class="overflow-x-auto max-h-60">
+          <table class="w-full text-left text-xs">
+            <tbody id="mod-tasks-tbody" class="divide-y dark:divide-slate-800"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
 
+  <!-- Add Member Portfolio Modal -->
+  <div id="add-portfolio-item-modal" class="fixed inset-0 z-50 bg-slate-950/60 hidden items-center justify-center p-4">
+    <div class="solid-card max-w-md w-full p-5 space-y-3 text-xs">
+      <div class="flex justify-between items-center border-b pb-2"><h3 class="font-bold text-asf-600">পোর্টফোলিওতে কাজ যুক্ত করুন</h3><button onclick="document.getElementById('add-portfolio-item-modal').classList.add('hidden')">✕</button></div>
+      <form onsubmit="saveMemberPortfolioItem(event)" class="space-y-3">
+        <div><label class="font-bold">শিরোনাম *</label><input type="text" id="mp-title" required class="w-full px-3 py-2 rounded border dark:bg-slate-800"></div>
+        <div><label class="font-bold">১:১ স্কয়ার ফটোকার্ড / থাম্বনেইল ছবি *</label><input type="file" id="mp-image-file" accept="image/*" required class="w-full"></div>
+        <button type="submit" class="btn-green w-full py-2 font-bold">সেভ করুন</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Quick Status List Modal -->
+  <div id="quick-detail-modal" class="fixed inset-0 z-50 bg-slate-950/60 hidden items-center justify-center p-4">
+    <div class="solid-card max-w-2xl w-full p-5 space-y-3 max-h-[85vh] overflow-y-auto">
+      <div class="flex justify-between items-center border-b pb-2"><h3 id="quick-modal-title" class="font-bold text-asf-600"></h3><button onclick="document.getElementById('quick-detail-modal').classList.add('hidden')">✕</button></div>
+      <div id="quick-modal-body" class="space-y-2 text-xs"></div>
+    </div>
+  </div>
+
+  <!-- Edit Profile Modal -->
+  <div id="edit-profile-modal" class="fixed inset-0 z-50 bg-slate-950/60 hidden items-center justify-center p-4">
+    <div class="solid-card max-w-md w-full p-5 space-y-3 text-xs">
+      <div class="flex justify-between items-center border-b pb-2"><h3 class="font-bold">প্রোফাইল আপডেট</h3><button onclick="document.getElementById('edit-profile-modal').classList.add('hidden')">✕</button></div>
+      <form onsubmit="saveProfileChanges(event)" class="space-y-2.5">
+        <div><label class="font-bold">নাম</label><input type="text" id="edit-prof-name" required class="w-full px-3 py-1.5 rounded border dark:bg-slate-800"></div>
+        <div><label class="font-bold">পদবী</label><input type="text" id="edit-prof-desig" required class="w-full px-3 py-1.5 rounded border dark:bg-slate-800"></div>
+        <div><label class="font-bold">কাজের বিবরণ</label><input type="text" id="edit-prof-bio" class="w-full px-3 py-1.5 rounded border dark:bg-slate-800"></div>
+        <div><label class="font-bold">ছবি পরিবর্তন</label><input type="file" id="edit-prof-photo" accept="image/*"></div>
+        <button type="submit" class="btn-green w-full py-2 font-bold">সেভ করুন</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ================= FIREBASE LOGIC ================= -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+    import { getFirestore, collection, doc, setDoc, getDoc, addDoc, updateDoc, deleteDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyBT9cdbTFwa_ZvpUkpz7InFyMqCC4qhc0c",
+      authDomain: "asf-dawah-media.firebaseapp.com",
+      projectId: "asf-dawah-media",
+      storageBucket: "asf-dawah-media.firebasestorage.app",
+      messagingSenderId: "480459742534",
+      appId: "1:480459742534:web:487c32f5800f588fb65947"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+    const SUPER_ADMIN_EMAIL = "asfsocialmediabd@gmail.com";
+
+    window.clean = (s) => s ? String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;') : '';
+    window.cleanUrl = (u) => (u && /^https?:\/\//i.test(String(u).trim())) ? window.clean(String(u).trim()) : '';
+    window.showToast = (m) => { const el = document.getElementById('toast-msg'); el.innerText = m; el.classList.remove('hidden'); setTimeout(() => el.classList.add('hidden'), 3000); };
+
+    const CORE_ACTIVITIES = [
+      "টিম ম্যানেজমেন্ট ও কাজের তদারকি", "কোয়ালিটি কন্ট্রোল ও ফাইনাল রিভিউ",
+      "সোশ্যাল মিডিয়া কন্টেন্ট পাবলিশিং ও পেজ ম্যানেজমেন্ট", "টাইটেল, ক্যাপশন ও কপিরাইটিং",
+      "কপিরাইট ও রাইটস ম্যানেজার সমাধান", "স্ক্রিপ্ট রাইটিং ও গবেষণা",
+      "ভিডিও শুটিং ও ক্যামেরা অপারেশন", "লং ভিডিও ও লেকচার এডিটিং",
+      "শর্টস ও রিলস এডিটিং", "ডকুমেন্টারি ও ওভিসি এডিটিং",
+      "গ্রাফিক ডিজাইন, থাম্বনেইল ও ফটোকার্ড", "শরয়ী পরামর্শ ও যাচাইকরণ"
+    ];
+    const DEFAULT_PLATFORMS = [
+      "Facebook: Ahmadullah", "Facebook: As-Sunnah Foundation", "Facebook: ইসলামী প্রশ্নোত্তর",
+      "Facebook: শরয়ী সমাধান", "YouTube: Ahmadullah", "YouTube: As-Sunnah Foundation",
+      "YouTube: ইসলামী প্রশ্নোত্তর", "YouTube: শরয়ী সমাধান", "LinkedIn: As-Sunnah Foundation"
+    ];
+    const DEFAULT_PORTFOLIO_CATEGORIES = ["লেকচার", "ডকুমেন্টারি", "শর্টফিল্ম", "ওভিসি", "শর্টস / রিলস", "ফটোকার্ড / থাম্বনেইল"];
+    const MONTHS_BN = ["জানুয়ারি","ফেব্রুয়ারি","মার্চ","এপ্রিল","মে","জুন","জুলাই","আগস্ট","সেপ্টেম্বর","অক্টোবর","নভেম্বর","ডিসেম্বর"];
+
+    window.tAct = (a) => a ? String(a).replace(/^[A-Z0-9]+\.\s*/i, '').trim() : '';
+    window.formatMonthName = (ym) => { if(!ym || !ym.includes('-')) return ym||''; const [y,m] = ym.split('-'); return `${MONTHS_BN[parseInt(m,10)-1] || m} ${y}`; };
+    window.formatFullDate = (ymd) => { if(!ymd || !ymd.includes('-')) return ymd||''; const [y,m,d] = ymd.split('-'); return `${parseInt(d,10)} ${MONTHS_BN[parseInt(m,10)-1] || m} ${y}`; };
+
+    function getTodayStr() { const d = new Date(); return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`; }
+    function getCurrentMonthStr() { return getTodayStr().slice(0,7); }
+    function getPreviousMonthStr() { const d = new Date(); d.setMonth(d.getMonth()-1); return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}`; }
+
+    window.currentLang = 'bn';
+    window.currentUserProfile = null;
+    window.allMembers = [];
+    window.allTasks = [];
+    window.allPortfolio = [];
+    window.allMemberPortfolio = [];
+    window.allMeetings = [];
+    window.allMessages = [];
+    window.homeProdMode = 'popular';
+    window.portfolioViewMode = 'all';
+    window.selectedPortfolioCategory = 'ALL';
+    window.openedModalMemberId = null;
+    window.initialMsgLoad = true;
+
+    window.siteSettings = {
+      title: "ASF Dawah Media", subtitle: "As-Sunnah Foundation",
+      logo: "https://ui-avatars.com/api/?name=ASF&background=006837&color=fff&bold=true",
+      heroLine1: "আস-সুন্নাহ ফাউন্ডেশন", heroLine2: "দাওয়াহ মিডিয়া",
+      heroDesc: "আস-সুন্নাহ ফাউন্ডেশন ও শায়খ আহমাদুল্লাহ দাওয়াহ মিডিয়া সকল ধরণের কাজ।",
+      planTargetCount: 50,
+      planCurrentText: "১. নিয়মিত লেকচার ও প্রশ্নোত্তর প্রোডাকশন\n২. চলমান প্রজেক্টের ডকুমেন্টারি ও ওভিসি নির্মাণ",
+      planNext3Text: "১. আসন্ন বিশেষ দাওয়াহ ক্যাম্পেইন ও প্রামাণ্যচিত্র সিরিজ নির্মাণ",
+      activities: CORE_ACTIVITIES, platforms: DEFAULT_PLATFORMS, portfolioCategories: DEFAULT_PORTFOLIO_CATEGORIES
+    };
+
+    document.getElementById('filter-month').value = getCurrentMonthStr();
+    document.getElementById('mod-member-month').value = getCurrentMonthStr();
+    document.getElementById('task-date').value = getTodayStr();
+    document.getElementById('meet-date').value = getTodayStr();
+    document.getElementById('pipe-date').value = getTodayStr();
+    document.getElementById('today-date-badge').innerText = window.formatFullDate(getTodayStr());
+
+    function getSortedMembers(onlyApproved = true) {
+      let list = onlyApproved ? window.allMembers.filter(m => m.approved || m.role === 'superadmin') : [...window.allMembers];
+      return list.sort((a,b) => (a.sortOrder||999) - (b.sortOrder||999));
+    }
+
+    // Real-time Listeners
+    onSnapshot(doc(db, "config", "siteSettings"), (s) => {
+      if (s.exists()) window.siteSettings = { ...window.siteSettings, ...s.data() };
+      applySiteSettingsUI(); renderHomeSection(); renderDashboard(); renderAdminPanel();
+    });
+
+    onSnapshot(collection(db, "users"), (snap) => {
+      window.allMembers = []; snap.forEach(d => window.allMembers.push({ uid: d.id, ...d.data() }));
+      if (auth.currentUser) { window.currentUserProfile = window.allMembers.find(m => m.uid === auth.currentUser.uid) || window.currentUserProfile; updateAuthUI(); }
+      populatePipelineAndChatMembers(); renderHomeSection(); renderTeamSection(); renderDashboard(); renderAdminPanel();
+    });
+
+    onSnapshot(collection(db, "tasks"), (snap) => {
+      window.allTasks = []; snap.forEach(d => window.allTasks.push({ id: d.id, ...d.data() }));
+      window.allTasks.sort((a,b) => (b.date||"").localeCompare(a.date||""));
+      renderHomeSection(); renderPipelineBoard(); renderTeamSection(); renderDashboard(); renderPortfolio(); renderWorkspaceTasks();
+      if (window.openedModalMemberId) refreshOpenedMemberModal();
+    });
+
+    onSnapshot(collection(db, "portfolio"), (snap) => {
+      window.allPortfolio = []; snap.forEach(d => window.allPortfolio.push({ id: d.id, ...d.data() }));
+      renderPortfolio(); renderAdminPanel();
+    });
+
+    onSnapshot(collection(db, "memberPortfolio"), (snap) => {
+      window.allMemberPortfolio = []; snap.forEach(d => window.allMemberPortfolio.push({ id: d.id, ...d.data() }));
+      if (window.openedModalMemberId) refreshOpenedMemberModal();
+    });
+
+    onSnapshot(collection(db, "meetings"), (snap) => {
+      window.allMeetings = []; snap.forEach(d => window.allMeetings.push({ id: d.id, ...d.data() }));
+      window.allMeetings.sort((a,b) => (b.date||"").localeCompare(a.date||""));
+      renderHomeSection(); renderAdminPanel();
+    });
+
+    onSnapshot(collection(db, "messages"), (snap) => {
+      const prevLen = window.allMessages.length;
+      window.allMessages = []; snap.forEach(d => window.allMessages.push({ id: d.id, ...d.data() }));
+      window.allMessages.sort((a,b) => (a.createdAt||"").localeCompare(b.createdAt||""));
+      renderChatMessages();
+      if (!window.initialMsgLoad && window.allMessages.length > prevLen) {
+        const latest = window.allMessages[window.allMessages.length - 1];
+        const myUid = window.currentUserProfile ? window.currentUserProfile.uid : null;
+        if (latest && latest.senderUid !== myUid && (latest.recipientUid === 'ALL' || latest.recipientUid === myUid)) {
+          document.getElementById('toast-sender').innerText = `💬 ${latest.senderName}`;
+          document.getElementById('toast-preview').innerText = latest.text;
+          document.getElementById('live-msg-toast').classList.remove('hidden');
+          document.getElementById('chat-unread-badge').classList.remove('hidden');
+          setTimeout(() => document.getElementById('live-msg-toast').classList.add('hidden'), 6000);
+        }
+      }
+      window.initialMsgLoad = false;
+    });
+
+    onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        const uDoc = await getDoc(doc(db, "users", user.uid));
+        if (uDoc.exists()) window.currentUserProfile = { uid: user.uid, ...uDoc.data() };
+      } else window.currentUserProfile = null;
+      updateAuthUI();
+    });
+
+    function applySiteSettingsUI() {
+      const s = window.siteSettings;
+      document.getElementById('brand-title').innerText = s.title || "ASF Dawah Media";
+      document.getElementById('brand-subtitle').innerText = s.subtitle || "As-Sunnah Foundation";
+      if (s.logo) { document.getElementById('brand-logo').src = s.logo; document.getElementById('footer-brand-logo').src = s.logo; }
+      document.getElementById('hero-line-1').innerText = window.currentLang === 'en' ? "As-Sunnah Foundation" : (s.heroLine1 || "আস-সুন্নাহ ফাউন্ডেশন");
+      document.getElementById('hero-line-2').innerText = window.currentLang === 'en' ? "Dawah Media" : (s.heroLine2 || "দাওয়াহ মিডিয়া");
+      document.getElementById('hero-desc').innerText = s.heroDesc || "";
+      if (s.creditPhoto) document.getElementById('footer-credit-img').src = s.creditPhoto;
+      if (s.creditName) document.getElementById('footer-credit-name').innerText = s.creditName;
+      if (s.creditRole) document.getElementById('footer-credit-role').innerText = s.creditRole;
+
+      const acts = CORE_ACTIVITIES.map(a => `<option value="${window.clean(a)}">${window.clean(a)}</option>`).join('');
+      document.getElementById('task-category').innerHTML = acts;
+
+      const cats = (s.portfolioCategories || DEFAULT_PORTFOLIO_CATEGORIES).map(c => `<option value="${window.clean(c)}">${window.clean(c)}</option>`).join('');
+      document.getElementById('port-cat').innerHTML = cats;
+      document.getElementById('pipe-type').innerHTML = cats;
+
+      const platChecks = (s.platforms || DEFAULT_PLATFORMS).map(p => `
+        <label class="flex items-center gap-1.5 p-1 hover:bg-slate-100 dark:hover:bg-slate-800 rounded cursor-pointer">
+          <input type="checkbox" value="${window.clean(p)}" class="rounded text-asf-600"> <span>${window.clean(p)}</span>
+        </label>
+      `).join('');
+      document.getElementById('task-platform-checkboxes').innerHTML = platChecks;
+      document.getElementById('pipe-platform-checkboxes').innerHTML = platChecks;
+    }
+
+    function populatePipelineAndChatMembers() {
+      const members = getSortedMembers(true);
+      document.getElementById('pipe-crew-checkboxes').innerHTML = members.map(m => `
+        <label class="flex items-center gap-1.5 p-1 hover:bg-slate-100 dark:hover:bg-slate-800 rounded cursor-pointer">
+          <input type="checkbox" value="${m.uid}" data-name="${window.clean(m.name)}" class="rounded text-asf-600">
+          <span>${window.clean(m.name)}</span>
+        </label>
+      `).join('');
+
+      document.getElementById('chat-recipient').innerHTML = `<option value="ALL">📢 সকল টিম মেম্বার (Group Chat)</option>` +
+        members.map(m => `<option value="${m.uid}">👤 ${window.clean(m.name)}</option>`).join('');
+    }
+
+    function updateAuthUI() {
+      const p = window.currentUserProfile;
+      if (p) {
+        document.getElementById('auth-buttons').classList.add('hidden');
+        document.getElementById('user-menu').classList.remove('hidden');
+        document.getElementById('user-menu').classList.add('flex');
+        document.getElementById('current-user-img').src = p.photo;
+        document.getElementById('nav-workspace').classList.remove('hidden');
+        document.getElementById('mnav-workspace').classList.remove('hidden');
+        document.getElementById('ws-user-img').src = p.photo;
+        document.getElementById('ws-user-name').innerText = p.name;
+        document.getElementById('ws-user-designation').innerText = p.designation || "";
+        document.getElementById('ws-user-role-badge').innerText = p.role === 'superadmin' ? 'সুপার অ্যাডমিন' : (p.role === 'director' ? 'ডিরেক্টর' : 'টিম মেম্বার');
+
+        if (p.role === 'superadmin' || p.role === 'director') {
+          document.getElementById('nav-admin').classList.remove('hidden');
+          document.getElementById('mnav-admin').classList.remove('hidden');
+          document.getElementById('pipeline-create-box').classList.remove('hidden');
+        } else {
+          document.getElementById('nav-admin').classList.add('hidden');
+          document.getElementById('mnav-admin').classList.add('hidden');
+          document.getElementById('pipeline-create-box').classList.add('hidden');
+        }
+      } else {
+        document.getElementById('auth-buttons').classList.remove('hidden');
+        document.getElementById('user-menu').classList.add('hidden');
+        document.getElementById('nav-workspace').classList.add('hidden');
+        document.getElementById('nav-admin').classList.add('hidden');
+        document.getElementById('pipeline-create-box').classList.add('hidden');
+      }
+    }
+
+    // 1. Render Home
+    function renderHomeSection() {
+      const s = window.siteSettings;
+      const curMonth = getCurrentMonthStr();
+      const prevMonth = getPreviousMonthStr();
+
+      const curMonthTasks = window.allTasks.filter(t => t.month === curMonth);
+      const prevMonthTasks = window.allTasks.filter(t => t.month === prevMonth);
+
+      const compCount = curMonthTasks.filter(t => t.status === 'Completed').length;
+      const ongCount = window.allTasks.filter(t => t.status === 'Ongoing').length;
+      const pendCount = window.allTasks.filter(t => t.status === 'Pending').length;
+      const readyCount = window.allTasks.filter(t => t.status === 'Ready' || t.status === 'In Review').length;
+      const upCount = window.allTasks.filter(t => t.status === 'Upcoming').length;
+
+      document.getElementById('stat-completed').innerText = compCount;
+      document.getElementById('stat-ongoing').innerText = ongCount;
+      document.getElementById('stat-pending').innerText = pendCount;
+      document.getElementById('stat-ready').innerText = readyCount;
+      document.getElementById('stat-upcoming').innerText = upCount;
+
+      document.getElementById('hero-stat-comp').innerText = compCount;
+      document.getElementById('hero-stat-ong').innerText = ongCount;
+      document.getElementById('hero-stat-pend').innerText = readyCount + pendCount;
+
+      const target = Number(s.planTargetCount) || 50;
+      const pct = Math.min(100, Math.round((compCount / target) * 100));
+      document.getElementById('home-plan-percent').innerText = `${pct}% (${compCount}/${target})`;
+      document.getElementById('home-plan-bar').style.width = `${pct}%`;
+
+      document.getElementById('home-current-plan-preview').innerText = s.planCurrentText || "";
+      document.getElementById('home-next3-plan-preview').innerText = s.planNext3Text || "";
+      document.getElementById('home-ongoing-preview').innerText = window.allTasks.filter(t => t.status === 'Ongoing').map(t => `• ${t.title}`).join(' ') || 'কোনো চলমান প্রজেক্ট নেই।';
+      document.getElementById('home-pending-preview').innerText = window.allTasks.filter(t => t.status === 'Ready' || t.status === 'Pending').map(t => `• ${t.title}`).join(' ') || 'কোনো পেন্ডিং বা রেডি কাজ নেই।';
+
+      const prevComp = prevMonthTasks.filter(t => t.status === 'Completed').length;
+      const maxBar = Math.max(8, prevComp, compCount, prevMonthTasks.length, curMonthTasks.length);
+      document.getElementById('legend-prev-month').innerText = window.formatMonthName(prevMonth);
+      document.getElementById('legend-cur-month').innerText = window.formatMonthName(curMonth);
+      document.getElementById('home-growth-badge').innerText = `${compCount - prevComp >= 0 ? '+' : ''}${compCount - prevComp}`;
+
+      document.getElementById('home-comparison-chart').innerHTML = `
+        <div class="grid grid-cols-2 gap-6 items-end pt-4 px-2">
+          <div class="flex flex-col items-center">
+            <div class="flex items-end justify-center gap-4 h-36 w-full border-b pb-2">
+              <div class="flex flex-col items-center"><span class="text-xs font-bold">${prevComp}</span><div class="w-10 bg-slate-400 rounded-t-lg" style="height:${Math.max(14,Math.round((prevComp/maxBar)*120))}px"></div></div>
+              <div class="flex flex-col items-center"><span class="text-xs font-bold text-asf-600">${compCount}</span><div class="w-10 bg-asf-600 rounded-t-lg" style="height:${Math.max(14,Math.round((compCount/maxBar)*120))}px"></div></div>
+            </div>
+            <p class="text-xs font-bold mt-2">সম্পন্ন প্রোডাকশন</p>
+          </div>
+          <div class="flex flex-col items-center">
+            <div class="flex items-end justify-center gap-4 h-36 w-full border-b pb-2">
+              <div class="flex flex-col items-center"><span class="text-xs font-bold">${prevMonthTasks.length}</span><div class="w-10 bg-slate-400 rounded-t-lg" style="height:${Math.max(14,Math.round((prevMonthTasks.length/maxBar)*120))}px"></div></div>
+              <div class="flex flex-col items-center"><span class="text-xs font-bold text-blue-600">${curMonthTasks.length}</span><div class="w-10 bg-blue-600 rounded-t-lg" style="height:${Math.max(14,Math.round((curMonthTasks.length/maxBar)*120))}px"></div></div>
+            </div>
+            <p class="text-xs font-bold mt-2">মোট প্রজেক্ট</p>
+          </div>
+        </div>
+      `;
+
+      document.getElementById('home-meetings-list').innerHTML = window.allMeetings.length === 0
+        ? `<p class="col-span-full text-xs text-slate-400 text-center py-4">কোনো মিটিং সিদ্ধান্ত নেই।</p>`
+        : window.allMeetings.slice(0,4).map(m => `
+            <div class="p-3.5 rounded-xl border space-y-1 text-xs">
+              <div class="flex justify-between font-bold text-asf-600"><span>${window.clean(m.title)}</span><span>${window.formatFullDate(m.date)}</span></div>
+              <p><b>এজেন্ডা:</b> ${window.clean(m.agenda)}</p>
+              <p class="bg-emerald-50 dark:bg-slate-800 p-2 rounded"><b>সিদ্ধান্ত:</b> ${window.clean(m.decisions)}</p>
+            </div>
+          `).join('');
+    }
+
+    // 2. Production Pipeline Automation (Upcoming -> Pending -> Ongoing -> Ready -> Completed)
+    window.createPipelineProject = async (e) => {
+      e.preventDefault();
+      const title = document.getElementById('pipe-title').value.trim();
+      const type = document.getElementById('pipe-type').value;
+      const shootDate = document.getElementById('pipe-date').value;
+      const shootTime = document.getElementById('pipe-time').value;
+      const crewInputs = Array.from(document.querySelectorAll('#pipe-crew-checkboxes input:checked'));
+      const platInputs = Array.from(document.querySelectorAll('#pipe-platform-checkboxes input:checked')).map(i => i.value);
+      const platforms = platInputs.length > 0 ? platInputs.join(', ') : 'All Platforms';
+
+      if (crewInputs.length === 0) return alert("শুটিংয়ে কারা থাকবেন কমপক্ষে একজন মেম্বার সিলেক্ট করুন।");
+
+      for (const c of crewInputs) {
+        await addDoc(collection(db, "tasks"), {
+          uid: c.value,
+          memberName: c.getAttribute('data-name'),
+          date: shootDate,
+          month: shootDate.slice(0,7),
+          shootTime: shootTime,
+          category: "ভিডিও শুটিং ও ক্যামেরা অপারেশন",
+          productionType: type,
+          title: `[${type}] ${title} (শুটিং: ${shootTime})`,
+          platform: platforms,
+          status: "Upcoming",
+          isPipeline: true,
+          quantity: 1,
+          createdAt: new Date().toISOString()
+        });
+      }
+      document.getElementById('pipe-title').value = '';
+      window.showToast("শুটিং অ্যাসাইন হয়েছে! আপকামিং ও মেম্বার প্রোফাইলে যুক্ত হয়েছে।");
+    };
+
+    window.advancePipelineStage = async (taskId, nextStatus) => {
+      const t = window.allTasks.find(x => x.id === taskId);
+      if (!t) return;
+      if (nextStatus === 'Ongoing') {
+        const editorUid = document.getElementById(`pipe-ed-${taskId}`).value;
+        const edMem = window.allMembers.find(m => m.uid === editorUid);
+        if (!edMem) return alert("এডিটর সিলেক্ট করুন।");
+        await updateDoc(doc(db, "tasks", taskId), {
+          status: 'Ongoing',
+          uid: edMem.uid,
+          memberName: edMem.name,
+          category: "লং ভিডিও ও লেকচার এডিটিং",
+          date: getTodayStr(),
+          month: getCurrentMonthStr()
+        });
+        window.showToast(`${edMem.name}-কে এডিটিং অ্যাসাইন করা হয়েছে (চলমান প্রজেক্ট)।`);
+      } else if (nextStatus === 'Ready') {
+        const drive = prompt("রেডি ভিডিওর ড্রাইভ লিংক দিন (ঐচ্ছিক):", t.link || "");
+        await updateDoc(doc(db, "tasks", taskId), { status: 'Ready', link: drive || t.link || "" });
+        window.showToast("রেডি টু পাবলিশ তালিকায় যুক্ত হয়েছে!");
+      } else if (nextStatus === 'Completed') {
+        const pubUrl = prompt("পাবলিশড লিংক (YouTube/FB) দিন:", t.topViewLink || "");
+        await updateDoc(doc(db, "tasks", taskId), {
+          status: 'Completed',
+          topViewLink: pubUrl || "",
+          rating: 5,
+          date: getTodayStr(),
+          month: getCurrentMonthStr()
+        });
+        if (pubUrl) {
+          await addDoc(collection(db, "portfolio"), {
+            title: t.title, url: pubUrl, category: t.productionType || "লেকচার",
+            month: getCurrentMonthStr(), popular: true, createdAt: new Date().toISOString()
+          });
+        }
+        window.showToast("আলহামদুলিল্লাহ! প্রোডাকশন পাবলিশ ও সম্পন্ন হয়েছে।");
+      } else {
+        await updateDoc(doc(db, "tasks", taskId), { status: nextStatus });
+        window.showToast("স্ট্যাটাস আপডেট হয়েছে!");
+      }
+    };
+
+    function renderPipelineBoard() {
+      const upList = window.allTasks.filter(t => t.status === 'Upcoming');
+      const pendList = window.allTasks.filter(t => t.status === 'Pending');
+      const editList = window.allTasks.filter(t => t.status === 'Ongoing');
+      const readyList = window.allTasks.filter(t => t.status === 'Ready' || t.status === 'In Review');
+      const doneList = window.allTasks.filter(t => t.status === 'Completed' && t.month === getCurrentMonthStr()).slice(0, 8);
+
+      document.getElementById('pipe-count-up').innerText = upList.length;
+      document.getElementById('pipe-count-pend').innerText = pendList.length;
+      document.getElementById('pipe-count-edit').innerText = editList.length;
+      document.getElementById('pipe-count-ready').innerText = readyList.length;
+
+      const memberOptions = getSortedMembers(true).map(m => `<option value="${m.uid}">${window.clean(m.name)}</option>`).join('');
+
+      const colHtml = (title, color, items, btnBuilder) => `
+        <div class="solid-card p-3.5 space-y-3 border-t-4 ${color}">
+          <div class="flex justify-between items-center font-bold text-xs border-b pb-2"><span>${title}</span><span class="px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800">${items.length}</span></div>
+          <div class="space-y-2.5 max-h-96 overflow-y-auto pr-1">
+            ${items.length === 0 ? `<p class="text-[11px] text-slate-400 text-center py-6">খালি</p>` : items.map(t => `
+              <div class="p-2.5 rounded-xl border bg-slate-50/60 dark:bg-slate-800/50 space-y-1.5 text-xs">
+                <p class="font-bold text-slate-900 dark:text-white">${window.clean(t.title)}</p>
+                <p class="text-[11px] text-asf-600 font-bold">👤 ${window.clean(t.memberName)}</p>
+                <p class="text-[10px] text-slate-500">📅 ${window.formatFullDate(t.date)} • ${window.clean(t.platform)}</p>
+                ${btnBuilder(t)}
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `;
+
+      document.getElementById('pipeline-board').innerHTML =
+        colHtml("১. আপকামিং শুটিং", "border-purple-600", upList, (t) => `<button onclick="advancePipelineStage('${t.id}','Pending')" class="w-full py-1.5 rounded bg-purple-600 text-white font-bold text-[11px]">শুটিং সম্পন্ন (পেন্ডিংয়ে পাঠান) →</button>`) +
+        colHtml("২. শুটিং শেষ (পেন্ডিং)", "border-amber-500", pendList, (t) => `
+          <select id="pipe-ed-${t.id}" class="w-full px-2 py-1 rounded border text-[11px] font-bold dark:bg-slate-900 mb-1">${memberOptions}</select>
+          <button onclick="advancePipelineStage('${t.id}','Ongoing')" class="w-full py-1.5 rounded bg-amber-500 text-slate-950 font-bold text-[11px]">এডিটর অ্যাসাইন করুন →</button>
+        `) +
+        colHtml("৩. এডিটিং চলমান", "border-blue-600", editList, (t) => `<button onclick="advancePipelineStage('${t.id}','Ready')" class="w-full py-1.5 rounded bg-blue-600 text-white font-bold text-[11px]">এডিটিং শেষ (রেডি পাবলিশ) →</button>`) +
+        colHtml("৪. রেডি টু পাবলিশ", "border-rose-600", readyList, (t) => `<button onclick="advancePipelineStage('${t.id}','Completed')" class="w-full py-1.5 rounded bg-rose-600 text-white font-bold text-[11px]">পাবলিশড ও রেটিং দিন ✓</button>`) +
+        colHtml("৫. পাবলিশড প্রোডাকশন", "border-asf-600", doneList, (t) => `<span class="block text-center text-[11px] font-bold text-asf-600">⭐⭐⭐⭐⭐ পাবলিশড</span>`);
+    }
+
+    // 3. Dashboard (Clean, No Duplicate Member List)
+    window.renderDashboard = () => {
+      const month = document.getElementById('filter-month').value || getCurrentMonthStr();
+      document.getElementById('dashboard-month-heading').innerText = `${window.formatMonthName(month)} — মাসিক ড্যাশবোর্ড`;
+      document.getElementById('dash-table-month-title').innerText = `${window.formatMonthName(month)}-এর সকল প্রোডাকশন ও কাজের তালিকা`;
+
+      const memSel = document.getElementById('filter-member');
+      const curMem = memSel.value || 'ALL';
+      memSel.innerHTML = `<option value="ALL">সকল টিম মেম্বার</option>` + getSortedMembers(true).map(m => `<option value="${m.uid}">${window.clean(m.name)}</option>`).join('');
+      memSel.value = curMem;
+
+      const stFilter = document.getElementById('filter-status').value || 'ALL';
+      const monthTasks = window.allTasks.filter(t => t.month === month);
+      const done = monthTasks.filter(t => t.status === 'Completed').length;
+      const ong = monthTasks.filter(t => t.status === 'Ongoing').length;
+      const rem = monthTasks.filter(t => t.status !== 'Completed' && t.status !== 'Ongoing').length;
+      const pct = monthTasks.length ? Math.round((done/monthTasks.length)*100) : 0;
+
+      document.getElementById('dash-visual-summary-chart').innerHTML = `
+        <div class="grid grid-cols-2 gap-3 text-center text-xs">
+          <div class="p-3 rounded-xl bg-slate-100 dark:bg-slate-800"><p class="text-xl font-bold">${monthTasks.length}</p><p class="font-bold text-slate-500">মোট প্রজেক্ট</p></div>
+          <div class="p-3 rounded-xl bg-emerald-50 dark:bg-slate-800"><p class="text-xl font-bold text-asf-600">${done} (${pct}%)</p><p class="font-bold text-asf-600">সম্পন্ন প্রোডাকশন</p></div>
+          <div class="p-3 rounded-xl bg-blue-50 dark:bg-slate-800"><p class="text-xl font-bold text-blue-600">${ong}</p><p class="font-bold text-blue-600">চলমান</p></div>
+          <div class="p-3 rounded-xl bg-amber-50 dark:bg-slate-800"><p class="text-xl font-bold text-amber-600">${rem}</p><p class="font-bold text-amber-600">রেডি / পেন্ডিং / আপকামিং</p></div>
+        </div>
+      `;
+
+      let filtered = monthTasks;
+      if (curMem !== 'ALL') filtered = filtered.filter(t => t.uid === curMem);
+      if (stFilter !== 'ALL') filtered = filtered.filter(t => t.status === stFilter);
+
+      const catCounts = {};
+      filtered.forEach(t => { catCounts[window.tAct(t.category)] = (catCounts[window.tAct(t.category)] || 0) + (parseInt(t.quantity)||1); });
+      document.getElementById('dashboard-category-list').innerHTML = Object.entries(catCounts).map(([c,n]) => `
+        <div class="flex justify-between p-2.5 rounded-lg bg-slate-50 dark:bg-slate-800 text-xs font-bold"><span>${window.clean(c)}</span><span class="px-2 py-0.5 rounded bg-asf-600 text-white">${n}</span></div>
+      `).join('');
+
+      const isAdmin = window.currentUserProfile && window.currentUserProfile.role === 'superadmin';
+      document.getElementById('dashboard-logs-tbody').innerHTML = filtered.map(t => `
+        <tr>
+          <td class="p-3 font-bold whitespace-nowrap">${window.formatFullDate(t.date)}</td>
+          <td class="p-3 font-bold">${window.clean(t.memberName)}</td>
+          <td class="p-3"><p class="font-bold">${window.clean(t.title)}</p><p class="text-[11px] text-slate-500">${window.clean(window.tAct(t.category))}</p></td>
+          <td class="p-3 text-xs">${window.clean(t.platform)}</td>
+          <td class="p-3"><span class="px-2 py-0.5 rounded text-xs font-bold bg-emerald-100 text-asf-700">${window.clean(t.status)}</span></td>
+          <td class="p-3 text-amber-500 font-bold">${t.rating ? '⭐'.repeat(t.rating) : '-'}</td>
+          <td class="p-3 space-x-2">
+            ${t.link ? `<a href="${window.cleanUrl(t.link)}" target="_blank" class="text-asf-600 underline font-bold">ফাইল ↗</a>` : ''}
+            ${t.topViewLink ? `<a href="${window.cleanUrl(t.topViewLink)}" target="_blank" class="text-red-600 underline font-bold">ভিউ ↗</a>` : ''}
+            ${isAdmin ? `<button onclick="deleteTaskByAdmin('${t.id}')" class="text-red-500 font-bold">মুছুন</button>` : ''}
+          </td>
+        </tr>
+      `).join('');
+    };
+
+    // 4. Team Members
+    function renderTeamSection() {
+      const curMonth = getCurrentMonthStr();
+      const monthTasks = window.allTasks.filter(t => t.month === curMonth);
+      document.getElementById('full-team-grid').innerHTML = getSortedMembers(true).map(m => {
+        const mTasks = monthTasks.filter(t => t.uid === m.uid);
+        const comp = mTasks.filter(t => t.status === 'Completed').length;
+        const ong = mTasks.filter(t => t.status === 'Ongoing').length;
+        const pend = mTasks.filter(t => t.status !== 'Completed' && t.status !== 'Ongoing').length;
+        return `
+          <div onclick="openMemberModal('${m.uid}')" class="stitched-box cursor-pointer">
+            <div class="solid-card p-5 space-y-3">
+              <div class="flex items-center gap-3.5">
+                <img src="${m.photo}" class="w-14 h-14 rounded-xl object-cover border-2 border-asf-600">
+                <div><h4 class="font-bold text-base">${window.clean(m.name)}</h4><p class="text-xs font-bold text-asf-600">${window.clean(m.designation)}</p></div>
+              </div>
+              <div class="grid grid-cols-3 text-center text-xs gap-1.5 pt-2 border-t">
+                <div class="bg-emerald-50 dark:bg-slate-800 py-1.5 rounded-lg"><p class="font-bold text-asf-600">${comp}</p><p class="text-[10px]">সম্পন্ন</p></div>
+                <div class="bg-blue-50 dark:bg-slate-800 py-1.5 rounded-lg"><p class="font-bold text-blue-600">${ong}</p><p class="text-[10px]">চলমান</p></div>
+                <div class="bg-amber-50 dark:bg-slate-800 py-1.5 rounded-lg"><p class="font-bold text-amber-600">${pend}</p><p class="text-[10px]">পেন্ডিং/শুটিং</p></div>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    // 5. Productions (Current Month & Popular Filter)
+    function extractYouTubeId(u) { const m = (u||"").match(/^.*(youtu.be\/|v\/|embed\/|watch\?v=|\&v=|shorts\/)([^#\&\?]*).*/); return (m && m[2].length === 11) ? m[2] : null; }
+    window.setHomeProdMode = (m) => {
+      window.homeProdMode = m;
+      document.getElementById('hprod-popular').className = m === 'popular' ? 'px-3 py-1.5 rounded-lg text-xs font-bold btn-green' : 'px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-200 dark:bg-slate-800';
+      document.getElementById('hprod-current').className = m === 'current' ? 'px-3 py-1.5 rounded-lg text-xs font-bold btn-green' : 'px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-200 dark:bg-slate-800';
+      renderPortfolio();
+    };
+    window.setPortfolioViewMode = (m) => {
+      window.portfolioViewMode = m;
+      ['all','current','popular'].forEach(k => document.getElementById(`pmode-${k}`).className = k === m ? 'px-3 py-1.5 rounded-lg text-xs font-bold btn-green' : 'px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-200 dark:bg-slate-800');
+      renderPortfolio();
+    };
+    window.setPortfolioCategoryFilter = (c) => { window.selectedPortfolioCategory = c; renderPortfolio(); };
+
+    window.renderPortfolio = () => {
+      const cats = ['ALL', ...(window.siteSettings.portfolioCategories || DEFAULT_PORTFOLIO_CATEGORIES)];
+      document.getElementById('portfolio-category-pills').innerHTML = cats.map(c => `
+        <button onclick="setPortfolioCategoryFilter('${window.clean(c)}')" class="px-3 py-1 rounded-lg text-xs font-bold ${window.selectedPortfolioCategory === c ? 'btn-green' : 'bg-slate-100 dark:bg-slate-800'}">${c === 'ALL' ? 'সকল ক্যাটাগরি' : window.clean(c)}</button>
+      `).join('');
+
+      const buildCards = (items) => items.length === 0
+        ? `<div class="col-span-full solid-card p-6 text-center text-xs text-slate-400">কোনো প্রোডাকশন পাওয়া যায়নি।</div>`
+        : items.map(v => {
+            const yt = extractYouTubeId(v.url);
+            const th = yt ? `https://img.youtube.com/vi/${yt}/hqdefault.jpg` : 'https://via.placeholder.com/480x270?text=ASF+Media';
+            return `
+              <a href="${window.cleanUrl(v.url)}" target="_blank" class="stitched-box block group">
+                <div class="solid-card overflow-hidden h-full">
+                  <div class="relative aspect-video bg-slate-900">
+                    <img src="${th}" class="w-full h-full object-cover">
+                    <span class="absolute top-2 left-2 bg-asf-700 text-white text-[10px] font-bold px-2 py-0.5 rounded">${window.clean(v.category)}</span>
+                    ${v.popular ? `<span class="absolute top-2 right-2 bg-amber-400 text-slate-950 text-[10px] font-bold px-2 py-0.5 rounded">★ Popular</span>` : ''}
+                  </div>
+                  <div class="p-3.5"><h4 class="font-bold text-sm line-clamp-2 group-hover:text-asf-600">${window.clean(v.title)}</h4></div>
+                </div>
+              </a>
+            `;
+          }).join('');
+
+      const curMonth = getCurrentMonthStr();
+      const homeList = window.homeProdMode === 'popular' ? window.allPortfolio.filter(x => x.popular !== false) : window.allPortfolio.filter(x => !x.month || x.month === curMonth);
+      document.getElementById('home-portfolio-grid').innerHTML = buildCards(homeList.slice(0,6));
+
+      let fullList = [...window.allPortfolio];
+      if (window.portfolioViewMode === 'current') fullList = fullList.filter(x => !x.month || x.month === curMonth);
+      if (window.portfolioViewMode === 'popular') fullList = fullList.filter(x => x.popular !== false);
+      if (window.selectedPortfolioCategory !== 'ALL') fullList = fullList.filter(x => x.category === window.selectedPortfolioCategory);
+      document.getElementById('full-portfolio-grid').innerHTML = buildCards(fullList);
+    };
+
+    // 6. Workspace Multi-Platform Task Submit
+    window.submitDailyTask = async (e) => {
+      e.preventDefault();
+      const p = window.currentUserProfile;
+      if (!p) return alert("লগইন করুন।");
+      const checkedPlats = Array.from(document.querySelectorAll('#task-platform-checkboxes input:checked')).map(i => i.value);
+      const platformStr = checkedPlats.length > 0 ? checkedPlats.join(', ') : DEFAULT_PLATFORMS[0];
+      const dt = document.getElementById('task-date').value || getTodayStr();
+
+      await addDoc(collection(db, "tasks"), {
+        uid: p.uid, memberName: p.name, memberRole: p.designation,
+        date: dt, month: dt.slice(0,7),
+        category: document.getElementById('task-category').value,
+        title: document.getElementById('task-title').value.trim(),
+        platform: platformStr,
+        status: document.getElementById('task-status').value,
+        quantity: parseInt(document.getElementById('task-qty').value) || 1,
+        link: document.getElementById('task-link').value.trim(),
+        topViewLink: document.getElementById('task-top-link').value.trim(),
+        rating: 0, createdAt: new Date().toISOString()
+      });
+      document.getElementById('task-title').value = '';
+      window.showToast("আলহামদুলিল্লাহ! কাজ সেভ হয়েছে।");
+    };
+
+    function renderWorkspaceTasks() {
+      const p = window.currentUserProfile;
+      if (!p) return;
+      const myActive = window.allTasks.filter(t => t.uid === p.uid && (t.status === 'Ongoing' || t.status === 'Upcoming' || t.status === 'Pending'));
+      document.getElementById('my-ongoing-list').innerHTML = myActive.length === 0 ? `<p class="text-xs text-slate-400">কোনো চলমান কাজ নেই।</p>` : myActive.map(t => `
+        <div class="p-3 rounded-xl border space-y-1.5 text-xs">
+          <div class="flex justify-between font-bold text-asf-600"><span>${window.clean(t.status)}</span><span>${window.formatFullDate(t.date)}</span></div>
+          <p class="font-bold">${window.clean(t.title)}</p>
+          <div class="flex gap-2 pt-1">
+            <button onclick="advancePipelineStage('${t.id}','Ready')" class="btn-green px-2.5 py-1 font-bold">রেডি টু পাবলিশ</button>
+            <button onclick="advancePipelineStage('${t.id}','Completed')" class="bg-blue-600 text-white px-2.5 py-1 rounded font-bold">সম্পন্ন</button>
+          </div>
+        </div>
+      `).join('');
+
+      const myToday = window.allTasks.filter(t => t.uid === p.uid && t.date === getTodayStr());
+      document.getElementById('my-today-tasks-list').innerHTML = myToday.map(t => `
+        <div class="p-2.5 rounded-lg border flex justify-between items-center text-xs">
+          <div><p class="font-bold">${window.clean(t.title)}</p><p class="text-[10px] text-slate-500">${window.clean(t.platform)}</p></div>
+          <button onclick="deleteTaskByAdmin('${t.id}')" class="text-red-500 font-bold">মুছুন</button>
+        </div>
+      `).join('');
+    }
+
+    // 7. Live Chat Functions
+    window.openChatBox = () => {
+      document.getElementById('chat-drawer').classList.remove('hidden');
+      document.getElementById('chat-drawer').classList.add('flex');
+      document.getElementById('chat-unread-badge').classList.add('hidden');
+      document.getElementById('live-msg-toast').classList.add('hidden');
+      renderChatMessages();
+    };
+    window.sendLiveChatMessage = async (e) => {
+      e.preventDefault();
+      const p = window.currentUserProfile;
+      if (!p) return alert("মেসেজ পাঠাতে প্রথমে লগইন করুন।");
+      const text = document.getElementById('chat-input').value.trim();
+      const rec = document.getElementById('chat-recipient').value;
+      if (!text) return;
+      await addDoc(collection(db, "messages"), {
+        senderUid: p.uid, senderName: p.name, recipientUid: rec, text, createdAt: new Date().toISOString()
+      });
+      document.getElementById('chat-input').value = '';
+    };
+    function renderChatMessages() {
+      const box = document.getElementById('chat-messages-box');
+      if (!box) return;
+      const myUid = window.currentUserProfile ? window.currentUserProfile.uid : null;
+      const visible = window.allMessages.filter(m => m.recipientUid === 'ALL' || m.recipientUid === myUid || m.senderUid === myUid);
+      box.innerHTML = visible.length === 0 ? `<p class="text-center text-slate-400 py-8">কোনো মেসেজ নেই।</p>` : visible.slice(-30).map(m => `
+        <div class="p-2 rounded-xl ${m.senderUid === myUid ? 'bg-emerald-100 dark:bg-emerald-950 ml-6' : 'bg-white dark:bg-slate-800 mr-6'} border">
+          <p class="text-[10px] font-bold text-asf-600">${window.clean(m.senderName)} ${m.recipientUid !== 'ALL' ? '🔒' : ''}</p>
+          <p class="text-xs font-medium">${window.clean(m.text)}</p>
+        </div>
+      `).join('');
+      box.scrollTop = box.scrollHeight;
+    }
+
+    // Modal & Admin Helpers
+    window.openQuickStatusModal = (st) => {
+      const modal = document.getElementById('quick-detail-modal');
+      document.getElementById('quick-modal-title').innerText = `${st} প্রোডাকশন তালিকা`;
+      const list = st === 'Completed' ? window.allTasks.filter(t => t.month === getCurrentMonthStr() && t.status === 'Completed') : window.allTasks.filter(t => t.status === st);
+      document.getElementById('quick-modal-body').innerHTML = list.length === 0 ? `<p class="text-center py-6 text-slate-400">কোনো প্রজেক্ট নেই।</p>` : list.map(t => `
+        <div class="p-3 rounded-xl border flex justify-between items-center">
+          <div><p class="font-bold">${window.clean(t.title)}</p><p class="text-slate-500">${window.clean(t.memberName)} • ${window.formatFullDate(t.date)} • ${window.clean(t.platform)}</p></div>
+          ${t.link ? `<a href="${window.cleanUrl(t.link)}" target="_blank" class="text-asf-600 font-bold underline">ড্রাইভ ↗</a>` : ''}
+        </div>
+      `).join('');
+      modal.classList.remove('hidden'); modal.classList.add('flex');
+    };
+
+    window.openPlanningDetailModal = (type) => {
+      const modal = document.getElementById('quick-detail-modal');
+      document.getElementById('quick-modal-title').innerText = type === 'currentPlan' ? 'চলতি মাসের প্ল্যানিং' : 'আগামী ৩ মাসের পরিকল্পনা';
+      document.getElementById('quick-modal-body').innerHTML = `<div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800 whitespace-pre-line">${window.clean(type === 'currentPlan' ? window.siteSettings.planCurrentText : window.siteSettings.planNext3Text)}</div>`;
+      modal.classList.remove('hidden'); modal.classList.add('flex');
+    };
+
+    window.openMemberModal = (uid) => { window.openedModalMemberId = uid; document.getElementById('member-modal').classList.remove('hidden'); document.getElementById('member-modal').classList.add('flex'); refreshOpenedMemberModal(); };
+    window.closeMemberModal = () => { window.openedModalMemberId = null; document.getElementById('member-modal').classList.add('hidden'); };
+    window.refreshOpenedMemberModal = () => {
+      const uid = window.openedModalMemberId;
+      const m = window.allMembers.find(x => x.uid === uid);
+      if (!m) return;
+      document.getElementById('mod-member-img').src = m.photo;
+      document.getElementById('mod-member-name').innerText = m.name;
+      document.getElementById('mod-member-role').innerText = m.designation;
+      document.getElementById('mod-member-bio').innerText = m.bio || "";
+      const month = document.getElementById('mod-member-month').value || getCurrentMonthStr();
+      const mTasks = window.allTasks.filter(t => t.uid === uid && t.month === month);
+      document.getElementById('mod-stat-completed').innerText = mTasks.filter(t => t.status === 'Completed').length;
+      document.getElementById('mod-stat-ongoing').innerText = mTasks.filter(t => t.status === 'Ongoing').length;
+      document.getElementById('mod-stat-pending').innerText = mTasks.filter(t => t.status !== 'Completed' && t.status !== 'Ongoing').length;
+      document.getElementById('mod-stat-days').innerText = new Set(mTasks.map(t => t.date)).size;
+
+      const pItems = window.allMemberPortfolio.filter(x => x.uid === uid);
+      const pcSec = document.getElementById('mod-photocard-section');
+      if (pItems.length > 0) {
+        pcSec.classList.remove('hidden');
+        document.getElementById('mod-photocard-grid').innerHTML = pItems.map(i => `<div class="solid-card overflow-hidden"><div class="aspect-square bg-slate-100"><img src="${i.image}" class="w-full h-full object-contain"></div><p class="p-2 text-xs font-bold truncate">${window.clean(i.title)}</p></div>`).join('');
+      } else pcSec.classList.add('hidden');
+
+      document.getElementById('mod-tasks-tbody').innerHTML = mTasks.map(t => `
+        <tr><td class="p-2 font-bold">${window.formatFullDate(t.date)}</td><td class="p-2 font-bold">${window.clean(t.title)}</td><td class="p-2">${window.clean(t.status)}</td></tr>
+      `).join('');
+    };
+
+    function renderAdminPanel() {
+      const s = window.siteSettings;
+      document.getElementById('plan-target-count').value = s.planTargetCount || 50;
+      document.getElementById('plan-current-text').value = s.planCurrentText || "";
+      document.getElementById('plan-next3-text').value = s.planNext3Text || "";
+
+      document.getElementById('admin-members-list').innerHTML = getSortedMembers(false).map((m, idx) => `
+        <div class="p-2.5 rounded-xl border flex items-center justify-between gap-2 text-xs">
+          <div class="flex items-center gap-2">
+            <button onclick="moveMemberOrder('${m.uid}',-1)" class="px-1.5 py-0.5 bg-slate-100 rounded font-bold">▲</button>
+            <button onclick="moveMemberOrder('${m.uid}',1)" class="px-1.5 py-0.5 bg-slate-100 rounded font-bold">▼</button>
+            <img src="${m.photo}" class="w-8 h-8 rounded-lg object-cover">
+            <div><p class="font-bold">${window.clean(m.name)}</p><p class="text-[10px] text-slate-500">${window.clean(m.designation)}</p></div>
+          </div>
+          <div class="flex items-center gap-1.5">
+            <button onclick="toggleApproveMember('${m.uid}',${!m.approved})" class="px-2 py-1 rounded font-bold ${m.approved ? 'bg-emerald-100 text-asf-700' : 'bg-asf-600 text-white'}">${m.approved ? 'অনুমোদিত ✓' : 'অনুমোদন দিন'}</button>
+            <select onchange="changeMemberRole('${m.uid}',this.value)" class="px-2 py-1 rounded border font-bold">
+              <option value="member" ${m.role==='member'?'selected':''}>Member</option>
+              <option value="director" ${m.role==='director'?'selected':''}>Director</option>
+              <option value="superadmin" ${m.role==='superadmin'?'selected':''}>Super Admin</option>
+            </select>
+          </div>
+        </div>
+      `).join('');
+
+      document.getElementById('admin-portfolio-list').innerHTML = window.allPortfolio.map(v => `
+        <div class="flex justify-between items-center text-xs p-1.5 bg-slate-50 rounded">
+          <span class="truncate font-bold">${window.clean(v.title)}</span>
+          <button onclick="deletePortfolioVideo('${v.id}')" class="text-red-500 font-bold">ডিলিট</button>
+        </div>
+      `).join('');
+    }
+
+    window.moveMemberOrder = async (uid, dir) => {
+      const list = getSortedMembers(false);
+      const i = list.findIndex(x => x.uid === uid);
+      if (i === -1 || i+dir < 0 || i+dir >= list.length) return;
+      [list[i], list[i+dir]] = [list[i+dir], list[i]];
+      for (let k=0; k<list.length; k++) await setDoc(doc(db, "users", list[k].uid), { sortOrder: k+1 }, { merge: true });
+    };
+    window.toggleApproveMember = async (uid, st) => await setDoc(doc(db, "users", uid), { approved: st }, { merge: true });
+    window.changeMemberRole = async (uid, role) => await setDoc(doc(db, "users", uid), { role, approved: true }, { merge: true });
+    window.savePlanningSettings = async (e) => {
+      e.preventDefault();
+      await setDoc(doc(db, "config", "siteSettings"), {
+        planTargetCount: parseInt(document.getElementById('plan-target-count').value)||50,
+        planCurrentText: document.getElementById('plan-current-text').value.trim(),
+        planNext3Text: document.getElementById('plan-next3-text').value.trim()
+      }, { merge: true });
+      window.showToast("পরিকল্পনা সেভ হয়েছে!");
+    };
+    window.addMeetingRecord = async (e) => {
+      e.preventDefault();
+      await addDoc(collection(db, "meetings"), {
+        title: document.getElementById('meet-title').value.trim(),
+        date: document.getElementById('meet-date').value,
+        agenda: document.getElementById('meet-agenda').value.trim(),
+        decisions: document.getElementById('meet-decisions').value.trim(),
+        createdAt: new Date().toISOString()
+      });
+      e.target.reset();
+    };
+    window.addPortfolioVideo = async (e) => {
+      e.preventDefault();
+      await addDoc(collection(db, "portfolio"), {
+        title: document.getElementById('port-title').value.trim(),
+        url: document.getElementById('port-url').value.trim(),
+        category: document.getElementById('port-cat').value,
+        popular: document.getElementById('port-popular').checked,
+        month: getCurrentMonthStr(),
+        createdAt: new Date().toISOString()
+      });
+      e.target.reset();
+    };
+    window.deletePortfolioVideo = async (id) => await deleteDoc(doc(db, "portfolio", id));
+    window.deleteTaskByAdmin = async (id) => { if(confirm("মুছে ফেলতে চান?")) await deleteDoc(doc(db, "tasks", id)); };
+    window.clearAllTestTasks = async () => { if(confirm("সব টেস্ট কাজ মুছে ফেলতে চান?")) { for(const t of window.allTasks) await deleteDoc(doc(db, "tasks", t.id)); } };
+
+    // Auth & Profile
+    async function compressImg(file, max=500) {
+      return new Promise(res => {
+        if(!file) return res(null);
+        const r = new FileReader();
+        r.onload = e => {
+          const img = new Image();
+          img.onload = () => {
+            const c = document.createElement('canvas');
+            let w = img.width, h = img.height;
+            if (w>h && w>max) { h *= max/w; w = max; } else if (h>max) { w *= max/h; h = max; }
+            c.width = w; c.height = h; c.getContext('2d').drawImage(img,0,0,w,h);
+            res(c.toDataURL('image/jpeg',0.8));
+          };
+          img.src = e.target.result;
+        };
+        r.readAsDataURL(file);
+      });
+    }
+
+    window.openAuthModal = () => { document.getElementById('auth-modal').classList.remove('hidden'); document.getElementById('auth-modal').classList.add('flex'); };
+    window.closeAuthModal = () => document.getElementById('auth-modal').classList.add('hidden');
+    window.switchAuthMode = (m) => {
+      document.getElementById('login-form').classList.toggle('hidden', m !== 'login');
+      document.getElementById('signup-form').classList.toggle('hidden', m === 'login');
+    };
+    window.handleLogin = async (e) => {
+      e.preventDefault();
+      try { await signInWithEmailAndPassword(auth, document.getElementById('login-email').value.trim(), document.getElementById('login-pass').value); closeAuthModal(); }
+      catch(err) { alert("লগইন ব্যর্থ হয়েছে!"); }
+    };
+    window.handleSignup = async (e) => {
+      e.preventDefault();
+      const name = document.getElementById('reg-name').value.trim();
+      const email = document.getElementById('reg-email').value.trim().toLowerCase();
+      const pass = document.getElementById('reg-pass').value;
+      const photo = await compressImg(document.getElementById('reg-photo').files[0], 250) || `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=006837&color=fff`;
+      const isSuper = email === SUPER_ADMIN_EMAIL;
+      const cred = await createUserWithEmailAndPassword(auth, email, pass);
+      await setDoc(doc(db, "users", cred.user.uid), {
+        name, designation: document.getElementById('reg-designation').value.trim(),
+        bio: document.getElementById('reg-bio').value.trim(), email, photo,
+        role: isSuper ? 'superadmin' : 'member', approved: isSuper, sortOrder: window.allMembers.length+1
+      });
+      closeAuthModal();
+    };
+    window.logoutUser = async () => { await signOut(auth); switchTab('home'); };
+
+    window.openEditProfileModal = () => {
+      const p = window.currentUserProfile;
+      document.getElementById('edit-prof-name').value = p.name || "";
+      document.getElementById('edit-prof-desig').value = p.designation || "";
+      document.getElementById('edit-prof-bio').value = p.bio || "";
+      document.getElementById('edit-profile-modal').classList.remove('hidden');
+      document.getElementById('edit-profile-modal').classList.add('flex');
+    };
+    window.saveProfileChanges = async (e) => {
+      e.preventDefault();
+      const up = {
+        name: document.getElementById('edit-prof-name').value.trim(),
+        designation: document.getElementById('edit-prof-desig').value.trim(),
+        bio: document.getElementById('edit-prof-bio').value.trim()
+      };
+      const f = document.getElementById('edit-prof-photo').files[0];
+      if (f) up.photo = await compressImg(f, 250);
+      await setDoc(doc(db, "users", window.currentUserProfile.uid), up, { merge: true });
+      document.getElementById('edit-profile-modal').classList.add('hidden');
+    };
+
+    window.openAddPortfolioItemModal = () => { document.getElementById('add-portfolio-item-modal').classList.remove('hidden'); document.getElementById('add-portfolio-item-modal').classList.add('flex'); };
+    window.saveMemberPortfolioItem = async (e) => {
+      e.preventDefault();
+      const img = await compressImg(document.getElementById('mp-image-file').files[0], 600);
+      await addDoc(collection(db, "memberPortfolio"), {
+        uid: window.currentUserProfile.uid, title: document.getElementById('mp-title').value.trim(),
+        image: img, createdAt: new Date().toISOString()
+      });
+      document.getElementById('add-portfolio-item-modal').classList.add('hidden');
+    };
+
+    window.switchTab = (t) => {
+      ['home','pipeline','dashboard','team','portfolio','workspace','admin'].forEach(k => {
+        document.getElementById(`tab-${k}`).classList.add('hidden');
+        const b = document.getElementById(`nav-${k}`);
+        if(b) b.className = "px-3 py-2 text-sm font-semibold text-slate-700 dark:text-slate-300";
+      });
+      document.getElementById(`tab-${t}`).classList.remove('hidden');
+      const ab = document.getElementById(`nav-${t}`);
+      if(ab) ab.className = "px-3 py-2 text-sm font-bold text-asf-600 border-b-2 border-asf-600";
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+
+    window.toggleTheme = () => document.documentElement.classList.toggle('dark');
+    window.toggleLanguage = () => {
+      window.currentLang = window.currentLang === 'bn' ? 'en' : 'bn';
+      document.getElementById('lang-btn').innerText = window.currentLang === 'bn' ? 'EN' : 'বাং';
+      document.documentElement.classList.toggle('lang-en', window.currentLang === 'en');
+      document.querySelectorAll('[data-bn]').forEach(el => el.innerText = el.getAttribute(`data-${window.currentLang}`));
+      applySiteSettingsUI(); renderHomeSection();
+    };
+    window.triggerAppInstall = () => alert("মোবাইলের ব্রাউজার মেনু (⋮) থেকে 'Add to Home screen' বা 'Install App' সিলেক্ট করুন।");
+    window.exportTasksToCSV = () => {
+      const csv = "\uFEFFDate,Member,Category,Title,Platform,Status\n" + window.allTasks.map(t => `${t.date},"${t.memberName}","${t.category}","${t.title}","${t.platform}",${t.status}`).join("\n");
+      const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([csv],{type:"text/csv"})); a.download = "ASF_Report.csv"; a.click();
+    };
+    window.downloadFullJSONBackup = () => {
+      const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([JSON.stringify({tasks:window.allTasks,members:window.allMembers},null,2)],{type:"application/json"})); a.download = "ASF_Backup.json"; a.click();
+    };
+
+    applySiteSettingsUI();
+  </script>
+</body>
+</html>
