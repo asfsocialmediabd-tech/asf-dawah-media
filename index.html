@@ -2,7 +2,7 @@
 <html lang="bn" class="light scroll-smooth">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <meta name="theme-color" content="#083823">
   <title>ASF Dawah Media | As-Sunnah Foundation</title>
   <link id="favicon" rel="icon" type="image/png" href="https://assunnahfoundation.org/assets/images/logo.png">
@@ -20,7 +20,14 @@
   <style>
     @font-face { font-family: 'Bornomala'; src: url('./Bornomala-Regular.ttf') format('truetype'); font-weight: 400; unicode-range: U+0980-09FF, U+200C-200D, U+25CC; }
     @font-face { font-family: 'Bornomala'; src: url('./Bornomala-Bold.ttf') format('truetype'); font-weight: 700; unicode-range: U+0980-09FF, U+200C-200D, U+25CC; }
-    body { font-family: 'Inter', 'Bornomala', sans-serif; background-color: #f6f8f7; color: #1e293b; line-height: 1.6; }
+    html, body {
+      max-width: 100vw;
+      overflow-x: hidden;
+      font-family: 'Inter', 'Bornomala', sans-serif;
+      background-color: #f6f8f7;
+      color: #1e293b;
+      line-height: 1.6;
+    }
     html.lang-en body { font-family: 'Inter', sans-serif !important; }
     .dark body { background-color: #07130e; color: #f1f5f9; }
     .stitched-box { padding: 5px; border: 1.5px dashed #006837; border-radius: 1.25rem; transition: all 0.2s ease; }
@@ -46,31 +53,32 @@
 <body class="min-h-screen flex flex-col pb-20 md:pb-0">
 
   <!-- Toast Status Popup & Live Message Toast -->
-  <div id="toast-msg" class="fixed top-5 right-5 z-50 hidden bg-asf-700 text-white px-4 py-3 rounded-xl shadow-2xl border border-emerald-400 text-xs sm:text-sm font-bold"></div>
-  <div id="live-msg-toast" onclick="openChatBox()" class="fixed bottom-20 right-5 z-50 hidden cursor-pointer bg-white dark:bg-slate-900 border-2 border-asf-600 p-3.5 rounded-2xl shadow-2xl max-w-xs">
+  <div id="toast-msg" class="fixed top-5 right-4 z-50 hidden bg-asf-700 text-white px-4 py-3 rounded-xl shadow-2xl border border-emerald-400 text-xs sm:text-sm font-bold max-w-[90vw]"></div>
+  <div id="live-msg-toast" onclick="openChatBox()" class="fixed bottom-20 right-4 z-50 hidden cursor-pointer bg-white dark:bg-slate-900 border-2 border-asf-600 p-3.5 rounded-2xl shadow-2xl max-w-[85vw] sm:max-w-xs">
     <p class="text-[11px] font-bold text-asf-600" id="toast-sender"></p>
     <p class="text-xs font-semibold text-slate-800 dark:text-slate-100 line-clamp-2 mt-0.5" id="toast-preview"></p>
   </div>
 
   <!-- Top Notice Bar -->
-  <div id="notice-bar" class="bg-asf-700 text-white text-xs py-2 px-4 text-center font-medium hidden">
-    <span class="px-2 py-0.5 text-[10px] font-bold bg-amber-400 text-slate-950 rounded mr-2">নোটিশ</span>
+  <div id="notice-bar" class="bg-asf-700 text-white text-xs py-2 px-3 text-center font-medium hidden w-full">
+    <span class="px-2 py-0.5 text-[10px] font-bold bg-amber-400 text-slate-950 rounded mr-1.5">নোটিশ</span>
     <span id="notice-text"></span>
   </div>
 
-  <!-- Header (Widescreen 95% Layout + Notification Bell) -->
-  <header class="sticky top-0 z-40 bg-white dark:bg-[#0a1912] border-b border-slate-200 dark:border-emerald-950">
-    <div class="w-[95%] max-w-[1600px] mx-auto h-16 sm:h-20 flex items-center justify-between gap-2">
-      <div class="flex items-center gap-2.5 cursor-pointer shrink-0" onclick="switchTab('home')">
-        <img id="brand-logo" src="https://assunnahfoundation.org/assets/images/logo.png" onerror="this.src='https://ui-avatars.com/api/?name=ASF&background=006837&color=fff&bold=true'" alt="Logo" class="w-10 h-10 rounded-xl object-contain bg-white border border-slate-200 p-0.5">
-        <div>
-          <h1 id="brand-title" class="text-base sm:text-xl font-bold text-asf-700 dark:text-white leading-tight">ASF Dawah Media</h1>
-          <p id="brand-subtitle" class="text-[10px] sm:text-xs font-medium text-slate-500">As-Sunnah Foundation</p>
+  <!-- Header (100% Fixed on Mobile & Widescreen 95% on Desktop) -->
+  <header class="sticky top-0 z-40 w-full bg-white dark:bg-[#0a1912] border-b border-slate-200 dark:border-emerald-950">
+    <div class="w-full px-2.5 sm:px-0 sm:w-[95%] max-w-[1600px] mx-auto h-16 sm:h-20 flex items-center justify-between gap-1.5 sm:gap-2">
+      <!-- Brand Logo & Title (Truncates gracefully on narrow mobile screens) -->
+      <div class="flex items-center gap-2 cursor-pointer min-w-0 flex-1" onclick="switchTab('home')">
+        <img id="brand-logo" src="https://assunnahfoundation.org/assets/images/logo.png" onerror="this.src='https://ui-avatars.com/api/?name=ASF&background=006837&color=fff&bold=true'" alt="Logo" class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl object-contain bg-white border border-slate-200 p-0.5 shrink-0">
+        <div class="min-w-0 flex-1">
+          <h1 id="brand-title" class="text-sm sm:text-xl font-bold text-asf-700 dark:text-white leading-tight truncate">ASF Dawah Media</h1>
+          <p id="brand-subtitle" class="text-[10px] sm:text-xs font-medium text-slate-500 truncate">As-Sunnah Foundation</p>
         </div>
       </div>
 
       <!-- Desktop Navigation -->
-      <nav class="hidden md:flex items-center gap-1">
+      <nav class="hidden md:flex items-center gap-1 shrink-0">
         <button onclick="switchTab('home')" id="nav-home" class="px-3.5 py-2 text-sm font-bold text-asf-600 border-b-2 border-asf-600" data-bn="হোম" data-en="Home">হোম</button>
         <button onclick="switchTab('pipeline')" id="nav-pipeline" class="px-3.5 py-2 text-sm font-semibold text-slate-700 dark:text-slate-300" data-bn="প্রোডাকশন পাইপলাইন" data-en="Production Pipeline">প্রোডাকশন পাইপলাইন</button>
         <button onclick="switchTab('dashboard')" id="nav-dashboard" class="px-3.5 py-2 text-sm font-semibold text-slate-700 dark:text-slate-300" data-bn="মাসিক ড্যাশবোর্ড" data-en="Monthly Dashboard">মাসিক ড্যাশবোর্ড</button>
@@ -80,18 +88,21 @@
         <button onclick="switchTab('admin')" id="nav-admin" class="admin-only px-3.5 py-2 text-sm font-semibold text-slate-700 dark:text-slate-300" data-bn="অ্যাডমিন" data-en="Admin">অ্যাডমিন</button>
       </nav>
 
-      <div class="flex items-center gap-1.5 relative">
-        <button onclick="triggerAppInstall()" class="px-2.5 py-1.5 text-xs font-bold rounded-lg bg-emerald-50 text-asf-600 border border-asf-600/30">📲 <span data-bn="অ্যাপ" data-en="App">অ্যাপ</span></button>
-        <button onclick="toggleLanguage()" id="lang-btn" class="px-2.5 py-1.5 text-xs font-bold rounded-lg bg-slate-100 dark:bg-slate-800 border">EN</button>
-        <button onclick="toggleTheme()" class="p-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 border text-xs">🌙</button>
+      <!-- Action Buttons (Compact on Mobile so nothing overflows) -->
+      <div class="flex items-center gap-1 sm:gap-1.5 shrink-0">
+        <button onclick="triggerAppInstall()" class="px-2 sm:px-2.5 py-1.5 text-[11px] sm:text-xs font-bold rounded-lg bg-emerald-50 text-asf-600 border border-asf-600/30 flex items-center gap-1" title="Install App">
+          <span>📲</span><span class="hidden sm:inline" data-bn="অ্যাপ" data-en="App">অ্যাপ</span>
+        </button>
+        <button onclick="toggleLanguage()" id="lang-btn" class="px-2 sm:px-2.5 py-1.5 text-[11px] sm:text-xs font-bold rounded-lg bg-slate-100 dark:bg-slate-800 border">EN</button>
+        <button onclick="toggleTheme()" class="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-slate-100 dark:bg-slate-800 border text-xs flex items-center justify-center">🌙</button>
 
         <!-- Notification Bell Button & Dropdown -->
         <div class="relative">
-          <button onclick="toggleNotifDropdown()" class="p-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 border text-xs relative flex items-center justify-center w-8 h-8" title="নোটিফিকেশন">
+          <button onclick="toggleNotifDropdown()" class="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-slate-100 dark:bg-slate-800 border text-xs relative flex items-center justify-center" title="নোটিফিকেশন">
             🔔
             <span id="notif-badge" class="hidden absolute -top-1 -right-1 w-4 h-4 rounded-full bg-red-600 text-white text-[9px] font-bold flex items-center justify-center">0</span>
           </button>
-          <div id="notif-dropdown" class="hidden absolute right-0 mt-2 w-72 sm:w-80 solid-card shadow-2xl border-2 border-asf-600 z-50 overflow-hidden">
+          <div id="notif-dropdown" class="hidden fixed sm:absolute right-2 sm:right-0 top-16 sm:top-auto sm:mt-2 w-[92vw] max-w-xs sm:w-80 solid-card shadow-2xl border-2 border-asf-600 z-50 overflow-hidden">
             <div class="bg-asf-700 text-white px-3.5 py-2.5 flex items-center justify-between text-xs font-bold">
               <span>🔔 নোটিফিকেশন ও আপডেট</span>
               <button onclick="document.getElementById('notif-dropdown').classList.add('hidden')" class="text-white">✕</button>
@@ -101,35 +112,35 @@
         </div>
 
         <div id="auth-buttons">
-          <button onclick="openAuthModal()" class="btn-green px-4 py-1.5 text-xs sm:text-sm font-bold" data-bn="লগইন" data-en="Login">লগইন</button>
+          <button onclick="openAuthModal()" class="btn-green px-2.5 sm:px-4 py-1.5 text-[11px] sm:text-sm font-bold whitespace-nowrap" data-bn="লগইন" data-en="Login">লগইন</button>
         </div>
-        <div id="user-menu" class="auth-only items-center gap-1.5 bg-slate-100 dark:bg-slate-800 p-1 pr-2.5 rounded-full border">
-          <img id="current-user-img" src="" class="w-7 h-7 rounded-full object-cover border border-asf-600 cursor-pointer" onclick="switchTab('workspace')">
-          <button onclick="logoutUser()" class="text-xs font-bold text-red-600 px-1" title="লগআউট">লগআউট</button>
+        <div id="user-menu" class="auth-only items-center gap-1 bg-slate-100 dark:bg-slate-800 p-0.5 sm:p-1 pr-1.5 sm:pr-2.5 rounded-full border">
+          <img id="current-user-img" src="" class="w-6 h-6 sm:w-7 sm:h-7 rounded-full object-cover border border-asf-600 cursor-pointer" onclick="switchTab('workspace')">
+          <button onclick="logoutUser()" class="text-[10px] sm:text-xs font-bold text-red-600 px-1" title="লগআউট">✕</button>
         </div>
       </div>
     </div>
   </header>
 
   <!-- Mobile Bottom Navigation -->
-  <nav id="mobile-bottom-nav" class="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-white dark:bg-[#0a1912] border-t px-1 py-1.5 flex items-center justify-around text-[11px] font-bold">
-    <button onclick="switchTab('home')" id="mnav-home" class="text-asf-600 py-1 px-2" data-bn="হোম" data-en="Home">হোম</button>
-    <button onclick="switchTab('pipeline')" id="mnav-pipeline" class="text-slate-500 py-1 px-2" data-bn="পাইপলাইন" data-en="Pipeline">পাইপলাইন</button>
-    <button onclick="switchTab('dashboard')" id="mnav-dashboard" class="text-slate-500 py-1 px-2" data-bn="ড্যাশবোর্ড" data-en="Dashboard">ড্যাশবোর্ড</button>
-    <button onclick="switchTab('team')" id="mnav-team" class="text-slate-500 py-1 px-2" data-bn="টিম" data-en="Team">টিম</button>
-    <button onclick="switchTab('portfolio')" id="mnav-portfolio" class="text-slate-500 py-1 px-2" data-bn="কাজ" data-en="Works">কাজ</button>
-    <button onclick="switchTab('workspace')" id="mnav-workspace" class="auth-only text-slate-500 py-1 px-2" data-bn="লিখুন" data-en="Log">লিখুন</button>
-    <button onclick="switchTab('admin')" id="mnav-admin" class="admin-only text-slate-500 py-1 px-2" data-bn="অ্যাডমিন" data-en="Admin">অ্যাডমিন</button>
+  <nav id="mobile-bottom-nav" class="md:hidden fixed bottom-0 left-0 right-0 w-full z-40 bg-white dark:bg-[#0a1912] border-t px-1 py-1.5 flex items-center justify-around text-[11px] font-bold">
+    <button onclick="switchTab('home')" id="mnav-home" class="text-asf-600 py-1 px-1.5" data-bn="হোম" data-en="Home">হোম</button>
+    <button onclick="switchTab('pipeline')" id="mnav-pipeline" class="text-slate-500 py-1 px-1.5" data-bn="পাইপলাইন" data-en="Pipeline">পাইপলাইন</button>
+    <button onclick="switchTab('dashboard')" id="mnav-dashboard" class="text-slate-500 py-1 px-1.5" data-bn="ড্যাশবোর্ড" data-en="Dashboard">ড্যাশবোর্ড</button>
+    <button onclick="switchTab('team')" id="mnav-team" class="text-slate-500 py-1 px-1.5" data-bn="টিম" data-en="Team">টিম</button>
+    <button onclick="switchTab('portfolio')" id="mnav-portfolio" class="text-slate-500 py-1 px-1.5" data-bn="কাজ" data-en="Works">কাজ</button>
+    <button onclick="switchTab('workspace')" id="mnav-workspace" class="auth-only text-slate-500 py-1 px-1.5" data-bn="লিখুন" data-en="Log">লিখুন</button>
+    <button onclick="switchTab('admin')" id="mnav-admin" class="admin-only text-slate-500 py-1 px-1.5" data-bn="অ্যাডমিন" data-en="Admin">অ্যাডমিন</button>
   </nav>
 
-  <!-- MAIN CONTENT (Widescreen 95% Layout) -->
-  <main class="flex-grow w-[95%] max-w-[1600px] mx-auto py-6 space-y-8">
+  <!-- MAIN CONTENT (100% Fixed Responsive Container) -->
+  <main class="flex-grow w-full px-2.5 sm:px-0 sm:w-[95%] max-w-[1600px] mx-auto py-5 sm:py-6 space-y-7 sm:space-y-8 overflow-x-hidden">
 
     <!-- ================= 1. HOME TAB ================= -->
-    <section id="tab-home" class="space-y-8">
-      <!-- Stitched Solid Hero Banner (Perfectly Centered, Redundant Progress Box Removed) -->
+    <section id="tab-home" class="space-y-7 sm:space-y-8">
+      <!-- Stitched Solid Hero Banner (Perfectly Centered) -->
       <div class="stitched-box">
-        <div class="bg-asf-700 rounded-2xl py-8 sm:py-12 px-4 sm:px-10 text-white flex flex-col items-center justify-center text-center space-y-3">
+        <div class="bg-asf-700 rounded-2xl py-7 sm:py-12 px-4 sm:px-10 text-white flex flex-col items-center justify-center text-center space-y-2.5">
           <h2 class="text-2xl sm:text-4xl lg:text-5xl font-bold leading-snug tracking-tight">
             <span id="hero-line-1" class="block">আস-সুন্নাহ ফাউন্ডেশন</span>
             <span id="hero-line-2" class="block text-emerald-300 mt-1">দাওয়াহ মিডিয়া</span>
@@ -138,64 +149,64 @@
         </div>
       </div>
 
-      <!-- 5 Counter Status Cards (Quantity-Aware) -->
-      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
+      <!-- 5 Counter Status Cards (Quantity-Aware & Mobile-Fitted) -->
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4">
         <div onclick="openQuickStatusModal('Completed')" class="stitched-box cursor-pointer">
-          <div class="solid-card p-4 flex items-center gap-3.5">
-            <div class="w-11 h-11 rounded-xl bg-asf-600 text-white flex items-center justify-center shrink-0">
-              <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+          <div class="solid-card p-3.5 sm:p-4 flex items-center gap-3 h-full">
+            <div class="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-asf-600 text-white flex items-center justify-center shrink-0">
+              <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
             </div>
-            <div>
-              <p class="text-xl font-bold" id="stat-completed">0</p>
-              <p class="text-[11px] font-bold text-slate-500" data-bn="চলতি মাসে সম্পন্ন প্রোডাকশন" data-en="Completed Productions">চলতি মাসে সম্পন্ন প্রোডাকশন</p>
+            <div class="min-w-0">
+              <p class="text-lg sm:text-xl font-bold" id="stat-completed">0</p>
+              <p class="text-[11px] font-bold text-slate-500 leading-tight" data-bn="চলতি মাসে সম্পন্ন প্রোডাকশন" data-en="Completed Productions">চলতি মাসে সম্পন্ন প্রোডাকশন</p>
             </div>
           </div>
         </div>
 
         <div onclick="openQuickStatusModal('Ongoing')" class="stitched-blue cursor-pointer">
-          <div class="solid-card p-4 flex items-center gap-3.5">
-            <div class="w-11 h-11 rounded-xl bg-blue-600 text-white flex items-center justify-center shrink-0">
-              <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path stroke-linecap="round" d="M12 7v5l3 3"/></svg>
+          <div class="solid-card p-3.5 sm:p-4 flex items-center gap-3 h-full">
+            <div class="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-blue-600 text-white flex items-center justify-center shrink-0">
+              <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path stroke-linecap="round" d="M12 7v5l3 3"/></svg>
             </div>
-            <div>
-              <p class="text-xl font-bold" id="stat-ongoing">0</p>
-              <p class="text-[11px] font-bold text-slate-500" data-bn="বর্তমানে চলমান প্রজেক্ট" data-en="Ongoing Projects">বর্তমানে চলমান প্রজেক্ট</p>
+            <div class="min-w-0">
+              <p class="text-lg sm:text-xl font-bold" id="stat-ongoing">0</p>
+              <p class="text-[11px] font-bold text-slate-500 leading-tight" data-bn="বর্তমানে চলমান প্রজেক্ট" data-en="Ongoing Projects">বর্তমানে চলমান প্রজেক্ট</p>
             </div>
           </div>
         </div>
 
         <div onclick="openQuickStatusModal('Pending')" class="stitched-amber cursor-pointer">
-          <div class="solid-card p-4 flex items-center gap-3.5">
-            <div class="w-11 h-11 rounded-xl bg-amber-600 text-white flex items-center justify-center shrink-0">
-              <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path stroke-linecap="round" d="M12 8v4m0 4h.01"/></svg>
+          <div class="solid-card p-3.5 sm:p-4 flex items-center gap-3 h-full">
+            <div class="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-amber-600 text-white flex items-center justify-center shrink-0">
+              <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path stroke-linecap="round" d="M12 8v4m0 4h.01"/></svg>
             </div>
-            <div>
-              <p class="text-xl font-bold" id="stat-pending">0</p>
-              <p class="text-[11px] font-bold text-slate-500" data-bn="পেন্ডিং প্রজেক্ট" data-en="Pending Projects">পেন্ডিং প্রজেক্ট</p>
+            <div class="min-w-0">
+              <p class="text-lg sm:text-xl font-bold" id="stat-pending">0</p>
+              <p class="text-[11px] font-bold text-slate-500 leading-tight" data-bn="পেন্ডিং প্রজেক্ট" data-en="Pending Projects">পেন্ডিং প্রজেক্ট</p>
             </div>
           </div>
         </div>
 
         <div onclick="openQuickStatusModal('Ready')" class="stitched-rose cursor-pointer">
-          <div class="solid-card p-4 flex items-center gap-3.5">
-            <div class="w-11 h-11 rounded-xl bg-rose-600 text-white flex items-center justify-center shrink-0">
-              <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+          <div class="solid-card p-3.5 sm:p-4 flex items-center gap-3 h-full">
+            <div class="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-rose-600 text-white flex items-center justify-center shrink-0">
+              <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
             </div>
-            <div>
-              <p class="text-xl font-bold" id="stat-ready">0</p>
-              <p class="text-[11px] font-bold text-slate-500" data-bn="রেডি টু পাবলিশ" data-en="Ready to Publish">রেডি টু পাবলিশ</p>
+            <div class="min-w-0">
+              <p class="text-lg sm:text-xl font-bold" id="stat-ready">0</p>
+              <p class="text-[11px] font-bold text-slate-500 leading-tight" data-bn="রেডি টু পাবলিশ" data-en="Ready to Publish">রেডি টু পাবলিশ</p>
             </div>
           </div>
         </div>
 
         <div onclick="openQuickStatusModal('Upcoming')" class="stitched-purple cursor-pointer col-span-2 sm:col-span-1">
-          <div class="solid-card p-4 flex items-center gap-3.5">
-            <div class="w-11 h-11 rounded-xl bg-purple-600 text-white flex items-center justify-center shrink-0">
-              <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path stroke-linecap="round" d="M16 2v4M8 2v4M3 10h18"/></svg>
+          <div class="solid-card p-3.5 sm:p-4 flex items-center gap-3 h-full">
+            <div class="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-purple-600 text-white flex items-center justify-center shrink-0">
+              <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path stroke-linecap="round" d="M16 2v4M8 2v4M3 10h18"/></svg>
             </div>
-            <div>
-              <p class="text-xl font-bold" id="stat-upcoming">0</p>
-              <p class="text-[11px] font-bold text-slate-500" data-bn="আপকামিং প্রোডাকশন" data-en="Upcoming Productions">আপকামিং প্রোডাকশন</p>
+            <div class="min-w-0">
+              <p class="text-lg sm:text-xl font-bold" id="stat-upcoming">0</p>
+              <p class="text-[11px] font-bold text-slate-500 leading-tight" data-bn="আপকামিং প্রোডাকশন" data-en="Upcoming Productions">আপকামিং প্রোডাকশন</p>
             </div>
           </div>
         </div>
@@ -204,11 +215,11 @@
       <!-- Planning Overview (Current, Next Month Report, Next 3 Months) & Comparison Chart -->
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
         <div class="lg:col-span-7 stitched-box">
-          <div class="solid-card p-5 space-y-4 h-full flex flex-col justify-between">
+          <div class="solid-card p-4 sm:p-5 space-y-4 h-full flex flex-col justify-between">
             <div class="space-y-4">
-              <div class="flex justify-between items-center border-b pb-2.5 dark:border-slate-800">
-                <h3 class="font-bold text-base" data-bn="মাসিক কাজের প্ল্যানিং ও ওভারভিউ" data-en="Monthly Planning & Overview">মাসিক কাজের প্ল্যানিং ও ওভারভিউ</h3>
-                <button onclick="switchTab('pipeline')" class="text-xs font-bold text-asf-600" data-bn="প্রোডাকশন পাইপলাইন →" data-en="Pipeline →">প্রোডাকশন পাইপলাইন →</button>
+              <div class="flex justify-between items-center border-b pb-2.5 dark:border-slate-800 gap-2">
+                <h3 class="font-bold text-sm sm:text-base" data-bn="মাসিক কাজের প্ল্যানিং ও ওভারভিউ" data-en="Monthly Planning & Overview">মাসিক কাজের প্ল্যানিং ও ওভারভিউ</h3>
+                <button onclick="switchTab('pipeline')" class="text-xs font-bold text-asf-600 shrink-0" data-bn="প্রোডাকশন পাইপলাইন →" data-en="Pipeline →">প্রোডাকশন পাইপলাইন →</button>
               </div>
               <div class="bg-emerald-50/70 dark:bg-slate-800 p-3.5 rounded-xl border border-emerald-200 dark:border-slate-700 space-y-1.5">
                 <div class="flex justify-between text-xs font-bold">
@@ -238,9 +249,9 @@
         </div>
 
         <div class="lg:col-span-5 stitched-box">
-          <div class="solid-card p-5 h-full flex flex-col justify-between space-y-4">
+          <div class="solid-card p-4 sm:p-5 h-full flex flex-col justify-between space-y-4">
             <div class="flex justify-between items-center border-b pb-2.5 dark:border-slate-800">
-              <h3 class="font-bold text-base" data-bn="বিগত মাস বনাম চলতি মাসের গ্রাফ" data-en="Previous vs Current Month Chart">বিগত মাস বনাম চলতি মাসের গ্রাফ</h3>
+              <h3 class="font-bold text-sm sm:text-base" data-bn="বিগত মাস বনাম চলতি মাসের গ্রাফ" data-en="Previous vs Current Month Chart">বিগত মাস বনাম চলতি মাসের গ্রাফ</h3>
               <span id="home-growth-badge" class="px-2 py-0.5 rounded bg-emerald-100 text-asf-700 text-xs font-bold"></span>
             </div>
             <div id="home-comparison-chart" class="my-auto py-2"></div>
@@ -252,7 +263,7 @@
         </div>
       </div>
 
-      <!-- Team Members Overview on Home Page (Above Featured Productions — Photo, Name, Designation & Bio Only, No Task Counts) -->
+      <!-- Team Members Overview on Home Page (Above Featured Productions — Photo, Name, Designation & Bio Only) -->
       <div class="space-y-4">
         <div class="flex items-center justify-between">
           <h3 class="text-lg sm:text-xl font-bold flex items-center gap-2">
@@ -267,10 +278,10 @@
       <div class="space-y-4">
         <div class="flex flex-wrap items-center justify-between gap-2">
           <h3 class="text-lg sm:text-xl font-bold" data-bn="ফিচারড প্রোডাকশন" data-en="Featured Productions">ফিচারড প্রোডাকশন</h3>
-          <div class="flex items-center gap-2">
-            <button onclick="setHomeProdMode('popular')" id="hprod-popular" class="px-3 py-1.5 rounded-lg text-xs font-bold btn-green" data-bn="★ পপুলার প্রোডাকশন" data-en="★ Popular">★ পপুলার প্রোডাকশন</button>
-            <button onclick="setHomeProdMode('current')" id="hprod-current" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-200 dark:bg-slate-800" data-bn="চলতি মাসের কাজ" data-en="This Month">চলতি মাসের কাজ</button>
-            <button onclick="switchTab('portfolio')" class="text-xs font-bold text-asf-600 ml-2" data-bn="সব দেখুন →" data-en="View All →">সব দেখুন →</button>
+          <div class="flex flex-wrap items-center gap-1.5 sm:gap-2">
+            <button onclick="setHomeProdMode('popular')" id="hprod-popular" class="px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-bold btn-green" data-bn="★ পপুলার প্রোডাকশন" data-en="★ Popular">★ পপুলার প্রোডাকশন</button>
+            <button onclick="setHomeProdMode('current')" id="hprod-current" class="px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-200 dark:bg-slate-800" data-bn="চলতি মাসের কাজ" data-en="This Month">চলতি মাসের কাজ</button>
+            <button onclick="switchTab('portfolio')" class="text-xs font-bold text-asf-600 ml-1" data-bn="সব দেখুন →" data-en="View All →">সব দেখুন →</button>
           </div>
         </div>
         <div id="home-portfolio-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"></div>
@@ -278,19 +289,19 @@
 
       <!-- Managed Official Pages & Channels Directory -->
       <div class="stitched-box">
-        <div class="solid-card p-5 space-y-4">
-          <div class="flex items-center justify-between border-b pb-2.5 dark:border-slate-800">
-            <h3 class="font-bold text-base text-asf-700 dark:text-emerald-400" data-bn="আমাদের পরিচালিত পেজ ও চ্যানেলসমূহ" data-en="Our Managed Official Pages & Channels">আমাদের পরিচালিত পেজ ও চ্যানেলসমূহ</h3>
-            <span class="text-xs text-slate-400 font-semibold" data-bn="ক্লিক করলে সরাসরি পেজ বা চ্যানেলে যাবে" data-en="Click to visit official channel">ক্লিক করলে সরাসরি পেজ বা চ্যানেলে যাবে</span>
+        <div class="solid-card p-4 sm:p-5 space-y-4">
+          <div class="flex flex-wrap items-center justify-between border-b pb-2.5 dark:border-slate-800 gap-2">
+            <h3 class="font-bold text-sm sm:text-base text-asf-700 dark:text-emerald-400" data-bn="আমাদের পরিচালিত পেজ ও চ্যানেলসমূহ" data-en="Our Managed Official Pages & Channels">আমাদের পরিচালিত পেজ ও চ্যানেলসমূহ</h3>
+            <span class="text-[11px] text-slate-400 font-semibold" data-bn="ক্লিক করলে সরাসরি পেজ বা চ্যানেলে যাবে" data-en="Click to visit official channel">ক্লিক করলে সরাসরি পেজ বা চ্যানেলে যাবে</span>
           </div>
-          <div id="home-channel-links-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3"></div>
+          <div id="home-channel-links-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2.5 sm:gap-3"></div>
         </div>
       </div>
 
       <!-- Meeting Agenda at the Very Bottom -->
       <div class="stitched-box">
-        <div class="solid-card p-5 space-y-4">
-          <h3 class="font-bold text-base border-b pb-2.5 dark:border-slate-800" data-bn="মিটিং এজেন্ডা ও গৃহীত সিদ্ধান্তসমূহ" data-en="Meeting Agendas & Decisions">মিটিং এজেন্ডা ও গৃহীত সিদ্ধান্তসমূহ</h3>
+        <div class="solid-card p-4 sm:p-5 space-y-4">
+          <h3 class="font-bold text-sm sm:text-base border-b pb-2.5 dark:border-slate-800" data-bn="মিটিং এজেন্ডা ও গৃহীত সিদ্ধান্তসমূহ" data-en="Meeting Agendas & Decisions">মিটিং এজেন্ডা ও গৃহীত সিদ্ধান্তসমূহ</h3>
           <div id="home-meetings-list" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
         </div>
       </div>
@@ -299,13 +310,13 @@
     <!-- ================= 2. PRODUCTION PIPELINE TAB ================= -->
     <section id="tab-pipeline" class="hidden space-y-6">
       <div class="stitched-box">
-        <div class="solid-card p-5 space-y-4">
-          <div class="flex flex-wrap items-center justify-between gap-3 border-b pb-3 dark:border-slate-800">
-            <h2 class="text-xl font-bold text-asf-700 dark:text-white" data-bn="প্রোডাকশন পাইপলাইন" data-en="Production Pipeline">প্রোডাকশন পাইপলাইন</h2>
+        <div class="solid-card p-4 sm:p-5 space-y-4">
+          <div class="flex flex-wrap items-center justify-between gap-2 border-b pb-3 dark:border-slate-800">
+            <h2 class="text-lg sm:text-xl font-bold text-asf-700 dark:text-white" data-bn="প্রোডাকশন পাইপলাইন" data-en="Production Pipeline">প্রোডাকশন পাইপলাইন</h2>
             <span class="text-xs font-semibold text-slate-500" data-bn="প্রি-প্রোডাকশন, শুটিং, এডিটিং ও পাবলিশিং মাস্টার ট্র্যাকার" data-en="Master Project Tracker">প্রি-প্রোডাকশন, শুটিং, এডিটিং ও পাবলিশিং মাস্টার ট্র্যাকার</span>
           </div>
 
-          <div class="grid grid-cols-2 sm:grid-cols-5 gap-3 text-xs font-bold">
+          <div class="grid grid-cols-2 sm:grid-cols-5 gap-2.5 sm:gap-3 text-xs font-bold">
             <button onclick="setPipelineFilter('Upcoming')" id="pstage-Upcoming" class="p-3 rounded-xl border-2 border-asf-600 bg-emerald-50 dark:bg-slate-800 text-asf-700 dark:text-emerald-300 flex items-center justify-between">
               <span data-bn="১. আপকামিং শুটিং" data-en="1. Upcoming Shoot">১. আপকামিং শুটিং</span>
               <span id="pipe-count-up" class="px-2 py-0.5 rounded-full bg-purple-600 text-white">0</span>
@@ -332,8 +343,8 @@
 
       <!-- Admin / Director Schedule Shooting Form -->
       <div class="admin-only-block stitched-box">
-        <div class="solid-card p-5 space-y-4">
-          <h3 class="font-bold text-base text-asf-600 border-b pb-2" data-bn="নতুন প্রজেক্ট ও শুটিং শিডিউল অ্যাসাইন করুন (১টি মাস্টার কার্ড তৈরি হবে)" data-en="Schedule New Production Project">নতুন প্রজেক্ট ও শুটিং শিডিউল অ্যাসাইন করুন (১টি মাস্টার কার্ড তৈরি হবে)</h3>
+        <div class="solid-card p-4 sm:p-5 space-y-4">
+          <h3 class="font-bold text-sm sm:text-base text-asf-600 border-b pb-2" data-bn="নতুন প্রজেক্ট ও শুটিং শিডিউল অ্যাসাইন করুন (১টি মাস্টার কার্ড তৈরি হবে)" data-en="Schedule New Production Project">নতুন প্রজেক্ট ও শুটিং শিডিউল অ্যাসাইন করুন (১টি মাস্টার কার্ড তৈরি হবে)</h3>
           <form onsubmit="createPipelineProject(event)" class="space-y-4 text-xs sm:text-sm">
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
               <div>
@@ -368,7 +379,7 @@
               </div>
             </div>
 
-            <button type="submit" class="btn-green px-6 py-2.5 font-bold" data-bn="প্রজেক্ট অ্যাসাইন করুন (১টি মাস্টার কার্ড ও সবার প্রোফাইলে যুক্ত হবে)" data-en="Assign Master Project">প্রজেক্ট অ্যাসাইন করুন (১টি মাস্টার কার্ড ও সবার প্রোফাইলে যুক্ত হবে)</button>
+            <button type="submit" class="btn-green px-6 py-2.5 font-bold w-full sm:w-auto" data-bn="প্রজেক্ট অ্যাসাইন করুন (১টি মাস্টার কার্ড ও সবার প্রোফাইলে যুক্ত হবে)" data-en="Assign Master Project">প্রজেক্ট অ্যাসাইন করুন (১টি মাস্টার কার্ড ও সবার প্রোফাইলে যুক্ত হবে)</button>
           </form>
         </div>
       </div>
@@ -380,8 +391,8 @@
     <!-- ================= 3. MONTHLY DASHBOARD TAB ================= -->
     <section id="tab-dashboard" class="hidden space-y-6">
       <div class="stitched-box">
-        <div class="solid-card p-5 flex flex-wrap items-center justify-between gap-3">
-          <h2 id="dashboard-month-heading" class="text-xl font-bold">মাসিক ড্যাশবোর্ড</h2>
+        <div class="solid-card p-4 sm:p-5 flex flex-wrap items-center justify-between gap-3">
+          <h2 id="dashboard-month-heading" class="text-lg sm:text-xl font-bold">মাসিক ড্যাশবোর্ড</h2>
           <div class="flex flex-wrap items-center gap-2 text-xs">
             <input type="month" id="filter-month" onchange="renderDashboard()" class="px-3 py-2 rounded-lg border font-bold dark:bg-slate-800">
             <select id="filter-member" onchange="renderDashboard()" class="px-3 py-2 rounded-lg border font-bold dark:bg-slate-800"></select>
@@ -400,13 +411,13 @@
 
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
         <div class="lg:col-span-5 stitched-box">
-          <div class="solid-card p-5 h-full space-y-4">
+          <div class="solid-card p-4 sm:p-5 h-full space-y-4">
             <h3 class="font-bold text-base border-b pb-2" data-bn="মাসিক কাজের ভিজ্যুয়াল গ্রাফ" data-en="Monthly Visual Progress">মাসিক কাজের ভিজ্যুয়াল গ্রাফ</h3>
             <div id="dash-visual-summary-chart" class="space-y-4"></div>
           </div>
         </div>
         <div class="lg:col-span-7 stitched-box">
-          <div class="solid-card p-5 h-full space-y-3">
+          <div class="solid-card p-4 sm:p-5 h-full space-y-3">
             <div class="flex justify-between items-center border-b pb-2">
               <h3 class="font-bold text-base" data-bn="কাজের ধরন অনুযায়ী হিসাব" data-en="Category Summary">কাজের ধরন অনুযায়ী হিসাব</h3>
             </div>
@@ -441,8 +452,8 @@
     <!-- ================= 4. TEAM MEMBERS TAB ================= -->
     <section id="tab-team" class="hidden space-y-6">
       <div class="stitched-box">
-        <div class="solid-card p-5 flex items-center justify-between">
-          <h2 class="text-xl font-bold" data-bn="আমাদের টিম মেম্বার" data-en="Our Team Members">আমাদের টিম মেম্বার</h2>
+        <div class="solid-card p-4 sm:p-5 flex flex-wrap items-center justify-between gap-2">
+          <h2 class="text-lg sm:text-xl font-bold" data-bn="আমাদের টিম মেম্বার" data-en="Our Team Members">আমাদের টিম মেম্বার</h2>
           <span class="text-xs font-semibold text-slate-500" data-bn="কার্ডে ক্লিক করলে মেম্বারের বিস্তারিত পোর্টফোলিও ও কাজ দেখা যাবে" data-en="Click card to view member portfolio & works">কার্ডে ক্লিক করলে মেম্বারের বিস্তারিত পোর্টফোলিও ও কাজ দেখা যাবে</span>
         </div>
       </div>
@@ -452,10 +463,10 @@
     <!-- ================= 5. PRODUCTIONS TAB ================= -->
     <section id="tab-portfolio" class="hidden space-y-6">
       <div class="stitched-box">
-        <div class="solid-card p-5 space-y-4">
+        <div class="solid-card p-4 sm:p-5 space-y-4">
           <div class="flex flex-wrap items-center justify-between gap-2">
-            <h2 class="text-xl font-bold" data-bn="আমাদের কাজ ও প্রোডাকশন" data-en="Our Productions">আমাদের কাজ ও প্রোডাকশন</h2>
-            <div class="flex gap-2">
+            <h2 class="text-lg sm:text-xl font-bold" data-bn="আমাদের কাজ ও প্রোডাকশন" data-en="Our Productions">আমাদের কাজ ও প্রোডাকশন</h2>
+            <div class="flex flex-wrap gap-1.5 sm:gap-2">
               <button onclick="setPortfolioViewMode('all')" id="pmode-all" class="px-3 py-1.5 rounded-lg text-xs font-bold btn-green">সব প্রোডাকশন</button>
               <button onclick="setPortfolioViewMode('current')" id="pmode-current" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-200 dark:bg-slate-800">চলতি মাসের কাজ</button>
               <button onclick="setPortfolioViewMode('popular')" id="pmode-popular" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-200 dark:bg-slate-800">★ পপুলার প্রোডাকশন</button>
@@ -470,9 +481,9 @@
     <!-- ================= 6. WORKSPACE (কাজ লিখুন) ================= -->
     <section id="tab-workspace" class="hidden space-y-6">
       <div class="stitched-box">
-        <div class="solid-card p-5 flex flex-wrap items-center justify-between gap-4">
+        <div class="solid-card p-4 sm:p-5 flex flex-wrap items-center justify-between gap-4">
           <div class="flex items-center gap-3.5">
-            <img id="ws-user-img" src="" class="w-14 h-14 rounded-2xl object-cover border-2 border-asf-600">
+            <img id="ws-user-img" src="" class="w-14 h-14 rounded-2xl object-cover border-2 border-asf-600 shrink-0">
             <div>
               <div class="flex items-center gap-2">
                 <h2 id="ws-user-name" class="text-lg font-bold"></h2>
@@ -492,7 +503,7 @@
 
       <!-- Director / Super Admin Assign General Task Box -->
       <div class="admin-only-block stitched-box">
-        <div class="solid-card p-5 space-y-3">
+        <div class="solid-card p-4 sm:p-5 space-y-3">
           <h3 class="font-bold text-sm text-asf-600 border-b pb-2">টিম মেম্বারকে সাধারণ কাজ অ্যাসাইন করুন (শুধু নাম)</h3>
           <form onsubmit="assignGeneralTask(event)" class="grid grid-cols-1 sm:grid-cols-4 gap-3 text-xs">
             <div>
@@ -516,7 +527,7 @@
 
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
         <div class="lg:col-span-7 stitched-box">
-          <div class="solid-card p-5 space-y-4">
+          <div class="solid-card p-4 sm:p-5 space-y-4">
             <div class="flex justify-between items-center border-b pb-2.5">
               <h3 class="font-bold text-base text-asf-600" data-bn="আজকের কাজ লিখুন" data-en="Log Today's Work">আজকের কাজ লিখুন</h3>
               <span id="today-date-badge" class="text-xs font-bold text-asf-600"></span>
@@ -538,22 +549,22 @@
                 <div id="task-platform-checkboxes" class="border rounded-xl p-2.5 grid grid-cols-2 sm:grid-cols-3 gap-1.5 text-xs bg-slate-50/50 dark:bg-slate-900"></div>
               </div>
 
-              <div class="grid grid-cols-3 gap-3">
+              <div class="grid grid-cols-3 gap-2.5 sm:gap-3">
                 <div>
                   <label class="block text-xs font-bold mb-1">অবস্থা *</label>
-                  <select id="task-status" class="w-full px-2.5 py-2 rounded-lg border dark:bg-slate-800 font-bold">
+                  <select id="task-status" class="w-full px-2 py-2 rounded-lg border dark:bg-slate-800 font-bold">
                     <option value="Completed">সম্পন্ন</option>
                     <option value="Ongoing">চলমান</option>
                     <option value="Ready">রেডি টু পাবলিশ</option>
                   </select>
                 </div>
                 <div>
-                  <label class="block text-xs font-bold mb-1">সংখ্যা (Quantity) *</label>
+                  <label class="block text-xs font-bold mb-1">সংখ্যা (Qty) *</label>
                   <input type="number" id="task-qty" value="1" min="1" class="w-full px-2.5 py-2 rounded-lg border dark:bg-slate-800 font-bold">
                 </div>
                 <div>
                   <label class="block text-xs font-bold mb-1">তারিখ</label>
-                  <input type="date" id="task-date" required class="w-full px-2.5 py-2 rounded-lg border dark:bg-slate-800 font-bold">
+                  <input type="date" id="task-date" required class="w-full px-2 py-2 rounded-lg border dark:bg-slate-800 font-bold">
                 </div>
               </div>
 
@@ -574,13 +585,13 @@
 
         <div class="lg:col-span-5 space-y-5">
           <div class="stitched-blue">
-            <div class="solid-card p-5 space-y-3">
+            <div class="solid-card p-4 sm:p-5 space-y-3">
               <h3 class="font-bold text-sm text-blue-600 border-b pb-2">আমার চলমান ও অ্যাসাইনকৃত কাজ</h3>
               <div id="my-ongoing-list" class="space-y-2 max-h-60 overflow-y-auto"></div>
             </div>
           </div>
           <div class="stitched-box">
-            <div class="solid-card p-5 space-y-3">
+            <div class="solid-card p-4 sm:p-5 space-y-3">
               <h3 class="font-bold text-sm text-asf-600 border-b pb-2">আজকে আমার জমা দেওয়া কাজ</h3>
               <div id="my-today-tasks-list" class="space-y-2 max-h-56 overflow-y-auto"></div>
             </div>
@@ -594,7 +605,7 @@
       <div class="stitched-box">
         <div class="bg-asf-700 text-white p-5 rounded-2xl flex flex-wrap items-center justify-between gap-3">
           <div>
-            <h2 class="text-xl font-bold">পূর্ণাঙ্গ অ্যাডমিন ও ডিরেক্টর কন্ট্রোল প্যানেল (No-Code CMS)</h2>
+            <h2 class="text-lg sm:text-xl font-bold">পূর্ণাঙ্গ অ্যাডমিন ও ডিরেক্টর কন্ট্রোল প্যানেল (No-Code CMS)</h2>
             <p class="text-xs text-emerald-200">কোডে হাত না দিয়ে এখান থেকেই পুরো ওয়েবসাইটের সকল ক্যাটাগরি, লিংক, ব্যানার ও প্রজেক্ট নিয়ন্ত্রণ করুন</p>
           </div>
           <div class="flex flex-wrap gap-2 text-xs font-bold">
@@ -608,7 +619,7 @@
       <!-- Row 1: Managed Official Channels Directory (Name + Link) & Featured Productions -->
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div class="stitched-box">
-          <div class="solid-card p-5 space-y-3">
+          <div class="solid-card p-4 sm:p-5 space-y-3">
             <div class="flex items-center justify-between border-b pb-2">
               <h3 class="font-bold text-base text-asf-600">হোম পেজের পরিচালিত পেজ ও চ্যানেল (নাম ও লিংক)</h3>
               <button onclick="resetDefaultChannelLinks()" class="text-[11px] bg-emerald-50 text-asf-700 px-2.5 py-1 rounded font-bold">ডিফল্ট লিংক সেট করুন</button>
@@ -623,7 +634,7 @@
         </div>
 
         <div class="stitched-box">
-          <div class="solid-card p-5 space-y-3">
+          <div class="solid-card p-4 sm:p-5 space-y-3">
             <h3 class="font-bold text-base text-asf-600 border-b pb-2">প্রোডাকশন ভিডিও যুক্ত ও এডিট করুন</h3>
             <form onsubmit="addPortfolioVideo(event)" class="space-y-2.5 text-xs">
               <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
@@ -646,7 +657,7 @@
       <!-- Row 2: Dynamic Categories, Short Platforms & Production Roles Control -->
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div class="stitched-box">
-          <div class="solid-card p-5 space-y-3 h-full">
+          <div class="solid-card p-4 sm:p-5 space-y-3 h-full">
             <div class="flex items-center justify-between border-b pb-2">
               <h3 class="font-bold text-sm text-asf-600">প্ল্যাটফর্ম অপশন (সংক্ষিপ্ত নাম)</h3>
               <button onclick="resetShortPlatforms()" class="text-[11px] bg-amber-100 text-amber-900 px-2 py-0.5 rounded font-bold">সংক্ষিপ্ত নামে রিসেট</button>
@@ -660,7 +671,7 @@
         </div>
 
         <div class="stitched-box">
-          <div class="solid-card p-5 space-y-3 h-full">
+          <div class="solid-card p-4 sm:p-5 space-y-3 h-full">
             <div class="flex items-center justify-between border-b pb-2">
               <h3 class="font-bold text-sm text-asf-600">কাজের ধরন (Core Activities)</h3>
               <button onclick="resetCoreActivities()" class="text-[11px] bg-amber-100 text-amber-900 px-2 py-0.5 rounded font-bold">ডিফল্ট ১২টি</button>
@@ -674,7 +685,7 @@
         </div>
 
         <div class="stitched-box">
-          <div class="solid-card p-5 space-y-3 h-full">
+          <div class="solid-card p-4 sm:p-5 space-y-3 h-full">
             <h3 class="font-bold text-sm text-asf-600 border-b pb-2">প্রোডাকশন ক্যাটাগরি ও শুটিং দায়িত্ব</h3>
             <div class="space-y-2 text-xs">
               <div class="flex gap-1.5">
@@ -697,7 +708,7 @@
       <!-- Row 3: Planning (Including Next Month Report) & Meetings -->
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div class="stitched-box">
-          <div class="solid-card p-5 space-y-3">
+          <div class="solid-card p-4 sm:p-5 space-y-3">
             <h3 class="font-bold text-base text-asf-600 border-b pb-2">চলতি মাস, আগামী মাস ও আগামী ৩ মাসের পরিকল্পনা</h3>
             <form onsubmit="savePlanningSettings(event)" class="space-y-2.5 text-xs">
               <div><label class="font-bold">চলতি মাসের লক্ষ্যমাত্রা (Target)</label><input type="number" id="plan-target-count" value="50" class="w-full px-3 py-1.5 rounded border dark:bg-slate-800 font-bold"></div>
@@ -710,7 +721,7 @@
         </div>
 
         <div class="stitched-box">
-          <div class="solid-card p-5 space-y-3">
+          <div class="solid-card p-4 sm:p-5 space-y-3">
             <h3 class="font-bold text-base text-asf-600 border-b pb-2">মিটিং এজেন্ডা ও সিদ্ধান্ত যুক্ত করুন</h3>
             <form onsubmit="addMeetingRecord(event)" class="space-y-2.5 text-xs">
               <div class="grid grid-cols-2 gap-2">
@@ -729,14 +740,14 @@
       <!-- Row 4: Team Members Order/Role/Bio & Site Branding CMS -->
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
         <div class="lg:col-span-7 stitched-box">
-          <div class="solid-card p-5 space-y-3">
+          <div class="solid-card p-4 sm:p-5 space-y-3">
             <h3 class="font-bold text-base text-asf-600 border-b pb-2">টিম মেম্বার সিরিয়াল (▲ ▼), অনুমোদন, পদবী ও বিবরণী এডিট</h3>
             <div id="admin-members-list" class="space-y-2 max-h-[500px] overflow-y-auto"></div>
           </div>
         </div>
 
         <div class="lg:col-span-5 stitched-box">
-          <div class="solid-card p-5 space-y-3">
+          <div class="solid-card p-4 sm:p-5 space-y-3">
             <h3 class="font-bold text-base text-asf-600 border-b pb-2">সাইট ব্যানার, নোটিশ, ঠিকানা ও কন্ট্রিবিউটর সেটিংস</h3>
             <form onsubmit="saveSiteSettings(event)" class="space-y-2 text-xs">
               <div class="grid grid-cols-2 gap-2">
@@ -769,12 +780,12 @@
   </main>
 
   <!-- Floating Live Chat Button & Messenger Drawer -->
-  <button onclick="openChatBox()" class="fixed bottom-16 md:bottom-6 right-5 z-40 w-12 h-12 rounded-full bg-asf-600 hover:bg-asf-700 text-white shadow-2xl flex items-center justify-center border-2 border-white" title="লাইভ টিম মেসেঞ্জার">
+  <button onclick="openChatBox()" class="fixed bottom-16 md:bottom-6 right-4 z-40 w-12 h-12 rounded-full bg-asf-600 hover:bg-asf-700 text-white shadow-2xl flex items-center justify-center border-2 border-white" title="লাইভ টিম মেসেঞ্জার">
     <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
     <span id="chat-unread-badge" class="hidden absolute -top-1 -right-1 w-5 h-5 rounded-full bg-red-600 text-white text-[10px] font-bold flex items-center justify-center">!</span>
   </button>
 
-  <div id="chat-drawer" class="fixed bottom-20 right-5 z-50 w-80 sm:w-96 solid-card shadow-2xl hidden flex-col overflow-hidden border-2 border-asf-600">
+  <div id="chat-drawer" class="fixed bottom-20 right-3 sm:right-5 z-50 w-[92vw] max-w-sm solid-card shadow-2xl hidden flex-col overflow-hidden border-2 border-asf-600">
     <div class="bg-asf-700 text-white p-3.5 flex items-center justify-between relative">
       <div>
         <h4 class="font-bold text-sm">লাইভ টিম মেসেঞ্জার</h4>
@@ -795,8 +806,8 @@
   </div>
 
   <!-- Footer -->
-  <footer class="bg-asf-800 text-white pt-10 pb-7 mt-12 border-t border-emerald-900">
-    <div class="w-[95%] max-w-[1600px] mx-auto space-y-6">
+  <footer class="bg-asf-800 text-white pt-10 pb-7 mt-12 border-t border-emerald-900 w-full overflow-x-hidden">
+    <div class="w-full px-4 sm:px-0 sm:w-[95%] max-w-[1600px] mx-auto space-y-6">
       <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
         <div class="md:col-span-5 space-y-2 text-center md:text-left">
           <div class="flex items-center justify-center md:justify-start gap-2.5">
@@ -833,8 +844,8 @@
   <!-- ================= MODALS (ALL WITH FIXED TOP-RIGHT ✕ CLOSE BUTTON) ================= -->
 
   <!-- Universal Edit Task / Pipeline Project Modal -->
-  <div id="edit-task-modal" class="fixed inset-0 z-50 bg-slate-950/60 hidden items-center justify-center p-4">
-    <div class="solid-card relative max-w-lg w-full p-6 space-y-4 text-xs">
+  <div id="edit-task-modal" class="fixed inset-0 z-50 bg-slate-950/60 hidden items-center justify-center p-3 sm:p-4">
+    <div class="solid-card relative max-w-lg w-full p-5 sm:p-6 space-y-4 text-xs">
       <button onclick="document.getElementById('edit-task-modal').classList.add('hidden')" class="absolute top-4 right-4 w-8 h-8 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-red-100 hover:text-red-600 font-bold flex items-center justify-center">✕</button>
       <h3 class="font-bold text-base text-asf-600 border-b pb-2 pr-8">প্রজেক্ট / কাজের তথ্য এডিট করুন</h3>
       <form onsubmit="saveEditedTask(event)" class="space-y-3">
@@ -846,15 +857,15 @@
         <div class="grid grid-cols-3 gap-2">
           <div>
             <label class="block font-bold mb-1">তারিখ</label>
-            <input type="date" id="edit-task-date" required class="w-full px-2.5 py-2 rounded-lg border dark:bg-slate-800 font-bold">
+            <input type="date" id="edit-task-date" required class="w-full px-2 py-2 rounded-lg border dark:bg-slate-800 font-bold">
           </div>
           <div>
             <label class="block font-bold mb-1">সংখ্যা (Qty)</label>
-            <input type="number" id="edit-task-qty" min="1" value="1" required class="w-full px-2.5 py-2 rounded-lg border dark:bg-slate-800 font-bold">
+            <input type="number" id="edit-task-qty" min="1" value="1" required class="w-full px-2 py-2 rounded-lg border dark:bg-slate-800 font-bold">
           </div>
           <div>
             <label class="block font-bold mb-1">শুটিং সময়</label>
-            <input type="time" id="edit-task-time" class="w-full px-2.5 py-2 rounded-lg border dark:bg-slate-800 font-bold">
+            <input type="time" id="edit-task-time" class="w-full px-2 py-2 rounded-lg border dark:bg-slate-800 font-bold">
           </div>
         </div>
         <div class="grid grid-cols-2 gap-2">
@@ -889,8 +900,8 @@
   </div>
 
   <!-- Auth Modal -->
-  <div id="auth-modal" class="fixed inset-0 z-50 bg-slate-950/60 hidden items-center justify-center p-4">
-    <div class="solid-card relative max-w-md w-full p-6 space-y-4">
+  <div id="auth-modal" class="fixed inset-0 z-50 bg-slate-950/60 hidden items-center justify-center p-3 sm:p-4">
+    <div class="solid-card relative max-w-md w-full p-5 sm:p-6 space-y-4">
       <button onclick="closeAuthModal()" class="absolute top-4 right-4 w-8 h-8 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-red-100 hover:text-red-600 font-bold flex items-center justify-center">✕</button>
       <h3 class="font-bold text-base text-asf-600 border-b pb-2.5 pr-8">টিম মেম্বার লগইন ও জয়েন</h3>
       <div class="grid grid-cols-2 gap-2 bg-slate-100 dark:bg-slate-800 p-1 rounded-xl text-xs font-bold">
@@ -918,12 +929,12 @@
 
   <!-- Member Profile Modal -->
   <div id="member-modal" class="fixed inset-0 z-50 bg-slate-950/65 hidden items-center justify-center p-2 sm:p-4">
-    <div class="solid-card relative max-w-4xl w-full p-5 sm:p-6 space-y-5 max-h-[90vh] overflow-y-auto">
+    <div class="solid-card relative max-w-4xl w-full p-4 sm:p-6 space-y-5 max-h-[90vh] overflow-y-auto">
       <button onclick="closeMemberModal()" class="absolute top-4 right-4 w-9 h-9 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-red-100 hover:text-red-600 font-bold flex items-center justify-center text-sm shadow-sm">✕</button>
       
       <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b pb-4 pr-12">
         <div class="flex items-center gap-3.5">
-          <img id="mod-member-img" src="" class="w-14 h-14 rounded-2xl object-cover border-2 border-asf-600">
+          <img id="mod-member-img" src="" class="w-14 h-14 rounded-2xl object-cover border-2 border-asf-600 shrink-0">
           <div>
             <h3 id="mod-member-name" class="text-lg font-bold"></h3>
             <p id="mod-member-role" class="text-xs text-asf-600 font-bold"></p>
@@ -937,7 +948,7 @@
       </div>
 
       <!-- 3 Clean Counters (Quantity-Aware) -->
-      <div class="grid grid-cols-3 gap-3 text-center text-xs">
+      <div class="grid grid-cols-3 gap-2.5 sm:gap-3 text-center text-xs">
         <div class="p-3 rounded-xl bg-emerald-50 dark:bg-slate-800 border border-emerald-200 dark:border-slate-700"><p class="text-xl font-bold text-asf-600" id="mod-stat-completed">0</p><p class="font-bold text-slate-500">সম্পন্ন</p></div>
         <div class="p-3 rounded-xl bg-blue-50 dark:bg-slate-800 border border-blue-200 dark:border-slate-700"><p class="text-xl font-bold text-blue-600" id="mod-stat-ongoing">0</p><p class="font-bold text-slate-500">চলমান</p></div>
         <div class="p-3 rounded-xl bg-amber-50 dark:bg-slate-800 border border-amber-200 dark:border-slate-700"><p class="text-xl font-bold text-amber-600" id="mod-stat-pending">0</p><p class="font-bold text-slate-500">পেন্ডিং / শুটিং</p></div>
@@ -972,9 +983,9 @@
     </div>
   </div>
 
-  <!-- Add Portfolio Modal with Type Selection (Photocard / Thumbnail / Video Link) -->
-  <div id="add-portfolio-item-modal" class="fixed inset-0 z-50 bg-slate-950/60 hidden items-center justify-center p-4">
-    <div class="solid-card relative max-w-md w-full p-6 space-y-3.5 text-xs">
+  <!-- Add Portfolio Modal with Type Selection -->
+  <div id="add-portfolio-item-modal" class="fixed inset-0 z-50 bg-slate-950/60 hidden items-center justify-center p-3 sm:p-4">
+    <div class="solid-card relative max-w-md w-full p-5 sm:p-6 space-y-3.5 text-xs">
       <button onclick="document.getElementById('add-portfolio-item-modal').classList.add('hidden')" class="absolute top-4 right-4 w-8 h-8 rounded-lg bg-slate-100 dark:bg-slate-800 font-bold flex items-center justify-center">✕</button>
       <h3 class="font-bold text-sm text-asf-600 border-b pb-2 pr-8">আমার পোর্টফোলিওতে কাজ যুক্ত করুন</h3>
       <form onsubmit="saveMemberPortfolioItem(event)" class="space-y-3">
@@ -1004,8 +1015,8 @@
   </div>
 
   <!-- Quick Detail Modal -->
-  <div id="quick-detail-modal" class="fixed inset-0 z-50 bg-slate-950/60 hidden items-center justify-center p-4">
-    <div class="solid-card relative max-w-2xl w-full p-6 space-y-3 max-h-[85vh] overflow-y-auto">
+  <div id="quick-detail-modal" class="fixed inset-0 z-50 bg-slate-950/60 hidden items-center justify-center p-3 sm:p-4">
+    <div class="solid-card relative max-w-2xl w-full p-5 sm:p-6 space-y-3 max-h-[85vh] overflow-y-auto">
       <button onclick="document.getElementById('quick-detail-modal').classList.add('hidden')" class="absolute top-4 right-4 w-8 h-8 rounded-lg bg-slate-100 dark:bg-slate-800 font-bold flex items-center justify-center">✕</button>
       <h3 id="quick-modal-title" class="font-bold text-base text-asf-600 border-b pb-2 pr-8"></h3>
       <div id="quick-modal-body" class="space-y-2 text-xs"></div>
@@ -1013,8 +1024,8 @@
   </div>
 
   <!-- Edit Profile Modal -->
-  <div id="edit-profile-modal" class="fixed inset-0 z-50 bg-slate-950/60 hidden items-center justify-center p-4">
-    <div class="solid-card relative max-w-md w-full p-6 space-y-3 text-xs">
+  <div id="edit-profile-modal" class="fixed inset-0 z-50 bg-slate-950/60 hidden items-center justify-center p-3 sm:p-4">
+    <div class="solid-card relative max-w-md w-full p-5 sm:p-6 space-y-3 text-xs">
       <button onclick="document.getElementById('edit-profile-modal').classList.add('hidden')" class="absolute top-4 right-4 w-8 h-8 rounded-lg bg-slate-100 dark:bg-slate-800 font-bold flex items-center justify-center">✕</button>
       <h3 class="font-bold text-sm border-b pb-2 pr-8">প্রোফাইল আপডেট</h3>
       <form onsubmit="saveProfileChanges(event)" class="space-y-2.5">
@@ -1057,7 +1068,7 @@
     window.cleanUrl = (u) => (u && /^https?:\/\//i.test(String(u).trim())) ? window.clean(String(u).trim()) : '';
     window.showToast = (m) => { const el = document.getElementById('toast-msg'); el.innerText = m; el.classList.remove('hidden'); setTimeout(() => el.classList.add('hidden'), 3200); };
 
-    // Quantity Helper: Accurately sums task quantities (e.g., 3 or 4 items logged at once)
+    // Quantity Helper: Sums task quantities accurately
     window.getQty = (t) => Math.max(1, parseInt(t?.quantity, 10) || 1);
     window.sumQty = (list) => (list || []).reduce((acc, t) => acc + window.getQty(t), 0);
 
@@ -1519,7 +1530,6 @@
       const prevMonthTasks = window.allTasks.filter(t => t.month === prevMonth);
       const masterProjects = getMasterPipelineProjects();
 
-      // Sum by Quantity!
       const compCount = window.sumQty(curMonthTasks.filter(t => t.status === 'Completed'));
       const ongCount = window.sumQty(window.allTasks.filter(t => t.status === 'Ongoing'));
       const pendCount = masterProjects.filter(t => t.status === 'Pending').length + window.sumQty(window.allTasks.filter(t => !t.isPipeline && t.status === 'Pending'));
@@ -1569,7 +1579,7 @@
         </div>
       `;
 
-      // Home Page Team Members Section (Photo, Name, Designation & Short Bio ONLY — No Task Counts)
+      // Home Page Team Members Section
       const approvedMembers = getSortedMembers(true);
       const homeTeamBox = document.getElementById('home-team-grid');
       if (homeTeamBox) {
@@ -1601,9 +1611,9 @@
         const badgeColor = isYT ? 'bg-red-600 text-white' : (isFB ? 'bg-blue-600 text-white' : 'bg-asf-600 text-white');
         const badgeText = isYT ? 'YT' : (isFB ? 'FB' : 'Link');
         return `
-          <a href="${window.cleanUrl(ch.url)}" target="_blank" rel="noopener noreferrer" class="p-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/70 dark:bg-slate-900 hover:border-asf-600 hover:shadow-md transition flex items-center justify-between gap-2 group">
-            <div class="flex items-center gap-2 truncate">
-              <span class="px-2 py-0.5 rounded text-[10px] font-bold shrink-0 ${badgeColor}">${badgeText}</span>
+          <a href="${window.cleanUrl(ch.url)}" target="_blank" rel="noopener noreferrer" class="p-2.5 sm:p-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/70 dark:bg-slate-900 hover:border-asf-600 hover:shadow-md transition flex items-center justify-between gap-1.5 group">
+            <div class="flex items-center gap-1.5 min-w-0">
+              <span class="px-1.5 py-0.5 rounded text-[10px] font-bold shrink-0 ${badgeColor}">${badgeText}</span>
               <span class="text-xs font-bold text-slate-800 dark:text-slate-100 group-hover:text-asf-600 truncate">${window.clean(ch.name)}</span>
             </div>
             <span class="text-xs font-bold text-slate-400 group-hover:text-asf-600 shrink-0">↗</span>
@@ -1870,7 +1880,7 @@
 
         return `
           <div class="stitched-box">
-            <div class="solid-card p-5 h-full flex flex-col justify-between space-y-4">
+            <div class="solid-card p-4 sm:p-5 h-full flex flex-col justify-between space-y-4">
               <div class="space-y-3">
                 <div class="flex items-center justify-between gap-2">
                   <span class="px-2.5 py-0.5 rounded-md bg-emerald-100 text-asf-700 text-xs font-bold">${window.clean(t.productionType || 'প্রোডাকশন')}</span>
@@ -1958,7 +1968,7 @@
       `).join('');
     };
 
-    // 4. Team Members Tab (Visible Bio on Card Surface + Quantity-Aware Task Counts)
+    // 4. Team Members Tab
     function renderTeamSection() {
       const curMonth = getCurrentMonthStr();
       const monthTasks = window.allTasks.filter(t => t.month === curMonth);
@@ -1997,8 +2007,8 @@
     function extractYouTubeId(u) { const m = (u||"").match(/^.*(youtu.be\/|v\/|embed\/|watch\?v=|\&v=|shorts\/)([^#\&\?]*).*/); return (m && m[2].length === 11) ? m[2] : null; }
     window.setHomeProdMode = (m) => {
       window.homeProdMode = m;
-      document.getElementById('hprod-popular').className = m === 'popular' ? 'px-3 py-1.5 rounded-lg text-xs font-bold btn-green' : 'px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-200 dark:bg-slate-800';
-      document.getElementById('hprod-current').className = m === 'current' ? 'px-3 py-1.5 rounded-lg text-xs font-bold btn-green' : 'px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-200 dark:bg-slate-800';
+      document.getElementById('hprod-popular').className = m === 'popular' ? 'px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-bold btn-green' : 'px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-200 dark:bg-slate-800';
+      document.getElementById('hprod-current').className = m === 'current' ? 'px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-bold btn-green' : 'px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-200 dark:bg-slate-800';
       renderPortfolio();
     };
     window.setPortfolioViewMode = (m) => {
