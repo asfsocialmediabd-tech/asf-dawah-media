@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#083823">
   <title>ASF Dawah Media | As-Sunnah Foundation</title>
-  <link id="favicon" rel="icon" type="image/png" href="https://ui-avatars.com/api/?name=ASF&background=006837&color=fff&bold=true">
+  <link id="favicon" rel="icon" type="image/png" href="https://assunnahfoundation.org/assets/images/logo.png">
   <link id="pwa-manifest" rel="manifest" href="">
   <link rel="preload" href="./Bornomala-Regular.ttf" as="font" type="font/ttf" crossorigin>
   <link rel="preload" href="./Bornomala-Bold.ttf" as="font" type="font/ttf" crossorigin>
@@ -33,18 +33,20 @@
     .dark .solid-card { background: #0d1f17; border-color: #1e3a2f; }
     .btn-green { background-color: #006837; color: #fff; border-radius: 0.75rem; transition: 0.2s; }
     .btn-green:hover { background-color: #083823; }
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-thumb { background: #006837; border-radius: 9999px; }
   </style>
 </head>
 <body class="min-h-screen flex flex-col pb-20 md:pb-0">
 
-  <!-- Toast Popup & Live Chat Popup -->
+  <!-- Toast & Live Message Popup -->
   <div id="toast-msg" class="fixed top-5 right-5 z-50 hidden bg-asf-700 text-white px-4 py-3 rounded-xl shadow-2xl border border-emerald-400 text-xs sm:text-sm font-bold"></div>
   <div id="live-msg-toast" onclick="openChatBox()" class="fixed bottom-20 right-5 z-50 hidden cursor-pointer bg-white dark:bg-slate-900 border-2 border-asf-600 p-3.5 rounded-2xl shadow-2xl max-w-xs">
     <p class="text-[11px] font-bold text-asf-600" id="toast-sender"></p>
     <p class="text-xs font-semibold text-slate-800 dark:text-slate-100 line-clamp-2 mt-0.5" id="toast-preview"></p>
   </div>
 
-  <!-- Top Notice Bar -->
+  <!-- Notice Bar -->
   <div id="notice-bar" class="bg-asf-700 text-white text-xs py-2 px-4 text-center font-medium hidden">
     <span class="px-2 py-0.5 text-[10px] font-bold bg-amber-400 text-slate-950 rounded mr-2">নোটিশ</span>
     <span id="notice-text"></span>
@@ -54,21 +56,22 @@
   <header class="sticky top-0 z-40 bg-white dark:bg-[#0a1912] border-b border-slate-200 dark:border-emerald-950">
     <div class="max-w-7xl mx-auto px-3 sm:px-6 h-16 sm:h-20 flex items-center justify-between gap-2">
       <div class="flex items-center gap-2.5 cursor-pointer shrink-0" onclick="switchTab('home')">
-        <img id="brand-logo" src="https://ui-avatars.com/api/?name=ASF&background=006837&color=fff&bold=true" alt="Logo" class="w-10 h-10 rounded-xl object-contain bg-white border border-slate-200 p-0.5">
+        <img id="brand-logo" src="https://assunnahfoundation.org/assets/images/logo.png" onerror="this.src='https://ui-avatars.com/api/?name=ASF&background=006837&color=fff&bold=true'" alt="Logo" class="w-10 h-10 rounded-xl object-contain bg-white border border-slate-200 p-0.5">
         <div>
           <h1 id="brand-title" class="text-base sm:text-xl font-bold text-asf-700 dark:text-white leading-tight">ASF Dawah Media</h1>
           <p id="brand-subtitle" class="text-[10px] sm:text-xs font-medium text-slate-500">As-Sunnah Foundation</p>
         </div>
       </div>
 
+      <!-- Desktop Menu (Strictly Hides Log Work & Admin When Logged Out) -->
       <nav class="hidden md:flex items-center gap-1">
         <button onclick="switchTab('home')" id="nav-home" class="px-3 py-2 text-sm font-bold text-asf-600 border-b-2 border-asf-600" data-bn="হোম" data-en="Home">হোম</button>
         <button onclick="switchTab('pipeline')" id="nav-pipeline" class="px-3 py-2 text-sm font-semibold text-slate-700 dark:text-slate-300" data-bn="প্রোডাকশন পাইপলাইন" data-en="Production Pipeline">প্রোডাকশন পাইপলাইন</button>
         <button onclick="switchTab('dashboard')" id="nav-dashboard" class="px-3 py-2 text-sm font-semibold text-slate-700 dark:text-slate-300" data-bn="মাসিক ড্যাশবোর্ড" data-en="Monthly Dashboard">মাসিক ড্যাশবোর্ড</button>
         <button onclick="switchTab('team')" id="nav-team" class="px-3 py-2 text-sm font-semibold text-slate-700 dark:text-slate-300" data-bn="টিম মেম্বার" data-en="Team Members">টিম মেম্বার</button>
         <button onclick="switchTab('portfolio')" id="nav-portfolio" class="px-3 py-2 text-sm font-semibold text-slate-700 dark:text-slate-300" data-bn="আমাদের কাজ" data-en="Productions">আমাদের কাজ</button>
-        <button onclick="switchTab('workspace')" id="nav-workspace" class="hidden px-3 py-2 text-sm font-semibold text-slate-700 dark:text-slate-300" data-bn="কাজ লিখুন" data-en="Log Work">কাজ লিখুন</button>
-        <button onclick="switchTab('admin')" id="nav-admin" class="hidden px-3 py-2 text-sm font-semibold text-slate-700 dark:text-slate-300" data-bn="অ্যাডমিন" data-en="Admin">অ্যাডমিন</button>
+        <button onclick="switchTab('workspace')" id="nav-workspace" style="display:none" class="px-3 py-2 text-sm font-semibold text-slate-700 dark:text-slate-300" data-bn="কাজ লিখুন" data-en="Log Work">কাজ লিখুন</button>
+        <button onclick="switchTab('admin')" id="nav-admin" style="display:none" class="px-3 py-2 text-sm font-semibold text-slate-700 dark:text-slate-300" data-bn="অ্যাডমিন" data-en="Admin">অ্যাডমিন</button>
       </nav>
 
       <div class="flex items-center gap-1.5">
@@ -78,7 +81,7 @@
         <div id="auth-buttons">
           <button onclick="openAuthModal()" class="btn-green px-3.5 py-1.5 text-xs sm:text-sm font-bold" data-bn="লগইন" data-en="Login">লগইন</button>
         </div>
-        <div id="user-menu" class="hidden items-center gap-1.5 bg-slate-100 dark:bg-slate-800 p-1 pr-2 rounded-full border">
+        <div id="user-menu" style="display:none" class="items-center gap-1.5 bg-slate-100 dark:bg-slate-800 p-1 pr-2 rounded-full border">
           <img id="current-user-img" src="" class="w-7 h-7 rounded-full object-cover border border-asf-600 cursor-pointer" onclick="switchTab('workspace')">
           <button onclick="logoutUser()" class="text-xs font-bold text-red-600 px-1" title="Logout">✕</button>
         </div>
@@ -86,15 +89,15 @@
     </div>
   </header>
 
-  <!-- Mobile Bottom Bar -->
+  <!-- Mobile Bottom Navigation -->
   <nav id="mobile-bottom-nav" class="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-white dark:bg-[#0a1912] border-t px-1 py-1.5 flex items-center justify-around text-[11px] font-bold">
     <button onclick="switchTab('home')" id="mnav-home" class="text-asf-600 py-1 px-2" data-bn="হোম" data-en="Home">হোম</button>
     <button onclick="switchTab('pipeline')" id="mnav-pipeline" class="text-slate-500 py-1 px-2" data-bn="পাইপলাইন" data-en="Pipeline">পাইপলাইন</button>
     <button onclick="switchTab('dashboard')" id="mnav-dashboard" class="text-slate-500 py-1 px-2" data-bn="ড্যাশবোর্ড" data-en="Dashboard">ড্যাশবোর্ড</button>
     <button onclick="switchTab('team')" id="mnav-team" class="text-slate-500 py-1 px-2" data-bn="টিম" data-en="Team">টিম</button>
     <button onclick="switchTab('portfolio')" id="mnav-portfolio" class="text-slate-500 py-1 px-2" data-bn="কাজ" data-en="Works">কাজ</button>
-    <button onclick="switchTab('workspace')" id="mnav-workspace" class="hidden text-slate-500 py-1 px-2" data-bn="লিখুন" data-en="Log">লিখুন</button>
-    <button onclick="switchTab('admin')" id="mnav-admin" class="hidden text-slate-500 py-1 px-2" data-bn="অ্যাডমিন" data-en="Admin">অ্যাডমিন</button>
+    <button onclick="switchTab('workspace')" id="mnav-workspace" style="display:none" class="text-slate-500 py-1 px-2" data-bn="লিখুন" data-en="Log">লিখুন</button>
+    <button onclick="switchTab('admin')" id="mnav-admin" style="display:none" class="text-slate-500 py-1 px-2" data-bn="অ্যাডমিন" data-en="Admin">অ্যাডমিন</button>
   </nav>
 
   <!-- MAIN CONTENT -->
@@ -102,7 +105,7 @@
 
     <!-- ================= 1. HOME TAB ================= -->
     <section id="tab-home" class="space-y-8">
-      <!-- Hero Banner -->
+      <!-- Stitched Solid Hero Banner -->
       <div class="stitched-box">
         <div class="bg-asf-700 rounded-2xl p-6 sm:p-10 text-white grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
           <div class="lg:col-span-8 text-center flex flex-col items-center justify-center space-y-2">
@@ -121,11 +124,13 @@
         </div>
       </div>
 
-      <!-- 5 Counter Status Buttons (With Built-in SVG Icons) -->
+      <!-- 5 Counter Status Cards (With Built-in Crisp SVG Icons) -->
       <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3.5">
         <div onclick="openQuickStatusModal('Completed')" class="stitched-box cursor-pointer">
           <div class="solid-card p-4 flex items-center gap-3">
-            <div class="w-11 h-11 rounded-xl bg-asf-600 text-white flex items-center justify-center shrink-0 font-bold text-lg">✓</div>
+            <div class="w-11 h-11 rounded-xl bg-asf-600 text-white flex items-center justify-center shrink-0">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+            </div>
             <div>
               <p class="text-xl font-bold" id="stat-completed">0</p>
               <p class="text-[11px] font-bold text-slate-500" data-bn="চলতি মাসে সম্পন্ন প্রোডাকশন" data-en="Completed Productions">চলতি মাসে সম্পন্ন প্রোডাকশন</p>
@@ -135,7 +140,9 @@
 
         <div onclick="openQuickStatusModal('Ongoing')" class="stitched-blue cursor-pointer">
           <div class="solid-card p-4 flex items-center gap-3">
-            <div class="w-11 h-11 rounded-xl bg-blue-600 text-white flex items-center justify-center shrink-0 font-bold text-lg">⚙</div>
+            <div class="w-11 h-11 rounded-xl bg-blue-600 text-white flex items-center justify-center shrink-0">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path stroke-linecap="round" d="M12 7v5l3 3"/></svg>
+            </div>
             <div>
               <p class="text-xl font-bold" id="stat-ongoing">0</p>
               <p class="text-[11px] font-bold text-slate-500" data-bn="বর্তমানে চলমান প্রজেক্ট" data-en="Ongoing Projects">বর্তমানে চলমান প্রজেক্ট</p>
@@ -145,7 +152,9 @@
 
         <div onclick="openQuickStatusModal('Pending')" class="stitched-amber cursor-pointer">
           <div class="solid-card p-4 flex items-center gap-3">
-            <div class="w-11 h-11 rounded-xl bg-amber-600 text-white flex items-center justify-center shrink-0 font-bold text-lg">⏳</div>
+            <div class="w-11 h-11 rounded-xl bg-amber-600 text-white flex items-center justify-center shrink-0">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path stroke-linecap="round" d="M12 8v4m0 4h.01"/></svg>
+            </div>
             <div>
               <p class="text-xl font-bold" id="stat-pending">0</p>
               <p class="text-[11px] font-bold text-slate-500" data-bn="পেন্ডিং প্রজেক্ট" data-en="Pending Projects">পেন্ডিং প্রজেক্ট</p>
@@ -155,7 +164,9 @@
 
         <div onclick="openQuickStatusModal('Ready')" class="stitched-rose cursor-pointer">
           <div class="solid-card p-4 flex items-center gap-3">
-            <div class="w-11 h-11 rounded-xl bg-rose-600 text-white flex items-center justify-center shrink-0 font-bold text-lg">🚀</div>
+            <div class="w-11 h-11 rounded-xl bg-rose-600 text-white flex items-center justify-center shrink-0">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+            </div>
             <div>
               <p class="text-xl font-bold" id="stat-ready">0</p>
               <p class="text-[11px] font-bold text-slate-500" data-bn="রেডি টু পাবলিশ" data-en="Ready to Publish">রেডি টু পাবলিশ</p>
@@ -165,7 +176,9 @@
 
         <div onclick="openQuickStatusModal('Upcoming')" class="stitched-purple cursor-pointer col-span-2 sm:col-span-1">
           <div class="solid-card p-4 flex items-center gap-3">
-            <div class="w-11 h-11 rounded-xl bg-purple-600 text-white flex items-center justify-center shrink-0 font-bold text-lg">📅</div>
+            <div class="w-11 h-11 rounded-xl bg-purple-600 text-white flex items-center justify-center shrink-0">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path stroke-linecap="round" d="M16 2v4M8 2v4M3 10h18"/></svg>
+            </div>
             <div>
               <p class="text-xl font-bold" id="stat-upcoming">0</p>
               <p class="text-[11px] font-bold text-slate-500" data-bn="আপকামিং প্রোডাকশন" data-en="Upcoming Productions">আপকামিং প্রোডাকশন</p>
@@ -174,13 +187,13 @@
         </div>
       </div>
 
-      <!-- Roadmap & Comparison Chart -->
+      <!-- Roadmap & Visual Column Comparison Chart -->
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
         <div class="lg:col-span-7 stitched-box">
           <div class="solid-card p-5 space-y-4 h-full">
             <div class="flex justify-between items-center border-b pb-2.5 dark:border-slate-800">
               <h3 class="font-bold text-base" data-bn="মাসিক কাজের প্ল্যানিং ও চলমান ওভারভিউ" data-en="Monthly Planning & Overview">মাসিক কাজের প্ল্যানিং ও চলমান ওভারভিউ</h3>
-              <button onclick="switchTab('pipeline')" class="text-xs font-bold text-asf-600" data-bn="পাইপলাইন →" data-en="Pipeline →">পাইপলাইন →</button>
+              <button onclick="switchTab('pipeline')" class="text-xs font-bold text-asf-600" data-bn="প্রোডাকশন পাইপলাইন →" data-en="Pipeline →">প্রোডাকশন পাইপলাইন →</button>
             </div>
             <div class="bg-emerald-50/70 dark:bg-slate-800 p-3.5 rounded-xl border border-emerald-200 dark:border-slate-700 space-y-1.5">
               <div class="flex justify-between text-xs font-bold">
@@ -193,19 +206,19 @@
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
               <div onclick="openPlanningDetailModal('currentPlan')" class="p-3.5 rounded-xl border hover:border-asf-600 cursor-pointer">
-                <div class="flex justify-between font-bold text-asf-600 mb-1"><span data-bn="চলতি মাসের প্ল্যানিং" data-en="Current Month Plan">চলতি মাসের প্ল্যানিং</span><span>↗</span></div>
+                <div class="flex justify-between font-bold text-asf-600 mb-1"><span data-bn="চলতি মাসের প্ল্যানিং" data-en="Current Month Plan">চলতি মাসের প্ল্যানিং</span><span>দেখুন ↗</span></div>
                 <p id="home-current-plan-preview" class="text-slate-600 dark:text-slate-300 line-clamp-2"></p>
               </div>
               <div onclick="openPlanningDetailModal('next3Months')" class="p-3.5 rounded-xl border hover:border-purple-600 cursor-pointer">
-                <div class="flex justify-between font-bold text-purple-600 mb-1"><span data-bn="আগামী ৩ মাসের পরিকল্পনা" data-en="Next 3 Months Plan">আগামী ৩ মাসের পরিকল্পনা</span><span>↗</span></div>
+                <div class="flex justify-between font-bold text-purple-600 mb-1"><span data-bn="আগামী ৩ মাসের পরিকল্পনা" data-en="Next 3 Months Plan">আগামী ৩ মাসের পরিকল্পনা</span><span>দেখুন ↗</span></div>
                 <p id="home-next3-plan-preview" class="text-slate-600 dark:text-slate-300 line-clamp-2"></p>
               </div>
               <div onclick="openQuickStatusModal('Ongoing')" class="p-3.5 rounded-xl border hover:border-blue-600 cursor-pointer">
-                <div class="flex justify-between font-bold text-blue-600 mb-1"><span data-bn="বর্তমানে চলমান প্রজেক্ট" data-en="Ongoing Projects">বর্তমানে চলমান প্রজেক্ট</span><span>↗</span></div>
+                <div class="flex justify-between font-bold text-blue-600 mb-1"><span data-bn="বর্তমানে চলমান প্রজেক্ট" data-en="Ongoing Projects">বর্তমানে চলমান প্রজেক্ট</span><span>তালিকা ↗</span></div>
                 <p id="home-ongoing-preview" class="text-slate-600 dark:text-slate-300 line-clamp-2"></p>
               </div>
               <div onclick="openQuickStatusModal('Ready')" class="p-3.5 rounded-xl border hover:border-rose-600 cursor-pointer">
-                <div class="flex justify-between font-bold text-rose-600 mb-1"><span data-bn="রেডি টু পাবলিশ ও পেন্ডিং" data-en="Ready & Pending">রেডি টু পাবলিশ ও পেন্ডিং</span><span>↗</span></div>
+                <div class="flex justify-between font-bold text-rose-600 mb-1"><span data-bn="রেডি টু পাবলিশ ও পেন্ডিং" data-en="Ready & Pending">রেডি টু পাবলিশ ও পেন্ডিং</span><span>তালিকা ↗</span></div>
                 <p id="home-pending-preview" class="text-slate-600 dark:text-slate-300 line-clamp-2"></p>
               </div>
             </div>
@@ -227,10 +240,10 @@
         </div>
       </div>
 
-      <!-- Featured Productions Below Chart (With Popular & Current Month Filter) -->
+      <!-- Featured Productions (Popular & Current Month) -->
       <div class="space-y-4">
         <div class="flex flex-wrap items-center justify-between gap-2">
-          <h3 class="text-lg sm:text-xl font-bold" data-bn="আমাদের প্রোডাকশন" data-en="Our Productions">আমাদের প্রোডাকশন</h3>
+          <h3 class="text-lg sm:text-xl font-bold" data-bn="ফিচারড প্রোডাকশন" data-en="Featured Productions">ফিচারড প্রোডাকশন</h3>
           <div class="flex items-center gap-2">
             <button onclick="setHomeProdMode('popular')" id="hprod-popular" class="px-3 py-1.5 rounded-lg text-xs font-bold btn-green" data-bn="★ পপুলার প্রোডাকশন" data-en="★ Popular">★ পপুলার প্রোডাকশন</button>
             <button onclick="setHomeProdMode('current')" id="hprod-current" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-200 dark:bg-slate-800" data-bn="চলতি মাসের কাজ" data-en="This Month">চলতি মাসের কাজ</button>
@@ -240,7 +253,7 @@
         <div id="home-portfolio-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"></div>
       </div>
 
-      <!-- Meeting Agenda at the Very Bottom of Home -->
+      <!-- Meeting Agenda at the Very Bottom -->
       <div class="stitched-box">
         <div class="solid-card p-5 space-y-4">
           <h3 class="font-bold text-base border-b pb-2.5 dark:border-slate-800" data-bn="মিটিং এজেন্ডা ও গৃহীত সিদ্ধান্তসমূহ" data-en="Meeting Agendas & Decisions">মিটিং এজেন্ডা ও গৃহীত সিদ্ধান্তসমূহ</h3>
@@ -249,30 +262,49 @@
       </div>
     </section>
 
-    <!-- ================= 2. PRODUCTION PIPELINE TAB (SEPARATE TAB) ================= -->
+    <!-- ================= 2. PRODUCTION PIPELINE TAB (ONLY PROJECT SHOOTING/EDITING, FRESH UI) ================= -->
     <section id="tab-pipeline" class="hidden space-y-6">
       <div class="stitched-box">
-        <div class="solid-card p-5 flex flex-wrap items-center justify-between gap-3">
-          <div>
-            <h2 class="text-xl font-bold" data-bn="প্রোডাকশন পাইপলাইন (শুটিং থেকে পাবলিশ)" data-en="Production Pipeline (Shooting to Publish)">প্রোডাকশন পাইপলাইন (শুটিং থেকে পাবলিশ)</h2>
+        <div class="solid-card p-5 space-y-4">
+          <div class="flex flex-wrap items-center justify-between gap-3 border-b pb-3 dark:border-slate-800">
+            <h2 class="text-xl font-bold text-asf-700 dark:text-white" data-bn="প্রোডাকশন পাইপলাইন" data-en="Production Pipeline">প্রোডাকশন পাইপলাইন</h2>
+            <span class="text-xs font-semibold text-slate-500" data-bn="শুধুমাত্র প্রজেক্ট-ভিত্তিক শুটিং, এডিটিং ও পাবলিশিং ট্র্যাকার" data-en="Project-based Shooting, Editing & Publishing Tracker">শুধুমাত্র প্রজেক্ট-ভিত্তিক শুটিং, এডিটিং ও পাবলিশিং ট্র্যাকার</span>
           </div>
-          <div class="flex flex-wrap gap-2 text-xs font-bold">
-            <span class="px-3 py-1 rounded-lg bg-purple-100 text-purple-800"><span data-bn="আপকামিং শুটিং:" data-en="Upcoming:">আপকামিং শুটিং:</span> <b id="pipe-count-up">0</b></span>
-            <span class="px-3 py-1 rounded-lg bg-amber-100 text-amber-800"><span data-bn="শুটিং শেষ (পেন্ডিং):" data-en="Pending Edit:">শুটিং শেষ (পেন্ডিং):</span> <b id="pipe-count-pend">0</b></span>
-            <span class="px-3 py-1 rounded-lg bg-blue-100 text-blue-800"><span data-bn="এডিটিং চলমান:" data-en="Editing:">এডিটিং চলমান:</span> <b id="pipe-count-edit">0</b></span>
-            <span class="px-3 py-1 rounded-lg bg-rose-100 text-rose-800"><span data-bn="রেডি টু পাবলিশ:" data-en="Ready:">রেডি টু পাবলিশ:</span> <b id="pipe-count-ready">0</b></span>
+
+          <!-- Clean Stage Filter Pills -->
+          <div class="grid grid-cols-2 sm:grid-cols-5 gap-2.5 text-xs font-bold">
+            <button onclick="setPipelineFilter('Upcoming')" id="pstage-Upcoming" class="p-3 rounded-xl border-2 border-purple-600 bg-purple-50 dark:bg-slate-800 text-purple-800 dark:text-purple-300 flex items-center justify-between">
+              <span data-bn="১. আপকামিং শুটিং" data-en="1. Upcoming Shoot">১. আপকামিং শুটিং</span>
+              <span id="pipe-count-up" class="px-2 py-0.5 rounded-full bg-purple-600 text-white">0</span>
+            </button>
+            <button onclick="setPipelineFilter('Pending')" id="pstage-Pending" class="p-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 flex items-center justify-between">
+              <span data-bn="২. শুটিং শেষ (পেন্ডিং)" data-en="2. Shoot Done (Pending)">২. শুটিং শেষ (পেন্ডিং)</span>
+              <span id="pipe-count-pend" class="px-2 py-0.5 rounded-full bg-amber-500 text-slate-950">0</span>
+            </button>
+            <button onclick="setPipelineFilter('Ongoing')" id="pstage-Ongoing" class="p-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 flex items-center justify-between">
+              <span data-bn="৩. এডিটিং চলমান" data-en="3. Editing Ongoing">৩. এডিটিং চলমান</span>
+              <span id="pipe-count-edit" class="px-2 py-0.5 rounded-full bg-blue-600 text-white">0</span>
+            </button>
+            <button onclick="setPipelineFilter('Ready')" id="pstage-Ready" class="p-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 flex items-center justify-between">
+              <span data-bn="৪. রেডি টু পাবলিশ" data-en="4. Ready to Publish">৪. রেডি টু পাবলিশ</span>
+              <span id="pipe-count-ready" class="px-2 py-0.5 rounded-full bg-rose-600 text-white">0</span>
+            </button>
+            <button onclick="setPipelineFilter('Completed')" id="pstage-Completed" class="p-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 flex items-center justify-between col-span-2 sm:col-span-1">
+              <span data-bn="৫. পাবলিশড ও রেটিং" data-en="5. Published">৫. পাবলিশড ও রেটিং</span>
+              <span id="pipe-count-done" class="px-2 py-0.5 rounded-full bg-asf-600 text-white">0</span>
+            </button>
           </div>
         </div>
       </div>
 
-      <!-- Admin/Director Schedule Shooting Form -->
-      <div id="pipeline-create-box" class="hidden stitched-box">
+      <!-- Admin / Director Schedule Shooting Form (Strictly Hidden When Logged Out) -->
+      <div id="pipeline-create-box" style="display:none" class="stitched-box">
         <div class="solid-card p-5 space-y-4">
-          <h3 class="font-bold text-base text-asf-600 border-b pb-2" data-bn="নতুন শুটিং ও প্রোডাকশন শিডিউল অ্যাসাইন করুন" data-en="Schedule New Shooting & Production">নতুন শুটিং ও প্রোডাকশন শিডিউল অ্যাসাইন করুন</h3>
+          <h3 class="font-bold text-base text-asf-600 border-b pb-2" data-bn="নতুন শুটিং ও প্রোডাকশন প্রজেক্ট অ্যাসাইন করুন" data-en="Schedule New Shooting Project">নতুন শুটিং ও প্রোডাকশন প্রজেক্ট অ্যাসাইন করুন</h3>
           <form onsubmit="createPipelineProject(event)" class="space-y-4 text-xs sm:text-sm">
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
               <div>
-                <label class="block text-xs font-bold mb-1" data-bn="প্রোডাকশনের টপিক / শিরোনাম *" data-en="Topic / Title *">প্রোডাকশনের টপিক / শিরোনাম *</label>
+                <label class="block text-xs font-bold mb-1" data-bn="প্রোডাকশন টপিক / শিরোনাম *" data-en="Topic / Title *">প্রোডাকশন টপিক / শিরোনাম *</label>
                 <input type="text" id="pipe-title" required class="w-full px-3 py-2 rounded-lg border dark:bg-slate-800">
               </div>
               <div>
@@ -293,8 +325,8 @@
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label class="block text-xs font-bold mb-1 text-asf-600" data-bn="শুটিংয়ে কারা কারা কাজ করবেন? (টিক দিন — প্রোফাইলে চলে যাবে)" data-en="Select Shooting Crew (Auto-syncs to profile)">শুটিংয়ে কারা কারা কাজ করবেন? (টিক দিন — প্রোফাইলে চলে যাবে)</label>
-                <div id="pipe-crew-checkboxes" class="max-h-28 overflow-y-auto border rounded-lg p-2 grid grid-cols-1 sm:grid-cols-2 gap-1 text-xs"></div>
+                <label class="block text-xs font-bold mb-1 text-asf-600" data-bn="শুটিংয়ে কারা কাজ করবেন? (শুধু নাম — অটো প্রোফাইলে যাবে)" data-en="Select Shooting Crew (Names Only)">শুটিংয়ে কারা কাজ করবেন? (শুধু নাম — অটো প্রোফাইলে যাবে)</label>
+                <div id="pipe-crew-checkboxes" class="max-h-28 overflow-y-auto border rounded-lg p-2 grid grid-cols-2 gap-1.5 text-xs"></div>
               </div>
               <div>
                 <label class="block text-xs font-bold mb-1 text-asf-600" data-bn="প্ল্যাটফর্মসমূহ (একাধিক সিলেক্ট করা যাবে)" data-en="Select Platforms (Multiple)">প্ল্যাটফর্মসমূহ (একাধিক সিলেক্ট করা যাবে)</label>
@@ -302,16 +334,16 @@
               </div>
             </div>
 
-            <button type="submit" class="btn-green px-6 py-2.5 font-bold" data-bn="শুটিং অ্যাসাইন করুন (আপকামিং-এ যুক্ত হবে)" data-en="Assign Shooting (Add to Upcoming)">শুটিং অ্যাসাইন করুন (আপকামিং-এ যুক্ত হবে)</button>
+            <button type="submit" class="btn-green px-6 py-2.5 font-bold" data-bn="শুটিং অ্যাসাইন করুন (আপকামিং প্রোডাকশনে যুক্ত হবে)" data-en="Assign Shooting (Add to Upcoming)">শুটিং অ্যাসাইন করুন (আপকামিং প্রোডাকশনে যুক্ত হবে)</button>
           </form>
         </div>
       </div>
 
-      <!-- 5 Columns Pipeline Board -->
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4" id="pipeline-board"></div>
+      <!-- Fresh Wide Cards Grid for Selected Pipeline Stage -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5" id="pipeline-board"></div>
     </section>
 
-    <!-- ================= 3. MONTHLY DASHBOARD TAB (NO DUPLICATE MEMBER LIST) ================= -->
+    <!-- ================= 3. MONTHLY DASHBOARD TAB ================= -->
     <section id="tab-dashboard" class="hidden space-y-6">
       <div class="stitched-box">
         <div class="solid-card p-5 flex flex-wrap items-center justify-between gap-3">
@@ -343,7 +375,6 @@
           <div class="solid-card p-5 h-full space-y-3">
             <div class="flex justify-between items-center border-b pb-2">
               <h3 class="font-bold text-base" data-bn="কাজের ধরন অনুযায়ী হিসাব" data-en="Category Summary">কাজের ধরন অনুযায়ী হিসাব</h3>
-              <span id="dash-checklist-counter" class="text-xs font-bold text-asf-600"></span>
             </div>
             <div id="dashboard-category-list" class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 max-h-64 overflow-y-auto"></div>
           </div>
@@ -381,7 +412,7 @@
       <div id="full-team-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"></div>
     </section>
 
-    <!-- ================= 5. PRODUCTIONS TAB (চলতি মাসের কাজ ও পপুলার) ================= -->
+    <!-- ================= 5. PRODUCTIONS TAB ================= -->
     <section id="tab-portfolio" class="hidden space-y-6">
       <div class="stitched-box">
         <div class="solid-card p-5 space-y-4">
@@ -399,7 +430,7 @@
       <div id="full-portfolio-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"></div>
     </section>
 
-    <!-- ================= 6. WORKSPACE (কাজ লিখুন — মাল্টিপল প্ল্যাটফর্মসহ) ================= -->
+    <!-- ================= 6. WORKSPACE (কাজ লিখুন — নাম ছাড়া পদবী নেই) ================= -->
     <section id="tab-workspace" class="hidden space-y-6">
       <div class="stitched-box">
         <div class="solid-card p-5 flex flex-wrap items-center justify-between gap-4">
@@ -418,6 +449,30 @@
             <button onclick="openAddPortfolioItemModal()" class="px-3 py-2 rounded-lg bg-amber-500 text-slate-950">+ পোর্টফোলিও যুক্ত করুন</button>
             <button onclick="openMemberModal(currentUserProfile.uid)" class="btn-green px-3.5 py-2">আমার পোর্টফোলিও</button>
           </div>
+        </div>
+      </div>
+
+      <!-- Director / Super Admin Assign Task Box (Clean Names Only) -->
+      <div id="director-assign-box" style="display:none" class="stitched-box">
+        <div class="solid-card p-5 space-y-3">
+          <h3 class="font-bold text-sm text-asf-600 border-b pb-2">টিম মেম্বারকে সাধারণ কাজ অ্যাসাইন করুন (শুধু নাম)</h3>
+          <form onsubmit="assignGeneralTask(event)" class="grid grid-cols-1 sm:grid-cols-4 gap-3 text-xs">
+            <div>
+              <label class="block font-bold mb-1">টিম মেম্বার *</label>
+              <select id="assign-member-uid" required class="w-full px-3 py-2 rounded-lg border dark:bg-slate-800 font-bold"></select>
+            </div>
+            <div>
+              <label class="block font-bold mb-1">কাজের ধরন *</label>
+              <select id="assign-category" required class="w-full px-3 py-2 rounded-lg border dark:bg-slate-800 font-bold"></select>
+            </div>
+            <div>
+              <label class="block font-bold mb-1">কাজের শিরোনাম *</label>
+              <input type="text" id="assign-title" required class="w-full px-3 py-2 rounded-lg border dark:bg-slate-800">
+            </div>
+            <div class="flex items-end">
+              <button type="submit" class="btn-green w-full py-2 font-bold">কাজ পাঠান</button>
+            </div>
+          </form>
         </div>
       </div>
 
@@ -496,7 +551,7 @@
       </div>
     </section>
 
-    <!-- ================= 7. ADMIN PANEL ================= -->
+    <!-- ================= 7. ADMIN PANEL (STRICTLY PROTECTED) ================= -->
     <section id="tab-admin" class="hidden space-y-6">
       <div class="stitched-box">
         <div class="bg-asf-700 text-white p-5 rounded-2xl flex flex-wrap items-center justify-between gap-3">
@@ -569,8 +624,8 @@
 
   </main>
 
-  <!-- ================= FLOATING LIVE CHAT BUTTON & DRAWER ================= -->
-  <button onclick="openChatBox()" class="fixed bottom-16 md:bottom-6 right-5 z-40 w-13 h-13 w-12 h-12 rounded-full bg-asf-600 hover:bg-asf-700 text-white shadow-2xl flex items-center justify-center border-2 border-white">
+  <!-- Floating Live Chat Button -->
+  <button onclick="openChatBox()" class="fixed bottom-16 md:bottom-6 right-5 z-40 w-12 h-12 rounded-full bg-asf-600 hover:bg-asf-700 text-white shadow-2xl flex items-center justify-center border-2 border-white">
     <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
     <span id="chat-unread-badge" class="hidden absolute -top-1 -right-1 w-5 h-5 rounded-full bg-red-600 text-white text-[10px] font-bold flex items-center justify-center">!</span>
   </button>
@@ -595,13 +650,13 @@
     </form>
   </div>
 
-  <!-- ================= FOOTER (Contributor Label) ================= -->
+  <!-- Footer -->
   <footer class="bg-asf-800 text-white pt-10 pb-7 mt-12 border-t border-emerald-900">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 space-y-6">
       <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
         <div class="md:col-span-5 space-y-2 text-center md:text-left">
           <div class="flex items-center justify-center md:justify-start gap-2.5">
-            <img id="footer-brand-logo" src="https://ui-avatars.com/api/?name=ASF&background=006837&color=fff&bold=true" class="w-9 h-9 rounded-lg bg-white p-0.5 object-contain">
+            <img id="footer-brand-logo" src="https://assunnahfoundation.org/assets/images/logo.png" onerror="this.src='https://ui-avatars.com/api/?name=ASF&background=006837&color=fff&bold=true'" class="w-9 h-9 rounded-lg bg-white p-0.5 object-contain">
             <span class="text-base font-bold">আস-সুন্নাহ ফাউন্ডেশন দাওয়াহ মিডিয়া</span>
           </div>
           <p id="footer-address-text" class="text-xs text-emerald-200">প্লট-৭০, রোড-৩, ব্লক-সি, আফতাবনগর, ঢাকা-১২১২, বাংলাদেশ</p>
@@ -631,7 +686,7 @@
     </div>
   </footer>
 
-  <!-- ================= MODALS ================= -->
+  <!-- Modals -->
   <div id="auth-modal" class="fixed inset-0 z-50 bg-slate-950/60 hidden items-center justify-center p-4">
     <div class="solid-card max-w-md w-full p-6 space-y-4">
       <div class="flex justify-between items-center border-b pb-2"><h3 class="font-bold text-asf-600">টিম মেম্বার লগইন ও জয়েন</h3><button onclick="closeAuthModal()">✕</button></div>
@@ -658,7 +713,6 @@
     </div>
   </div>
 
-  <!-- Member Portfolio Modal -->
   <div id="member-modal" class="fixed inset-0 z-50 bg-slate-950/65 hidden items-center justify-center p-2 sm:p-4">
     <div class="solid-card max-w-4xl w-full p-5 space-y-5 max-h-[90vh] overflow-y-auto">
       <div class="flex flex-wrap items-center justify-between gap-3 border-b pb-3">
@@ -679,7 +733,7 @@
       <div class="grid grid-cols-4 gap-2 text-center text-xs">
         <div class="p-2.5 rounded-xl bg-emerald-50 dark:bg-slate-800"><p class="text-lg font-bold text-asf-600" id="mod-stat-completed">0</p><p class="font-bold text-slate-500">সম্পন্ন</p></div>
         <div class="p-2.5 rounded-xl bg-blue-50 dark:bg-slate-800"><p class="text-lg font-bold text-blue-600" id="mod-stat-ongoing">0</p><p class="font-bold text-slate-500">চলমান</p></div>
-        <div class="p-2.5 rounded-xl bg-amber-50 dark:bg-slate-800"><p class="text-lg font-bold text-amber-600" id="mod-stat-pending">0</p><p class="font-bold text-slate-500">পেন্ডিং/আপকামিং</p></div>
+        <div class="p-2.5 rounded-xl bg-amber-50 dark:bg-slate-800"><p class="text-lg font-bold text-amber-600" id="mod-stat-pending">0</p><p class="font-bold text-slate-500">পেন্ডিং/শুটিং</p></div>
         <div class="p-2.5 rounded-xl bg-purple-50 dark:bg-slate-800"><p class="text-lg font-bold text-purple-600" id="mod-stat-days">0</p><p class="font-bold text-slate-500">কর্মদিবস</p></div>
       </div>
 
@@ -689,7 +743,7 @@
       </div>
 
       <div class="border rounded-xl p-3 space-y-2">
-        <h4 class="font-bold text-xs border-b pb-1.5">কাজের তালিকা (শুটিং, এডিটিং ও প্রোডাকশন)</h4>
+        <h4 class="font-bold text-xs border-b pb-1.5">কাজের তালিকা</h4>
         <div class="overflow-x-auto max-h-60">
           <table class="w-full text-left text-xs">
             <tbody id="mod-tasks-tbody" class="divide-y dark:divide-slate-800"></tbody>
@@ -699,7 +753,6 @@
     </div>
   </div>
 
-  <!-- Add Member Portfolio Modal -->
   <div id="add-portfolio-item-modal" class="fixed inset-0 z-50 bg-slate-950/60 hidden items-center justify-center p-4">
     <div class="solid-card max-w-md w-full p-5 space-y-3 text-xs">
       <div class="flex justify-between items-center border-b pb-2"><h3 class="font-bold text-asf-600">পোর্টফোলিওতে কাজ যুক্ত করুন</h3><button onclick="document.getElementById('add-portfolio-item-modal').classList.add('hidden')">✕</button></div>
@@ -711,7 +764,6 @@
     </div>
   </div>
 
-  <!-- Quick Status List Modal -->
   <div id="quick-detail-modal" class="fixed inset-0 z-50 bg-slate-950/60 hidden items-center justify-center p-4">
     <div class="solid-card max-w-2xl w-full p-5 space-y-3 max-h-[85vh] overflow-y-auto">
       <div class="flex justify-between items-center border-b pb-2"><h3 id="quick-modal-title" class="font-bold text-asf-600"></h3><button onclick="document.getElementById('quick-detail-modal').classList.add('hidden')">✕</button></div>
@@ -719,7 +771,6 @@
     </div>
   </div>
 
-  <!-- Edit Profile Modal -->
   <div id="edit-profile-modal" class="fixed inset-0 z-50 bg-slate-950/60 hidden items-center justify-center p-4">
     <div class="solid-card max-w-md w-full p-5 space-y-3 text-xs">
       <div class="flex justify-between items-center border-b pb-2"><h3 class="font-bold">প্রোফাইল আপডেট</h3><button onclick="document.getElementById('edit-profile-modal').classList.add('hidden')">✕</button></div>
@@ -733,7 +784,7 @@
     </div>
   </div>
 
-  <!-- ================= FIREBASE LOGIC ================= -->
+  <!-- ================= FIREBASE & APPLICATION LOGIC ================= -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
     import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
@@ -792,12 +843,13 @@
     window.homeProdMode = 'popular';
     window.portfolioViewMode = 'all';
     window.selectedPortfolioCategory = 'ALL';
+    window.activePipelineStage = 'Upcoming';
     window.openedModalMemberId = null;
     window.initialMsgLoad = true;
 
     window.siteSettings = {
       title: "ASF Dawah Media", subtitle: "As-Sunnah Foundation",
-      logo: "https://ui-avatars.com/api/?name=ASF&background=006837&color=fff&bold=true",
+      logo: "https://assunnahfoundation.org/assets/images/logo.png",
       heroLine1: "আস-সুন্নাহ ফাউন্ডেশন", heroLine2: "দাওয়াহ মিডিয়া",
       heroDesc: "আস-সুন্নাহ ফাউন্ডেশন ও শায়খ আহমাদুল্লাহ দাওয়াহ মিডিয়া সকল ধরণের কাজ।",
       planTargetCount: 50,
@@ -818,6 +870,11 @@
       return list.sort((a,b) => (a.sortOrder||999) - (b.sortOrder||999));
     }
 
+    function isManagerLoggedIn() {
+      const p = window.currentUserProfile;
+      return Boolean(auth.currentUser && p && (p.role === 'superadmin' || p.role === 'director'));
+    }
+
     // Real-time Listeners
     onSnapshot(doc(db, "config", "siteSettings"), (s) => {
       if (s.exists()) window.siteSettings = { ...window.siteSettings, ...s.data() };
@@ -826,8 +883,14 @@
 
     onSnapshot(collection(db, "users"), (snap) => {
       window.allMembers = []; snap.forEach(d => window.allMembers.push({ uid: d.id, ...d.data() }));
-      if (auth.currentUser) { window.currentUserProfile = window.allMembers.find(m => m.uid === auth.currentUser.uid) || window.currentUserProfile; updateAuthUI(); }
-      populatePipelineAndChatMembers(); renderHomeSection(); renderTeamSection(); renderDashboard(); renderAdminPanel();
+      if (auth.currentUser) {
+        window.currentUserProfile = window.allMembers.find(m => m.uid === auth.currentUser.uid) || null;
+      } else {
+        window.currentUserProfile = null;
+      }
+      updateAuthUI();
+      populateCleanMemberNamesEverywhere();
+      renderHomeSection(); renderPipelineBoard(); renderTeamSection(); renderDashboard(); renderAdminPanel();
     });
 
     onSnapshot(collection(db, "tasks"), (snap) => {
@@ -876,8 +939,12 @@
       if (user) {
         const uDoc = await getDoc(doc(db, "users", user.uid));
         if (uDoc.exists()) window.currentUserProfile = { uid: user.uid, ...uDoc.data() };
-      } else window.currentUserProfile = null;
+      } else {
+        window.currentUserProfile = null;
+      }
       updateAuthUI();
+      renderPipelineBoard();
+      renderDashboard();
     });
 
     function applySiteSettingsUI() {
@@ -894,6 +961,7 @@
 
       const acts = CORE_ACTIVITIES.map(a => `<option value="${window.clean(a)}">${window.clean(a)}</option>`).join('');
       document.getElementById('task-category').innerHTML = acts;
+      document.getElementById('assign-category').innerHTML = acts;
 
       const cats = (s.portfolioCategories || DEFAULT_PORTFOLIO_CATEGORIES).map(c => `<option value="${window.clean(c)}">${window.clean(c)}</option>`).join('');
       document.getElementById('port-cat').innerHTML = cats;
@@ -908,48 +976,50 @@
       document.getElementById('pipe-platform-checkboxes').innerHTML = platChecks;
     }
 
-    function populatePipelineAndChatMembers() {
+    // ONLY CLEAN NAMES (No Designations in Dropdowns or Checkboxes)
+    function populateCleanMemberNamesEverywhere() {
       const members = getSortedMembers(true);
       document.getElementById('pipe-crew-checkboxes').innerHTML = members.map(m => `
-        <label class="flex items-center gap-1.5 p-1 hover:bg-slate-100 dark:hover:bg-slate-800 rounded cursor-pointer">
+        <label class="flex items-center gap-1.5 p-1.5 hover:bg-slate-100 dark:hover:bg-slate-800 rounded cursor-pointer font-semibold">
           <input type="checkbox" value="${m.uid}" data-name="${window.clean(m.name)}" class="rounded text-asf-600">
           <span>${window.clean(m.name)}</span>
         </label>
       `).join('');
 
+      const cleanOptions = members.map(m => `<option value="${m.uid}">${window.clean(m.name)}</option>`).join('');
+      if (document.getElementById('assign-member-uid')) document.getElementById('assign-member-uid').innerHTML = cleanOptions;
+
       document.getElementById('chat-recipient').innerHTML = `<option value="ALL">📢 সকল টিম মেম্বার (Group Chat)</option>` +
         members.map(m => `<option value="${m.uid}">👤 ${window.clean(m.name)}</option>`).join('');
     }
 
+    // Strict Auth & Role UI Guard
     function updateAuthUI() {
       const p = window.currentUserProfile;
-      if (p) {
-        document.getElementById('auth-buttons').classList.add('hidden');
-        document.getElementById('user-menu').classList.remove('hidden');
-        document.getElementById('user-menu').classList.add('flex');
+      const isLogged = Boolean(auth.currentUser && p);
+      const isManager = isManagerLoggedIn();
+
+      document.getElementById('auth-buttons').style.display = isLogged ? 'none' : 'block';
+      document.getElementById('user-menu').style.display = isLogged ? 'flex' : 'none';
+      document.getElementById('nav-workspace').style.display = isLogged ? 'inline-block' : 'none';
+      document.getElementById('mnav-workspace').style.display = isLogged ? 'inline-block' : 'none';
+
+      document.getElementById('nav-admin').style.display = isManager ? 'inline-block' : 'none';
+      document.getElementById('mnav-admin').style.display = isManager ? 'inline-block' : 'none';
+      document.getElementById('pipeline-create-box').style.display = isManager ? 'block' : 'none';
+      document.getElementById('director-assign-box').style.display = isManager ? 'block' : 'none';
+
+      if (isLogged) {
         document.getElementById('current-user-img').src = p.photo;
-        document.getElementById('nav-workspace').classList.remove('hidden');
-        document.getElementById('mnav-workspace').classList.remove('hidden');
         document.getElementById('ws-user-img').src = p.photo;
         document.getElementById('ws-user-name').innerText = p.name;
         document.getElementById('ws-user-designation').innerText = p.designation || "";
         document.getElementById('ws-user-role-badge').innerText = p.role === 'superadmin' ? 'সুপার অ্যাডমিন' : (p.role === 'director' ? 'ডিরেক্টর' : 'টিম মেম্বার');
-
-        if (p.role === 'superadmin' || p.role === 'director') {
-          document.getElementById('nav-admin').classList.remove('hidden');
-          document.getElementById('mnav-admin').classList.remove('hidden');
-          document.getElementById('pipeline-create-box').classList.remove('hidden');
-        } else {
-          document.getElementById('nav-admin').classList.add('hidden');
-          document.getElementById('mnav-admin').classList.add('hidden');
-          document.getElementById('pipeline-create-box').classList.add('hidden');
-        }
       } else {
-        document.getElementById('auth-buttons').classList.remove('hidden');
-        document.getElementById('user-menu').classList.add('hidden');
-        document.getElementById('nav-workspace').classList.add('hidden');
-        document.getElementById('nav-admin').classList.add('hidden');
-        document.getElementById('pipeline-create-box').classList.add('hidden');
+        // Kick out if currently viewing protected tabs while logged out
+        if (!document.getElementById('tab-admin').classList.contains('hidden') || !document.getElementById('tab-workspace').classList.contains('hidden')) {
+          switchTab('home');
+        }
       }
     }
 
@@ -966,7 +1036,7 @@
       const ongCount = window.allTasks.filter(t => t.status === 'Ongoing').length;
       const pendCount = window.allTasks.filter(t => t.status === 'Pending').length;
       const readyCount = window.allTasks.filter(t => t.status === 'Ready' || t.status === 'In Review').length;
-      const upCount = window.allTasks.filter(t => t.status === 'Upcoming').length;
+      const upCount = window.allTasks.filter(t => t.status === 'Upcoming' && t.isPipeline === true).length;
 
       document.getElementById('stat-completed').innerText = compCount;
       document.getElementById('stat-ongoing').innerText = ongCount;
@@ -1024,9 +1094,24 @@
           `).join('');
     }
 
-    // 2. Production Pipeline Automation (Upcoming -> Pending -> Ongoing -> Ready -> Completed)
+    // 2. STRICT PRODUCTION PIPELINE (Only isPipeline === true Projects, Fresh Card Grid)
+    window.setPipelineFilter = (stage) => {
+      window.activePipelineStage = stage;
+      ['Upcoming','Pending','Ongoing','Ready','Completed'].forEach(st => {
+        const btn = document.getElementById(`pstage-${st}`);
+        if (btn) {
+          btn.className = st === stage
+            ? "p-3 rounded-xl border-2 border-asf-600 bg-emerald-50 dark:bg-slate-800 text-asf-700 dark:text-emerald-300 flex items-center justify-between"
+            : "p-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 flex items-center justify-between";
+        }
+      });
+      renderPipelineBoard();
+    };
+
     window.createPipelineProject = async (e) => {
       e.preventDefault();
+      if (!isManagerLoggedIn()) return alert("শুধুমাত্র অ্যাডমিন বা ডিরেক্টর শুটিং অ্যাসাইন করতে পারবেন।");
+
       const title = document.getElementById('pipe-title').value.trim();
       const type = document.getElementById('pipe-type').value;
       const shootDate = document.getElementById('pipe-date').value;
@@ -1046,7 +1131,7 @@
           shootTime: shootTime,
           category: "ভিডিও শুটিং ও ক্যামেরা অপারেশন",
           productionType: type,
-          title: `[${type}] ${title} (শুটিং: ${shootTime})`,
+          title: `${title}`,
           platform: platforms,
           status: "Upcoming",
           isPipeline: true,
@@ -1055,14 +1140,18 @@
         });
       }
       document.getElementById('pipe-title').value = '';
-      window.showToast("শুটিং অ্যাসাইন হয়েছে! আপকামিং ও মেম্বার প্রোফাইলে যুক্ত হয়েছে।");
+      window.setPipelineFilter('Upcoming');
+      window.showToast("নতুন শুটিং অ্যাসাইন হয়েছে!");
     };
 
     window.advancePipelineStage = async (taskId, nextStatus) => {
+      if (!auth.currentUser) return alert("অনুগ্রহ করে প্রথমে লগইন করুন।");
       const t = window.allTasks.find(x => x.id === taskId);
       if (!t) return;
+
       if (nextStatus === 'Ongoing') {
-        const editorUid = document.getElementById(`pipe-ed-${taskId}`).value;
+        const editorSel = document.getElementById(`pipe-ed-${taskId}`);
+        const editorUid = editorSel ? editorSel.value : '';
         const edMem = window.allMembers.find(m => m.uid === editorUid);
         if (!edMem) return alert("এডিটর সিলেক্ট করুন।");
         await updateDoc(doc(db, "tasks", taskId), {
@@ -1073,13 +1162,15 @@
           date: getTodayStr(),
           month: getCurrentMonthStr()
         });
-        window.showToast(`${edMem.name}-কে এডিটিং অ্যাসাইন করা হয়েছে (চলমান প্রজেক্ট)।`);
+        window.showToast(`${edMem.name}-কে এডিটিং অ্যাসাইন করা হয়েছে!`);
       } else if (nextStatus === 'Ready') {
         const drive = prompt("রেডি ভিডিওর ড্রাইভ লিংক দিন (ঐচ্ছিক):", t.link || "");
+        if (drive === null) return;
         await updateDoc(doc(db, "tasks", taskId), { status: 'Ready', link: drive || t.link || "" });
         window.showToast("রেডি টু পাবলিশ তালিকায় যুক্ত হয়েছে!");
       } else if (nextStatus === 'Completed') {
         const pubUrl = prompt("পাবলিশড লিংক (YouTube/FB) দিন:", t.topViewLink || "");
+        if (pubUrl === null) return;
         await updateDoc(doc(db, "tasks", taskId), {
           status: 'Completed',
           topViewLink: pubUrl || "",
@@ -1101,47 +1192,84 @@
     };
 
     function renderPipelineBoard() {
-      const upList = window.allTasks.filter(t => t.status === 'Upcoming');
-      const pendList = window.allTasks.filter(t => t.status === 'Pending');
-      const editList = window.allTasks.filter(t => t.status === 'Ongoing');
-      const readyList = window.allTasks.filter(t => t.status === 'Ready' || t.status === 'In Review');
-      const doneList = window.allTasks.filter(t => t.status === 'Completed' && t.month === getCurrentMonthStr()).slice(0, 8);
+      // STRICT FILTER: Only tasks created via Production Pipeline (isPipeline === true)
+      const pipeTasks = window.allTasks.filter(t => t.isPipeline === true);
+
+      const upList = pipeTasks.filter(t => t.status === 'Upcoming');
+      const pendList = pipeTasks.filter(t => t.status === 'Pending');
+      const editList = pipeTasks.filter(t => t.status === 'Ongoing');
+      const readyList = pipeTasks.filter(t => t.status === 'Ready' || t.status === 'In Review');
+      const doneList = pipeTasks.filter(t => t.status === 'Completed');
 
       document.getElementById('pipe-count-up').innerText = upList.length;
       document.getElementById('pipe-count-pend').innerText = pendList.length;
       document.getElementById('pipe-count-edit').innerText = editList.length;
       document.getElementById('pipe-count-ready').innerText = readyList.length;
+      document.getElementById('pipe-count-done').innerText = doneList.length;
 
-      const memberOptions = getSortedMembers(true).map(m => `<option value="${m.uid}">${window.clean(m.name)}</option>`).join('');
+      let currentItems = upList;
+      if (window.activePipelineStage === 'Pending') currentItems = pendList;
+      if (window.activePipelineStage === 'Ongoing') currentItems = editList;
+      if (window.activePipelineStage === 'Ready') currentItems = readyList;
+      if (window.activePipelineStage === 'Completed') currentItems = doneList;
 
-      const colHtml = (title, color, items, btnBuilder) => `
-        <div class="solid-card p-3.5 space-y-3 border-t-4 ${color}">
-          <div class="flex justify-between items-center font-bold text-xs border-b pb-2"><span>${title}</span><span class="px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800">${items.length}</span></div>
-          <div class="space-y-2.5 max-h-96 overflow-y-auto pr-1">
-            ${items.length === 0 ? `<p class="text-[11px] text-slate-400 text-center py-6">খালি</p>` : items.map(t => `
-              <div class="p-2.5 rounded-xl border bg-slate-50/60 dark:bg-slate-800/50 space-y-1.5 text-xs">
-                <p class="font-bold text-slate-900 dark:text-white">${window.clean(t.title)}</p>
-                <p class="text-[11px] text-asf-600 font-bold">👤 ${window.clean(t.memberName)}</p>
-                <p class="text-[10px] text-slate-500">📅 ${window.formatFullDate(t.date)} • ${window.clean(t.platform)}</p>
-                ${btnBuilder(t)}
+      const canManage = isManagerLoggedIn();
+      const myUid = window.currentUserProfile ? window.currentUserProfile.uid : null;
+      // Clean Names Only (No Designation)
+      const cleanEditorOptions = getSortedMembers(true).map(m => `<option value="${m.uid}">${window.clean(m.name)}</option>`).join('');
+
+      const board = document.getElementById('pipeline-board');
+      if (currentItems.length === 0) {
+        board.innerHTML = `<div class="col-span-full stitched-box"><div class="solid-card p-10 text-center text-xs sm:text-sm text-slate-400 font-semibold">এই ধাপে বর্তমানে কোনো প্রোডাকশন প্রজেক্ট নেই।</div></div>`;
+        return;
+      }
+
+      board.innerHTML = currentItems.map(t => {
+        const isOwnerOrManager = canManage || (myUid && t.uid === myUid);
+        let actionHtml = '';
+
+        if (isOwnerOrManager) {
+          if (t.status === 'Upcoming') {
+            actionHtml = `<button onclick="advancePipelineStage('${t.id}','Pending')" class="w-full py-2 rounded-lg bg-purple-600 text-white font-bold text-xs">শুটিং সম্পন্ন হয়েছে (পেন্ডিংয়ে পাঠান) →</button>`;
+          } else if (t.status === 'Pending' && canManage) {
+            actionHtml = `
+              <div class="pt-2 border-t space-y-2">
+                <label class="block text-[11px] font-bold text-slate-500">এডিটর নির্বাচন করুন (শুধু নাম):</label>
+                <select id="pipe-ed-${t.id}" class="w-full px-2.5 py-1.5 rounded-lg border text-xs font-bold dark:bg-slate-900">${cleanEditorOptions}</select>
+                <button onclick="advancePipelineStage('${t.id}','Ongoing')" class="w-full py-2 rounded-lg bg-amber-500 text-slate-950 font-bold text-xs">এডিটর অ্যাসাইন করুন →</button>
               </div>
-            `).join('')}
-          </div>
-        </div>
-      `;
+            `;
+          } else if (t.status === 'Ongoing') {
+            actionHtml = `<button onclick="advancePipelineStage('${t.id}','Ready')" class="w-full py-2 rounded-lg bg-blue-600 text-white font-bold text-xs">এডিটিং শেষ (রেডি টু পাবলিশ) →</button>`;
+          } else if ((t.status === 'Ready' || t.status === 'In Review') && canManage) {
+            actionHtml = `<button onclick="advancePipelineStage('${t.id}','Completed')" class="w-full py-2 rounded-lg bg-rose-600 text-white font-bold text-xs">পাবলিশড লিংক ও রেটিং দিন ✓</button>`;
+          } else if (t.status === 'Completed') {
+            actionHtml = `<div class="text-center py-1.5 rounded-lg bg-emerald-50 dark:bg-slate-800 text-asf-600 font-bold text-xs">⭐⭐⭐⭐⭐ পাবলিশড প্রোডাকশন</div>`;
+          }
+        }
 
-      document.getElementById('pipeline-board').innerHTML =
-        colHtml("১. আপকামিং শুটিং", "border-purple-600", upList, (t) => `<button onclick="advancePipelineStage('${t.id}','Pending')" class="w-full py-1.5 rounded bg-purple-600 text-white font-bold text-[11px]">শুটিং সম্পন্ন (পেন্ডিংয়ে পাঠান) →</button>`) +
-        colHtml("২. শুটিং শেষ (পেন্ডিং)", "border-amber-500", pendList, (t) => `
-          <select id="pipe-ed-${t.id}" class="w-full px-2 py-1 rounded border text-[11px] font-bold dark:bg-slate-900 mb-1">${memberOptions}</select>
-          <button onclick="advancePipelineStage('${t.id}','Ongoing')" class="w-full py-1.5 rounded bg-amber-500 text-slate-950 font-bold text-[11px]">এডিটর অ্যাসাইন করুন →</button>
-        `) +
-        colHtml("৩. এডিটিং চলমান", "border-blue-600", editList, (t) => `<button onclick="advancePipelineStage('${t.id}','Ready')" class="w-full py-1.5 rounded bg-blue-600 text-white font-bold text-[11px]">এডিটিং শেষ (রেডি পাবলিশ) →</button>`) +
-        colHtml("৪. রেডি টু পাবলিশ", "border-rose-600", readyList, (t) => `<button onclick="advancePipelineStage('${t.id}','Completed')" class="w-full py-1.5 rounded bg-rose-600 text-white font-bold text-[11px]">পাবলিশড ও রেটিং দিন ✓</button>`) +
-        colHtml("৫. পাবলিশড প্রোডাকশন", "border-asf-600", doneList, (t) => `<span class="block text-center text-[11px] font-bold text-asf-600">⭐⭐⭐⭐⭐ পাবলিশড</span>`);
+        return `
+          <div class="stitched-box">
+            <div class="solid-card p-5 h-full flex flex-col justify-between space-y-4">
+              <div class="space-y-2.5">
+                <div class="flex items-center justify-between gap-2">
+                  <span class="px-2.5 py-0.5 rounded-md bg-emerald-100 text-asf-700 text-[11px] font-bold">${window.clean(t.productionType || 'প্রোডাকশন')}</span>
+                  <span class="text-[11px] font-bold text-slate-500">📅 ${window.formatFullDate(t.date)} ${t.shootTime ? `• ⏰ ${window.clean(t.shootTime)}` : ''}</span>
+                </div>
+                <h4 class="font-bold text-base text-slate-900 dark:text-white leading-snug">${window.clean(t.title)}</h4>
+                <div class="p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/60 text-xs space-y-1">
+                  <p class="font-bold text-asf-600">👤 দায়িত্বপ্রাপ্ত: ${window.clean(t.memberName)}</p>
+                  <p class="text-[11px] text-slate-500">📺 ${window.clean(t.platform)}</p>
+                </div>
+              </div>
+              <div>${actionHtml}</div>
+            </div>
+          </div>
+        `;
+      }).join('');
     }
 
-    // 3. Dashboard (Clean, No Duplicate Member List)
+    // 3. Dashboard
     window.renderDashboard = () => {
       const month = document.getElementById('filter-month').value || getCurrentMonthStr();
       document.getElementById('dashboard-month-heading').innerText = `${window.formatMonthName(month)} — মাসিক ড্যাশবোর্ড`;
@@ -1149,6 +1277,7 @@
 
       const memSel = document.getElementById('filter-member');
       const curMem = memSel.value || 'ALL';
+      // Clean Names Only
       memSel.innerHTML = `<option value="ALL">সকল টিম মেম্বার</option>` + getSortedMembers(true).map(m => `<option value="${m.uid}">${window.clean(m.name)}</option>`).join('');
       memSel.value = curMem;
 
@@ -1178,7 +1307,7 @@
         <div class="flex justify-between p-2.5 rounded-lg bg-slate-50 dark:bg-slate-800 text-xs font-bold"><span>${window.clean(c)}</span><span class="px-2 py-0.5 rounded bg-asf-600 text-white">${n}</span></div>
       `).join('');
 
-      const isAdmin = window.currentUserProfile && window.currentUserProfile.role === 'superadmin';
+      const isAdmin = isManagerLoggedIn();
       document.getElementById('dashboard-logs-tbody').innerHTML = filtered.map(t => `
         <tr>
           <td class="p-3 font-bold whitespace-nowrap">${window.formatFullDate(t.date)}</td>
@@ -1223,7 +1352,7 @@
       }).join('');
     }
 
-    // 5. Productions (Current Month & Popular Filter)
+    // 5. Productions
     function extractYouTubeId(u) { const m = (u||"").match(/^.*(youtu.be\/|v\/|embed\/|watch\?v=|\&v=|shorts\/)([^#\&\?]*).*/); return (m && m[2].length === 11) ? m[2] : null; }
     window.setHomeProdMode = (m) => {
       window.homeProdMode = m;
@@ -1274,7 +1403,28 @@
       document.getElementById('full-portfolio-grid').innerHTML = buildCards(fullList);
     };
 
-    // 6. Workspace Multi-Platform Task Submit
+    // 6. Workspace Tasks & General Assign
+    window.assignGeneralTask = async (e) => {
+      e.preventDefault();
+      if (!isManagerLoggedIn()) return;
+      const targetUid = document.getElementById('assign-member-uid').value;
+      const mem = window.allMembers.find(m => m.uid === targetUid);
+      if (!mem) return;
+      const dt = getTodayStr();
+      await addDoc(collection(db, "tasks"), {
+        uid: mem.uid, memberName: mem.name, memberRole: mem.designation,
+        date: dt, month: dt.slice(0,7),
+        category: document.getElementById('assign-category').value,
+        title: document.getElementById('assign-title').value.trim(),
+        platform: "All Platforms",
+        status: "Pending",
+        isPipeline: false,
+        quantity: 1, createdAt: new Date().toISOString()
+      });
+      document.getElementById('assign-title').value = '';
+      window.showToast(`${mem.name}-কে কাজ পাঠানো হয়েছে!`);
+    };
+
     window.submitDailyTask = async (e) => {
       e.preventDefault();
       const p = window.currentUserProfile;
@@ -1290,6 +1440,7 @@
         title: document.getElementById('task-title').value.trim(),
         platform: platformStr,
         status: document.getElementById('task-status').value,
+        isPipeline: false,
         quantity: parseInt(document.getElementById('task-qty').value) || 1,
         link: document.getElementById('task-link').value.trim(),
         topViewLink: document.getElementById('task-top-link').value.trim(),
@@ -1323,7 +1474,7 @@
       `).join('');
     }
 
-    // 7. Live Chat Functions
+    // 7. Live Chat
     window.openChatBox = () => {
       document.getElementById('chat-drawer').classList.remove('hidden');
       document.getElementById('chat-drawer').classList.add('flex');
@@ -1357,11 +1508,15 @@
       box.scrollTop = box.scrollHeight;
     }
 
-    // Modal & Admin Helpers
+    // Modals & Admin
     window.openQuickStatusModal = (st) => {
       const modal = document.getElementById('quick-detail-modal');
       document.getElementById('quick-modal-title').innerText = `${st} প্রোডাকশন তালিকা`;
-      const list = st === 'Completed' ? window.allTasks.filter(t => t.month === getCurrentMonthStr() && t.status === 'Completed') : window.allTasks.filter(t => t.status === st);
+      let list = [];
+      if (st === 'Completed') list = window.allTasks.filter(t => t.month === getCurrentMonthStr() && t.status === 'Completed');
+      else if (st === 'Upcoming') list = window.allTasks.filter(t => t.status === 'Upcoming' && t.isPipeline === true);
+      else list = window.allTasks.filter(t => t.status === st);
+
       document.getElementById('quick-modal-body').innerHTML = list.length === 0 ? `<p class="text-center py-6 text-slate-400">কোনো প্রজেক্ট নেই।</p>` : list.map(t => `
         <div class="p-3 rounded-xl border flex justify-between items-center">
           <div><p class="font-bold">${window.clean(t.title)}</p><p class="text-slate-500">${window.clean(t.memberName)} • ${window.formatFullDate(t.date)} • ${window.clean(t.platform)}</p></div>
@@ -1441,16 +1596,18 @@
     }
 
     window.moveMemberOrder = async (uid, dir) => {
+      if (!isManagerLoggedIn()) return;
       const list = getSortedMembers(false);
       const i = list.findIndex(x => x.uid === uid);
       if (i === -1 || i+dir < 0 || i+dir >= list.length) return;
       [list[i], list[i+dir]] = [list[i+dir], list[i]];
       for (let k=0; k<list.length; k++) await setDoc(doc(db, "users", list[k].uid), { sortOrder: k+1 }, { merge: true });
     };
-    window.toggleApproveMember = async (uid, st) => await setDoc(doc(db, "users", uid), { approved: st }, { merge: true });
-    window.changeMemberRole = async (uid, role) => await setDoc(doc(db, "users", uid), { role, approved: true }, { merge: true });
+    window.toggleApproveMember = async (uid, st) => { if (isManagerLoggedIn()) await setDoc(doc(db, "users", uid), { approved: st }, { merge: true }); };
+    window.changeMemberRole = async (uid, role) => { if (isManagerLoggedIn()) await setDoc(doc(db, "users", uid), { role, approved: true }, { merge: true }); };
     window.savePlanningSettings = async (e) => {
       e.preventDefault();
+      if (!isManagerLoggedIn()) return;
       await setDoc(doc(db, "config", "siteSettings"), {
         planTargetCount: parseInt(document.getElementById('plan-target-count').value)||50,
         planCurrentText: document.getElementById('plan-current-text').value.trim(),
@@ -1460,6 +1617,7 @@
     };
     window.addMeetingRecord = async (e) => {
       e.preventDefault();
+      if (!isManagerLoggedIn()) return;
       await addDoc(collection(db, "meetings"), {
         title: document.getElementById('meet-title').value.trim(),
         date: document.getElementById('meet-date').value,
@@ -1471,6 +1629,7 @@
     };
     window.addPortfolioVideo = async (e) => {
       e.preventDefault();
+      if (!isManagerLoggedIn()) return;
       await addDoc(collection(db, "portfolio"), {
         title: document.getElementById('port-title').value.trim(),
         url: document.getElementById('port-url').value.trim(),
@@ -1481,9 +1640,9 @@
       });
       e.target.reset();
     };
-    window.deletePortfolioVideo = async (id) => await deleteDoc(doc(db, "portfolio", id));
-    window.deleteTaskByAdmin = async (id) => { if(confirm("মুছে ফেলতে চান?")) await deleteDoc(doc(db, "tasks", id)); };
-    window.clearAllTestTasks = async () => { if(confirm("সব টেস্ট কাজ মুছে ফেলতে চান?")) { for(const t of window.allTasks) await deleteDoc(doc(db, "tasks", t.id)); } };
+    window.deletePortfolioVideo = async (id) => { if (isManagerLoggedIn()) await deleteDoc(doc(db, "portfolio", id)); };
+    window.deleteTaskByAdmin = async (id) => { if (auth.currentUser && confirm("মুছে ফেলতে চান?")) await deleteDoc(doc(db, "tasks", id)); };
+    window.clearAllTestTasks = async () => { if (isManagerLoggedIn() && confirm("সব টেস্ট কাজ মুছে ফেলতে চান?")) { for(const t of window.allTasks) await deleteDoc(doc(db, "tasks", t.id)); } };
 
     // Auth & Profile
     async function compressImg(file, max=500) {
@@ -1531,10 +1690,11 @@
       });
       closeAuthModal();
     };
-    window.logoutUser = async () => { await signOut(auth); switchTab('home'); };
+    window.logoutUser = async () => { await signOut(auth); window.currentUserProfile = null; updateAuthUI(); switchTab('home'); };
 
     window.openEditProfileModal = () => {
       const p = window.currentUserProfile;
+      if (!p) return;
       document.getElementById('edit-prof-name').value = p.name || "";
       document.getElementById('edit-prof-desig').value = p.designation || "";
       document.getElementById('edit-prof-bio').value = p.bio || "";
@@ -1565,7 +1725,16 @@
       document.getElementById('add-portfolio-item-modal').classList.add('hidden');
     };
 
+    // Strict Tab Switcher with Permission Check
     window.switchTab = (t) => {
+      if (t === 'workspace' && !auth.currentUser) {
+        openAuthModal();
+        return;
+      }
+      if (t === 'admin' && !isManagerLoggedIn()) {
+        alert("শুধুমাত্র অ্যাডমিন ও ডিরেক্টর এই পেজে প্রবেশ করতে পারবেন।");
+        return;
+      }
       ['home','pipeline','dashboard','team','portfolio','workspace','admin'].forEach(k => {
         document.getElementById(`tab-${k}`).classList.add('hidden');
         const b = document.getElementById(`nav-${k}`);
@@ -1594,6 +1763,7 @@
       const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([JSON.stringify({tasks:window.allTasks,members:window.allMembers},null,2)],{type:"application/json"})); a.download = "ASF_Backup.json"; a.click();
     };
 
+    updateAuthUI();
     applySiteSettingsUI();
   </script>
 </body>
