@@ -23,7 +23,7 @@
     body { font-family: 'Inter', 'Bornomala', sans-serif; background-color: #f6f8f7; color: #1e293b; line-height: 1.6; }
     html.lang-en body { font-family: 'Inter', sans-serif !important; }
     .dark body { background-color: #07130e; color: #f1f5f9; }
-    .stitched-box { padding: 5px; border: 1.5px dashed #006837; border-radius: 1.25rem; }
+    .stitched-box { padding: 5px; border: 1.5px dashed #006837; border-radius: 1.25rem; transition: all 0.2s ease; }
     .dark .stitched-box { border-color: rgba(16,185,129,0.45); }
     .stitched-blue { padding: 5px; border: 1.5px dashed #2563eb; border-radius: 1.25rem; }
     .stitched-amber { padding: 5px; border: 1.5px dashed #d97706; border-radius: 1.25rem; }
@@ -242,6 +242,17 @@
         </div>
       </div>
 
+      <!-- NEW: Team Members Overview on Home Page (Above Featured Productions — Photo, Name, Designation & Bio Only, No Task Counts) -->
+      <div class="space-y-4">
+        <div class="flex items-center justify-between">
+          <h3 class="text-lg sm:text-xl font-bold flex items-center gap-2">
+            <span data-bn="আমাদের টিম মেম্বার" data-en="Our Team Members">আমাদের টিম মেম্বার</span>
+          </h3>
+          <button onclick="switchTab('team')" class="text-xs font-bold text-asf-600 hover:underline" data-bn="বিস্তারিত দেখুন →" data-en="View Details →">বিস্তারিত দেখুন →</button>
+        </div>
+        <div id="home-team-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4"></div>
+      </div>
+
       <!-- Featured Productions -->
       <div class="space-y-4">
         <div class="flex flex-wrap items-center justify-between gap-2">
@@ -255,7 +266,7 @@
         <div id="home-portfolio-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"></div>
       </div>
 
-      <!-- NEW: Managed Official Pages & Channels Directory (Clickable Links) -->
+      <!-- Managed Official Pages & Channels Directory -->
       <div class="stitched-box">
         <div class="solid-card p-5 space-y-4">
           <div class="flex items-center justify-between border-b pb-2.5 dark:border-slate-800">
@@ -417,10 +428,13 @@
       </div>
     </section>
 
-    <!-- ================= 4. TEAM MEMBERS TAB ================= -->
+    <!-- ================= 4. TEAM MEMBERS TAB (Bio Visible on Card Surface + Task Counts) ================= -->
     <section id="tab-team" class="hidden space-y-6">
       <div class="stitched-box">
-        <div class="solid-card p-5"><h2 class="text-xl font-bold" data-bn="আমাদের টিম মেম্বার" data-en="Our Team Members">আমাদের টিম মেম্বার</h2></div>
+        <div class="solid-card p-5 flex items-center justify-between">
+          <h2 class="text-xl font-bold" data-bn="আমাদের টিম মেম্বার" data-en="Our Team Members">আমাদের টিম মেম্বার</h2>
+          <span class="text-xs font-semibold text-slate-500" data-bn="কার্ডে ক্লিক করলে মেম্বারের বিস্তারিত পোর্টফোলিও ও কাজ দেখা যাবে" data-en="Click card to view member portfolio & works">কার্ডে ক্লিক করলে মেম্বারের বিস্তারিত পোর্টফোলিও ও কাজ দেখা যাবে</span>
+        </div>
       </div>
       <div id="full-team-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"></div>
     </section>
@@ -455,12 +469,13 @@
                 <span id="ws-user-role-badge" class="text-xs px-2 py-0.5 rounded bg-emerald-100 text-asf-700 font-bold"></span>
               </div>
               <p id="ws-user-designation" class="text-xs font-bold text-asf-600"></p>
+              <p id="ws-user-bio" class="text-xs text-slate-500 mt-0.5"></p>
             </div>
           </div>
           <div class="flex flex-wrap gap-2 text-xs font-bold">
             <button onclick="openEditProfileModal()" class="px-3 py-2 rounded-lg border">প্রোফাইল এডিট</button>
             <button onclick="openAddPortfolioItemModal()" class="px-3 py-2 rounded-lg bg-amber-500 text-slate-950">+ পোর্টফোলিও যুক্ত করুন</button>
-            <button onclick="openMemberModal(currentUserProfile.uid)" class="btn-green px-3.5 py-2">আমার পোর্টফোলিও</button>
+            <button onclick="openMemberModal(currentUserProfile.uid)" class="btn-green px-3.5 py-2">আমার পোর্টফোলিও দেখুন</button>
           </div>
         </div>
       </div>
@@ -620,7 +635,6 @@
 
       <!-- Row 2: Dynamic Categories, Short Platforms & Production Roles Control -->
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <!-- Short Platforms Manager -->
         <div class="stitched-box">
           <div class="solid-card p-5 space-y-3 h-full">
             <div class="flex items-center justify-between border-b pb-2">
@@ -635,7 +649,6 @@
           </div>
         </div>
 
-        <!-- Core Activities & Production Categories -->
         <div class="stitched-box">
           <div class="solid-card p-5 space-y-3 h-full">
             <div class="flex items-center justify-between border-b pb-2">
@@ -650,7 +663,6 @@
           </div>
         </div>
 
-        <!-- Production Categories & Pipeline Roles -->
         <div class="stitched-box">
           <div class="solid-card p-5 space-y-3 h-full">
             <h3 class="font-bold text-sm text-asf-600 border-b pb-2">প্রোডাকশন ক্যাটাগরি ও শুটিং দায়িত্ব</h3>
@@ -703,11 +715,11 @@
         </div>
       </div>
 
-      <!-- Row 4: Team Members Order/Role & Site Branding CMS -->
+      <!-- Row 4: Team Members Order/Role/Bio & Site Branding CMS -->
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
         <div class="lg:col-span-7 stitched-box">
           <div class="solid-card p-5 space-y-3">
-            <h3 class="font-bold text-base text-asf-600 border-b pb-2">টিম মেম্বার সিরিয়াল (▲ ▼), অনুমোদন, পদবী ও ডিলিট</h3>
+            <h3 class="font-bold text-base text-asf-600 border-b pb-2">টিম মেম্বার সিরিয়াল (▲ ▼), অনুমোদন, পদবী ও বিবরণী এডিট</h3>
             <div id="admin-members-list" class="space-y-2 max-h-[500px] overflow-y-auto"></div>
           </div>
         </div>
@@ -863,7 +875,7 @@
     </div>
   </div>
 
-  <!-- Member Profile Modal (No "কর্মদিবস", Top-Right Fixed ✕ Button) -->
+  <!-- Member Profile Modal (With Full Photocard, Thumbnail & Video Portfolio Sections + Add Button) -->
   <div id="member-modal" class="fixed inset-0 z-50 bg-slate-950/65 hidden items-center justify-center p-2 sm:p-4">
     <div class="solid-card relative max-w-4xl w-full p-5 sm:p-6 space-y-5 max-h-[90vh] overflow-y-auto">
       <button onclick="closeMemberModal()" class="absolute top-4 right-4 w-9 h-9 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-red-100 hover:text-red-600 font-bold flex items-center justify-center text-sm shadow-sm">✕</button>
@@ -874,23 +886,38 @@
           <div>
             <h3 id="mod-member-name" class="text-lg font-bold"></h3>
             <p id="mod-member-role" class="text-xs text-asf-600 font-bold"></p>
-            <p id="mod-member-bio" class="text-xs text-slate-500"></p>
+            <p id="mod-member-bio" class="text-xs text-slate-500 mt-0.5"></p>
           </div>
         </div>
-        <div>
+        <div class="flex flex-wrap items-center gap-2">
+          <button id="mod-add-port-btn" onclick="openAddPortfolioItemModal()" class="hidden px-3 py-1.5 rounded-lg bg-amber-500 text-slate-950 text-xs font-bold hover:bg-amber-400">+ পোর্টফোলিও যুক্ত করুন</button>
           <input type="month" id="mod-member-month" onchange="refreshOpenedMemberModal()" class="px-3 py-1.5 rounded-lg border text-xs font-bold dark:bg-slate-800">
         </div>
       </div>
 
+      <!-- 3 Clean Counters (সম্পন্ন, চলমান, পেন্ডিং/শুটিং — No কর্মদিবস) -->
       <div class="grid grid-cols-3 gap-3 text-center text-xs">
         <div class="p-3 rounded-xl bg-emerald-50 dark:bg-slate-800 border border-emerald-200 dark:border-slate-700"><p class="text-xl font-bold text-asf-600" id="mod-stat-completed">0</p><p class="font-bold text-slate-500">সম্পন্ন</p></div>
         <div class="p-3 rounded-xl bg-blue-50 dark:bg-slate-800 border border-blue-200 dark:border-slate-700"><p class="text-xl font-bold text-blue-600" id="mod-stat-ongoing">0</p><p class="font-bold text-slate-500">চলমান</p></div>
         <div class="p-3 rounded-xl bg-amber-50 dark:bg-slate-800 border border-amber-200 dark:border-slate-700"><p class="text-xl font-bold text-amber-600" id="mod-stat-pending">0</p><p class="font-bold text-slate-500">পেন্ডিং / শুটিং</p></div>
       </div>
 
-      <div id="mod-photocard-section" class="space-y-2 hidden">
-        <h4 class="font-bold text-xs text-asf-600 border-b pb-1">ফটোকার্ড ও থাম্বনেইল ডিজাইন (১:১ স্কয়ার)</h4>
-        <div id="mod-photocard-grid" class="grid grid-cols-2 sm:grid-cols-4 gap-3"></div>
+      <!-- RESTORED: 3 Distinct Portfolio Sections (Photocard, Thumbnail, Published Video) -->
+      <div class="space-y-5">
+        <div id="mod-photocard-section" class="space-y-2.5 hidden">
+          <h4 class="font-bold text-xs sm:text-sm text-asf-600 border-b pb-1">ফটোকার্ড ডিজাইন (১:১ স্কয়ার)</h4>
+          <div id="mod-photocard-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3.5"></div>
+        </div>
+
+        <div id="mod-thumbnail-section" class="space-y-2.5 hidden">
+          <h4 class="font-bold text-xs sm:text-sm text-asf-600 border-b pb-1">থাম্বনেইল ডিজাইন (১০৮০×১০৮০)</h4>
+          <div id="mod-thumbnail-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3.5"></div>
+        </div>
+
+        <div id="mod-video-section" class="space-y-2.5 hidden">
+          <h4 class="font-bold text-xs sm:text-sm text-asf-600 border-b pb-1">ভিডিও প্রোডাকশন পোর্টফোলিও (পাবলিশড লিংক)</h4>
+          <div id="mod-video-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3.5"></div>
+        </div>
       </div>
 
       <div class="border rounded-xl p-3.5 space-y-2">
@@ -904,15 +931,33 @@
     </div>
   </div>
 
-  <!-- Add Portfolio Modal -->
+  <!-- RESTORED: Add Portfolio Modal with Type Selection (Photocard / Thumbnail / Video Link) -->
   <div id="add-portfolio-item-modal" class="fixed inset-0 z-50 bg-slate-950/60 hidden items-center justify-center p-4">
-    <div class="solid-card relative max-w-md w-full p-6 space-y-3 text-xs">
+    <div class="solid-card relative max-w-md w-full p-6 space-y-3.5 text-xs">
       <button onclick="document.getElementById('add-portfolio-item-modal').classList.add('hidden')" class="absolute top-4 right-4 w-8 h-8 rounded-lg bg-slate-100 dark:bg-slate-800 font-bold flex items-center justify-center">✕</button>
-      <h3 class="font-bold text-sm text-asf-600 border-b pb-2 pr-8">পোর্টফোলিওতে কাজ যুক্ত করুন</h3>
+      <h3 class="font-bold text-sm text-asf-600 border-b pb-2 pr-8">আমার পোর্টফোলিওতে কাজ যুক্ত করুন</h3>
       <form onsubmit="saveMemberPortfolioItem(event)" class="space-y-3">
-        <div><label class="font-bold">শিরোনাম *</label><input type="text" id="mp-title" required class="w-full px-3 py-2 rounded border dark:bg-slate-800"></div>
-        <div><label class="font-bold">১:১ স্কয়ার ফটোকার্ড / থাম্বনেইল ছবি *</label><input type="file" id="mp-image-file" accept="image/*" required class="w-full"></div>
-        <button type="submit" class="btn-green w-full py-2 font-bold">সেভ করুন</button>
+        <div>
+          <label class="block font-bold mb-1">পোর্টফোলিওর ধরন নির্বাচন করুন *</label>
+          <select id="mp-type" onchange="toggleMpFields()" required class="w-full px-3 py-2 rounded-lg border dark:bg-slate-800 font-bold">
+            <option value="photocard">ফটোকার্ড ডিজাইন (১:১ স্কয়ার)</option>
+            <option value="thumbnail">থাম্বনেইল ডিজাইন (১০৮০×১০৮০)</option>
+            <option value="video">ভিডিও প্রোডাকশন (পাবলিশড লিংক)</option>
+          </select>
+        </div>
+        <div>
+          <label class="block font-bold mb-1">কাজের শিরোনাম *</label>
+          <input type="text" id="mp-title" required class="w-full px-3 py-2 rounded-lg border dark:bg-slate-800">
+        </div>
+        <div id="mp-file-wrap">
+          <label class="block font-bold mb-1">ফটোকার্ড / থাম্বনেইল ছবি নির্বাচন করুন (১০৮০×১০৮০ স্কয়ার)</label>
+          <input type="file" id="mp-image-file" accept="image/*" class="w-full">
+        </div>
+        <div>
+          <label class="block font-bold mb-1">পাবলিশড লিংক (ইউটিউব / ফেসবুক ভিডিও বা পোস্ট লিংক)</label>
+          <input type="url" id="mp-link" placeholder="https://..." class="w-full px-3 py-2 rounded-lg border dark:bg-slate-800">
+        </div>
+        <button type="submit" class="btn-green w-full py-2.5 font-bold">পোর্টফোলিওতে সেভ করুন</button>
       </form>
     </div>
   </div>
@@ -934,11 +979,17 @@
       <form onsubmit="saveProfileChanges(event)" class="space-y-2.5">
         <div><label class="font-bold">নাম</label><input type="text" id="edit-prof-name" required class="w-full px-3 py-1.5 rounded border dark:bg-slate-800"></div>
         <div><label class="font-bold">পদবী</label><input type="text" id="edit-prof-desig" required class="w-full px-3 py-1.5 rounded border dark:bg-slate-800"></div>
-        <div><label class="font-bold">কাজের বিবরণ</label><input type="text" id="edit-prof-bio" class="w-full px-3 py-1.5 rounded border dark:bg-slate-800"></div>
+        <div><label class="font-bold">কাজের সংক্ষিপ্ত বিবরণ</label><textarea id="edit-prof-bio" rows="2" class="w-full px-3 py-1.5 rounded border dark:bg-slate-800"></textarea></div>
         <div><label class="font-bold">ছবি পরিবর্তন</label><input type="file" id="edit-prof-photo" accept="image/*"></div>
         <button type="submit" class="btn-green w-full py-2 font-bold">সেভ করুন</button>
       </form>
     </div>
+  </div>
+
+  <!-- Full Image Lightbox Modal -->
+  <div id="image-lightbox-modal" onclick="this.classList.add('hidden')" class="fixed inset-0 z-50 bg-black/85 hidden items-center justify-center p-4 cursor-zoom-out">
+    <button onclick="document.getElementById('image-lightbox-modal').classList.add('hidden')" class="absolute top-5 right-5 w-10 h-10 rounded-full bg-white/20 text-white font-bold flex items-center justify-center text-lg">✕</button>
+    <img id="lightbox-img" src="" class="max-w-full max-h-[90vh] rounded-xl shadow-2xl object-contain">
   </div>
 
   <!-- ================= FIREBASE & MASTER APPLICATION LOGIC ================= -->
@@ -985,7 +1036,6 @@
       "প্রোডাকশন অ্যাসিস্ট্যান্ট"
     ];
 
-    // Option A: Clean Short Platform Names (Name + FB/YT)
     const SHORT_PLATFORMS = [
       "Ahmadullah (FB)",
       "Ahmadullah (YT)",
@@ -999,7 +1049,6 @@
       "All Platforms"
     ];
 
-    // Default Official Channel Links for Home Page Directory
     const DEFAULT_CHANNEL_LINKS = [
       { name: "Shaykh Ahmadullah (FB)", url: "https://www.facebook.com/sheikhahmadullahofficial" },
       { name: "Shaykh Ahmadullah (YT)", url: "https://www.youtube.com/@sheikhahmadullah" },
@@ -1020,7 +1069,6 @@
     window.formatMonthName = (ym) => { if(!ym || !ym.includes('-')) return ym||''; const [y,m] = ym.split('-'); return `${MONTHS_BN[parseInt(m,10)-1] || m} ${y}`; };
     window.formatFullDate = (ymd) => { if(!ymd || !ymd.includes('-')) return ymd||''; const [y,m,d] = ymd.split('-'); return `${parseInt(d,10)} ${MONTHS_BN[parseInt(m,10)-1] || m} ${y}`; };
 
-    // Auto-shorten any old long platform strings
     function formatShortPlatformLabel(platStr) {
       if (!platStr) return '';
       return String(platStr)
@@ -1081,6 +1129,14 @@
     function getSortedMembers(onlyApproved = true) {
       let list = onlyApproved ? window.allMembers.filter(m => m.approved || m.role === 'superadmin') : [...window.allMembers];
       return list.sort((a,b) => (a.sortOrder||999) - (b.sortOrder||999));
+    }
+
+    function getMemberBioText(m) {
+      if (m.bio && String(m.bio).trim() !== '') return String(m.bio).trim();
+      if (Array.isArray(m.assignedActivities) && m.assignedActivities.length > 0) {
+        return m.assignedActivities.slice(0, 3).map(a => window.tAct(a)).join(' • ');
+      }
+      return 'দাওয়াহ মিডিয়া প্রোডাকশন ও কন্টেন্ট ম্যানেজমেন্ট।';
     }
 
     function isManagerLoggedIn() {
@@ -1156,6 +1212,7 @@
 
     onSnapshot(collection(db, "memberPortfolio"), (snap) => {
       window.allMemberPortfolio = []; snap.forEach(d => window.allMemberPortfolio.push({ id: d.id, ...d.data() }));
+      window.allMemberPortfolio.sort((a, b) => (b.createdAt || "").localeCompare(a.createdAt || ""));
       if (window.openedModalMemberId) refreshOpenedMemberModal();
     });
 
@@ -1252,6 +1309,7 @@
         document.getElementById('ws-user-img').src = p.photo;
         document.getElementById('ws-user-name').innerText = p.name;
         document.getElementById('ws-user-designation').innerText = p.designation || "";
+        document.getElementById('ws-user-bio').innerText = getMemberBioText(p);
         document.getElementById('ws-user-role-badge').innerText = p.role === 'superadmin' ? 'সুপার অ্যাডমিন' : (p.role === 'director' ? 'ডিরেক্টর' : 'টিম মেম্বার');
       } else {
         if (!document.getElementById('tab-admin').classList.contains('hidden') || !document.getElementById('tab-workspace').classList.contains('hidden')) {
@@ -1291,7 +1349,7 @@
       return Array.from(groupedMap.values());
     }
 
-    // 1. Render Home (Including Managed Channels Directory)
+    // 1. Render Home (Including Team Members Overview Above Featured Productions)
     function renderHomeSection() {
       const s = window.siteSettings;
       const curMonth = getCurrentMonthStr();
@@ -1352,6 +1410,30 @@
         </div>
       `;
 
+      // Home Page Team Members Section (Photo, Name, Designation & Short Bio ONLY — No Task Counts)
+      const approvedMembers = getSortedMembers(true);
+      const homeTeamBox = document.getElementById('home-team-grid');
+      if (homeTeamBox) {
+        homeTeamBox.innerHTML = approvedMembers.length === 0
+          ? `<div class="col-span-full solid-card p-6 text-center text-xs text-slate-400">কোনো টিম মেম্বার যুক্ত করা হয়নি।</div>`
+          : approvedMembers.map(m => `
+              <div onclick="openMemberModal('${m.uid}')" class="stitched-box cursor-pointer group">
+                <div class="solid-card p-4 h-full flex flex-col justify-between space-y-3">
+                  <div class="flex items-center gap-3.5">
+                    <img src="${m.photo}" alt="${window.clean(m.name)}" class="w-14 h-14 rounded-xl object-cover border-2 border-asf-600 shrink-0">
+                    <div class="min-w-0">
+                      <h4 class="font-bold text-sm sm:text-base group-hover:text-asf-600 transition truncate">${window.clean(m.name)}</h4>
+                      <p class="text-xs font-bold text-asf-600 dark:text-emerald-400 truncate">${window.clean(m.designation || 'Team Member')}</p>
+                    </div>
+                  </div>
+                  <p class="text-xs text-slate-600 dark:text-slate-300 bg-slate-50 dark:bg-slate-800/70 p-2.5 rounded-xl line-clamp-2 leading-relaxed">
+                    ${window.clean(getMemberBioText(m))}
+                  </p>
+                </div>
+              </div>
+            `).join('');
+      }
+
       // Managed Channels Directory Grid
       const chLinks = s.channelLinks || DEFAULT_CHANNEL_LINKS;
       document.getElementById('home-channel-links-grid').innerHTML = chLinks.map(ch => {
@@ -1388,7 +1470,7 @@
           `).join('');
     }
 
-    // 2. PRODUCTION PIPELINE (With Single Project Edit & Delete Options)
+    // 2. PRODUCTION PIPELINE
     window.setPipelineFilter = (stage) => {
       window.activePipelineStage = stage;
       ['Upcoming','Pending','Ongoing','Ready','Completed'].forEach(st => {
@@ -1714,7 +1796,7 @@
       `).join('');
     };
 
-    // 4. Team Members
+    // 4. Team Members Tab (With Visible Role Description / Bio on Card Surface + Task Counts)
     function renderTeamSection() {
       const curMonth = getCurrentMonthStr();
       const monthTasks = window.allTasks.filter(t => t.month === curMonth);
@@ -1724,13 +1806,22 @@
         const ong = mTasks.filter(t => t.status === 'Ongoing').length;
         const pend = mTasks.filter(t => t.status !== 'Completed' && t.status !== 'Ongoing').length;
         return `
-          <div onclick="openMemberModal('${m.uid}')" class="stitched-box cursor-pointer">
-            <div class="solid-card p-5 space-y-3">
-              <div class="flex items-center gap-3.5">
-                <img src="${m.photo}" class="w-14 h-14 rounded-xl object-cover border-2 border-asf-600">
-                <div><h4 class="font-bold text-base">${window.clean(m.name)}</h4><p class="text-xs font-bold text-asf-600">${window.clean(m.designation)}</p></div>
+          <div onclick="openMemberModal('${m.uid}')" class="stitched-box cursor-pointer group">
+            <div class="solid-card p-5 h-full flex flex-col justify-between space-y-3.5">
+              <div class="space-y-3">
+                <div class="flex items-center gap-3.5">
+                  <img src="${m.photo}" alt="${window.clean(m.name)}" class="w-14 h-14 rounded-xl object-cover border-2 border-asf-600 shrink-0">
+                  <div class="min-w-0">
+                    <h4 class="font-bold text-base sm:text-lg group-hover:text-asf-600 transition truncate">${window.clean(m.name)}</h4>
+                    <p class="text-xs font-bold text-asf-600 dark:text-emerald-400 truncate">${window.clean(m.designation)}</p>
+                  </div>
+                </div>
+                <!-- Visible Bio / Work Description Floating Directly on Card Surface -->
+                <p class="text-xs text-slate-600 dark:text-slate-300 bg-slate-50 dark:bg-slate-800/70 p-2.5 rounded-xl line-clamp-2 leading-relaxed">
+                  ${window.clean(getMemberBioText(m))}
+                </p>
               </div>
-              <div class="grid grid-cols-3 text-center text-xs gap-1.5 pt-2 border-t">
+              <div class="grid grid-cols-3 text-center text-xs gap-1.5 pt-3 border-t dark:border-slate-800">
                 <div class="bg-emerald-50 dark:bg-slate-800 py-1.5 rounded-lg"><p class="font-bold text-asf-600">${comp}</p><p class="text-[10px]">সম্পন্ন</p></div>
                 <div class="bg-blue-50 dark:bg-slate-800 py-1.5 rounded-lg"><p class="font-bold text-blue-600">${ong}</p><p class="text-[10px]">চলমান</p></div>
                 <div class="bg-amber-50 dark:bg-slate-800 py-1.5 rounded-lg"><p class="font-bold text-amber-600">${pend}</p><p class="text-[10px]">পেন্ডিং/শুটিং</p></div>
@@ -1875,7 +1966,13 @@
       `).join('');
     }
 
-    // Modals & Full Admin CMS Controls
+    // Modals & Full Member Portfolio Logic (Photocard, Thumbnail, Video Link + Lightbox)
+    window.openImageLightbox = (src) => {
+      document.getElementById('lightbox-img').src = src;
+      document.getElementById('image-lightbox-modal').classList.remove('hidden');
+      document.getElementById('image-lightbox-modal').classList.add('flex');
+    };
+
     window.openQuickStatusModal = (st) => {
       const modal = document.getElementById('quick-detail-modal');
       document.getElementById('quick-modal-title').innerText = `${st} প্রোডাকশন তালিকা`;
@@ -1903,26 +2000,91 @@
 
     window.openMemberModal = (uid) => { window.openedModalMemberId = uid; document.getElementById('member-modal').classList.remove('hidden'); document.getElementById('member-modal').classList.add('flex'); refreshOpenedMemberModal(); };
     window.closeMemberModal = () => { window.openedModalMemberId = null; document.getElementById('member-modal').classList.add('hidden'); };
+
     window.refreshOpenedMemberModal = () => {
       const uid = window.openedModalMemberId;
       const m = window.allMembers.find(x => x.uid === uid);
       if (!m) return;
+
+      const canEditPort = Boolean(window.currentUserProfile && (window.currentUserProfile.uid === uid || isManagerLoggedIn()));
+      const addPortBtn = document.getElementById('mod-add-port-btn');
+      if (canEditPort) {
+        addPortBtn.classList.remove('hidden');
+        addPortBtn.classList.add('inline-flex');
+      } else {
+        addPortBtn.classList.add('hidden');
+      }
+
       document.getElementById('mod-member-img').src = m.photo;
       document.getElementById('mod-member-name').innerText = m.name;
       document.getElementById('mod-member-role').innerText = m.designation;
-      document.getElementById('mod-member-bio').innerText = m.bio || "";
+      document.getElementById('mod-member-bio').innerText = getMemberBioText(m);
+
       const month = document.getElementById('mod-member-month').value || getCurrentMonthStr();
       const mTasks = window.allTasks.filter(t => isMemberInTask(t, uid) && t.month === month);
       document.getElementById('mod-stat-completed').innerText = mTasks.filter(t => t.status === 'Completed').length;
       document.getElementById('mod-stat-ongoing').innerText = mTasks.filter(t => t.status === 'Ongoing').length;
       document.getElementById('mod-stat-pending').innerText = mTasks.filter(t => t.status !== 'Completed' && t.status !== 'Ongoing').length;
 
-      const pItems = window.allMemberPortfolio.filter(x => x.uid === uid);
+      const memberItems = window.allMemberPortfolio.filter(x => x.uid === uid);
+      const photocards = memberItems.filter(p => !p.type || p.type === 'photocard');
+      const thumbnails = memberItems.filter(p => p.type === 'thumbnail');
+      const videos = memberItems.filter(p => p.type === 'video');
+
+      // 1. Photocards Section
       const pcSec = document.getElementById('mod-photocard-section');
-      if (pItems.length > 0) {
+      if (photocards.length > 0) {
         pcSec.classList.remove('hidden');
-        document.getElementById('mod-photocard-grid').innerHTML = pItems.map(i => `<div class="solid-card overflow-hidden"><div class="aspect-square bg-slate-100"><img src="${i.image}" class="w-full h-full object-contain"></div><p class="p-2 text-xs font-bold truncate">${window.clean(i.title)}</p></div>`).join('');
+        document.getElementById('mod-photocard-grid').innerHTML = photocards.map(item => `
+          <div class="solid-card overflow-hidden flex flex-col justify-between">
+            <div onclick="openImageLightbox('${item.image}')" class="aspect-square bg-slate-100 dark:bg-slate-900 cursor-zoom-in overflow-hidden">
+              <img src="${item.image}" class="w-full h-full object-contain">
+            </div>
+            <div class="p-2 flex items-center justify-between gap-1 text-xs">
+              ${item.link ? `<a href="${window.cleanUrl(item.link)}" target="_blank" class="font-bold truncate hover:text-asf-600">${window.clean(item.title)} ↗</a>` : `<span class="font-bold truncate">${window.clean(item.title)}</span>`}
+              ${canEditPort ? `<button onclick="deleteMemberPortfolioItem('${item.id}')" class="text-red-500 font-bold">🗑️</button>` : ''}
+            </div>
+          </div>
+        `).join('');
       } else pcSec.classList.add('hidden');
+
+      // 2. Thumbnails Section
+      const thSec = document.getElementById('mod-thumbnail-section');
+      if (thumbnails.length > 0) {
+        thSec.classList.remove('hidden');
+        document.getElementById('mod-thumbnail-grid').innerHTML = thumbnails.map(item => `
+          <div class="solid-card overflow-hidden flex flex-col justify-between">
+            <div onclick="openImageLightbox('${item.image}')" class="aspect-square bg-slate-100 dark:bg-slate-900 cursor-zoom-in overflow-hidden">
+              <img src="${item.image}" class="w-full h-full object-contain">
+            </div>
+            <div class="p-2 flex items-center justify-between gap-1 text-xs">
+              ${item.link ? `<a href="${window.cleanUrl(item.link)}" target="_blank" class="font-bold truncate hover:text-asf-600">${window.clean(item.title)} ↗</a>` : `<span class="font-bold truncate">${window.clean(item.title)}</span>`}
+              ${canEditPort ? `<button onclick="deleteMemberPortfolioItem('${item.id}')" class="text-red-500 font-bold">🗑️</button>` : ''}
+            </div>
+          </div>
+        `).join('');
+      } else thSec.classList.add('hidden');
+
+      // 3. Video Productions Section
+      const vidSec = document.getElementById('mod-video-section');
+      if (videos.length > 0) {
+        vidSec.classList.remove('hidden');
+        document.getElementById('mod-video-grid').innerHTML = videos.map(item => {
+          const ytId = extractYouTubeId(item.link);
+          const thumb = item.image || (ytId ? `https://img.youtube.com/vi/${ytId}/hqdefault.jpg` : '');
+          return `
+            <div class="solid-card overflow-hidden flex flex-col justify-between">
+              <a href="${window.cleanUrl(item.link)}" target="_blank" class="aspect-video bg-slate-900 block overflow-hidden relative">
+                ${thumb ? `<img src="${thumb}" class="w-full h-full object-cover">` : `<div class="w-full h-full flex items-center justify-center text-white text-xs font-bold">ভিডিও দেখুন ↗</div>`}
+              </a>
+              <div class="p-2.5 flex items-center justify-between gap-1 text-xs">
+                <a href="${window.cleanUrl(item.link)}" target="_blank" class="font-bold truncate hover:text-asf-600">${window.clean(item.title)} ↗</a>
+                ${canEditPort ? `<button onclick="deleteMemberPortfolioItem('${item.id}')" class="text-red-500 font-bold">🗑️</button>` : ''}
+              </div>
+            </div>
+          `;
+        }).join('');
+      } else vidSec.classList.add('hidden');
 
       document.getElementById('mod-tasks-tbody').innerHTML = mTasks.map(t => `
         <tr>
@@ -1931,6 +2093,55 @@
           <td class="p-2.5 font-bold">${window.clean(t.status)}</td>
         </tr>
       `).join('');
+    };
+
+    window.openAddPortfolioItemModal = () => {
+      document.getElementById('add-portfolio-item-modal').classList.remove('hidden');
+      document.getElementById('add-portfolio-item-modal').classList.add('flex');
+      toggleMpFields();
+    };
+    window.toggleMpFields = () => {
+      const type = document.getElementById('mp-type').value;
+      const fileWrap = document.getElementById('mp-file-wrap');
+      if (type === 'video') fileWrap.classList.add('hidden');
+      else fileWrap.classList.remove('hidden');
+    };
+    window.saveMemberPortfolioItem = async (e) => {
+      e.preventDefault();
+      const p = window.currentUserProfile;
+      if (!p) return alert("লগইন করুন।");
+      const targetUid = window.openedModalMemberId || p.uid;
+      const type = document.getElementById('mp-type').value;
+      const title = document.getElementById('mp-title').value.trim();
+      const link = document.getElementById('mp-link').value.trim();
+      const file = document.getElementById('mp-image-file').files[0];
+
+      if ((type === 'photocard' || type === 'thumbnail') && !file) {
+        return alert("অনুগ্রহ করে ফটোকার্ড বা থাম্বনেইল ছবি নির্বাচন করুন।");
+      }
+      if (type === 'video' && !link) {
+        return alert("অনুগ্রহ করে পাবলিশড ভিডিওর লিংক দিন।");
+      }
+
+      const img = file ? await compressImg(file, 650) : null;
+      await addDoc(collection(db, "memberPortfolio"), {
+        uid: targetUid,
+        type,
+        title,
+        link,
+        image: img,
+        createdAt: new Date().toISOString()
+      });
+      document.getElementById('mp-title').value = '';
+      document.getElementById('mp-link').value = '';
+      document.getElementById('mp-image-file').value = '';
+      document.getElementById('add-portfolio-item-modal').classList.add('hidden');
+      window.showToast("পোর্টফোলিওতে সফলভাবে যুক্ত হয়েছে!");
+    };
+    window.deleteMemberPortfolioItem = async (id) => {
+      if (confirm("পোর্টফোলিও থেকে এই আইটেমটি মুছে ফেলতে চান?")) {
+        await deleteDoc(doc(db, "memberPortfolio", id));
+      }
     };
 
     function renderAdminPanel() {
@@ -1952,7 +2163,6 @@
         document.getElementById('set-credit-linkedin').value = s.creditLinkedin || "";
       }
 
-      // Managed Channels Directory List in Admin
       const chList = s.channelLinks || DEFAULT_CHANNEL_LINKS;
       document.getElementById('admin-channel-links-list').innerHTML = chList.map((ch, idx) => `
         <div class="flex items-center justify-between p-2 rounded-lg bg-slate-50 dark:bg-slate-800 text-xs">
@@ -1964,44 +2174,43 @@
         </div>
       `).join('');
 
-      // Short Platforms Tags
       document.getElementById('admin-platform-tags').innerHTML = (s.platforms || SHORT_PLATFORMS).map(p => `
         <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-xs font-bold">
           ${window.clean(p)} <button onclick="removePlatform('${window.clean(p)}')" class="text-red-500 ml-1">×</button>
         </span>
       `).join('');
 
-      // Core Activities Tags
       document.getElementById('admin-activity-tags').innerHTML = (s.activities || CORE_ACTIVITIES).map(a => `
         <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-xs font-semibold">
           ${window.clean(a)} <button onclick="removeActivity('${window.clean(a)}')" class="text-red-500 ml-1">×</button>
         </span>
       `).join('');
 
-      // Portfolio Categories Tags
       document.getElementById('admin-port-cat-tags').innerHTML = (s.portfolioCategories || DEFAULT_PORTFOLIO_CATEGORIES).map(c => `
         <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-emerald-50 dark:bg-slate-800 text-asf-700 text-xs font-bold">
           ${window.clean(c)} <button onclick="removePortfolioCategory('${window.clean(c)}')" class="text-red-500 ml-1">×</button>
         </span>
       `).join('');
 
-      // Production Roles Tags
       document.getElementById('admin-prod-role-tags').innerHTML = (s.productionRoles || DEFAULT_PRODUCTION_ROLES).map(r => `
         <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-purple-50 dark:bg-slate-800 text-purple-700 text-xs font-bold">
           ${window.clean(r)} <button onclick="removeProductionRole('${window.clean(r)}')" class="text-red-500 ml-1">×</button>
         </span>
       `).join('');
 
-      // Team Members List
       document.getElementById('admin-members-list').innerHTML = getSortedMembers(false).map((m, idx) => `
         <div class="p-2.5 rounded-xl border flex flex-wrap items-center justify-between gap-2 text-xs">
-          <div class="flex items-center gap-2">
-            <button onclick="moveMemberOrder('${m.uid}',-1)" class="px-1.5 py-0.5 bg-slate-100 rounded font-bold">▲</button>
-            <button onclick="moveMemberOrder('${m.uid}',1)" class="px-1.5 py-0.5 bg-slate-100 rounded font-bold">▼</button>
-            <img src="${m.photo}" class="w-8 h-8 rounded-lg object-cover">
-            <div><p class="font-bold">${window.clean(m.name)}</p><p class="text-[10px] text-slate-500">${window.clean(m.designation)}</p></div>
+          <div class="flex items-center gap-2 min-w-0">
+            <button onclick="moveMemberOrder('${m.uid}',-1)" class="px-1.5 py-0.5 bg-slate-100 dark:bg-slate-800 rounded font-bold">▲</button>
+            <button onclick="moveMemberOrder('${m.uid}',1)" class="px-1.5 py-0.5 bg-slate-100 dark:bg-slate-800 rounded font-bold">▼</button>
+            <img src="${m.photo}" class="w-8 h-8 rounded-lg object-cover shrink-0">
+            <div class="truncate">
+              <p class="font-bold truncate">${window.clean(m.name)} <span class="text-[10px] text-asf-600">(${window.clean(m.designation)})</span></p>
+              <p class="text-[10px] text-slate-400 truncate max-w-xs">${window.clean(getMemberBioText(m))}</p>
+            </div>
           </div>
-          <div class="flex items-center gap-1.5">
+          <div class="flex items-center gap-1.5 shrink-0">
+            <button onclick="editMemberInfoByAdmin('${m.uid}')" class="px-2 py-1 rounded bg-amber-100 text-amber-800 font-bold" title="পদবী ও বিবরণী এডিট">✎ এডিট</button>
             <button onclick="toggleApproveMember('${m.uid}',${!m.approved})" class="px-2 py-1 rounded font-bold ${m.approved ? 'bg-emerald-100 text-asf-700' : 'bg-asf-600 text-white'}">${m.approved ? 'অনুমোদিত ✓' : 'অনুমোদন দিন'}</button>
             <select onchange="changeMemberRole('${m.uid}',this.value)" class="px-2 py-1 rounded border font-bold dark:bg-slate-800">
               <option value="member" ${m.role==='member'?'selected':''}>Member</option>
@@ -2013,7 +2222,6 @@
         </div>
       `).join('');
 
-      // Portfolio Videos List
       document.getElementById('admin-portfolio-list').innerHTML = window.allPortfolio.map(v => `
         <div class="flex justify-between items-center text-xs p-2 bg-slate-50 dark:bg-slate-800 rounded-lg">
           <span class="truncate font-bold pr-2">${window.clean(v.title)} (${window.clean(v.category)})</span>
@@ -2024,7 +2232,6 @@
         </div>
       `).join('');
 
-      // Meetings List
       document.getElementById('admin-meetings-list').innerHTML = window.allMeetings.map(m => `
         <div class="flex justify-between items-center text-xs p-2 bg-slate-50 dark:bg-slate-800 rounded-lg">
           <span class="truncate font-bold pr-2">${window.formatFullDate(m.date)} — ${window.clean(m.title)}</span>
@@ -2034,6 +2241,18 @@
     }
 
     // Admin Dynamic Actions
+    window.editMemberInfoByAdmin = async (uid) => {
+      if (!isManagerLoggedIn()) return;
+      const m = window.allMembers.find(x => x.uid === uid);
+      if (!m) return;
+      const newDesig = prompt(`${m.name}-এর পদবী:`, m.designation || "");
+      if (newDesig === null) return;
+      const newBio = prompt(`${m.name}-এর সংক্ষিপ্ত কাজের বিবরণী (হোম ও টিম পেজে ভাসবে):`, getMemberBioText(m));
+      if (newBio === null) return;
+      await setDoc(doc(db, "users", uid), { designation: newDesig.trim(), bio: newBio.trim() }, { merge: true });
+      window.showToast("টিম মেম্বারের তথ্য আপডেট হয়েছে!");
+    };
+
     window.addManagedChannelLink = async (e) => {
       e.preventDefault();
       if (!isManagerLoggedIn()) return;
@@ -2224,7 +2443,7 @@
     window.clearAllTestTasks = async () => { if (isManagerLoggedIn() && confirm("সব টেস্ট কাজ মুছে ফেলতে চান?")) { for(const t of window.allTasks) await deleteDoc(doc(db, "tasks", t.id)); } };
 
     // Auth & Profile
-    async function compressImg(file, max=500) {
+    async function compressImg(file, max=550) {
       return new Promise(res => {
         if(!file) return res(null);
         const r = new FileReader();
@@ -2235,7 +2454,7 @@
             let w = img.width, h = img.height;
             if (w>h && w>max) { h *= max/w; w = max; } else if (h>max) { w *= max/h; h = max; }
             c.width = w; c.height = h; c.getContext('2d').drawImage(img,0,0,w,h);
-            res(c.toDataURL('image/jpeg',0.8));
+            res(c.toDataURL('image/jpeg',0.82));
           };
           img.src = e.target.result;
         };
@@ -2259,7 +2478,7 @@
       const name = document.getElementById('reg-name').value.trim();
       const email = document.getElementById('reg-email').value.trim().toLowerCase();
       const pass = document.getElementById('reg-pass').value;
-      const photo = await compressImg(document.getElementById('reg-photo').files[0], 250) || `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=006837&color=fff`;
+      const photo = await compressImg(document.getElementById('reg-photo').files[0], 260) || `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=006837&color=fff`;
       const isSuper = email === SUPER_ADMIN_EMAIL;
       const cred = await createUserWithEmailAndPassword(auth, email, pass);
       await setDoc(doc(db, "users", cred.user.uid), {
@@ -2288,20 +2507,10 @@
         bio: document.getElementById('edit-prof-bio').value.trim()
       };
       const f = document.getElementById('edit-prof-photo').files[0];
-      if (f) up.photo = await compressImg(f, 250);
+      if (f) up.photo = await compressImg(f, 260);
       await setDoc(doc(db, "users", window.currentUserProfile.uid), up, { merge: true });
       document.getElementById('edit-profile-modal').classList.add('hidden');
-    };
-
-    window.openAddPortfolioItemModal = () => { document.getElementById('add-portfolio-item-modal').classList.remove('hidden'); document.getElementById('add-portfolio-item-modal').classList.add('flex'); };
-    window.saveMemberPortfolioItem = async (e) => {
-      e.preventDefault();
-      const img = await compressImg(document.getElementById('mp-image-file').files[0], 600);
-      await addDoc(collection(db, "memberPortfolio"), {
-        uid: window.currentUserProfile.uid, title: document.getElementById('mp-title').value.trim(),
-        image: img, createdAt: new Date().toISOString()
-      });
-      document.getElementById('add-portfolio-item-modal').classList.add('hidden');
+      window.showToast("প্রোফাইল আপডেট হয়েছে!");
     };
 
     window.switchTab = (t) => {
