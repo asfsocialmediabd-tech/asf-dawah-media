@@ -211,7 +211,7 @@
         </div>
       </div>
 
-      <!-- Monthly Planning (Left) & Clean Category Summary Table Without Achievement % or Status (Right) -->
+      <!-- Monthly Planning (Left) & HQ Sheet Exact KPI/Category List + Shorts (Right) -->
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
         <div class="lg:col-span-6 solid-card p-5 space-y-4 shadow-sm flex flex-col justify-between">
           <div class="space-y-4">
@@ -250,18 +250,20 @@
           <p class="text-[11px] text-slate-400 font-medium pt-2 border-t dark:border-slate-800">💡 যেকোনো বক্সে ক্লিক করে মাউস দিয়ে সিলেক্ট করে সরাসরি গুগল শিটে কপি-পেস্ট করা যাবে।</p>
         </div>
 
-        <!-- Right Side: Clean Category Summary Table (Removed 'অর্জন %' and 'অবস্থা' columns) -->
+        <!-- Right Side: HQ Sheet Exact Category List + Shorts (ক্র. | কেপিআই / ক্যাটাগরি | একক | লক্ষ্য | গত মাস | এ মাস (সম্পন্ন) | মোট কাজ) -->
         <div class="lg:col-span-6 solid-card p-5 space-y-3 shadow-sm flex flex-col justify-between">
           <div>
             <div class="flex justify-between items-center border-b pb-2.5 dark:border-slate-800">
               <h3 class="font-bold text-base text-asf-700 dark:text-emerald-400" data-bn="ক্যাটাগরি অনুযায়ী প্রোডাকশন (Content Type)" data-en="Content Type Summary">ক্যাটাগরি অনুযায়ী প্রোডাকশন (Content Type)</h3>
               <span id="content-type-month-badge" class="text-[11px] font-bold px-2.5 py-0.5 rounded bg-emerald-100 text-asf-700"></span>
             </div>
-            <div class="overflow-x-auto mt-3 max-h-80">
+            <div class="overflow-x-auto mt-3 max-h-80 select-text">
               <table class="w-full text-left border-collapse text-xs">
                 <thead class="sticky top-0 z-10">
                   <tr class="bg-asf-700 text-white">
-                    <th class="p-2.5 rounded-tl-lg font-bold">Content Type / ক্যাটাগরি</th>
+                    <th class="p-2.5 rounded-tl-lg text-center font-bold">ক্র.</th>
+                    <th class="p-2.5 font-bold">কেপিআই / ক্যাটাগরি</th>
+                    <th class="p-2.5 text-center font-bold">একক</th>
                     <th class="p-2.5 text-center font-bold">লক্ষ্য</th>
                     <th class="p-2.5 text-center font-bold">গত মাস</th>
                     <th class="p-2.5 text-center font-bold">এ মাস (সম্পন্ন)</th>
@@ -272,11 +274,11 @@
               </table>
             </div>
           </div>
-          <p class="text-[11px] text-slate-400 font-medium pt-2 border-t dark:border-slate-800">💡 যেকোনো ক্যাটাগরিতে ক্লিক করলে ওই ক্যাটাগরির প্রজেক্ট তালিকা দেখা যাবে।</p>
+          <p class="text-[11px] text-slate-400 font-medium pt-2 border-t dark:border-slate-800">💡 যেকোনো ক্যাটাগরিতে ক্লিক করলে ওই ক্যাটাগরির প্রজেক্ট তালিকা দেখা যাবে এবং অ্যাডমিন প্যানেল থেকে নতুন ক্যাটাগরি ও লক্ষ্যমাত্রা যুক্ত করা যাবে।</p>
         </div>
       </div>
 
-      <!-- Home Page Team Members Overview (4 Statuses Kept Exactly as Requested) -->
+      <!-- Home Page Team Members Overview -->
       <div class="space-y-4">
         <div class="flex flex-wrap items-center justify-between gap-2">
           <h3 class="text-lg sm:text-xl font-bold text-asf-700 dark:text-emerald-400" data-bn="টিম মেম্বার ও কাজের সামারি (Worker Summary)" data-en="Team & Worker Summary">টিম মেম্বার ও কাজের সামারি (Worker Summary)</h3>
@@ -392,7 +394,6 @@
             <tbody id="pipeline-sheet-tbody" class="divide-y divide-slate-200 dark:divide-slate-800"></tbody>
           </table>
         </div>
-        <!-- Direct Bottom Row Adder Bar (For Super Admin & Director) -->
         <div class="admin-only-block p-3 bg-slate-50 dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800">
           <div class="flex flex-wrap items-center justify-between gap-2">
             <button onclick="addBlankPipelineRow()" class="btn-green px-4 py-2 text-xs font-bold flex items-center gap-1.5 shadow-sm">
@@ -455,12 +456,12 @@
       </div>
     </section>
 
-    <!-- ================= 4. TEAM MEMBERS TAB (CATEGORY-WISE BREAKDOWN CARDS) ================= -->
+    <!-- ================= 4. TEAM MEMBERS TAB (CLEAN 4-BOX SUMMARY CARDS LIKE HOME) ================= -->
     <section id="tab-team" class="hidden space-y-6">
       <div class="solid-card p-5 flex flex-wrap items-center justify-between gap-2 shadow-sm">
         <div>
-          <h2 class="text-lg sm:text-xl font-bold">আমাদের টিম মেম্বার (ক্যাটাগরি অনুযায়ী কাজের বিবরণ)</h2>
-          <p class="text-xs font-semibold text-slate-500">কে কোন ক্যাটাগরির কতটি কাজ করেছেন তা নিচে দেওয়া হলো — কার্ডে ক্লিক করলে বিস্তারিত পোর্টফোলিও দেখা যাবে</p>
+          <h2 class="text-lg sm:text-xl font-bold">আমাদের টিম মেম্বার</h2>
+          <p class="text-xs font-semibold text-slate-500">কার্ডে ক্লিক করলে মেম্বারের ক্যাটাগরি অনুযায়ী কাজের হিসাব, পোর্টফোলিও এবং স্ট্যাটাস ভিত্তিক কাজের তালিকা দেখা যাবে</p>
         </div>
         <input type="month" id="team-tab-month-filter" onchange="renderTeamSection()" class="px-3 py-1.5 rounded-lg border text-xs font-bold dark:bg-slate-800">
       </div>
@@ -594,12 +595,13 @@
 
         <div class="solid-card p-5 space-y-3 shadow-sm border-2 border-asf-600/20">
           <div class="flex items-center justify-between border-b pb-2">
-            <h3 class="font-bold text-sm text-asf-600">প্রোডাকশন ক্যাটাগরি (Content Type) ও মাসিক লক্ষ্যমাত্রা (Target)</h3>
+            <h3 class="font-bold text-sm text-asf-600">প্রোডাকশন ক্যাটাগরি (কেপিআই তালিকা + শর্টস) ও লক্ষ্যমাত্রা</h3>
             <button onclick="resetPortfolioCategories()" class="text-[11px] bg-amber-100 text-amber-900 px-2 py-0.5 rounded font-bold">শিটের ক্যাটাগরি রিসেট</button>
           </div>
           <div class="flex gap-1.5 text-xs">
             <input type="text" id="new-port-cat-input" placeholder="নতুন ক্যাটাগরি (যেমন: পডকাস্ট)..." class="flex-grow px-2.5 py-1.5 rounded-lg border dark:bg-slate-800">
-            <input type="number" id="new-port-cat-target" placeholder="লক্ষ্য" value="4" class="w-20 px-2 py-1.5 rounded-lg border dark:bg-slate-800 font-bold">
+            <input type="text" id="new-port-cat-unit" placeholder="একক (টি/দিন)" value="টি" class="w-16 px-2 py-1.5 rounded-lg border dark:bg-slate-800 text-center font-bold">
+            <input type="number" id="new-port-cat-target" placeholder="লক্ষ্য" value="4" class="w-16 px-2 py-1.5 rounded-lg border dark:bg-slate-800 text-center font-bold">
             <button onclick="addNewPortfolioCategory()" class="btn-green px-3 py-1.5 font-bold">+ যুক্ত</button>
           </div>
           <div id="admin-port-cat-tags" class="space-y-1.5 max-h-48 overflow-y-auto pt-1"></div>
@@ -848,7 +850,7 @@
     </div>
   </div>
 
-  <!-- Member Profile Modal (4 Separate Interactive Status Cards + Category Breakdown Pills) -->
+  <!-- Member Profile Modal (4 Status Cards + Green Category Breakdown Boxes + Hidden Task List Until Clicked) -->
   <div id="member-modal" class="fixed inset-0 z-50 bg-slate-950/65 hidden items-center justify-center p-2 sm:p-4">
     <div class="solid-card relative max-w-4xl w-full p-4 sm:p-6 space-y-4 max-h-[90vh] overflow-y-auto">
       <button onclick="closeMemberModal()" class="absolute top-4 right-4 w-9 h-9 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-red-100 hover:text-red-600 font-bold flex items-center justify-center text-sm">✕</button>
@@ -867,37 +869,46 @@
         </div>
       </div>
 
-      <!-- 4 Interactive Filter Cards -->
-      <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-3 text-xs">
-        <div onclick="setMemberModalStatusFilter('Completed')" id="mcard-Completed" class="ribbon-card rc-green motion-card filter-card-active">
-          <p class="text-xl font-extrabold text-asf-700" id="mod-stat-completed">0</p>
-          <p class="font-bold text-slate-600 dark:text-slate-300">Completed (সম্পন্ন)</p>
-        </div>
-        <div onclick="setMemberModalStatusFilter('Running')" id="mcard-Running" class="ribbon-card rc-blue motion-card">
-          <p class="text-xl font-extrabold text-blue-700" id="mod-stat-ongoing">0</p>
-          <p class="font-bold text-slate-600 dark:text-slate-300">Running (চলমান)</p>
-        </div>
-        <div onclick="setMemberModalStatusFilter('Ready')" id="mcard-Ready" class="ribbon-card rc-rose motion-card">
-          <p class="text-xl font-extrabold text-rose-700" id="mod-stat-ready">0</p>
-          <p class="font-bold text-slate-600 dark:text-slate-300">Ready to Publish</p>
-        </div>
-        <div onclick="setMemberModalStatusFilter('Pending')" id="mcard-Pending" class="ribbon-card rc-amber motion-card">
-          <p class="text-xl font-extrabold text-amber-700" id="mod-stat-pending">0</p>
-          <p class="font-bold text-slate-600 dark:text-slate-300">Pending (পেন্ডিং)</p>
+      <!-- 4 Interactive Filter Cards (Click any card to open its detailed list below) -->
+      <div class="space-y-1.5">
+        <p class="text-[11px] font-semibold text-slate-400">💡 যেকোনো স্ট্যাটাস বা ক্যাটাগরি কার্ডে ক্লিক করলে নিচে বিস্তারিত কাজের তালিকা ওপেন হবে:</p>
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-3 text-xs">
+          <div onclick="setMemberModalStatusFilter('Completed')" id="mcard-Completed" class="ribbon-card rc-green motion-card">
+            <p class="text-xl font-extrabold text-asf-700" id="mod-stat-completed">0</p>
+            <p class="font-bold text-slate-600 dark:text-slate-300">Completed (সম্পন্ন)</p>
+          </div>
+          <div onclick="setMemberModalStatusFilter('Running')" id="mcard-Running" class="ribbon-card rc-blue motion-card">
+            <p class="text-xl font-extrabold text-blue-700" id="mod-stat-ongoing">0</p>
+            <p class="font-bold text-slate-600 dark:text-slate-300">Running (চলমান)</p>
+          </div>
+          <div onclick="setMemberModalStatusFilter('Ready')" id="mcard-Ready" class="ribbon-card rc-rose motion-card">
+            <p class="text-xl font-extrabold text-rose-700" id="mod-stat-ready">0</p>
+            <p class="font-bold text-slate-600 dark:text-slate-300">Ready to Publish</p>
+          </div>
+          <div onclick="setMemberModalStatusFilter('Pending')" id="mcard-Pending" class="ribbon-card rc-amber motion-card">
+            <p class="text-xl font-extrabold text-amber-700" id="mod-stat-pending">0</p>
+            <p class="font-bold text-slate-600 dark:text-slate-300">Pending (পেন্ডিং)</p>
+          </div>
         </div>
       </div>
 
-      <!-- Member Category-Wise Breakdown Badges inside Profile Modal -->
-      <div class="p-3 rounded-xl bg-emerald-50/60 dark:bg-slate-800/70 border border-emerald-200/70 dark:border-slate-700 space-y-1.5">
-        <p class="text-[11px] font-bold text-asf-700 dark:text-emerald-300">ক্যাটাগরি অনুযায়ী কাজের হিসাব (ক্লিক করলে ওই ক্যাটাগরির কাজ ফিল্টার হবে):</p>
-        <div id="mod-member-category-pills" class="flex flex-wrap gap-1.5 text-xs"></div>
+      <!-- Member Category-Wise Breakdown Boxes inside Profile Modal -->
+      <div class="p-4 rounded-2xl bg-slate-50/70 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-800 space-y-2.5">
+        <div class="flex items-center justify-between text-xs font-bold text-slate-700 dark:text-slate-200">
+          <span id="mod-cat-summary-heading">ক্যাটাগরি অনুযায়ী কাজ:</span>
+          <span id="mod-cat-total-badge" class="text-asf-700 dark:text-emerald-400">মোট: 0টি</span>
+        </div>
+        <div id="mod-member-category-pills" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2.5 text-xs"></div>
       </div>
 
-      <!-- Filtered Task List -->
-      <div class="border rounded-xl p-3.5 space-y-2 bg-slate-50/50 dark:bg-slate-900/40">
-        <div class="flex items-center justify-between border-b pb-1.5">
-          <h4 id="mod-filtered-list-title" class="font-bold text-xs text-asf-700 dark:text-emerald-400">Completed (সম্পন্ন) কাজের তালিকা</h4>
-          <button onclick="setMemberModalStatusFilter('ALL')" class="text-[11px] font-bold text-blue-600 hover:underline">সব কাজ একসাথে দেখুন</button>
+      <!-- Filtered Task List (HIDDEN BY DEFAULT — Opens Only When User Clicks a Status or Category Card) -->
+      <div id="mod-tasks-list-wrapper" class="hidden border-2 border-asf-600/40 rounded-xl p-3.5 space-y-2 bg-emerald-50/30 dark:bg-slate-900/60">
+        <div class="flex items-center justify-between border-b pb-2 dark:border-slate-800">
+          <h4 id="mod-filtered-list-title" class="font-bold text-xs sm:text-sm text-asf-700 dark:text-emerald-400">কাজের তালিকা</h4>
+          <div class="flex items-center gap-2">
+            <button onclick="setMemberModalStatusFilter('ALL')" class="text-[11px] font-bold text-blue-600 hover:underline">সব কাজ একসাথে</button>
+            <button onclick="closeMemberTaskList()" class="px-2 py-0.5 rounded bg-red-100 text-red-600 text-[11px] font-bold hover:bg-red-200">✕ তালিকা বন্ধ করুন</button>
+          </div>
         </div>
         <div class="overflow-x-auto max-h-64">
           <table class="w-full text-left text-xs"><tbody id="mod-tasks-tbody" class="divide-y dark:divide-slate-800"></tbody></table>
@@ -905,7 +916,7 @@
       </div>
 
       <!-- 3 Portfolio Sections -->
-      <div class="space-y-5">
+      <div class="space-y-5 pt-1">
         <div id="mod-photocard-section" class="space-y-2.5 hidden">
           <h4 class="font-bold text-xs sm:text-sm text-asf-600 border-b pb-1">ফটোকার্ড ডিজাইন (১:১ স্কয়ার)</h4>
           <div id="mod-photocard-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3.5"></div>
@@ -1012,7 +1023,7 @@
 
     const DEFAULT_SHEET_COLUMNS = ["Editing", "Thumbnail/Poster", "Direction", "Camera", "Script", "With Assigned", "Light"];
 
-    // HQ & Director's Exact Categories + Shorts
+    // Exact HQ Sheet KPI Categories + Shorts & Lecture
     const DEFAULT_PORTFOLIO_CATEGORIES = [
       "হারিয়ে যাওয়া সুন্নাহ — সম্পন্ন",
       "নাটিকা — শুটিং সম্পন্ন",
@@ -1021,9 +1032,9 @@
       "নাটিকা স্ক্রিপ্ট",
       "প্রেস রিলিজ/নিউজ আর্টিকেল",
       "জুমার প্রশ্নোত্তর",
-      "গ্রাফিক ডিজাইন/পোস্টার",
-      "Lecture",
-      "Shorts"
+      "শর্টস (Shorts)",
+      "লেকচার (Lecture)",
+      "গ্রাফিক ডিজাইন/পোস্টার"
     ];
 
     const DEFAULT_CATEGORY_TARGETS = {
@@ -1034,9 +1045,22 @@
       "নাটিকা স্ক্রিপ্ট": 5,
       "প্রেস রিলিজ/নিউজ আর্টিকেল": 2,
       "জুমার প্রশ্নোত্তর": 4,
-      "গ্রাফিক ডিজাইন/পোস্টার": 30,
-      "Lecture": 10,
-      "Shorts": 20
+      "শর্টস (Shorts)": 20,
+      "লেকচার (Lecture)": 10,
+      "গ্রাফিক ডিজাইন/পোস্টার": 30
+    };
+
+    const DEFAULT_CATEGORY_UNITS = {
+      "হারিয়ে যাওয়া সুন্নাহ — সম্পন্ন": "টি",
+      "নাটিকা — শুটিং সম্পন্ন": "টি",
+      "ডকুমেন্টারি": "টি",
+      "ভিডিও (প্রমো/ডকুমেন্টারি)": "টি",
+      "নাটিকা স্ক্রিপ্ট": "টি",
+      "প্রেস রিলিজ/নিউজ আর্টিকেল": "টি",
+      "জুমার প্রশ্নোত্তর": "দিন",
+      "শর্টস (Shorts)": "টি",
+      "লেকচার (Lecture)": "টি",
+      "গ্রাফিক ডিজাইন/পোস্টার": "টি"
     };
 
     const SHORT_PLATFORMS = [
@@ -1131,7 +1155,7 @@
     window.selectedPortfolioCategory = 'ALL';
     window.activePipelineStage = 'ALL';
     window.openedModalMemberId = null;
-    window.memberModalStatusFilter = 'Completed';
+    window.memberModalStatusFilter = null;
     window.memberModalCategoryFilter = null;
     window.initialMsgLoad = true;
 
@@ -1153,6 +1177,7 @@
       platforms: SHORT_PLATFORMS,
       portfolioCategories: DEFAULT_PORTFOLIO_CATEGORIES,
       categoryTargets: DEFAULT_CATEGORY_TARGETS,
+      categoryUnits: DEFAULT_CATEGORY_UNITS,
       sheetColumns: DEFAULT_SHEET_COLUMNS,
       channelLinks: DEFAULT_CHANNEL_LINKS
     };
@@ -1218,40 +1243,66 @@
       return String(rawTitle).replace(/^\[.*?\]\s*/, '').replace(/\s*\(শুটিং:.*?\)\s*$/, '').trim();
     }
 
+    // Smart Matching: Maps both old English categories and new Bangla HQ categories seamlessly
     function matchesContentType(task, catName) {
       const rawType = String(task.productionType || task.contentType || task.category || '').toLowerCase().trim();
+      const rawTitle = String(task.title || '').toLowerCase();
       const target = String(catName).toLowerCase().trim();
-      if (!rawType || !target) return false;
+      if (!target) return false;
       if (rawType === target) return true;
-      if (target.includes('হারিয়ে যাওয়া সুন্নাহ')) return rawType.includes('সুন্নাহ');
-      if (target.includes('নাটিকা — শুটিং') || target === 'drama' || target === 'short film') return rawType === 'drama' || rawType.includes('নাটিকা — শুটিং') || rawType.includes('short film') || rawType.includes('শর্টফিল্ম');
-      if (target.includes('নাটিকা স্ক্রিপ্ট')) return rawType.includes('নাটিকা স্ক্রিপ্ট') || (rawType.includes('স্ক্রিপ্ট') && rawType.includes('নাটিকা'));
-      if (target === 'documentary' || target === 'ডকুমেন্টারি') return rawType === 'documentary' || rawType === 'ডকুমেন্টারি' || (rawType.includes('ডকুমেন্টারি') && !rawType.includes('প্রমো'));
-      if (target.includes('ভিডিও (প্রমো') || target === 'ovc' || target === 'tvc') return rawType.includes('প্রমো') || rawType.includes('ovc') || rawType.includes('tvc') || rawType.includes('ওভিসি') || rawType.includes('টিভিসি');
-      if (target.includes('প্রেস রিলিজ')) return rawType.includes('প্রেস') || rawType.includes('নিউজ') || rawType.includes('আর্টিকেল');
-      if (target.includes('জুমার প্রশ্নোত্তর') || target === 'juma q&a') return rawType.includes('জুমা') || rawType.includes('juma');
-      if (target.includes('গ্রাফিক') || target.includes('graphic')) return rawType.includes('গ্রাফিক') || rawType.includes('graphic') || rawType.includes('ফটোকার্ড') || rawType.includes('থাম্বনেইল') || rawType.includes('পোস্টার');
-      if (target === 'lecture' || target === 'লেকচার') return rawType === 'lecture' || rawType.includes('লেকচার');
-      if (target === 'shorts' || target.includes('শর্টস')) return rawType.includes('shorts') || rawType.includes('শর্টস') || rawType.includes('রিলস');
+
+      if (target.includes('হারিয়ে যাওয়া সুন্নাহ')) {
+        return rawType.includes('সুন্নাহ') || rawTitle.includes('হারিয়ে যাওয়া সুন্নাহ') || rawTitle.includes('হারিয়ে যাওয়া সুন্নাহ');
+      }
+      if (target.includes('নাটিকা — শুটিং') || target === 'drama' || target === 'short film') {
+        return rawType === 'drama' || rawType === 'short film' || rawType.includes('নাটিকা — শুটিং') || rawType.includes('শর্টফিল্ম') || (rawType.includes('নাটিকা') && !rawType.includes('স্ক্রিপ্ট'));
+      }
+      if (target.includes('নাটিকা স্ক্রিপ্ট')) {
+        return rawType.includes('নাটিকা স্ক্রিপ্ট') || (rawType.includes('স্ক্রিপ্ট') && (rawType.includes('নাটিকা') || rawTitle.includes('নাটিকা')));
+      }
+      if (target === 'ডকুমেন্টারি' || target === 'documentary') {
+        return rawType === 'documentary' || rawType === 'ডকুমেন্টারি' || rawType.includes('documentary editing') || (rawType.includes('ডকুমেন্টারি') && !rawType.includes('প্রমো'));
+      }
+      if (target.includes('ভিডিও (প্রমো') || target === 'ovc' || target === 'tvc') {
+        return rawType.includes('প্রমো') || rawType === 'ovc' || rawType === 'tvc' || rawType.includes('ওভিসি') || rawType.includes('টিভিসি');
+      }
+      if (target.includes('প্রেস রিলিজ')) {
+        return rawType.includes('প্রেস') || rawType.includes('নিউজ') || rawType.includes('আর্টিকেল');
+      }
+      if (target.includes('জুমার প্রশ্নোত্তর') || target === 'juma q&a') {
+        return rawType.includes('জুমা') || rawType.includes('juma') || rawTitle.includes('জুমা');
+      }
+      if (target.includes('গ্রাফিক') || target.includes('graphic')) {
+        return rawType.includes('গ্রাফিক') || rawType.includes('graphic') || rawType.includes('ফটোকার্ড') || rawType.includes('থাম্বনেইল') || rawType.includes('পোস্টার');
+      }
+      if (target.includes('লেকচার') || target === 'lecture') {
+        return rawType === 'lecture' || rawType.includes('লেকচার') || rawType.includes('large video');
+      }
+      if (target.includes('শর্টস') || target === 'shorts') {
+        return rawType.includes('shorts') || rawType.includes('শর্টস') || rawType.includes('রিলস');
+      }
       return false;
     }
 
-    // Returns display category label for a task (for Member Category Breakdown)
     function getTaskCategoryLabel(t) {
-      if (t.productionType && String(t.productionType).trim() !== '') return String(t.productionType).trim();
       const cats = window.siteSettings.portfolioCategories || DEFAULT_PORTFOLIO_CATEGORIES;
       for (const c of cats) {
         if (matchesContentType(t, c)) return c;
       }
+      if (t.productionType && String(t.productionType).trim() !== '') return String(t.productionType).trim();
       return window.tAct(t.category || 'অন্যান্য');
     }
 
-    // Real-time Listeners
+    // Real-time Listeners (Auto-upgrades old English 5-category list to HQ Bangla list + Shorts)
     onSnapshot(doc(db, "config", "siteSettings"), (s) => {
       if (s.exists()) {
         const data = s.data();
         let loadedCats = (data.portfolioCategories && data.portfolioCategories.length > 0) ? [...data.portfolioCategories] : [...DEFAULT_PORTFOLIO_CATEGORIES];
-        if (!loadedCats.some(c => c.toLowerCase().includes('short') || c.includes('শর্টস'))) loadedCats.push("Shorts");
+        const hasHQCategories = loadedCats.some(c => c.includes('হারিয়ে যাওয়া সুন্নাহ') || c.includes('নাটিকা'));
+        if (!hasHQCategories) {
+          const customExtra = loadedCats.filter(c => !['lecture','documentary','ovc','tvc','shorts','short film','drama'].includes(c.toLowerCase().trim()));
+          loadedCats = [...DEFAULT_PORTFOLIO_CATEGORIES, ...customExtra];
+        }
         window.siteSettings = {
           ...window.siteSettings,
           ...data,
@@ -1259,7 +1310,8 @@
           channelLinks: (data.channelLinks && data.channelLinks.length > 0) ? data.channelLinks : DEFAULT_CHANNEL_LINKS,
           sheetColumns: (data.sheetColumns && data.sheetColumns.length > 0) ? data.sheetColumns : DEFAULT_SHEET_COLUMNS,
           portfolioCategories: loadedCats,
-          categoryTargets: { ...DEFAULT_CATEGORY_TARGETS, ...(data.categoryTargets || {}) }
+          categoryTargets: { ...DEFAULT_CATEGORY_TARGETS, ...(data.categoryTargets || {}) },
+          categoryUnits: { ...DEFAULT_CATEGORY_UNITS, ...(data.categoryUnits || {}) }
         };
       }
       applySiteSettingsUI();
@@ -1475,7 +1527,38 @@
       return Array.from(groupedMap.values());
     }
 
-    // 1. Render Home (Clean Category Summary Without Achievement % or Status + 4-Status Member Cards)
+    // Helper to build clean 4-status member card HTML (Used on both Home and Team Member tabs)
+    function buildCleanMemberSummaryCard(m, tasksForMonth) {
+      const mTasks = tasksForMonth.filter(t => isMemberInTask(t, m.uid));
+      const comp = window.sumQty(mTasks.filter(t => getNormalizedTaskBucket(t) === 'Completed'));
+      const run = window.sumQty(mTasks.filter(t => getNormalizedTaskBucket(t) === 'Running'));
+      const rdy = window.sumQty(mTasks.filter(t => getNormalizedTaskBucket(t) === 'Ready'));
+      const pend = window.sumQty(mTasks.filter(t => getNormalizedTaskBucket(t) === 'Pending'));
+      return `
+        <div onclick="openMemberModal('${m.uid}')" class="solid-card p-5 shadow-sm motion-card flex flex-col justify-between space-y-3.5">
+          <div class="space-y-3">
+            <div class="flex items-center gap-3.5">
+              <img src="${m.photo}" alt="${window.clean(m.name)}" class="w-14 h-14 rounded-xl object-cover border-2 border-asf-600 shrink-0">
+              <div class="min-w-0">
+                <h4 class="font-bold text-base truncate">${window.clean(m.name)}</h4>
+                <p class="text-xs font-bold text-asf-600 dark:text-emerald-400 truncate">${window.clean(m.designation || 'Team Member')}</p>
+              </div>
+            </div>
+            <p class="text-xs text-slate-600 dark:text-slate-300 bg-slate-50 dark:bg-slate-800/70 p-2.5 rounded-xl line-clamp-2 leading-relaxed">
+              ${window.clean(getMemberBioText(m))}
+            </p>
+          </div>
+          <div class="grid grid-cols-4 gap-1.5 text-center text-[10px] pt-2.5 border-t dark:border-slate-800">
+            <div class="bg-emerald-50 dark:bg-slate-800 py-1.5 rounded-lg"><b class="text-asf-600 block text-xs">${comp}</b>Completed</div>
+            <div class="bg-blue-50 dark:bg-slate-800 py-1.5 rounded-lg"><b class="text-blue-600 block text-xs">${run}</b>Running</div>
+            <div class="bg-rose-50 dark:bg-slate-800 py-1.5 rounded-lg"><b class="text-rose-600 block text-xs">${rdy}</b>Ready</div>
+            <div class="bg-amber-50 dark:bg-slate-800 py-1.5 rounded-lg"><b class="text-amber-600 block text-xs">${pend}</b>Pending</div>
+          </div>
+        </div>
+      `;
+    }
+
+    // 1. Render Home (HQ Sheet Exact KPI/Category Table + Shorts & Clean Member Cards)
     window.setHomeTeamView = (mode) => {
       window.homeTeamView = mode;
       document.getElementById('hteam-btn-cards').className = mode === 'cards' ? 'px-3 py-1.5 rounded-lg text-xs font-bold btn-green' : 'px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-200 dark:bg-slate-800';
@@ -1514,16 +1597,18 @@
       document.getElementById('home-next3-plan-preview').innerText = s.planNext3Text || "";
       document.getElementById('home-last-success-preview').innerText = s.planLastSuccessText || "";
 
-      // Clean Category Summary Table (Only: Content Type | লক্ষ্য | গত মাস | এ মাস (সম্পন্ন) | মোট কাজ)
+      // HQ Sheet Category Summary Table (ক্র. | কেপিআই / ক্যাটাগরি | একক | লক্ষ্য | গত মাস | এ মাস (সম্পন্ন) | মোট কাজ)
       document.getElementById('content-type-month-badge').innerText = window.formatMonthName(curMonth);
       const contentTypes = s.portfolioCategories || DEFAULT_PORTFOLIO_CATEGORIES;
       const targetsMap = s.categoryTargets || DEFAULT_CATEGORY_TARGETS;
+      const unitsMap = s.categoryUnits || DEFAULT_CATEGORY_UNITS;
 
-      document.getElementById('home-content-type-tbody').innerHTML = contentTypes.map(cat => {
+      document.getElementById('home-content-type-tbody').innerHTML = contentTypes.map((cat, idx) => {
         const matchedCur = curMonthTasks.filter(t => matchesContentType(t, cat));
         const matchedPrev = prevMonthTasks.filter(t => matchesContentType(t, cat));
         const matchedAll = window.allTasks.filter(t => matchesContentType(t, cat));
 
+        const unitVal = unitsMap[cat] || (cat.includes('জুমার') ? 'দিন' : 'টি');
         const targetVal = Number(targetsMap[cat]) || 0;
         const prevDone = window.sumQty(matchedPrev.filter(t => getNormalizedTaskBucket(t) === 'Completed' || getNormalizedTaskBucket(t) === 'Ready'));
         const curDone = window.sumQty(matchedCur.filter(t => getNormalizedTaskBucket(t) === 'Completed' || getNormalizedTaskBucket(t) === 'Ready'));
@@ -1531,44 +1616,19 @@
 
         return `
           <tr onclick="openCategoryDetailModal('${window.clean(cat)}')" class="hover:bg-emerald-50/70 dark:hover:bg-slate-800/60 cursor-pointer transition">
+            <td class="p-2.5 text-center font-bold text-slate-500">${idx + 1}</td>
             <td class="p-2.5 font-bold text-slate-800 dark:text-slate-100">${window.clean(cat)}</td>
-            <td class="p-2.5 text-center font-bold text-slate-600 dark:text-slate-300">${targetVal || '-'}</td>
-            <td class="p-2.5 text-center font-semibold text-slate-500">${prevDone}</td>
-            <td class="p-2.5 text-center font-extrabold text-asf-600">${curDone}</td>
+            <td class="p-2.5 text-center font-semibold text-slate-500">${window.clean(unitVal)}</td>
+            <td class="p-2.5 text-center font-extrabold text-blue-700 dark:text-blue-400">${targetVal || '-'}</td>
+            <td class="p-2.5 text-center font-semibold text-slate-600 dark:text-slate-400">${prevDone}</td>
+            <td class="p-2.5 text-center font-extrabold text-asf-600 dark:text-emerald-400">${curDone}</td>
             <td class="p-2.5 text-center font-bold text-blue-600">${totalCat}</td>
           </tr>
         `;
       }).join('');
 
-      // Home Page Team Members Cards (4 Statuses Kept Exactly as Requested)
       const approvedMembers = getSortedMembers(true);
-      document.getElementById('home-team-grid').innerHTML = approvedMembers.map(m => {
-        const mTasks = curMonthTasks.filter(t => isMemberInTask(t, m.uid));
-        const comp = window.sumQty(mTasks.filter(t => getNormalizedTaskBucket(t) === 'Completed'));
-        const run = window.sumQty(mTasks.filter(t => getNormalizedTaskBucket(t) === 'Running'));
-        const rdy = window.sumQty(mTasks.filter(t => getNormalizedTaskBucket(t) === 'Ready'));
-        const pend = window.sumQty(mTasks.filter(t => getNormalizedTaskBucket(t) === 'Pending'));
-        return `
-          <div onclick="openMemberModal('${m.uid}')" class="solid-card p-4 shadow-sm motion-card flex flex-col justify-between space-y-3">
-            <div class="flex items-center gap-3.5">
-              <img src="${m.photo}" alt="${window.clean(m.name)}" class="w-14 h-14 rounded-xl object-cover border-2 border-asf-600 shrink-0">
-              <div class="min-w-0">
-                <h4 class="font-bold text-sm sm:text-base truncate">${window.clean(m.name)}</h4>
-                <p class="text-xs font-bold text-asf-600 dark:text-emerald-400 truncate">${window.clean(m.designation || 'Team Member')}</p>
-              </div>
-            </div>
-            <p class="text-xs text-slate-600 dark:text-slate-300 bg-slate-50 dark:bg-slate-800/70 p-2.5 rounded-xl line-clamp-2 leading-relaxed">
-              ${window.clean(getMemberBioText(m))}
-            </p>
-            <div class="grid grid-cols-4 gap-1 text-center text-[10px] pt-2 border-t dark:border-slate-800">
-              <div class="bg-emerald-50 dark:bg-slate-800 py-1 rounded"><b class="text-asf-600 block text-xs">${comp}</b>Completed</div>
-              <div class="bg-blue-50 dark:bg-slate-800 py-1 rounded"><b class="text-blue-600 block text-xs">${run}</b>Running</div>
-              <div class="bg-rose-50 dark:bg-slate-800 py-1 rounded"><b class="text-rose-600 block text-xs">${rdy}</b>Ready</div>
-              <div class="bg-amber-50 dark:bg-slate-800 py-1 rounded"><b class="text-amber-600 block text-xs">${pend}</b>Pending</div>
-            </div>
-          </div>
-        `;
-      }).join('');
+      document.getElementById('home-team-grid').innerHTML = approvedMembers.map(m => buildCleanMemberSummaryCard(m, curMonthTasks)).join('');
 
       document.getElementById('home-worker-summary-tbody').innerHTML = approvedMembers.map((m, idx) => {
         const mTasks = curMonthTasks.filter(t => isMemberInTask(t, m.uid));
@@ -1625,7 +1685,7 @@
           `).join('');
     }
 
-    // 2. PRODUCTION PIPELINE (Direct Row Addition Without Popup & Direct Inline Title Input)
+    // 2. PRODUCTION PIPELINE
     window.clearPipelineMonthFilter = () => {
       document.getElementById('pipe-month-filter').value = '';
       renderPipelineBoard();
@@ -1654,7 +1714,6 @@
       renderPipelineBoard();
     };
 
-    // Instant Blank Row Addition Without Any Browser Prompt Popup
     window.addBlankPipelineRow = async () => {
       if (!isManagerLoggedIn()) return alert("শুধুমাত্র সুপার অ্যাডমিন বা ডিরেক্টর নতুন রো যুক্ত করতে পারবেন।");
       const filterMonth = document.getElementById('pipe-month-filter').value;
@@ -1869,7 +1928,8 @@
           if (ratingNum >= 1 && ratingNum <= 3) rowClass = 'sheet-row-lowrating';
 
           const idsStr = t.groupedIds.join(',');
-          const catOpts = cats.map(c => `<option value="${window.clean(c)}" ${(t.productionType||'') === c ? 'selected' : ''}>${window.clean(c)}</option>`).join('');
+          const matchedLabel = getTaskCategoryLabel(t);
+          const catOpts = cats.map(c => `<option value="${window.clean(c)}" ${(t.productionType === c || matchedLabel === c) ? 'selected' : ''}>${window.clean(c)}</option>`).join('');
 
           return `
             <tr class="${rowClass} hover:brightness-95 transition">
@@ -1884,7 +1944,7 @@
                 }
               </td>
               <td class="p-2 border-r border-slate-300 dark:border-slate-700">
-                ${canManage ? `<select onchange="updateSheetField('${t.id}','productionType',this.value)" class="px-2 py-1 rounded border bg-white/95 dark:bg-slate-800 font-bold text-blue-700 dark:text-blue-300 text-[11px]">${catOpts}</select>` : `<span class="px-2 py-0.5 rounded bg-blue-100 text-blue-800 font-bold text-[11px]">${window.clean(t.productionType || 'ডকুমেন্টারি')}</span>`}
+                ${canManage ? `<select onchange="updateSheetField('${t.id}','productionType',this.value)" class="px-2 py-1 rounded border bg-white/95 dark:bg-slate-800 font-bold text-blue-700 dark:text-blue-300 text-[11px]">${catOpts}</select>` : `<span class="px-2 py-0.5 rounded bg-blue-100 text-blue-800 font-bold text-[11px]">${window.clean(matchedLabel)}</span>`}
               </td>
               ${firstCol.map(c => `<td class="p-2 border-r border-slate-300 dark:border-slate-700">${buildRoleCell(t, c)}</td>`).join('')}
               <td class="p-2 border-r border-slate-300 dark:border-slate-700">
@@ -1936,7 +1996,6 @@
         }).join('');
       }
 
-      // Render Card View
       const board = document.getElementById('pipeline-board');
       board.innerHTML = currentItems.map((t, idx) => {
         const idsStr = t.groupedIds.join(',');
@@ -1946,7 +2005,7 @@
           <div class="solid-card p-5 shadow-sm motion-card flex flex-col justify-between space-y-4">
             <div class="space-y-2.5">
               <div class="flex items-center justify-between">
-                <span class="px-2.5 py-0.5 rounded bg-emerald-100 text-asf-700 text-xs font-bold">#${idx+1} • ${window.clean(t.productionType || 'ডকুমেন্টারি')}</span>
+                <span class="px-2.5 py-0.5 rounded bg-emerald-100 text-asf-700 text-xs font-bold">#${idx+1} • ${window.clean(getTaskCategoryLabel(t))}</span>
                 <div class="flex items-center gap-1.5">
                   <span class="text-xs font-bold text-slate-500">📅 ${window.formatFullDate(t.date)}</span>
                   ${canManage ? `<button onclick="openEditTaskModal('${t.id}')" class="text-amber-600 font-bold">✎</button><button onclick="deleteMasterProject('${idsStr}')" class="text-red-600 font-bold">🗑️</button>` : ''}
@@ -2020,55 +2079,11 @@
       `).join('');
     };
 
-    // 4. Team Members Tab (Category-Wise Breakdown on Each Member Card!)
+    // 4. Team Members Tab (Clean 4-Status Summary Cards Outside — Category Breakdown Moved Inside Modal!)
     window.renderTeamSection = () => {
       const selMonth = document.getElementById('team-tab-month-filter').value || getCurrentMonthStr();
       const monthTasks = window.allTasks.filter(t => t.month === selMonth);
-
-      document.getElementById('full-team-grid').innerHTML = getSortedMembers(true).map(m => {
-        const mTasks = monthTasks.filter(t => isMemberInTask(t, m.uid));
-        const catMap = {};
-        mTasks.forEach(t => {
-          const catLabel = getTaskCategoryLabel(t);
-          catMap[catLabel] = (catMap[catLabel] || 0) + window.getQty(t);
-        });
-
-        const catEntries = Object.entries(catMap);
-        const catBadgesHtml = catEntries.length === 0
-          ? `<div class="p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/50 text-center text-[11px] text-slate-400 font-semibold">এই মাসে এখনো কোনো ক্যাটাগরির কাজ যুক্ত হয়নি</div>`
-          : `<div class="grid grid-cols-2 gap-1.5 pt-1">
-              ${catEntries.map(([cName, count]) => `
-                <div class="flex items-center justify-between px-2.5 py-1.5 rounded-lg bg-emerald-50/80 dark:bg-slate-800 border border-emerald-200/70 dark:border-slate-700 text-xs">
-                  <span class="font-bold text-slate-700 dark:text-slate-200 truncate pr-1" title="${window.clean(cName)}">${window.clean(cName)}</span>
-                  <span class="px-1.5 py-0.5 rounded bg-asf-600 text-white font-extrabold text-[11px] shrink-0">${count}</span>
-                </div>
-              `).join('')}
-            </div>`;
-
-        return `
-          <div onclick="openMemberModal('${m.uid}')" class="solid-card p-5 shadow-sm motion-card flex flex-col justify-between space-y-3.5">
-            <div class="space-y-3">
-              <div class="flex items-center gap-3.5">
-                <img src="${m.photo}" alt="${window.clean(m.name)}" class="w-14 h-14 rounded-xl object-cover border-2 border-asf-600 shrink-0">
-                <div class="min-w-0">
-                  <h4 class="font-bold text-base sm:text-lg truncate">${window.clean(m.name)}</h4>
-                  <p class="text-xs font-bold text-asf-600 dark:text-emerald-400 truncate">${window.clean(m.designation)}</p>
-                </div>
-              </div>
-              <p class="text-xs text-slate-600 dark:text-slate-300 bg-slate-50 dark:bg-slate-800/70 p-2.5 rounded-xl line-clamp-2 leading-relaxed">
-                ${window.clean(getMemberBioText(m))}
-              </p>
-            </div>
-            <div class="space-y-1.5 pt-2 border-t dark:border-slate-800">
-              <div class="flex items-center justify-between text-[11px] font-bold text-asf-700 dark:text-emerald-400">
-                <span>ক্যাটাগরি অনুযায়ী কাজ (${window.formatMonthName(selMonth)}):</span>
-                <span>মোট: ${window.sumQty(mTasks)}টি</span>
-              </div>
-              ${catBadgesHtml}
-            </div>
-          </div>
-        `;
-      }).join('');
+      document.getElementById('full-team-grid').innerHTML = getSortedMembers(true).map(m => buildCleanMemberSummaryCard(m, monthTasks)).join('');
     };
 
     // 5. Productions
@@ -2120,7 +2135,7 @@
       let fullList = [...window.allPortfolio];
       if (window.portfolioViewMode === 'current') fullList = fullList.filter(x => !x.month || x.month === curMonth);
       if (window.portfolioViewMode === 'popular') fullList = fullList.filter(x => x.popular !== false);
-      if (window.selectedPortfolioCategory !== 'ALL') fullList = fullList.filter(x => x.category === window.selectedPortfolioCategory);
+      if (window.selectedPortfolioCategory !== 'ALL') fullList = fullList.filter(x => matchesContentType({ productionType: x.category }, window.selectedPortfolioCategory) || x.category === window.selectedPortfolioCategory);
       document.getElementById('full-portfolio-grid').innerHTML = buildCards(fullList);
     };
 
@@ -2206,7 +2221,7 @@
       `).join('');
     }
 
-    // Member Modal Interactive 4-Card Status + Category Filter Logic
+    // Member Modal On-Click Expand Logic (List stays hidden until a card is clicked!)
     window.setMemberModalStatusFilter = (st) => {
       window.memberModalStatusFilter = st;
       window.memberModalCategoryFilter = null;
@@ -2219,6 +2234,17 @@
 
     window.setMemberModalCategoryFilter = (cat) => {
       window.memberModalCategoryFilter = cat;
+      window.memberModalStatusFilter = null;
+      ['Completed','Running','Ready','Pending'].forEach(k => {
+        const el = document.getElementById(`mcard-${k}`);
+        if (el) el.classList.remove('filter-card-active');
+      });
+      refreshOpenedMemberModal();
+    };
+
+    window.closeMemberTaskList = () => {
+      window.memberModalStatusFilter = null;
+      window.memberModalCategoryFilter = null;
       ['Completed','Running','Ready','Pending'].forEach(k => {
         const el = document.getElementById(`mcard-${k}`);
         if (el) el.classList.remove('filter-card-active');
@@ -2327,11 +2353,11 @@
 
     window.openMemberModal = (uid) => {
       window.openedModalMemberId = uid;
-      window.memberModalStatusFilter = 'Completed';
+      window.memberModalStatusFilter = null;
       window.memberModalCategoryFilter = null;
       ['Completed','Running','Ready','Pending'].forEach(k => {
         const el = document.getElementById(`mcard-${k}`);
-        if (el) el.classList.toggle('filter-card-active', k === 'Completed');
+        if (el) el.classList.remove('filter-card-active');
       });
       document.getElementById('member-modal').classList.remove('hidden');
       document.getElementById('member-modal').classList.add('flex');
@@ -2366,7 +2392,10 @@
       document.getElementById('mod-stat-ready').innerText = window.sumQty(rdyList);
       document.getElementById('mod-stat-pending').innerText = window.sumQty(pendList);
 
-      // Build Category Breakdown Pills inside Member Modal
+      // Build Green Category Boxes Inside Member Modal (Like Screenshot 2)
+      document.getElementById('mod-cat-summary-heading').innerText = `ক্যাটাগরি অনুযায়ী কাজ (${window.formatMonthName(month)}):`;
+      document.getElementById('mod-cat-total-badge').innerText = `মোট: ${window.sumQty(mTasks)}টি`;
+
       const catCounts = {};
       mTasks.forEach(t => {
         const lbl = getTaskCategoryLabel(t);
@@ -2374,44 +2403,57 @@
       });
       const pillsBox = document.getElementById('mod-member-category-pills');
       if (Object.keys(catCounts).length === 0) {
-        pillsBox.innerHTML = `<span class="text-slate-400">এই মাসে কোনো ক্যাটাগরির কাজ নেই।</span>`;
+        pillsBox.innerHTML = `<div class="col-span-full text-center py-3 text-slate-400 font-semibold">এই মাসে এখনো কোনো ক্যাটাগরির কাজ যুক্ত হয়নি।</div>`;
       } else {
-        pillsBox.innerHTML = Object.entries(catCounts).map(([cName, cnt]) => `
-          <button onclick="setMemberModalCategoryFilter('${window.clean(cName)}')" class="px-2.5 py-1 rounded-lg border font-bold transition ${window.memberModalCategoryFilter === cName ? 'bg-asf-600 text-white border-asf-600' : 'bg-white dark:bg-slate-900 hover:border-asf-600'}">
-            ${window.clean(cName)}: <span class="font-extrabold">${cnt}টি</span>
-          </button>
-        `).join('');
+        pillsBox.innerHTML = Object.entries(catCounts).map(([cName, cnt]) => {
+          const isSelected = window.memberModalCategoryFilter === cName;
+          return `
+            <div onclick="setMemberModalCategoryFilter('${window.clean(cName)}')" class="flex items-center justify-between px-3.5 py-2.5 rounded-xl border motion-card ${isSelected ? 'bg-emerald-100 dark:bg-emerald-950 border-asf-600 ring-2 ring-asf-600' : 'bg-[#f2fbf7] dark:bg-slate-800 border-[#86efac] dark:border-emerald-800'}">
+              <span class="font-bold text-slate-800 dark:text-slate-100 truncate pr-2">${window.clean(cName)}</span>
+              <span class="px-2 py-0.5 rounded-md bg-asf-600 text-white font-extrabold text-xs shrink-0">${cnt}</span>
+            </div>
+          `;
+        }).join('');
       }
 
-      let displayTasks = mTasks;
-      if (window.memberModalCategoryFilter) {
-        displayTasks = mTasks.filter(t => getTaskCategoryLabel(t) === window.memberModalCategoryFilter);
-        document.getElementById('mod-filtered-list-title').innerText = `${window.memberModalCategoryFilter} — কাজের তালিকা`;
-      } else {
-        const f = window.memberModalStatusFilter;
-        const labelMap = {
-          Completed: 'Completed (সম্পন্ন) কাজের তালিকা',
-          Running: 'Running (চলমান) কাজের তালিকা',
-          Ready: 'Ready to Publish কাজের তালিকা',
-          Pending: 'Pending (পেন্ডিং) কাজের তালিকা',
-          ALL: 'সকল কাজের তালিকা'
-        };
-        document.getElementById('mod-filtered-list-title').innerText = labelMap[f] || 'কাজের তালিকা';
-        if (f === 'Completed') displayTasks = compList;
-        else if (f === 'Running') displayTasks = runList;
-        else if (f === 'Ready') displayTasks = rdyList;
-        else if (f === 'Pending') displayTasks = pendList;
-      }
+      // Show or Hide Task List Based on Whether User Clicked a Card
+      const listWrapper = document.getElementById('mod-tasks-list-wrapper');
+      const hasActiveFilter = Boolean(window.memberModalStatusFilter || window.memberModalCategoryFilter);
 
-      document.getElementById('mod-tasks-tbody').innerHTML = displayTasks.length === 0
-        ? `<tr><td colspan="3" class="p-5 text-center text-slate-400 font-semibold">এই ফিল্টারে কোনো কাজ নেই। উপরের অন্য কার্ড বা ক্যাটাগরিতে ক্লিক করে দেখুন।</td></tr>`
-        : displayTasks.map(t => `
-            <tr>
-              <td class="p-2.5 font-bold whitespace-nowrap">${window.formatFullDate(t.date)}</td>
-              <td class="p-2.5"><p class="font-bold">${window.clean(cleanProjectTitle(t.title))} <span class="text-asf-600">(${window.getQty(t)}টি)</span></p><p class="text-[10px] text-asf-600 font-bold">ক্যাটাগরি: ${window.clean(getTaskCategoryLabel(t))} • ভূমিকা: ${window.clean(getMemberRoleInTask(t, uid))}</p></td>
-              <td class="p-2.5 font-bold text-right"><span class="px-2 py-0.5 rounded bg-white dark:bg-slate-800 border">${window.clean(getNormalizedTaskBucket(t))}</span></td>
-            </tr>
-          `).join('');
+      if (!hasActiveFilter) {
+        listWrapper.classList.add('hidden');
+      } else {
+        listWrapper.classList.remove('hidden');
+        let displayTasks = mTasks;
+        if (window.memberModalCategoryFilter) {
+          displayTasks = mTasks.filter(t => getTaskCategoryLabel(t) === window.memberModalCategoryFilter);
+          document.getElementById('mod-filtered-list-title').innerText = `${window.memberModalCategoryFilter} — বিস্তারিত কাজের তালিকা`;
+        } else {
+          const f = window.memberModalStatusFilter;
+          const labelMap = {
+            Completed: 'Completed (সম্পন্ন) কাজের তালিকা',
+            Running: 'Running (চলমান) কাজের তালিকা',
+            Ready: 'Ready to Publish কাজের তালিকা',
+            Pending: 'Pending (পেন্ডিং) কাজের তালিকা',
+            ALL: 'সকল কাজের তালিকা'
+          };
+          document.getElementById('mod-filtered-list-title').innerText = labelMap[f] || 'কাজের তালিকা';
+          if (f === 'Completed') displayTasks = compList;
+          else if (f === 'Running') displayTasks = runList;
+          else if (f === 'Ready') displayTasks = rdyList;
+          else if (f === 'Pending') displayTasks = pendList;
+        }
+
+        document.getElementById('mod-tasks-tbody').innerHTML = displayTasks.length === 0
+          ? `<tr><td colspan="3" class="p-5 text-center text-slate-400 font-semibold">এই কার্ডে কোনো কাজ নেই।</td></tr>`
+          : displayTasks.map(t => `
+              <tr>
+                <td class="p-2.5 font-bold whitespace-nowrap">${window.formatFullDate(t.date)}</td>
+                <td class="p-2.5"><p class="font-bold">${window.clean(cleanProjectTitle(t.title))} <span class="text-asf-600">(${window.getQty(t)}টি)</span></p><p class="text-[10px] text-asf-600 font-bold">ক্যাটাগরি: ${window.clean(getTaskCategoryLabel(t))} • ভূমিকা: ${window.clean(getMemberRoleInTask(t, uid))}</p></td>
+                <td class="p-2.5 font-bold text-right"><span class="px-2 py-0.5 rounded bg-white dark:bg-slate-800 border">${window.clean(getNormalizedTaskBucket(t))}</span></td>
+              </tr>
+            `).join('');
+      }
 
       const memberItems = window.allMemberPortfolio.filter(x => x.uid === uid);
       const photocards = memberItems.filter(p => !p.type || p.type === 'photocard');
@@ -2520,10 +2562,12 @@
       `).join('');
 
       const targetsMap = s.categoryTargets || DEFAULT_CATEGORY_TARGETS;
-      document.getElementById('admin-port-cat-tags').innerHTML = (s.portfolioCategories || DEFAULT_PORTFOLIO_CATEGORIES).map(c => `
+      const unitsMap = s.categoryUnits || DEFAULT_CATEGORY_UNITS;
+      document.getElementById('admin-port-cat-tags').innerHTML = (s.portfolioCategories || DEFAULT_PORTFOLIO_CATEGORIES).map((c, idx) => `
         <div class="flex items-center justify-between p-1.5 rounded-lg bg-emerald-50/70 dark:bg-slate-800 border text-xs">
-          <span class="font-bold text-asf-700 dark:text-emerald-300 truncate pr-2">${window.clean(c)}</span>
+          <span class="font-bold text-asf-700 dark:text-emerald-300 truncate pr-2">${idx + 1}. ${window.clean(c)}</span>
           <div class="flex items-center gap-1.5 shrink-0">
+            <input type="text" value="${window.clean(unitsMap[c] || 'টি')}" onchange="updateCategoryUnit('${window.clean(c)}',this.value)" class="w-12 px-1 py-0.5 rounded border text-center font-semibold dark:bg-slate-900" title="একক (টি/দিন)">
             <span class="text-[10px] text-slate-500">লক্ষ্য:</span>
             <input type="number" value="${targetsMap[c] || 0}" onchange="updateCategoryTarget('${window.clean(c)}',this.value)" class="w-14 px-1.5 py-0.5 rounded border text-center font-bold dark:bg-slate-900">
             <button onclick="removePortfolioCategory('${window.clean(c)}')" class="text-red-500 font-bold px-1">🗑️</button>
@@ -2583,7 +2627,7 @@
       `).join('');
     }
 
-    // Dynamic Sheet Column & Category Target Actions
+    // Dynamic Sheet Column & Category Target/Unit Actions
     window.addNewSheetColumn = async () => {
       if (!isManagerLoggedIn()) return;
       const val = document.getElementById('new-sheet-col-input').value.trim();
@@ -2605,7 +2649,11 @@
     };
     window.resetPortfolioCategories = async () => {
       if (!isManagerLoggedIn()) return;
-      await setDoc(doc(db, "config", "siteSettings"), { portfolioCategories: DEFAULT_PORTFOLIO_CATEGORIES, categoryTargets: DEFAULT_CATEGORY_TARGETS }, { merge: true });
+      await setDoc(doc(db, "config", "siteSettings"), {
+        portfolioCategories: DEFAULT_PORTFOLIO_CATEGORIES,
+        categoryTargets: DEFAULT_CATEGORY_TARGETS,
+        categoryUnits: DEFAULT_CATEGORY_UNITS
+      }, { merge: true });
       window.showToast("প্রতিষ্ঠান প্রধানের শিটের ক্যাটাগরি ও Shorts সেট হয়েছে!");
     };
     window.updateCategoryTarget = async (catName, newTarget) => {
@@ -2613,6 +2661,12 @@
       const updatedTargets = { ...(window.siteSettings.categoryTargets || DEFAULT_CATEGORY_TARGETS), [catName]: Math.max(0, parseInt(newTarget, 10) || 0) };
       await setDoc(doc(db, "config", "siteSettings"), { categoryTargets: updatedTargets }, { merge: true });
       window.showToast(`${catName}-এর লক্ষ্যমাত্রা সেভ হয়েছে!`);
+    };
+    window.updateCategoryUnit = async (catName, newUnit) => {
+      if (!isManagerLoggedIn()) return;
+      const updatedUnits = { ...(window.siteSettings.categoryUnits || DEFAULT_CATEGORY_UNITS), [catName]: newUnit.trim() || 'টি' };
+      await setDoc(doc(db, "config", "siteSettings"), { categoryUnits: updatedUnits }, { merge: true });
+      window.showToast(`${catName}-এর একক সেভ হয়েছে!`);
     };
 
     window.editMemberInfoByAdmin = async (uid) => {
@@ -2683,11 +2737,14 @@
     window.addNewPortfolioCategory = async () => {
       if (!isManagerLoggedIn()) return;
       const val = document.getElementById('new-port-cat-input').value.trim(); if (!val) return;
+      const uVal = document.getElementById('new-port-cat-unit').value.trim() || 'টি';
       const tVal = parseInt(document.getElementById('new-port-cat-target').value, 10) || 0;
       const updated = [...new Set([...(window.siteSettings.portfolioCategories || DEFAULT_PORTFOLIO_CATEGORIES), val])];
       const updatedTargets = { ...(window.siteSettings.categoryTargets || DEFAULT_CATEGORY_TARGETS), [val]: tVal };
-      await setDoc(doc(db, "config", "siteSettings"), { portfolioCategories: updated, categoryTargets: updatedTargets }, { merge: true });
+      const updatedUnits = { ...(window.siteSettings.categoryUnits || DEFAULT_CATEGORY_UNITS), [val]: uVal };
+      await setDoc(doc(db, "config", "siteSettings"), { portfolioCategories: updated, categoryTargets: updatedTargets, categoryUnits: updatedUnits }, { merge: true });
       document.getElementById('new-port-cat-input').value = '';
+      window.showToast("নতুন ক্যাটাগরি যুক্ত হয়েছে!");
     };
     window.removePortfolioCategory = async (val) => {
       if (!isManagerLoggedIn()) return;
