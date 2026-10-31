@@ -2131,4 +2131,887 @@
             </td>
             <td class="p-3 font-bold text-asf-600">${window.getQty(t)}</td>
             <td class="p-3 text-xs font-semibold">${window.clean(formatShortPlatformLabel(t.platform))}</td>
-            <td class="p-3"><span class="px-2 py-0.5 rounded text-xs font-bold bg-emerald-100 text-asf-700">${window.clean(getNormalizedTask
+            <td class="p-3"><span class="px-2 py-0.5 rounded text-xs font-bold bg-emerald-100 text-asf-700">${window.clean(getNormalizedTaskBucket(t))}</span></td>
+            <td class="p-3 space-x-2 whitespace-nowrap">
+              ${t.link ? `<a href="${window.cleanUrl(t.link)}" target="_blank" class="text-asf-600 underline font-bold">ফাইল ↗</a>` : ''}
+              ${t.topViewLink ? `<a href="${window.cleanUrl(t.topViewLink)}" target="_blank" class="text-red-600 underline font-bold">ভিউ ↗</a>` : ''}
+              ${isAdmin ? `<button onclick="openEditTaskModal('${t.id}')" class="text-amber-600 font-bold">✎</button><button onclick="deleteTaskByAdmin('${t.id}')" class="text-red-500 font-bold">🗑️</button>` : ''}
+            </td>
+          </tr>
+        `).join('');
+    };
+
+    // 4. Team Members Tab
+    window.renderTeamSection = () => {
+      const selMonth = document.getElementById('team-tab-month-filter').value || getCurrentMonthStr();
+      const monthTasks = window.allTasks.filter(t => t.month === selMonth);
+      document.getElementById('full-team-grid').innerHTML = getSortedMembers(true).map(m => buildCleanMemberSummaryCard(m, monthTasks)).join('');
+    };
+
+    // 5. Productions
+    function extractYouTubeId(u) { const m = (u||"").match(/^.*(youtu.be\/|v\/|embed\/|watch\?v=|\&v=|shorts\/)([^#\&\?]*).*/); return (m && m[2].length === 11) ? m[2] : null; }
+    window.setHomeProdMode = (m) => {
+      window.homeProdMode = m;
+      document.getElementById('hprod-popular').className = m === 'popular' ? 'px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-bold btn-green' : 'px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-200 dark:bg-slate-800';
+      document.getElementById('hprod-current').className = m === 'current' ? 'px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-bold btn-green' : 'px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-200 dark:bg-slate-800';
+      renderPortfolio();
+    };
+    window.setPortfolioViewMode = (m) => {
+      window.portfolioViewMode = m;
+      ['all','current','popular'].forEach(k => document.getElementById(`pmode-${k}`).className = k === m ? 'px-3 py-1.5 rounded-lg text-xs font-bold btn-green' : 'px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-200 dark:bg-slate-800');
+      renderPortfolio();
+    };
+    window.setPortfolioCategoryFilter = (c) => { window.selectedPortfolioCategory = c; renderPortfolio(); };
+
+    window.renderPortfolio = () => {
+      const cats = ['ALL', ...(window.siteSettings.portfolioCategories || DEFAULT_PORTFOLIO_CATEGORIES)];
+      document.getElementById('portfolio-category-pills').innerHTML = cats.map(c => `
+        <button onclick="setPortfolioCategoryFilter('${window.clean(c)}')" class="px-3 py-1 rounded-lg text-xs font-bold ${window.selectedPortfolioCategory === c ? 'btn-green' : 'bg-slate-100 dark:bg-slate-800'}">${c === 'ALL' ? 'সব' : window.clean(cleanCategoryDisplayName(c))}</button>
+      `).join('');
+
+      const canManage = isManagerLoggedIn();
+      const buildCards = (items) => items.length === 0
+        ? `<div class="col-span-full solid-card p-6 text-center text-xs text-slate-400">কোনো প্রোডাকশন পাওয়া যায়নি।</div>`
+        : items.map(v => {
+            const yt = extractYouTubeId(v.url);
+            const th = yt ? `https://img.youtube.com/vi/${yt}/hqdefault.jpg` : 'https://via.placeholder.com/480x270?text=ASF+Media';
+            return `
+              <div class="solid-card overflow-hidden shadow-sm motion-card flex flex-col justify-between">
+                <a href="${window.cleanUrl(v.url)}" target="_blank" class="block">
+                  <div class="relative aspect-video bg-slate-900">
+                    <img src="${th}" class="w-full h-full object-cover">
+                    <span class="absolute top-2 left-2 bg-asf-700 text-white text-[10px] font-bold px-2 py-0.5 rounded">${window.clean(cleanCategoryDisplayName(v.category))}</span>
+                    ${v.popular ? `<span class="absolute top-2 right-2 bg-amber-400 text-slate-950 text-[10px] font-bold px-2 py-0.5 rounded">★ Popular</span>` : ''}
+                  </div>
+                  <div class="p-3.5"><h4 class="font-bold text-sm line-clamp-2">${window.clean(v.title)}</h4></div>
+                </a>
+                ${canManage ? `<div class="px-3.5 pb-2.5 flex justify-end gap-2 text-xs border-t pt-2"><button onclick="editPortfolioVideo('${v.id}')" class="text-amber-600 font-bold">✎ এডিট</button><button onclick="deletePortfolioVideo('${v.id}')" class="text-red-500 font-bold">🗑️ ডিলিট</button></div>` : ''}
+              </div>
+            `;
+          }).join('');
+
+      const curMonth = getCurrentMonthStr();
+      const homeList = window.homeProdMode === 'popular' ? window.allPortfolio.filter(x => x.popular !== false) : window.allPortfolio.filter(x => !x.month || x.month === curMonth);
+      document.getElementById('home-portfolio-grid').innerHTML = buildCards(homeList.slice(0,6));
+
+      let fullList = [...window.allPortfolio];
+      if (window.portfolioViewMode === 'current') fullList = fullList.filter(x => !x.month || x.month === curMonth);
+      if (window.portfolioViewMode === 'popular') fullList = fullList.filter(x => x.popular !== false);
+      if (window.selectedPortfolioCategory !== 'ALL') fullList = fullList.filter(x => matchesContentType({ productionType: x.category }, window.selectedPortfolioCategory) || x.category === window.selectedPortfolioCategory);
+      document.getElementById('full-portfolio-grid').innerHTML = buildCards(fullList);
+    };
+
+    // 6. Profile Tasks (Social Media Executive / Extra or Emergency Tasks)
+    window.submitDailyTask = async (e) => {
+      e.preventDefault();
+      const p = window.currentUserProfile;
+      if (!p) return alert("লগইন করুন।");
+      const checkedPlats = Array.from(document.querySelectorAll('#task-platform-checkboxes input:checked')).map(i => i.value);
+      const platformStr = checkedPlats.length > 0 ? checkedPlats.join(', ') : SHORT_PLATFORMS[0];
+      const dt = document.getElementById('task-date').value || getTodayStr();
+      const qty = Math.max(1, parseInt(document.getElementById('task-qty').value, 10) || 1);
+      const cType = document.getElementById('task-content-type').value;
+
+      await addDoc(collection(db, "tasks"), {
+        uid: p.uid, memberName: p.name, memberRole: p.designation,
+        date: dt, month: dt.slice(0,7),
+        category: document.getElementById('task-category').value,
+        productionType: cType,
+        title: document.getElementById('task-title').value.trim(),
+        platform: platformStr,
+        status: document.getElementById('task-status').value,
+        isPipeline: false, quantity: qty,
+        link: document.getElementById('task-link').value.trim(),
+        topViewLink: document.getElementById('task-top-link').value.trim(),
+        rating: 0, createdAt: new Date().toISOString()
+      });
+      document.getElementById('task-title').value = '';
+      document.getElementById('task-qty').value = '1';
+      window.showToast(`${qty}টি কাজ সেভ হয়েছে।`);
+    };
+
+    window.quickUpdateMyTaskStatus = async (taskId, newSt) => {
+      if (!auth.currentUser) return;
+      await updateDoc(doc(db, "tasks", taskId), { status: newSt });
+      window.showToast("আপডেট হয়েছে!");
+    };
+
+    function renderWorkspaceTasks() {
+      const p = window.currentUserProfile;
+      if (!p) return;
+      const myActive = window.allTasks.filter(t => isMemberInTask(t, p.uid) && getMemberPersonalBucket(t) !== 'Completed');
+      document.getElementById('my-ongoing-list').innerHTML = myActive.length === 0 ? `<p class="text-xs text-slate-400">কোনো চলমান বা পেন্ডিং কাজ নেই।</p>` : myActive.map(t => `
+        <div class="p-3 rounded-xl border space-y-1.5 text-xs">
+          <div class="flex justify-between font-bold text-asf-600"><span>${window.clean(getTaskCategoryLabel(t))}</span><span>${window.formatFullDate(t.date)}</span></div>
+          <p class="font-bold">${window.clean(cleanProjectTitle(t.title))}</p>
+          <div class="flex gap-2 pt-1">
+            <button onclick="quickUpdateMyTaskStatus('${t.id}','Completed')" class="btn-green px-3 py-1 font-bold">সম্পন্ন করুন</button>
+          </div>
+        </div>
+      `).join('');
+
+      const myRecent = window.allTasks.filter(t => isMemberInTask(t, p.uid)).slice(-10).reverse();
+      document.getElementById('my-today-tasks-list').innerHTML = myRecent.map(t => `
+        <div class="p-2.5 rounded-lg border flex justify-between items-center text-xs">
+          <div><p class="font-bold">${window.clean(cleanProjectTitle(t.title))} <span class="text-asf-600">(${window.getQty(t)})</span></p><p class="text-[10px] text-slate-500">${window.clean(getTaskCategoryLabel(t))} • ${window.formatFullDate(t.date)}</p></div>
+          <div class="flex gap-2">
+            <button onclick="openEditTaskModal('${t.id}')" class="text-amber-600 font-bold">✎</button>
+            <button onclick="deleteTaskByAdmin('${t.id}')" class="text-red-500 font-bold">🗑️</button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // Member Modal On-Click Expand Logic
+    window.setMemberModalStatusFilter = (st) => {
+      window.memberModalStatusFilter = st;
+      window.memberModalCategoryFilter = null;
+      ['Completed','Running','Pending'].forEach(k => {
+        const el = document.getElementById(`mcard-${k}`);
+        if (el) el.classList.toggle('filter-card-active', k === st);
+      });
+      refreshOpenedMemberModal();
+    };
+
+    window.setMemberModalCategoryFilter = (cat) => {
+      window.memberModalCategoryFilter = cat;
+      window.memberModalStatusFilter = null;
+      ['Completed','Running','Pending'].forEach(k => {
+        const el = document.getElementById(`mcard-${k}`);
+        if (el) el.classList.remove('filter-card-active');
+      });
+      refreshOpenedMemberModal();
+    };
+
+    window.closeMemberTaskList = () => {
+      window.memberModalStatusFilter = null;
+      window.memberModalCategoryFilter = null;
+      ['Completed','Running','Pending'].forEach(k => {
+        const el = document.getElementById(`mcard-${k}`);
+        if (el) el.classList.remove('filter-card-active');
+      });
+      refreshOpenedMemberModal();
+    };
+
+    window.openEditTaskModal = (taskId) => {
+      const t = window.allTasks.find(x => x.id === taskId);
+      if (!t) return;
+      document.getElementById('edit-task-id').value = t.id;
+      document.getElementById('edit-task-title').value = cleanProjectTitle(t.title);
+      document.getElementById('edit-task-date').value = t.date || getTodayStr();
+      document.getElementById('edit-task-shoot').value = t.shootingDate || "";
+      document.getElementById('edit-task-ready').value = t.readyDate || "";
+      document.getElementById('edit-task-pub').value = t.publishDate || "";
+      document.getElementById('edit-task-qty').value = window.getQty(t);
+      document.getElementById('edit-task-status').value = t.status || "Ongoing";
+      document.getElementById('edit-task-platform').value = formatShortPlatformLabel(t.platform || "");
+      document.getElementById('edit-task-link').value = t.link || "";
+      document.getElementById('edit-task-toplink').value = t.topViewLink || "";
+      document.getElementById('edit-task-modal').classList.remove('hidden');
+      document.getElementById('edit-task-modal').classList.add('flex');
+    };
+
+    window.saveEditedTask = async (e) => {
+      e.preventDefault();
+      const id = document.getElementById('edit-task-id').value;
+      const dt = document.getElementById('edit-task-date').value;
+      await updateDoc(doc(db, "tasks", id), {
+        title: document.getElementById('edit-task-title').value.trim(),
+        date: dt, month: dt.slice(0,7),
+        shootingDate: document.getElementById('edit-task-shoot').value,
+        readyDate: document.getElementById('edit-task-ready').value,
+        publishDate: document.getElementById('edit-task-pub').value,
+        quantity: Math.max(1, parseInt(document.getElementById('edit-task-qty').value, 10) || 1),
+        status: document.getElementById('edit-task-status').value,
+        platform: document.getElementById('edit-task-platform').value.trim(),
+        link: document.getElementById('edit-task-link').value.trim(),
+        topViewLink: document.getElementById('edit-task-toplink').value.trim()
+      });
+      document.getElementById('edit-task-modal').classList.add('hidden');
+      window.showToast("আপডেট হয়েছে!");
+    };
+
+    window.openImageLightbox = (src) => {
+      document.getElementById('lightbox-img').src = src;
+      document.getElementById('image-lightbox-modal').classList.remove('hidden');
+      document.getElementById('image-lightbox-modal').classList.add('flex');
+    };
+
+    window.openCategoryDetailModal = (catName) => {
+      const modal = document.getElementById('quick-detail-modal');
+      document.getElementById('quick-modal-title').innerText = cleanCategoryDisplayName(catName);
+      const list = window.allTasks.filter(t => matchesContentType(t, catName));
+      document.getElementById('quick-modal-body').innerHTML = list.length === 0 ? `<p class="text-center py-6 text-slate-400">কোনো প্রজেক্ট নেই।</p>` : list.map(t => `
+        <div class="p-3 rounded-xl border flex justify-between items-center">
+          <div><p class="font-bold">${window.clean(cleanProjectTitle(t.title))} <span class="text-asf-600">(${window.getQty(t)})</span></p><p class="text-slate-500">${window.clean(t.memberName)} • ${window.formatFullDate(t.date)}</p></div>
+          <span class="px-2 py-0.5 rounded bg-emerald-100 text-asf-700 font-bold">${window.clean(getMemberPersonalBucket(t) === 'Completed' ? 'সম্পন্ন' : 'চলমান')}</span>
+        </div>
+      `).join('');
+      modal.classList.remove('hidden'); modal.classList.add('flex');
+    };
+
+    window.openQuickStatusModal = (st) => {
+      const modal = document.getElementById('quick-detail-modal');
+      const titleMap = { Completed: 'সম্পন্ন প্রজেক্ট', Ongoing: 'চলমান প্রজেক্ট', Ready: 'পাবলিশের জন্য রেডি', Pending: 'পেন্ডিং প্রজেক্ট', Upcoming: 'আপকামিং প্রজেক্ট' };
+      document.getElementById('quick-modal-title').innerText = titleMap[st] || st;
+      const masters = getMasterPipelineProjects();
+      let list = [];
+      if (st === 'Completed') list = window.allTasks.filter(t => t.month === getCurrentMonthStr() && getNormalizedTaskBucket(t) === 'Completed');
+      else if (st === 'Upcoming') list = masters.filter(t => computeAutoWorkflowStatus(t) === 'Upcoming');
+      else if (st === 'Ongoing') list = window.allTasks.filter(t => getNormalizedTaskBucket(t) === 'Running');
+      else if (st === 'Ready') list = window.allTasks.filter(t => getNormalizedTaskBucket(t) === 'Ready');
+      else list = window.allTasks.filter(t => getNormalizedTaskBucket(t) === 'Pending');
+
+      document.getElementById('quick-modal-body').innerHTML = list.length === 0 ? `<p class="text-center py-6 text-slate-400">কোনো প্রজেক্ট নেই।</p>` : list.map(t => `
+        <div class="p-3 rounded-xl border flex justify-between items-center">
+          <div><p class="font-bold">${window.clean(cleanProjectTitle(t.title))} <span class="text-asf-600">(${window.getQty(t)})</span></p><p class="text-slate-500">${window.clean(t.memberName)} • ${window.formatFullDate(t.date)}</p></div>
+          ${t.link ? `<a href="${window.cleanUrl(t.link)}" target="_blank" class="text-asf-600 font-bold underline">ফাইল ↗</a>` : ''}
+        </div>
+      `).join('');
+      modal.classList.remove('hidden'); modal.classList.add('flex');
+    };
+
+    window.openPlanningDetailModal = (type) => {
+      const modal = document.getElementById('quick-detail-modal');
+      if (type === 'prevMonthReport') {
+        const prevMonth = getPreviousMonthStr();
+        document.getElementById('quick-modal-title').innerText = `গত মাসের রিপোর্ট (${window.formatMonthName(prevMonth)})`;
+        const prevTasks = window.allTasks.filter(t => t.month === prevMonth && getMemberPersonalBucket(t) === 'Completed');
+        const catMap = {};
+        prevTasks.forEach(t => {
+          const c = getTaskCategoryLabel(t);
+          catMap[c] = (catMap[c] || 0) + window.getQty(t);
+        });
+        const entries = Object.entries(catMap);
+        document.getElementById('quick-modal-body').innerHTML = entries.length === 0
+          ? `<p class="text-center py-6 text-slate-400">গত মাসে কোনো সম্পন্ন কাজ নেই।</p>`
+          : `<div class="space-y-2">${entries.map(([c, cnt]) => `<div class="p-3 rounded-xl bg-slate-50 dark:bg-slate-800 border flex justify-between items-center font-bold"><span>${window.clean(c)}</span><span class="px-2.5 py-0.5 rounded bg-asf-600 text-white">${cnt}</span></div>`).join('')}</div>`;
+      } else {
+        const titleMap = { currentPlan: 'চলতি মাসের পরিকল্পনা', nextMonthPlan: 'আগামী মাসের পরিকল্পনা', next3Months: 'আগামী ৩ মাসের পরিকল্পনা' };
+        const textMap = { currentPlan: window.siteSettings.planCurrentText, nextMonthPlan: window.siteSettings.planNext1Text, next3Months: window.siteSettings.planNext3Text };
+        document.getElementById('quick-modal-title').innerText = titleMap[type] || 'পরিকল্পনা';
+        const lines = String(textMap[type] || '').split('\n').map(s => s.trim()).filter(Boolean);
+        document.getElementById('quick-modal-body').innerHTML = `<div class="space-y-2 select-text">${lines.map(l => `<div class="p-3 rounded-xl bg-slate-50 dark:bg-slate-800 border font-semibold leading-relaxed">• ${window.clean(l.replace(/^[০-৯0-9]+\.\s*/, ''))}</div>`).join('')}</div>`;
+      }
+      modal.classList.remove('hidden'); modal.classList.add('flex');
+    };
+
+    window.openMemberModal = (uid) => {
+      window.openedModalMemberId = uid;
+      window.memberModalStatusFilter = null;
+      window.memberModalCategoryFilter = null;
+      ['Completed','Running','Pending'].forEach(k => {
+        const el = document.getElementById(`mcard-${k}`);
+        if (el) el.classList.remove('filter-card-active');
+      });
+      document.getElementById('member-modal').classList.remove('hidden');
+      document.getElementById('member-modal').classList.add('flex');
+      refreshOpenedMemberModal();
+    };
+    window.closeMemberModal = () => { window.openedModalMemberId = null; document.getElementById('member-modal').classList.add('hidden'); };
+
+    window.refreshOpenedMemberModal = () => {
+      const uid = window.openedModalMemberId;
+      const m = window.allMembers.find(x => x.uid === uid);
+      if (!m) return;
+      const canEditPort = Boolean(window.currentUserProfile && (window.currentUserProfile.uid === uid || isManagerLoggedIn()));
+      const addPortBtn = document.getElementById('mod-add-port-btn');
+      if (canEditPort) { addPortBtn.classList.remove('hidden'); addPortBtn.classList.add('inline-flex'); }
+      else addPortBtn.classList.add('hidden');
+
+      document.getElementById('mod-member-img').src = m.photo;
+      document.getElementById('mod-member-name').innerText = m.name;
+      document.getElementById('mod-member-role').innerText = m.designation;
+      document.getElementById('mod-member-bio').innerText = getMemberBioText(m);
+
+      const month = document.getElementById('mod-member-month').value || getCurrentMonthStr();
+      const mTasks = window.allTasks.filter(t => isMemberInTask(t, uid) && t.month === month);
+
+      // Personal Member Buckets (Ready to Publish automatically counts as Completed)
+      const compList = mTasks.filter(t => getMemberPersonalBucket(t) === 'Completed');
+      const runList = mTasks.filter(t => getMemberPersonalBucket(t) === 'Running');
+      const pendList = mTasks.filter(t => getMemberPersonalBucket(t) === 'Pending');
+
+      document.getElementById('mod-stat-completed').innerText = window.sumQty(compList);
+      document.getElementById('mod-stat-ongoing').innerText = window.sumQty(runList);
+      document.getElementById('mod-stat-pending').innerText = window.sumQty(pendList);
+
+      document.getElementById('mod-cat-summary-heading').innerText = `ক্যাটাগরি সামারি (${window.formatMonthName(month)})`;
+      document.getElementById('mod-cat-total-badge').innerText = `মোট: ${window.sumQty(mTasks)}`;
+
+      const catCounts = {};
+      mTasks.forEach(t => {
+        const lbl = getTaskCategoryLabel(t);
+        catCounts[lbl] = (catCounts[lbl] || 0) + window.getQty(t);
+      });
+      const pillsBox = document.getElementById('mod-member-category-pills');
+      if (Object.keys(catCounts).length === 0) {
+        pillsBox.innerHTML = `<div class="col-span-full text-center py-3 text-slate-400 font-semibold">এই মাসে কোনো কাজ নেই।</div>`;
+      } else {
+        pillsBox.innerHTML = Object.entries(catCounts).map(([cName, cnt]) => {
+          const isSelected = window.memberModalCategoryFilter === cName;
+          return `
+            <div onclick="setMemberModalCategoryFilter('${window.clean(cName)}')" class="flex items-center justify-between px-3.5 py-2.5 rounded-xl border motion-card ${isSelected ? 'bg-emerald-100 dark:bg-emerald-950 border-asf-600 ring-2 ring-asf-600' : 'bg-[#f2fbf7] dark:bg-slate-800 border-[#86efac] dark:border-emerald-800'}">
+              <span class="font-bold text-slate-800 dark:text-slate-100 truncate pr-2">${window.clean(cName)}</span>
+              <span class="px-2 py-0.5 rounded-md bg-asf-600 text-white font-extrabold text-xs shrink-0">${cnt}</span>
+            </div>
+          `;
+        }).join('');
+      }
+
+      const listWrapper = document.getElementById('mod-tasks-list-wrapper');
+      const hasActiveFilter = Boolean(window.memberModalStatusFilter || window.memberModalCategoryFilter);
+
+      if (!hasActiveFilter) {
+        listWrapper.classList.add('hidden');
+      } else {
+        listWrapper.classList.remove('hidden');
+        let displayTasks = mTasks;
+        if (window.memberModalCategoryFilter) {
+          displayTasks = mTasks.filter(t => getTaskCategoryLabel(t) === window.memberModalCategoryFilter);
+          document.getElementById('mod-filtered-list-title').innerText = `${window.memberModalCategoryFilter}`;
+        } else {
+          const f = window.memberModalStatusFilter;
+          const labelMap = { Completed: 'সম্পন্ন কাজ', Running: 'চলমান কাজ', Pending: 'পেন্ডিং কাজ', ALL: 'সকল কাজ' };
+          document.getElementById('mod-filtered-list-title').innerText = labelMap[f] || 'কাজের তালিকা';
+          if (f === 'Completed') displayTasks = compList;
+          else if (f === 'Running') displayTasks = runList;
+          else if (f === 'Pending') displayTasks = pendList;
+        }
+
+        document.getElementById('mod-tasks-tbody').innerHTML = displayTasks.length === 0
+          ? `<tr><td colspan="3" class="p-5 text-center text-slate-400 font-semibold">কোনো কাজ নেই।</td></tr>`
+          : displayTasks.map(t => `
+              <tr>
+                <td class="p-2.5 font-bold whitespace-nowrap">${window.formatFullDate(t.date)}</td>
+                <td class="p-2.5"><p class="font-bold">${window.clean(cleanProjectTitle(t.title))} <span class="text-asf-600">(${window.getQty(t)})</span></p><p class="text-[10px] text-asf-600 font-bold">${window.clean(getTaskCategoryLabel(t))} • ${window.clean(getMemberRoleInTask(t, uid))}</p></td>
+                <td class="p-2.5 font-bold text-right"><span class="px-2 py-0.5 rounded bg-white dark:bg-slate-800 border">${window.clean(getMemberPersonalBucket(t) === 'Completed' ? 'সম্পন্ন' : (getMemberPersonalBucket(t) === 'Running' ? 'চলমান' : 'পেন্ডিং'))}</span></td>
+              </tr>
+            `).join('');
+      }
+
+      const memberItems = window.allMemberPortfolio.filter(x => x.uid === uid);
+      const photocards = memberItems.filter(p => !p.type || p.type === 'photocard');
+      const thumbnails = memberItems.filter(p => p.type === 'thumbnail');
+      const videos = memberItems.filter(p => p.type === 'video');
+
+      const pcSec = document.getElementById('mod-photocard-section');
+      if (photocards.length > 0) {
+        pcSec.classList.remove('hidden');
+        document.getElementById('mod-photocard-grid').innerHTML = photocards.map(item => `
+          <div class="solid-card overflow-hidden flex flex-col justify-between">
+            <div onclick="openImageLightbox('${item.image}')" class="aspect-square bg-slate-100 dark:bg-slate-900 cursor-zoom-in overflow-hidden"><img src="${item.image}" class="w-full h-full object-contain"></div>
+            <div class="p-2 flex items-center justify-between gap-1 text-xs">
+              ${item.link ? `<a href="${window.cleanUrl(item.link)}" target="_blank" class="font-bold truncate hover:text-asf-600">${window.clean(item.title)} ↗</a>` : `<span class="font-bold truncate">${window.clean(item.title)}</span>`}
+              ${canEditPort ? `<button onclick="deleteMemberPortfolioItem('${item.id}')" class="text-red-500 font-bold">🗑️</button>` : ''}
+            </div>
+          </div>
+        `).join('');
+      } else pcSec.classList.add('hidden');
+
+      const thSec = document.getElementById('mod-thumbnail-section');
+      if (thumbnails.length > 0) {
+        thSec.classList.remove('hidden');
+        document.getElementById('mod-thumbnail-grid').innerHTML = thumbnails.map(item => `
+          <div class="solid-card overflow-hidden flex flex-col justify-between">
+            <div onclick="openImageLightbox('${item.image}')" class="aspect-square bg-slate-100 dark:bg-slate-900 cursor-zoom-in overflow-hidden"><img src="${item.image}" class="w-full h-full object-contain"></div>
+            <div class="p-2 flex items-center justify-between gap-1 text-xs">
+              ${item.link ? `<a href="${window.cleanUrl(item.link)}" target="_blank" class="font-bold truncate hover:text-asf-600">${window.clean(item.title)} ↗</a>` : `<span class="font-bold truncate">${window.clean(item.title)}</span>`}
+              ${canEditPort ? `<button onclick="deleteMemberPortfolioItem('${item.id}')" class="text-red-500 font-bold">🗑️</button>` : ''}
+            </div>
+          </div>
+        `).join('');
+      } else thSec.classList.add('hidden');
+
+      const vidSec = document.getElementById('mod-video-section');
+      if (videos.length > 0) {
+        vidSec.classList.remove('hidden');
+        document.getElementById('mod-video-grid').innerHTML = videos.map(item => {
+          const ytId = extractYouTubeId(item.link);
+          const thumb = item.image || (ytId ? `https://img.youtube.com/vi/${ytId}/hqdefault.jpg` : '');
+          return `
+            <div class="solid-card overflow-hidden flex flex-col justify-between">
+              <a href="${window.cleanUrl(item.link)}" target="_blank" class="aspect-video bg-slate-900 block overflow-hidden relative">
+                ${thumb ? `<img src="${thumb}" class="w-full h-full object-cover">` : `<div class="w-full h-full flex items-center justify-center text-white text-xs font-bold">ভিডিও ↗</div>`}
+              </a>
+              <div class="p-2.5 flex items-center justify-between gap-1 text-xs">
+                <a href="${window.cleanUrl(item.link)}" target="_blank" class="font-bold truncate hover:text-asf-600">${window.clean(item.title)} ↗</a>
+                ${canEditPort ? `<button onclick="deleteMemberPortfolioItem('${item.id}')" class="text-red-500 font-bold">🗑️</button>` : ''}
+              </div>
+            </div>
+          `;
+        }).join('');
+      } else vidSec.classList.add('hidden');
+    };
+
+    window.openAddPortfolioItemModal = () => { document.getElementById('add-portfolio-item-modal').classList.remove('hidden'); document.getElementById('add-portfolio-item-modal').classList.add('flex'); toggleMpFields(); };
+    window.toggleMpFields = () => {
+      const type = document.getElementById('mp-type').value;
+      document.getElementById('mp-file-wrap').classList.toggle('hidden', type === 'video');
+    };
+    window.saveMemberPortfolioItem = async (e) => {
+      e.preventDefault();
+      const p = window.currentUserProfile;
+      if (!p) return alert("লগইন করুন।");
+      const targetUid = window.openedModalMemberId || p.uid;
+      const type = document.getElementById('mp-type').value;
+      const title = document.getElementById('mp-title').value.trim();
+      const link = document.getElementById('mp-link').value.trim();
+      const file = document.getElementById('mp-image-file').files[0];
+      if ((type === 'photocard' || type === 'thumbnail') && !file) return alert("ছবি নির্বাচন করুন।");
+      if (type === 'video' && !link) return alert("ভিডিওর লিংক দিন।");
+      const img = file ? await compressImg(file, 650) : null;
+      await addDoc(collection(db, "memberPortfolio"), { uid: targetUid, type, title, link, image: img, createdAt: new Date().toISOString() });
+      document.getElementById('mp-title').value = ''; document.getElementById('mp-link').value = ''; document.getElementById('mp-image-file').value = '';
+      document.getElementById('add-portfolio-item-modal').classList.add('hidden');
+      window.showToast("পোর্টফোলিওতে যুক্ত হয়েছে!");
+    };
+    window.deleteMemberPortfolioItem = async (id) => { if (confirm("মুছে ফেলতে চান?")) await deleteDoc(doc(db, "memberPortfolio", id)); };
+
+    // 7. Admin Panel Rendering & Full No-Code Controls (With Column & Category Reorder)
+    function renderAdminPanel() {
+      const s = window.siteSettings;
+      document.getElementById('plan-target-count').value = s.planTargetCount || 50;
+      document.getElementById('plan-current-text').value = s.planCurrentText || "";
+      document.getElementById('plan-next1-text').value = s.planNext1Text || "";
+      document.getElementById('plan-next3-text').value = s.planNext3Text || "";
+
+      if (document.getElementById('set-title')) {
+        document.getElementById('set-title').value = s.title || "";
+        document.getElementById('set-subtitle').value = s.subtitle || "";
+        document.getElementById('set-hero-line1').value = s.heroLine1 || "";
+        document.getElementById('set-hero-line2').value = s.heroLine2 || "";
+        document.getElementById('set-hero-desc').value = s.heroDesc || "";
+        document.getElementById('set-notice').value = s.notice || "";
+        document.getElementById('set-address-bn').value = s.addressBn || "";
+        document.getElementById('set-credit-name').value = s.creditName || "";
+        document.getElementById('set-credit-role').value = s.creditRole || "";
+        document.getElementById('set-credit-linkedin').value = s.creditLinkedin || "";
+      }
+
+      const cols = s.sheetColumns || DEFAULT_SHEET_COLUMNS;
+      document.getElementById('admin-sheet-col-tags').innerHTML = cols.map((col, idx) => `
+        <div class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-blue-50 dark:bg-slate-800 text-blue-700 dark:text-blue-300 text-xs font-bold border border-blue-200">
+          <button onclick="moveSheetColumn(${idx},-1)" class="hover:text-asf-600 px-0.5">◀</button>
+          <span>${window.clean(col)}</span>
+          <button onclick="moveSheetColumn(${idx},1)" class="hover:text-asf-600 px-0.5">▶</button>
+          <button onclick="editSheetColumnName(${idx})" class="text-amber-600 ml-1">✎</button>
+          <button onclick="removeSheetColumn('${window.clean(col)}')" class="text-red-500 ml-0.5">×</button>
+        </div>
+      `).join('');
+
+      const cats = s.portfolioCategories || DEFAULT_PORTFOLIO_CATEGORIES;
+      document.getElementById('admin-port-cat-tags').innerHTML = cats.map((c, idx) => `
+        <div class="flex items-center justify-between p-1.5 rounded-lg bg-emerald-50/70 dark:bg-slate-800 border text-xs">
+          <span class="font-bold text-asf-700 dark:text-emerald-300 truncate pr-2">${idx + 1}. ${window.clean(c)}</span>
+          <div class="flex items-center gap-1.5 shrink-0">
+            <button onclick="movePortfolioCategory(${idx},-1)" class="px-1.5 py-0.5 rounded bg-white dark:bg-slate-700 font-bold">▲</button>
+            <button onclick="movePortfolioCategory(${idx},1)" class="px-1.5 py-0.5 rounded bg-white dark:bg-slate-700 font-bold">▼</button>
+            <button onclick="editPortfolioCategoryName(${idx})" class="text-amber-600 font-bold px-1">✎</button>
+            <button onclick="removePortfolioCategory('${window.clean(c)}')" class="text-red-500 font-bold px-1">🗑️</button>
+          </div>
+        </div>
+      `).join('');
+
+      const chList = s.channelLinks || DEFAULT_CHANNEL_LINKS;
+      document.getElementById('admin-channel-links-list').innerHTML = chList.map((ch, idx) => `
+        <div class="flex items-center justify-between p-2 rounded-lg bg-slate-50 dark:bg-slate-800 text-xs">
+          <div class="truncate pr-2"><b class="text-asf-600">${window.clean(ch.name)}</b> — <span class="text-slate-400">${window.clean(ch.url)}</span></div>
+          <div class="flex gap-2 shrink-0"><button onclick="editManagedChannelLink(${idx})" class="text-amber-600 font-bold">✎</button><button onclick="removeManagedChannelLink(${idx})" class="text-red-500 font-bold">🗑️</button></div>
+        </div>
+      `).join('');
+
+      document.getElementById('admin-platform-tags').innerHTML = (s.platforms || SHORT_PLATFORMS).map(p => `
+        <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-xs font-bold">${window.clean(p)} <button onclick="removePlatform('${window.clean(p)}')" class="text-red-500 ml-1">×</button></span>
+      `).join('');
+
+      document.getElementById('admin-activity-tags').innerHTML = (s.activities || CORE_ACTIVITIES).map(a => `
+        <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-xs font-semibold">${window.clean(a)} <button onclick="removeActivity('${window.clean(a)}')" class="text-red-500 ml-1">×</button></span>
+      `).join('');
+
+      document.getElementById('admin-members-list').innerHTML = getSortedMembers(false).map(m => `
+        <div class="p-2.5 rounded-xl border flex flex-wrap items-center justify-between gap-2 text-xs">
+          <div class="flex items-center gap-2 min-w-0">
+            <button onclick="moveMemberOrder('${m.uid}',-1)" class="px-1.5 py-0.5 bg-slate-100 dark:bg-slate-800 rounded font-bold">▲</button>
+            <button onclick="moveMemberOrder('${m.uid}',1)" class="px-1.5 py-0.5 bg-slate-100 dark:bg-slate-800 rounded font-bold">▼</button>
+            <img src="${m.photo}" class="w-8 h-8 rounded-lg object-cover shrink-0">
+            <div class="truncate"><p class="font-bold truncate">${window.clean(m.name)} <span class="text-[10px] text-asf-600">(${window.clean(m.designation)})</span></p></div>
+          </div>
+          <div class="flex items-center gap-1.5 shrink-0">
+            <button onclick="editMemberInfoByAdmin('${m.uid}')" class="px-2 py-1 rounded bg-amber-100 text-amber-800 font-bold">✎</button>
+            <button onclick="toggleApproveMember('${m.uid}',${!m.approved})" class="px-2 py-1 rounded font-bold ${m.approved ? 'bg-emerald-100 text-asf-700' : 'bg-asf-600 text-white'}">${m.approved ? '✓' : 'অনুমোদন'}</button>
+            <select onchange="changeMemberRole('${m.uid}',this.value)" class="px-2 py-1 rounded border font-bold dark:bg-slate-800">
+              <option value="member" ${m.role==='member'?'selected':''}>Member</option>
+              <option value="director" ${m.role==='director'?'selected':''}>Director</option>
+              <option value="superadmin" ${m.role==='superadmin'?'selected':''}>Super Admin</option>
+            </select>
+            <button onclick="deleteMemberProfile('${m.uid}')" class="text-red-500 font-bold px-1">🗑️</button>
+          </div>
+        </div>
+      `).join('');
+
+      document.getElementById('admin-portfolio-list').innerHTML = window.allPortfolio.map(v => `
+        <div class="flex justify-between items-center text-xs p-2 bg-slate-50 dark:bg-slate-800 rounded-lg">
+          <span class="truncate font-bold pr-2">${window.clean(v.title)} (${window.clean(v.category)})</span>
+          <div class="flex gap-2 shrink-0"><button onclick="editPortfolioVideo('${v.id}')" class="text-amber-600 font-bold">✎</button><button onclick="deletePortfolioVideo('${v.id}')" class="text-red-500 font-bold">🗑️</button></div>
+        </div>
+      `).join('');
+
+      document.getElementById('admin-meetings-list').innerHTML = window.allMeetings.map(m => `
+        <div class="flex justify-between items-center text-xs p-2 bg-slate-50 dark:bg-slate-800 rounded-lg">
+          <span class="truncate font-bold pr-2">${window.formatFullDate(m.date)} — ${window.clean(m.title)}</span>
+          <button onclick="deleteMeetingRecord('${m.id}')" class="text-red-500 font-bold">🗑️</button>
+        </div>
+      `).join('');
+    }
+
+    // Column & Category Reorder + Edit Functions
+    window.addNewSheetColumn = async () => {
+      if (!isManagerLoggedIn()) return;
+      const val = document.getElementById('new-sheet-col-input').value.trim();
+      if (!val) return;
+      const updated = [...new Set([...(window.siteSettings.sheetColumns || DEFAULT_SHEET_COLUMNS), val])];
+      await setDoc(doc(db, "config", "siteSettings"), { sheetColumns: updated }, { merge: true });
+      document.getElementById('new-sheet-col-input').value = '';
+      window.showToast("নতুন কলাম যুক্ত হয়েছে!");
+    };
+    window.moveSheetColumn = async (idx, dir) => {
+      if (!isManagerLoggedIn()) return;
+      const list = [...(window.siteSettings.sheetColumns || DEFAULT_SHEET_COLUMNS)];
+      if (idx + dir < 0 || idx + dir >= list.length) return;
+      [list[idx], list[idx + dir]] = [list[idx + dir], list[idx]];
+      await setDoc(doc(db, "config", "siteSettings"), { sheetColumns: list }, { merge: true });
+    };
+    window.editSheetColumnName = async (idx) => {
+      if (!isManagerLoggedIn()) return;
+      const list = [...(window.siteSettings.sheetColumns || DEFAULT_SHEET_COLUMNS)];
+      const n = prompt("কলামের নতুন নাম:", list[idx]);
+      if (!n || !n.trim()) return;
+      list[idx] = n.trim();
+      await setDoc(doc(db, "config", "siteSettings"), { sheetColumns: list }, { merge: true });
+    };
+    window.removeSheetColumn = async (val) => {
+      if (!isManagerLoggedIn()) return;
+      const updated = (window.siteSettings.sheetColumns || DEFAULT_SHEET_COLUMNS).filter(x => x !== val);
+      await setDoc(doc(db, "config", "siteSettings"), { sheetColumns: updated }, { merge: true });
+    };
+    window.resetSheetColumns = async () => {
+      if (!isManagerLoggedIn()) return;
+      await setDoc(doc(db, "config", "siteSettings"), { sheetColumns: DEFAULT_SHEET_COLUMNS }, { merge: true });
+      window.showToast("ডিফল্ট কলাম সেট হয়েছে!");
+    };
+
+    window.addNewPortfolioCategory = async () => {
+      if (!isManagerLoggedIn()) return;
+      const val = cleanCategoryDisplayName(document.getElementById('new-port-cat-input').value.trim());
+      if (!val) return;
+      const updated = [...new Set([...(window.siteSettings.portfolioCategories || DEFAULT_PORTFOLIO_CATEGORIES), val])];
+      await setDoc(doc(db, "config", "siteSettings"), { portfolioCategories: updated }, { merge: true });
+      document.getElementById('new-port-cat-input').value = '';
+      window.showToast("নতুন ক্যাটাগরি যুক্ত হয়েছে!");
+    };
+    window.movePortfolioCategory = async (idx, dir) => {
+      if (!isManagerLoggedIn()) return;
+      const list = [...(window.siteSettings.portfolioCategories || DEFAULT_PORTFOLIO_CATEGORIES)];
+      if (idx + dir < 0 || idx + dir >= list.length) return;
+      [list[idx], list[idx + dir]] = [list[idx + dir], list[idx]];
+      await setDoc(doc(db, "config", "siteSettings"), { portfolioCategories: list }, { merge: true });
+    };
+    window.editPortfolioCategoryName = async (idx) => {
+      if (!isManagerLoggedIn()) return;
+      const list = [...(window.siteSettings.portfolioCategories || DEFAULT_PORTFOLIO_CATEGORIES)];
+      const n = prompt("ক্যাটাগরির নতুন নাম:", list[idx]);
+      if (!n || !n.trim()) return;
+      list[idx] = cleanCategoryDisplayName(n.trim());
+      await setDoc(doc(db, "config", "siteSettings"), { portfolioCategories: list }, { merge: true });
+    };
+    window.removePortfolioCategory = async (val) => {
+      if (!isManagerLoggedIn()) return;
+      const updated = (window.siteSettings.portfolioCategories || DEFAULT_PORTFOLIO_CATEGORIES).filter(x => x !== val);
+      await setDoc(doc(db, "config", "siteSettings"), { portfolioCategories: updated }, { merge: true });
+    };
+    window.resetPortfolioCategories = async () => {
+      if (!isManagerLoggedIn()) return;
+      await setDoc(doc(db, "config", "siteSettings"), { portfolioCategories: DEFAULT_PORTFOLIO_CATEGORIES }, { merge: true });
+      window.showToast("সংক্ষিপ্ত ক্যাটাগরি তালিকা সেট হয়েছে!");
+    };
+
+    window.editMemberInfoByAdmin = async (uid) => {
+      if (!isManagerLoggedIn()) return;
+      const m = window.allMembers.find(x => x.uid === uid);
+      if (!m) return;
+      const newDesig = prompt(`${m.name}-এর পদবী:`, m.designation || "");
+      if (newDesig === null) return;
+      const newBio = prompt(`${m.name}-এর কাজের বিবরণী:`, getMemberBioText(m));
+      if (newBio === null) return;
+      await setDoc(doc(db, "users", uid), { designation: newDesig.trim(), bio: newBio.trim() }, { merge: true });
+      window.showToast("আপডেট হয়েছে!");
+    };
+
+    window.addManagedChannelLink = async (e) => {
+      e.preventDefault();
+      if (!isManagerLoggedIn()) return;
+      const name = document.getElementById('ch-link-name').value.trim();
+      const url = document.getElementById('ch-link-url').value.trim();
+      const updated = [...(window.siteSettings.channelLinks || DEFAULT_CHANNEL_LINKS), { name, url }];
+      await setDoc(doc(db, "config", "siteSettings"), { channelLinks: updated }, { merge: true });
+      document.getElementById('ch-link-name').value = ''; document.getElementById('ch-link-url').value = '';
+    };
+    window.editManagedChannelLink = async (idx) => {
+      if (!isManagerLoggedIn()) return;
+      const list = [...(window.siteSettings.channelLinks || DEFAULT_CHANNEL_LINKS)];
+      const item = list[idx]; if (!item) return;
+      const n = prompt("নাম:", item.name); if (n === null) return;
+      const u = prompt("লিংক:", item.url); if (u === null) return;
+      list[idx] = { name: n.trim(), url: u.trim() };
+      await setDoc(doc(db, "config", "siteSettings"), { channelLinks: list }, { merge: true });
+    };
+    window.removeManagedChannelLink = async (idx) => {
+      if (!isManagerLoggedIn()) return;
+      const list = (window.siteSettings.channelLinks || DEFAULT_CHANNEL_LINKS).filter((_, i) => i !== idx);
+      await setDoc(doc(db, "config", "siteSettings"), { channelLinks: list }, { merge: true });
+    };
+    window.resetDefaultChannelLinks = async () => { if (isManagerLoggedIn()) await setDoc(doc(db, "config", "siteSettings"), { channelLinks: DEFAULT_CHANNEL_LINKS }, { merge: true }); };
+
+    window.resetShortPlatforms = async () => { if (isManagerLoggedIn()) await setDoc(doc(db, "config", "siteSettings"), { platforms: SHORT_PLATFORMS }, { merge: true }); };
+    window.addNewPlatform = async () => {
+      if (!isManagerLoggedIn()) return;
+      const val = document.getElementById('new-platform-input').value.trim(); if (!val) return;
+      const updated = [...new Set([...(window.siteSettings.platforms || SHORT_PLATFORMS), val])];
+      await setDoc(doc(db, "config", "siteSettings"), { platforms: updated }, { merge: true });
+      document.getElementById('new-platform-input').value = '';
+    };
+    window.removePlatform = async (val) => {
+      if (!isManagerLoggedIn()) return;
+      const updated = (window.siteSettings.platforms || SHORT_PLATFORMS).filter(x => x !== val);
+      await setDoc(doc(db, "config", "siteSettings"), { platforms: updated }, { merge: true });
+    };
+
+    window.resetCoreActivities = async () => { if (isManagerLoggedIn()) await setDoc(doc(db, "config", "siteSettings"), { activities: CORE_ACTIVITIES }, { merge: true }); };
+    window.addNewActivity = async () => {
+      if (!isManagerLoggedIn()) return;
+      const val = document.getElementById('new-activity-input').value.trim(); if (!val) return;
+      const updated = [...new Set([...(window.siteSettings.activities || CORE_ACTIVITIES), val])];
+      await setDoc(doc(db, "config", "siteSettings"), { activities: updated }, { merge: true });
+      document.getElementById('new-activity-input').value = '';
+    };
+    window.removeActivity = async (val) => {
+      if (!isManagerLoggedIn()) return;
+      const updated = (window.siteSettings.activities || CORE_ACTIVITIES).filter(x => x !== val);
+      await setDoc(doc(db, "config", "siteSettings"), { activities: updated }, { merge: true });
+    };
+
+    window.saveSiteSettings = async (e) => {
+      e.preventDefault();
+      if (!isManagerLoggedIn()) return;
+      const updates = {
+        title: document.getElementById('set-title').value.trim(),
+        subtitle: document.getElementById('set-subtitle').value.trim(),
+        heroLine1: document.getElementById('set-hero-line1').value.trim(),
+        heroLine2: document.getElementById('set-hero-line2').value.trim(),
+        heroDesc: document.getElementById('set-hero-desc').value.trim(),
+        notice: document.getElementById('set-notice').value.trim(),
+        addressBn: document.getElementById('set-address-bn').value.trim(),
+        creditName: document.getElementById('set-credit-name').value.trim(),
+        creditRole: document.getElementById('set-credit-role').value.trim(),
+        creditLinkedin: document.getElementById('set-credit-linkedin').value.trim()
+      };
+      const logoFile = document.getElementById('set-logo-file').files[0];
+      const creditFile = document.getElementById('set-credit-photo').files[0];
+      if (logoFile) updates.logo = await compressImg(logoFile, 220);
+      if (creditFile) updates.creditPhoto = await compressImg(creditFile, 220);
+      await setDoc(doc(db, "config", "siteSettings"), updates, { merge: true });
+      window.showToast("সেভ হয়েছে!");
+    };
+
+    window.moveMemberOrder = async (uid, dir) => {
+      if (!isManagerLoggedIn()) return;
+      const list = getSortedMembers(false);
+      const i = list.findIndex(x => x.uid === uid);
+      if (i === -1 || i+dir < 0 || i+dir >= list.length) return;
+      [list[i], list[i+dir]] = [list[i+dir], list[i]];
+      for (let k=0; k<list.length; k++) await setDoc(doc(db, "users", list[k].uid), { sortOrder: k+1 }, { merge: true });
+    };
+    window.toggleApproveMember = async (uid, st) => { if (isManagerLoggedIn()) await setDoc(doc(db, "users", uid), { approved: st }, { merge: true }); };
+    window.changeMemberRole = async (uid, role) => { if (isManagerLoggedIn()) await setDoc(doc(db, "users", uid), { role, approved: true }, { merge: true }); };
+    window.deleteMemberProfile = async (uid) => { if (isManagerLoggedIn() && confirm("মুছে ফেলতে চান?")) await deleteDoc(doc(db, "users", uid)); };
+
+    window.savePlanningSettings = async (e) => {
+      e.preventDefault();
+      if (!isManagerLoggedIn()) return;
+      await setDoc(doc(db, "config", "siteSettings"), {
+        planTargetCount: parseInt(document.getElementById('plan-target-count').value)||50,
+        planCurrentText: document.getElementById('plan-current-text').value.trim(),
+        planNext1Text: document.getElementById('plan-next1-text').value.trim(),
+        planNext3Text: document.getElementById('plan-next3-text').value.trim()
+      }, { merge: true });
+      window.showToast("পরিকল্পনা সেভ হয়েছে!");
+    };
+    window.addMeetingRecord = async (e) => {
+      e.preventDefault();
+      if (!isManagerLoggedIn()) return;
+      await addDoc(collection(db, "meetings"), {
+        title: document.getElementById('meet-title').value.trim(),
+        date: document.getElementById('meet-date').value,
+        agenda: document.getElementById('meet-agenda').value.trim(),
+        decisions: document.getElementById('meet-decisions').value.trim(),
+        createdAt: new Date().toISOString()
+      });
+      e.target.reset();
+    };
+    window.deleteMeetingRecord = async (id) => { if (isManagerLoggedIn() && confirm("মুছে ফেলতে চান?")) await deleteDoc(doc(db, "meetings", id)); };
+
+    window.addPortfolioVideo = async (e) => {
+      e.preventDefault();
+      if (!isManagerLoggedIn()) return;
+      await addDoc(collection(db, "portfolio"), {
+        title: document.getElementById('port-title').value.trim(),
+        url: document.getElementById('port-url').value.trim(),
+        category: document.getElementById('port-cat').value,
+        popular: document.getElementById('port-popular').checked,
+        month: getCurrentMonthStr(), createdAt: new Date().toISOString()
+      });
+      e.target.reset(); window.showToast("যুক্ত হয়েছে!");
+    };
+    window.editPortfolioVideo = async (id) => {
+      if (!isManagerLoggedIn()) return;
+      const v = window.allPortfolio.find(x => x.id === id); if (!v) return;
+      const t = prompt("শিরোনাম:", v.title); if (t === null) return;
+      const u = prompt("লিংক:", v.url); if (u === null) return;
+      await updateDoc(doc(db, "portfolio", id), { title: t.trim(), url: u.trim() });
+    };
+    window.deletePortfolioVideo = async (id) => { if (isManagerLoggedIn() && confirm("মুছে ফেলতে চান?")) await deleteDoc(doc(db, "portfolio", id)); };
+    window.deleteTaskByAdmin = async (id) => { if (auth.currentUser && confirm("মুছে ফেলতে চান?")) await deleteDoc(doc(db, "tasks", id)); };
+    window.clearAllTestTasks = async () => { if (isManagerLoggedIn() && confirm("সব টেস্ট কাজ মুছে ফেলতে চান?")) { for(const t of window.allTasks) await deleteDoc(doc(db, "tasks", t.id)); } };
+
+    async function compressImg(file, max=550) {
+      return new Promise(res => {
+        if(!file) return res(null);
+        const r = new FileReader();
+        r.onload = e => {
+          const img = new Image();
+          img.onload = () => {
+            const c = document.createElement('canvas');
+            let w = img.width, h = img.height;
+            if (w>h && w>max) { h *= max/w; w = max; } else if (h>max) { w *= max/h; h = max; }
+            c.width = w; c.height = h; c.getContext('2d').drawImage(img,0,0,w,h);
+            res(c.toDataURL('image/jpeg',0.82));
+          };
+          img.src = e.target.result;
+        };
+        r.readAsDataURL(file);
+      });
+    }
+
+    window.openAuthModal = () => { document.getElementById('auth-modal').classList.remove('hidden'); document.getElementById('auth-modal').classList.add('flex'); };
+    window.closeAuthModal = () => document.getElementById('auth-modal').classList.add('hidden');
+    window.switchAuthMode = (m) => {
+      document.getElementById('login-form').classList.toggle('hidden', m !== 'login');
+      document.getElementById('signup-form').classList.toggle('hidden', m === 'login');
+    };
+    window.handleLogin = async (e) => {
+      e.preventDefault();
+      try { await signInWithEmailAndPassword(auth, document.getElementById('login-email').value.trim(), document.getElementById('login-pass').value); closeAuthModal(); }
+      catch(err) { alert("লগইন ব্যর্থ হয়েছে!"); }
+    };
+    window.handleSignup = async (e) => {
+      e.preventDefault();
+      const name = document.getElementById('reg-name').value.trim();
+      const email = document.getElementById('reg-email').value.trim().toLowerCase();
+      const pass = document.getElementById('reg-pass').value;
+      const photo = await compressImg(document.getElementById('reg-photo').files[0], 260) || `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=006837&color=fff`;
+      const isSuper = email === SUPER_ADMIN_EMAIL;
+      const cred = await createUserWithEmailAndPassword(auth, email, pass);
+      await setDoc(doc(db, "users", cred.user.uid), {
+        name, designation: document.getElementById('reg-designation').value.trim(),
+        bio: document.getElementById('reg-bio').value.trim(), email, photo,
+        role: isSuper ? 'superadmin' : 'member', approved: isSuper, sortOrder: window.allMembers.length+1
+      });
+      closeAuthModal();
+    };
+    window.logoutUser = async () => { await signOut(auth); window.currentUserProfile = null; updateAuthUI(); switchTab('home'); };
+
+    window.openEditProfileModal = () => {
+      const p = window.currentUserProfile; if (!p) return;
+      document.getElementById('edit-prof-name').value = p.name || "";
+      document.getElementById('edit-prof-desig').value = p.designation || "";
+      document.getElementById('edit-prof-bio').value = p.bio || "";
+      document.getElementById('edit-profile-modal').classList.remove('hidden');
+      document.getElementById('edit-profile-modal').classList.add('flex');
+    };
+    window.saveProfileChanges = async (e) => {
+      e.preventDefault();
+      const up = {
+        name: document.getElementById('edit-prof-name').value.trim(),
+        designation: document.getElementById('edit-prof-desig').value.trim(),
+        bio: document.getElementById('edit-prof-bio').value.trim()
+      };
+      const f = document.getElementById('edit-prof-photo').files[0];
+      if (f) up.photo = await compressImg(f, 260);
+      await setDoc(doc(db, "users", window.currentUserProfile.uid), up, { merge: true });
+      document.getElementById('edit-profile-modal').classList.add('hidden');
+      window.showToast("আপডেট হয়েছে!");
+    };
+
+    // Smart URL Hash Routing (#home, #pipeline, #dashboard, #team, #portfolio, #profile, #admin)
+    window.switchTab = (t, skipHash = false) => {
+      if (t === 'workspace') t = 'profile';
+      if (t === 'profile' && !auth.currentUser) { openAuthModal(); return; }
+      if (t === 'admin' && !isManagerLoggedIn()) {
+        if (!auth.currentUser) openAuthModal();
+        else window.showToast("শুধুমাত্র সুপার অ্যাডমিন ও ডিরেক্টর প্রবেশ করতে পারবেন।");
+        return;
+      }
+      ['home','pipeline','dashboard','team','portfolio','profile','admin'].forEach(k => {
+        const sec = document.getElementById(`tab-${k}`);
+        if (sec) sec.classList.add('hidden');
+        const b = document.getElementById(`nav-${k}`);
+        if(b) { b.classList.remove('font-bold','text-asf-600','border-b-2','border-asf-600'); b.classList.add('font-semibold','text-slate-700','dark:text-slate-300'); }
+        const mb = document.getElementById(`mnav-${k}`);
+        if(mb) { mb.classList.remove('text-asf-600'); mb.classList.add('text-slate-500'); }
+      });
+      const targetSec = document.getElementById(`tab-${t}`);
+      if (targetSec) targetSec.classList.remove('hidden');
+      const ab = document.getElementById(`nav-${t}`);
+      if(ab) { ab.classList.remove('font-semibold','text-slate-700','dark:text-slate-300'); ab.classList.add('font-bold','text-asf-600','border-b-2','border-asf-600'); }
+      const mab = document.getElementById(`mnav-${t}`);
+      if(mab) { mab.classList.remove('text-slate-500'); mab.classList.add('text-asf-600'); }
+
+      if (!skipHash) {
+        const newHash = t === 'home' ? '#home' : `#${t}`;
+        if (window.location.hash !== newHash) history.pushState(null, '', newHash);
+      }
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+
+    function handleRouteFromHash() {
+      const rawHash = (window.location.hash || '').replace(/^#\/?/, '').trim().toLowerCase();
+      if (['home','pipeline','dashboard','team','portfolio','profile','admin'].includes(rawHash)) {
+        window.switchTab(rawHash, true);
+      }
+    }
+    window.addEventListener('hashchange', handleRouteFromHash);
+
+    window.toggleTheme = () => document.documentElement.classList.toggle('dark');
+    window.toggleLanguage = () => {
+      window.currentLang = window.currentLang === 'bn' ? 'en' : 'bn';
+      document.getElementById('lang-btn').innerText = window.currentLang === 'bn' ? 'EN' : 'বাং';
+      document.documentElement.classList.toggle('lang-en', window.currentLang === 'en');
+      document.querySelectorAll('[data-bn]').forEach(el => el.innerText = el.getAttribute(`data-${window.currentLang}`));
+      applySiteSettingsUI(); renderHomeSection();
+    };
+    window.triggerAppInstall = () => alert("মোবাইলের ব্রাউজার মেনু (⋮) থেকে 'Add to Home screen' বা 'Install App' সিলেক্ট করুন।");
+    window.exportTasksToCSV = () => {
+      const csv = "\uFEFFSL,StartDate,ShootingDate,ContentName,Category,ReadyDate,PublishDate,WorkingDays,Members,Quantity,Status\n" + window.allTasks.map((t, i) => `${i+1},${t.date},${t.shootingDate||''},"${cleanProjectTitle(t.title)}","${getTaskCategoryLabel(t)}",${t.readyDate||''},${t.publishDate||''},${calcWorkingDays(t.date,t.readyDate||t.publishDate)},"${t.memberName}",${window.getQty(t)},${getNormalizedTaskBucket(t)}`).join("\n");
+      const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([csv],{type:"text/csv"})); a.download = "ASF_Report.csv"; a.click();
+    };
+    window.downloadFullJSONBackup = () => {
+      const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([JSON.stringify({tasks:window.allTasks,members:window.allMembers,settings:window.siteSettings},null,2)],{type:"application/json"})); a.download = "ASF_Backup.json"; a.click();
+    };
+
+    updateAuthUI();
+    applySiteSettingsUI();
+    handleRouteFromHash();
+  </script>
+</body>
+</html>
