@@ -66,7 +66,7 @@
     <div class="ticker-wrap flex-1"><div id="notice-text" class="ticker-move font-semibold"></div></div>
   </div>
 
-  <!-- Header (Triple-click logo or #admin for Secret Admin Panel) -->
+  <!-- Header -->
   <header class="sticky top-0 z-40 w-full bg-white dark:bg-[#0a1912] border-b border-slate-200 dark:border-emerald-950">
     <div class="w-full px-2.5 sm:px-0 sm:w-[95%] max-w-[1600px] mx-auto h-16 sm:h-20 flex items-center justify-between gap-1.5 sm:gap-2">
       <div class="flex items-center gap-2 cursor-pointer min-w-0 flex-1 select-none" onclick="handleLogoSecretClick()">
@@ -166,7 +166,7 @@
         </div>
       </div>
 
-      <!-- Left: Monthly Planning (Card 1 Only Title, Opens Modal on Click) & Right: 2-Column No-Scroll Category Grid -->
+      <!-- Left: Monthly Planning & Right: 2-Column Category Grid -->
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
         <div class="lg:col-span-6 solid-card p-5 space-y-4 shadow-sm flex flex-col justify-between">
           <div class="space-y-4">
@@ -185,7 +185,6 @@
             </div>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
-              <!-- Card 1: Clean Title Only, Opens Popup When Clicked -->
               <div onclick="openPlanningDetailModal('prevMonthReport')" class="p-4 rounded-xl border border-emerald-200 dark:border-emerald-800 hover:border-asf-600 motion-card bg-emerald-50/50 dark:bg-slate-800/50 flex flex-col justify-center">
                 <div class="flex items-center justify-between">
                   <p class="font-bold text-sm text-asf-700 dark:text-emerald-400" id="prev-month-report-title">১. গত মাসের রিপোর্ট</p>
@@ -211,7 +210,7 @@
           </div>
         </div>
 
-        <!-- Right Side: 2-Layer (2-Column) Clean Category Box Grid (No Scrollbar, Single Clear Count) -->
+        <!-- Right Side: 2-Layer Category Box Grid -->
         <div class="lg:col-span-6 solid-card p-5 space-y-3.5 shadow-sm flex flex-col justify-between">
           <div class="space-y-3.5">
             <div class="flex justify-between items-center border-b pb-2.5 dark:border-slate-800">
@@ -281,7 +280,7 @@
       </div>
     </section>
 
-    <!-- ================= 2. PRODUCTION PIPELINE (Instant Month Filter + Platform + Shooting Date) ================= -->
+    <!-- ================= 2. PRODUCTION PIPELINE ================= -->
     <section id="tab-pipeline" class="hidden space-y-5">
       <div class="solid-card p-4 sm:p-5 space-y-4 shadow-sm">
         <div class="flex flex-wrap items-center justify-between gap-3 border-b pb-3 dark:border-slate-800">
@@ -402,7 +401,7 @@
       <div id="full-portfolio-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"></div>
     </section>
 
-    <!-- ================= 6. PROFILE TAB (কাজ যুক্ত করুন — No Default Pre-selected Category/Activity) ================= -->
+    <!-- ================= 6. PROFILE TAB (কাজ যুক্ত করুন — Blank Selects with Only Arrow) ================= -->
     <section id="tab-profile" class="hidden space-y-6">
       <div class="solid-card p-5 flex flex-wrap items-center justify-between gap-4 shadow-sm">
         <div class="flex items-center gap-3.5">
@@ -431,8 +430,8 @@
           </div>
           <form onsubmit="submitDailyTask(event)" class="space-y-3.5 text-xs sm:text-sm">
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-              <div><label class="block text-xs font-bold mb-1">ক্যাটাগরি *</label><select id="task-content-type" required class="w-full px-3 py-2 rounded-lg border dark:bg-slate-800 font-bold"></select></div>
-              <div><label class="block text-xs font-bold mb-1">কাজের ধরন *</label><select id="task-category" required class="w-full px-3 py-2 rounded-lg border dark:bg-slate-800 font-bold"></select></div>
+              <div><label class="block text-xs font-bold mb-1">ক্যাটাগরি *</label><select id="task-content-type" required class="w-full px-3 py-2 rounded-lg border dark:bg-slate-800 font-bold bg-white"></select></div>
+              <div><label class="block text-xs font-bold mb-1">কাজের ধরন *</label><select id="task-category" required class="w-full px-3 py-2 rounded-lg border dark:bg-slate-800 font-bold bg-white"></select></div>
               <div><label class="block text-xs font-bold mb-1">শিরোনাম *</label><input type="text" id="task-title" required class="w-full px-3 py-2 rounded-lg border dark:bg-slate-800"></div>
             </div>
             <div>
@@ -749,7 +748,6 @@
     </div>
   </div>
 
-  <!-- Member Profile Modal (With Monthly Report Download Button & 3 Status Boxes) -->
   <div id="member-modal" class="fixed inset-0 z-50 bg-slate-950/65 hidden items-center justify-center p-2 sm:p-4">
     <div class="solid-card relative max-w-4xl w-full p-4 sm:p-6 space-y-4 max-h-[90vh] overflow-y-auto">
       <button onclick="closeMemberModal()" class="absolute top-4 right-4 w-9 h-9 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-red-100 hover:text-red-600 font-bold flex items-center justify-center text-sm">✕</button>
@@ -983,7 +981,6 @@
       return 'Pending';
     }
 
-    // All 'Ready to Publish' tasks count as 'Completed' in member profiles
     function getMemberPersonalBucket(t) {
       const b = getNormalizedTaskBucket(t);
       if (b === 'Completed' || b === 'Ready') return 'Completed';
@@ -1066,7 +1063,7 @@
 
     function isMemberInTask(t, uid) {
       if (!t || !uid) return false;
-      if (t.uid === uid) return true;
+      if (t.uid === uid && !t.isPipeline) return true;
       if (Array.isArray(t.crewUids) && t.crewUids.includes(uid)) return true;
       const mem = window.allMembers.find(m => m.uid === uid);
       if (mem && t.sheetRoles && typeof t.sheetRoles === 'object') {
@@ -1096,7 +1093,7 @@
     function cleanProjectTitle(rawTitle) { return rawTitle ? String(rawTitle).replace(/^\[.*?\]\s*/, '').replace(/\s*\(শুটিং:.*?\)\s*$/, '').trim() : ''; }
 
     function cleanCategoryDisplayName(c) {
-      if (!c) return 'অন্যান্য';
+      if (!c) return '';
       return String(c)
         .replace(/\s*—\s*(শুটিং\s*)?সম্পন্ন/g, '')
         .replace(/ভিডিও\s*\(প্রমো\/ডকুমেন্টারি\)/g, 'প্রমো / ওভিসি')
@@ -1108,10 +1105,10 @@
     }
 
     function matchesContentType(task, catName) {
-      const rawType = String(task.productionType || task.contentType || task.category || '').toLowerCase().trim();
+      const rawType = String(task.productionType || task.contentType || (!task.isPipeline ? task.category : '') || '').toLowerCase().trim();
       const rawTitle = String(task.title || '').toLowerCase();
       const target = cleanCategoryDisplayName(catName).toLowerCase();
-      if (!target) return false;
+      if (!target || !rawType) return false;
       if (cleanCategoryDisplayName(rawType).toLowerCase() === target) return true;
       if (target.includes('হারিয়ে যাওয়া সুন্নাহ')) return rawType.includes('সুন্নাহ') || rawTitle.includes('সুন্নাহ');
       if (target === 'নাটিকা' || target === 'drama' || target === 'short film') return rawType === 'drama' || rawType === 'short film' || rawType.includes('শর্টফিল্ম') || (rawType.includes('নাটিকা') && !rawType.includes('স্ক্রিপ্ট'));
@@ -1129,6 +1126,7 @@
     }
 
     function getTaskCategoryLabel(t) {
+      if (t.isPipeline && (!t.productionType || String(t.productionType).trim() === '')) return '';
       const cats = window.siteSettings.portfolioCategories || DEFAULT_PORTFOLIO_CATEGORIES;
       for (const c of cats) { if (matchesContentType(t, c)) return cleanCategoryDisplayName(c); }
       if (t.productionType && String(t.productionType).trim() !== '') return cleanCategoryDisplayName(t.productionType);
@@ -1238,14 +1236,14 @@
       if (s.creditRole) document.getElementById('footer-credit-role').innerText = s.creditRole;
       if (s.creditLinkedin) document.getElementById('footer-credit-link').href = window.cleanUrl(s.creditLinkedin);
 
-      // Correction 6: No Default Pre-selected Category or Activity in Profile Form
-      const acts = `<option value="" selected disabled>— নির্বাচন করুন —</option>` + (s.activities || CORE_ACTIVITIES).map(a => `<option value="${window.clean(a)}">${window.clean(a)}</option>`).join('');
+      // Completely Blank Initial Option (Only Arrow Visible, No '— নির্বাচন করুন —' Text)
+      const acts = `<option value="" selected></option>` + (s.activities || CORE_ACTIVITIES).map(a => `<option value="${window.clean(a)}">${window.clean(a)}</option>`).join('');
       document.getElementById('task-category').innerHTML = acts;
 
       const catsList = (s.portfolioCategories || DEFAULT_PORTFOLIO_CATEGORIES);
       document.getElementById('port-cat').innerHTML = catsList.map(c => `<option value="${window.clean(c)}">${window.clean(c)}</option>`).join('');
       if (document.getElementById('task-content-type')) {
-        document.getElementById('task-content-type').innerHTML = `<option value="" selected disabled>— নির্বাচন করুন —</option>` + catsList.map(c => `<option value="${window.clean(c)}">${window.clean(c)}</option>`).join('');
+        document.getElementById('task-content-type').innerHTML = `<option value="" selected></option>` + catsList.map(c => `<option value="${window.clean(c)}">${window.clean(c)}</option>`).join('');
       }
 
       const shortPlats = (s.platforms || SHORT_PLATFORMS);
@@ -1334,7 +1332,7 @@
         const cleanTitle = cleanProjectTitle(t.title);
         const groupKey = t.isMasterProject ? t.id : `${cleanTitle}_${t.date}_${t.status}`;
         if (!groupedMap.has(groupKey)) {
-          const initialCrew = Array.isArray(t.crewList) && t.crewList.length > 0 ? [...t.crewList] : [{ uid: t.uid, name: t.memberName, role: "প্রোডাকশন" }];
+          const initialCrew = Array.isArray(t.crewList) && t.crewList.length > 0 ? [...t.crewList] : [];
           groupedMap.set(groupKey, { ...t, cleanTitle, groupedIds: [t.id], masterCrew: initialCrew });
         } else groupedMap.get(groupKey).groupedIds.push(t.id);
       });
@@ -1373,7 +1371,7 @@
       return lines.map(l => `<div class="flex items-start gap-1.5"><span class="text-asf-600 font-bold">•</span><span class="leading-snug font-medium">${window.clean(l.replace(/^[০-৯0-9]+\.\s*/, ''))}</span></div>`).join('');
     }
 
-    // 1. Render Home (Correction 1: Prev Month Card only title; Correction 2: 2-Column No-Scroll Category Box Grid)
+    // 1. Render Home
     window.setHomeTeamView = (mode) => {
       window.homeTeamView = mode;
       document.getElementById('hteam-btn-cards').className = mode === 'cards' ? 'px-3 py-1.5 rounded-lg text-xs font-bold btn-green' : 'px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-200 dark:bg-slate-800';
@@ -1407,7 +1405,6 @@
       document.getElementById('home-plan-percent').innerText = `${pct}% (${compCount}/${target})`;
       document.getElementById('home-plan-bar').style.width = `${pct}%`;
 
-      // Correction 1: Only title & badge on outside of Card 1
       document.getElementById('prev-month-report-title').innerText = `১. গত মাসের রিপোর্ট (${window.formatMonthName(prevMonth)})`;
       document.getElementById('home-prev-total-badge').innerText = `মোট ${window.sumQty(prevMonthTasks)} • দেখুন →`;
 
@@ -1415,7 +1412,6 @@
       document.getElementById('home-next1-plan-preview').innerHTML = formatBulletPointsHtml(s.planNext1Text);
       document.getElementById('home-next3-plan-preview').innerHTML = formatBulletPointsHtml(s.planNext3Text);
 
-      // Correction 2: 2-Layer (2-Column) Category Box Grid with Single Count & No Scrollbar
       document.getElementById('content-type-month-badge').innerText = window.formatMonthName(curMonth);
       const contentTypes = s.portfolioCategories || DEFAULT_PORTFOLIO_CATEGORIES;
       document.getElementById('home-content-type-grid').innerHTML = contentTypes.map((cat) => {
@@ -1479,7 +1475,7 @@
           `).join('');
     }
 
-    // 2. PRODUCTION PIPELINE (Correction 3: Instant Month Filter; Correction 4: Platform Column + Shooting Date)
+    // 2. PRODUCTION PIPELINE (Blank selects with only arrow — no default category/platform/dash)
     window.clearPipelineMonthFilter = () => { document.getElementById('pipe-month-filter').value = ''; renderPipelineBoard(); };
 
     window.setPipelineDisplayMode = (mode) => {
@@ -1505,15 +1501,13 @@
       if (!isManagerLoggedIn()) return alert("শুধুমাত্র সুপার অ্যাডমিন বা ডিরেক্টর নতুন রো যুক্ত করতে পারবেন।");
       const filterMonth = document.getElementById('pipe-month-filter').value;
       const startDate = (filterMonth && filterMonth !== getCurrentMonthStr()) ? `${filterMonth}-01` : getTodayStr();
-      const defaultCat = (window.siteSettings.portfolioCategories || DEFAULT_PORTFOLIO_CATEGORIES)[0] || "ডকুমেন্টারি";
-      const defaultPlat = (window.siteSettings.platforms || SHORT_PLATFORMS)[0] || "All Platforms";
 
       const docRef = await addDoc(collection(db, "tasks"), {
         uid: window.currentUserProfile.uid, crewUids: [], crewList: [], sheetRoles: {},
-        memberName: "অ্যাসাইন করা হয়নি", date: startDate, shootingDate: "", month: startDate.slice(0,7),
+        memberName: "", date: startDate, shootingDate: "", month: startDate.slice(0,7),
         readyDate: "", publishDate: "", coordApproved: false, finalApproved: false, archiving: "Pending",
-        rating: 0, category: "ভিডিও শুটিং ও ক্যামেরা অপারেশন", productionType: defaultCat,
-        title: "", platform: defaultPlat, status: "Ongoing", isPipeline: true, isMasterProject: true,
+        rating: 0, category: "", productionType: "",
+        title: "", platform: "", status: "Ongoing", isPipeline: true, isMasterProject: true,
         quantity: 1, createdAt: new Date().toISOString()
       });
       window.showToast("নতুন রো যুক্ত হয়েছে!");
@@ -1550,7 +1544,7 @@
         });
       });
       const allAssignedNames = [...new Set(Object.values(sheetRoles).flatMap(v => String(v||'').split(',').map(s => s.trim())).filter(Boolean))];
-      await updateDoc(doc(db, "tasks", taskId), { sheetRoles, crewList, crewUids: [...new Set(crewUids)], memberName: allAssignedNames.join(', ') || "Team" });
+      await updateDoc(doc(db, "tasks", taskId), { sheetRoles, crewList, crewUids: [...new Set(crewUids)], memberName: allAssignedNames.join(', ') });
       window.showToast(`${colName} আপডেট হয়েছে!`);
     };
 
@@ -1632,6 +1626,7 @@
         </tr>
       `;
 
+      // Role Dropdown with Empty Initial Option (Only Arrow Visible, No '—' Dash)
       const buildRoleCell = (t, colName) => {
         let curRaw = (t.sheetRoles && t.sheetRoles[colName]) ? String(t.sheetRoles[colName]) : "";
         if (!curRaw && Array.isArray(t.crewList)) {
@@ -1640,8 +1635,8 @@
         }
         const parts = curRaw ? curRaw.split(',').map(s => s.trim()).filter(Boolean) : [];
         const p1 = parts[0] || "", p2 = parts[1] || "";
-        if (!canManage) return `<span class="font-bold text-slate-800 dark:text-slate-100 px-1">${curRaw ? window.clean(curRaw) : '—'}</span>`;
-        const makeOpts = (selVal) => [`<option value="">—</option>`, ...members.map(m => `<option value="${window.clean(m.name)}" ${selVal === m.name ? 'selected' : ''}>${window.clean(m.name)}</option>`), `<option value="Others" ${selVal === 'Others' ? 'selected' : ''}>Others</option>`, `<option value="OutSourcing" ${selVal === 'OutSourcing' ? 'selected' : ''}>OutSourcing</option>`].join('');
+        if (!canManage) return `<span class="font-bold text-slate-800 dark:text-slate-100 px-1">${curRaw ? window.clean(curRaw) : ''}</span>`;
+        const makeOpts = (selVal) => [`<option value="" ${!selVal ? 'selected' : ''}></option>`, ...members.map(m => `<option value="${window.clean(m.name)}" ${selVal === m.name ? 'selected' : ''}>${window.clean(m.name)}</option>`), `<option value="Others" ${selVal === 'Others' ? 'selected' : ''}>Others</option>`, `<option value="OutSourcing" ${selVal === 'OutSourcing' ? 'selected' : ''}>OutSourcing</option>`].join('');
         const safeColId = colName.replace(/[^a-zA-Z0-9]/g,'');
         return `
           <div class="space-y-1">
@@ -1672,10 +1667,11 @@
           if (ratingNum >= 1 && ratingNum <= 3) rowClass = 'sheet-row-lowrating';
 
           const idsStr = t.groupedIds.join(',');
-          const matchedLabel = getTaskCategoryLabel(t);
-          const catOpts = cats.map(c => `<option value="${window.clean(c)}" ${(t.productionType === c || matchedLabel === c) ? 'selected' : ''}>${window.clean(c)}</option>`).join('');
-          const curPlat = formatShortPlatformLabel(t.platform || plats[0] || "All Platforms");
-          const platOpts = plats.map(p => `<option value="${window.clean(p)}" ${curPlat === p ? 'selected' : ''}>${window.clean(p)}</option>`).join('');
+          const rawCatVal = t.productionType ? cleanCategoryDisplayName(t.productionType) : "";
+          const catOpts = `<option value="" ${!rawCatVal ? 'selected' : ''}></option>` + cats.map(c => `<option value="${window.clean(c)}" ${(t.productionType === c || rawCatVal === c) ? 'selected' : ''}>${window.clean(c)}</option>`).join('');
+
+          const curPlat = t.platform ? formatShortPlatformLabel(t.platform) : "";
+          const platOpts = `<option value="" ${!curPlat ? 'selected' : ''}></option>` + plats.map(p => `<option value="${window.clean(p)}" ${curPlat === p ? 'selected' : ''}>${window.clean(p)}</option>`).join('');
 
           return `
             <tr class="${rowClass} hover:brightness-95 transition">
@@ -1684,38 +1680,38 @@
                 ${canManage ? `<input type="date" value="${t.date || ''}" onchange="updateSheetField('${t.id}','date',this.value)" class="px-1.5 py-1 rounded border bg-white/95 dark:bg-slate-800 font-bold text-[11px]">` : `<span class="font-bold">${window.formatFullDate(t.date)}</span>`}
               </td>
               <td class="p-2 border-r border-slate-300 dark:border-slate-700 font-bold text-slate-900 dark:text-white">
-                ${canManage ? `<input id="title-inp-${t.id}" type="text" value="${window.clean(t.cleanTitle)}" placeholder="প্রজেক্টের নাম..." onchange="updateSheetField('${t.id}','title',this.value.trim())" class="w-full min-w-[200px] px-2 py-1 rounded border border-transparent hover:border-slate-300 focus:border-asf-600 bg-white/90 dark:bg-slate-800 font-bold text-xs focus:outline-none">` : `<span>${window.clean(t.cleanTitle || '—')}</span>`}
+                ${canManage ? `<input id="title-inp-${t.id}" type="text" value="${window.clean(t.cleanTitle)}" onchange="updateSheetField('${t.id}','title',this.value.trim())" class="w-full min-w-[200px] px-2 py-1 rounded border border-transparent hover:border-slate-300 focus:border-asf-600 bg-white/90 dark:bg-slate-800 font-bold text-xs focus:outline-none">` : `<span>${window.clean(t.cleanTitle || '')}</span>`}
               </td>
               <td class="p-2 border-r border-slate-300 dark:border-slate-700">
-                ${canManage ? `<select onchange="updateSheetField('${t.id}','productionType',this.value)" class="px-2 py-1 rounded border bg-white/95 dark:bg-slate-800 font-bold text-blue-700 dark:text-blue-300 text-[11px]">${catOpts}</select>` : `<span class="px-2 py-0.5 rounded bg-blue-100 text-blue-800 font-bold text-[11px]">${window.clean(matchedLabel)}</span>`}
+                ${canManage ? `<select onchange="updateSheetField('${t.id}','productionType',this.value)" class="px-2 py-1 rounded border bg-white/95 dark:bg-slate-800 font-bold text-blue-700 dark:text-blue-300 text-[11px] min-w-[110px]">${catOpts}</select>` : `<span class="px-2 py-0.5 rounded bg-blue-100 text-blue-800 font-bold text-[11px]">${window.clean(rawCatVal)}</span>`}
               </td>
               <td class="p-2 border-r border-slate-300 dark:border-slate-700">
-                ${canManage ? `<select onchange="updateSheetField('${t.id}','platform',this.value)" class="px-2 py-1 rounded border bg-white/95 dark:bg-slate-800 font-bold text-asf-700 dark:text-emerald-300 text-[11px]">${platOpts}</select>` : `<span class="px-2 py-0.5 rounded bg-emerald-100 text-asf-800 font-bold text-[11px]">${window.clean(curPlat)}</span>`}
+                ${canManage ? `<select onchange="updateSheetField('${t.id}','platform',this.value)" class="px-2 py-1 rounded border bg-white/95 dark:bg-slate-800 font-bold text-asf-700 dark:text-emerald-300 text-[11px] min-w-[115px]">${platOpts}</select>` : `<span class="px-2 py-0.5 rounded bg-emerald-100 text-asf-800 font-bold text-[11px]">${window.clean(curPlat)}</span>`}
               </td>
               ${firstCol.map(c => `<td class="p-2 border-r border-slate-300 dark:border-slate-700">${buildRoleCell(t, c)}</td>`).join('')}
               <td class="p-2 border-r border-slate-300 dark:border-slate-700">
-                ${canManage ? `<input type="date" value="${t.readyDate || ''}" onchange="updateSheetField('${t.id}','readyDate',this.value)" class="px-1.5 py-1 rounded border bg-white/95 dark:bg-slate-800 font-bold text-[11px]">` : `<span class="font-bold">${t.readyDate ? window.formatFullDate(t.readyDate) : '—'}</span>`}
+                ${canManage ? `<input type="date" value="${t.readyDate || ''}" onchange="updateSheetField('${t.id}','readyDate',this.value)" class="px-1.5 py-1 rounded border bg-white/95 dark:bg-slate-800 font-bold text-[11px]">` : `<span class="font-bold">${t.readyDate ? window.formatFullDate(t.readyDate) : ''}</span>`}
               </td>
               <td class="p-2 border-r border-slate-300 dark:border-slate-700">
-                ${canManage ? `<input type="date" value="${t.publishDate || ''}" onchange="updateSheetField('${t.id}','publishDate',this.value)" class="px-1.5 py-1 rounded border bg-white/95 dark:bg-slate-800 font-bold text-[11px]">` : `<span class="font-bold">${t.publishDate ? window.formatFullDate(t.publishDate) : '—'}</span>`}
+                ${canManage ? `<input type="date" value="${t.publishDate || ''}" onchange="updateSheetField('${t.id}','publishDate',this.value)" class="px-1.5 py-1 rounded border bg-white/95 dark:bg-slate-800 font-bold text-[11px]">` : `<span class="font-bold">${t.publishDate ? window.formatFullDate(t.publishDate) : ''}</span>`}
               </td>
-              <td class="p-2 border-r border-slate-300 dark:border-slate-700 text-center font-extrabold text-sm text-asf-700 dark:text-emerald-300">${wDays !== '' ? wDays : '—'}</td>
+              <td class="p-2 border-r border-slate-300 dark:border-slate-700 text-center font-extrabold text-sm text-asf-700 dark:text-emerald-300">${wDays !== '' ? wDays : ''}</td>
               ${secondCol.map(c => `<td class="p-2 border-r border-slate-300 dark:border-slate-700">${buildRoleCell(t, c)}</td>`).join('')}
               <td class="p-2 border-r border-slate-300 dark:border-slate-700 text-center">
-                ${canManage ? `<input type="checkbox" ${t.coordApproved ? 'checked' : ''} onchange="updateSheetField('${t.id}','coordApproved',this.checked)" class="w-4 h-4 accent-amber-700 cursor-pointer">` : `<span class="font-bold">${t.coordApproved ? '☑️' : '—'}</span>`}
+                ${canManage ? `<input type="checkbox" ${t.coordApproved ? 'checked' : ''} onchange="updateSheetField('${t.id}','coordApproved',this.checked)" class="w-4 h-4 accent-amber-700 cursor-pointer">` : `<span class="font-bold">${t.coordApproved ? '☑️' : ''}</span>`}
               </td>
               <td class="p-2 border-r border-slate-300 dark:border-slate-700 text-center">
-                ${canManage ? `<input type="checkbox" ${t.finalApproved ? 'checked' : ''} onchange="updateSheetField('${t.id}','finalApproved',this.checked)" class="w-4 h-4 accent-asf-600 cursor-pointer">` : `<span class="font-bold">${t.finalApproved ? '☑️' : '—'}</span>`}
+                ${canManage ? `<input type="checkbox" ${t.finalApproved ? 'checked' : ''} onchange="updateSheetField('${t.id}','finalApproved',this.checked)" class="w-4 h-4 accent-asf-600 cursor-pointer">` : `<span class="font-bold">${t.finalApproved ? '☑️' : ''}</span>`}
               </td>
               <td class="p-2 border-r border-slate-300 dark:border-slate-700">
-                ${canManage ? `<input type="date" value="${t.shootingDate || ''}" onchange="updateSheetField('${t.id}','shootingDate',this.value)" class="px-1.5 py-1 rounded border bg-white/95 dark:bg-slate-800 font-bold text-[11px]">` : `<span class="font-bold">${t.shootingDate ? window.formatFullDate(t.shootingDate) : '—'}</span>`}
+                ${canManage ? `<input type="date" value="${t.shootingDate || ''}" onchange="updateSheetField('${t.id}','shootingDate',this.value)" class="px-1.5 py-1 rounded border bg-white/95 dark:bg-slate-800 font-bold text-[11px]">` : `<span class="font-bold">${t.shootingDate ? window.formatFullDate(t.shootingDate) : ''}</span>`}
               </td>
               ${remainingCols.map(c => `<td class="p-2 border-r border-slate-300 dark:border-slate-700">${buildRoleCell(t, c)}</td>`).join('')}
               <td class="p-2 border-r border-slate-300 dark:border-slate-700 text-center">
                 ${canManage ? `<select onchange="updateSheetField('${t.id}','archiving',this.value)" class="px-1.5 py-1 rounded border bg-white/95 dark:bg-slate-800 font-bold text-[11px]"><option value="Pending" ${t.archiving!=='Done'?'selected':''}>Pending</option><option value="Done" ${t.archiving==='Done'?'selected':''}>Done</option></select>` : `<span class="font-bold">${t.archiving === 'Done' ? 'Done ✓' : 'Pending'}</span>`}
               </td>
               <td class="p-2 border-r border-slate-300 dark:border-slate-700 text-center">
-                ${canManage ? `<select onchange="updateSheetField('${t.id}','rating',Number(this.value))" class="px-1.5 py-1 rounded border bg-white/95 dark:bg-slate-800 font-bold text-amber-600 text-[11px]"><option value="0" ${!ratingNum?'selected':''}>—</option><option value="5" ${ratingNum===5?'selected':''}>5 ★</option><option value="4" ${ratingNum===4?'selected':''}>4 ★</option><option value="3" ${ratingNum===3?'selected':''}>3 ★</option><option value="2" ${ratingNum===2?'selected':''}>2 ★</option><option value="1" ${ratingNum===1?'selected':''}>1 ★</option></select>` : `<span class="text-amber-600 font-bold">${ratingNum ? '★'.repeat(ratingNum) : '—'}</span>`}
+                ${canManage ? `<select onchange="updateSheetField('${t.id}','rating',Number(this.value))" class="px-1.5 py-1 rounded border bg-white/95 dark:bg-slate-800 font-bold text-amber-600 text-[11px]"><option value="0" ${!ratingNum?'selected':''}></option><option value="5" ${ratingNum===5?'selected':''}>5 ★</option><option value="4" ${ratingNum===4?'selected':''}>4 ★</option><option value="3" ${ratingNum===3?'selected':''}>3 ★</option><option value="2" ${ratingNum===2?'selected':''}>2 ★</option><option value="1" ${ratingNum===1?'selected':''}>1 ★</option></select>` : `<span class="text-amber-600 font-bold">${ratingNum ? '★'.repeat(ratingNum) : ''}</span>`}
               </td>
               <td class="p-2 text-center space-x-1">
                 <span class="px-2 py-0.5 rounded font-bold text-[11px] ${autoStatus==='Published'?'bg-emerald-100 text-asf-700':(autoStatus==='Ready to Publish'?'bg-rose-100 text-rose-700':'bg-blue-100 text-blue-700')}">${autoStatus}</span>
@@ -1732,7 +1728,7 @@
         const wDays = calcWorkingDays(t.date, t.readyDate || t.publishDate);
         const autoStatus = computeAutoWorkflowStatus(t);
         const catLabel = getTaskCategoryLabel(t);
-        const platLabel = formatShortPlatformLabel(t.platform || "All Platforms");
+        const platLabel = formatShortPlatformLabel(t.platform || "");
 
         const roleEntries = [];
         cols.forEach(c => {
@@ -1755,8 +1751,8 @@
             <div class="space-y-3">
               <div class="flex items-center justify-between gap-2">
                 <div class="flex flex-wrap items-center gap-1.5">
-                  <span class="px-2.5 py-0.5 rounded-md bg-emerald-50 dark:bg-slate-800 text-asf-700 dark:text-emerald-300 border border-emerald-200 text-xs font-bold">#${idx+1} • ${window.clean(catLabel)}</span>
-                  <span class="px-2 py-0.5 rounded-md bg-blue-50 dark:bg-slate-800 text-blue-700 dark:text-blue-300 text-[10px] font-bold">${window.clean(platLabel)}</span>
+                  <span class="px-2.5 py-0.5 rounded-md bg-emerald-50 dark:bg-slate-800 text-asf-700 dark:text-emerald-300 border border-emerald-200 text-xs font-bold">#${idx+1}${catLabel ? ` • ${window.clean(catLabel)}` : ''}</span>
+                  ${platLabel ? `<span class="px-2 py-0.5 rounded-md bg-blue-50 dark:bg-slate-800 text-blue-700 dark:text-blue-300 text-[10px] font-bold">${window.clean(platLabel)}</span>` : ''}
                 </div>
                 <div class="flex items-center gap-1.5">
                   <span class="px-2.5 py-0.5 rounded-md text-[11px] font-bold ${statusBadgeStyle}">${autoStatus}</span>
@@ -1834,7 +1830,7 @@
       if (stFilter !== 'ALL') baseFiltered = baseFiltered.filter(t => getNormalizedTaskBucket(t) === stFilter);
 
       const catCounts = {};
-      baseFiltered.forEach(t => { const lbl = getTaskCategoryLabel(t); catCounts[lbl] = (catCounts[lbl] || 0) + window.getQty(t); });
+      baseFiltered.forEach(t => { const lbl = getTaskCategoryLabel(t); if (lbl) catCounts[lbl] = (catCounts[lbl] || 0) + window.getQty(t); });
 
       const activeBadge = document.getElementById('dash-active-cat-badge');
       if (window.dashboardCategoryFilter) {
@@ -1883,11 +1879,9 @@
         `).join('');
     };
 
-    // Correction 5: Download Individual Member Monthly Report CSV & Filtered Dashboard CSV
     window.downloadOpenedMemberMonthlyCSV = () => {
       const uid = window.openedModalMemberId;
-      const m = window.allMembers.find(x => x.uid === uid);
-      if (!m) return;
+      const m = window.allMembers.find(x => x.uid === uid); if (!m) return;
       const month = document.getElementById('mod-member-month').value || getCurrentMonthStr();
       const mTasks = window.allTasks.filter(t => isMemberInTask(t, uid) && t.month === month);
       if (mTasks.length === 0) return alert("এই মাসে ডাউনলোড করার মতো কোনো কাজ নেই।");
@@ -1968,7 +1962,7 @@
       document.getElementById('full-portfolio-grid').innerHTML = buildCards(fullList);
     };
 
-    // 6. Profile Tasks (Correction 6: Reset dropdowns to empty placeholder after submit)
+    // 6. Profile Tasks
     window.submitDailyTask = async (e) => {
       e.preventDefault();
       const p = window.currentUserProfile; if (!p) return alert("লগইন করুন।");
@@ -1977,7 +1971,7 @@
       if (!cType || !actType) return alert("অনুগ্রহ করে ক্যাটাগরি ও কাজের ধরন নির্বাচন করুন।");
 
       const checkedPlats = Array.from(document.querySelectorAll('#task-platform-checkboxes input:checked')).map(i => i.value);
-      const platformStr = checkedPlats.length > 0 ? checkedPlats.join(', ') : SHORT_PLATFORMS[0];
+      const platformStr = checkedPlats.length > 0 ? checkedPlats.join(', ') : '';
       const dt = document.getElementById('task-date').value || getTodayStr();
       const qty = Math.max(1, parseInt(document.getElementById('task-qty').value, 10) || 1);
 
@@ -2120,7 +2114,7 @@
         document.getElementById('quick-modal-title').innerText = `গত মাসের রিপোর্ট (${window.formatMonthName(prevMonth)})`;
         const prevTasks = window.allTasks.filter(t => t.month === prevMonth && getMemberPersonalBucket(t) === 'Completed');
         const catMap = {};
-        prevTasks.forEach(t => { const c = getTaskCategoryLabel(t); catMap[c] = (catMap[c] || 0) + window.getQty(t); });
+        prevTasks.forEach(t => { const c = getTaskCategoryLabel(t); if (c) catMap[c] = (catMap[c] || 0) + window.getQty(t); });
         const entries = Object.entries(catMap);
         document.getElementById('quick-modal-body').innerHTML = entries.length === 0
           ? `<p class="text-center py-6 text-slate-400">গত মাসে কোনো সম্পন্ন কাজ নেই।</p>`
@@ -2170,7 +2164,7 @@
       document.getElementById('mod-cat-total-badge').innerText = `মোট: ${window.sumQty(mTasks)}`;
 
       const catCounts = {};
-      mTasks.forEach(t => { const lbl = getTaskCategoryLabel(t); catCounts[lbl] = (catCounts[lbl] || 0) + window.getQty(t); });
+      mTasks.forEach(t => { const lbl = getTaskCategoryLabel(t); if (lbl) catCounts[lbl] = (catCounts[lbl] || 0) + window.getQty(t); });
       const pillsBox = document.getElementById('mod-member-category-pills');
       if (Object.keys(catCounts).length === 0) {
         pillsBox.innerHTML = `<div class="col-span-full text-center py-3 text-slate-400 font-semibold">এই মাসে কোনো কাজ নেই।</div>`;
