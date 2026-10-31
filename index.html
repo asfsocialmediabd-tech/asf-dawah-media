@@ -11,10 +11,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
-    tailwind.config = {
-      darkMode: 'class',
-      theme: { extend: { colors: { asf: { 50: '#f0fdf4', 100: '#dcfce7', 600: '#006837', 700: '#083823', 800: '#06291a' } } } }
-    }
+    tailwind.config = { darkMode: 'class', theme: { extend: { colors: { asf: { 50: '#f0fdf4', 100: '#dcfce7', 600: '#006837', 700: '#083823', 800: '#06291a' } } } } }
   </script>
   <style>
     @font-face { font-family: 'Bornomala'; src: url('./Bornomala-Regular.ttf') format('truetype'); font-weight: 400; unicode-range: U+0980-09FF, U+200C-200D, U+25CC; }
@@ -24,14 +21,13 @@
     .dark body { background-color: #07130e; color: #f1f5f9; }
     .stitched-box { padding: 5px; border: 1.5px dashed #006837; border-radius: 1.25rem; }
     .dark .stitched-box { border-color: rgba(16,185,129,0.45); }
-    .solid-card { background: #ffffff; border-radius: 1rem; border: 1px solid #e2e8f0; transition: all 0.22s ease; }
+    .solid-card { background: #ffffff; border-radius: 1rem; border: 1px solid #e2e8f0; transition: all 0.2s ease; }
     .dark .solid-card { background: #0d1f17; border-color: #1e3a2f; }
-    .motion-card { transition: transform 0.2s ease, box-shadow 0.2s ease; cursor: pointer; }
-    .motion-card:hover { transform: translateY(-3px); box-shadow: 0 10px 22px -8px rgba(0, 104, 55, 0.16); }
-    .motion-card:active { transform: scale(0.98); }
-    .ribbon-card { position: relative; overflow: hidden; border-radius: 1rem; padding: 1.05rem 1.2rem; background: #fff; border: 1.5px solid #e2e8f0; }
+    .motion-card { transition: transform 0.18s ease, box-shadow 0.18s ease; cursor: pointer; }
+    .motion-card:hover { transform: translateY(-2px); box-shadow: 0 8px 20px -6px rgba(0, 104, 55, 0.16); }
+    .ribbon-card { position: relative; overflow: hidden; border-radius: 1rem; padding: 1rem 1.15rem; background: #fff; border: 1.5px solid #e2e8f0; }
     .dark .ribbon-card { background: #0d1f17; border-color: #1e3a2f; }
-    .ribbon-shape { position: absolute; right: -12px; top: 0; bottom: 0; width: 70px; transform: skewX(-16deg); display: flex; align-items: center; justify-content: center; pointer-events: none; }
+    .ribbon-shape { position: absolute; right: -12px; top: 0; bottom: 0; width: 66px; transform: skewX(-16deg); display: flex; align-items: center; justify-content: center; pointer-events: none; }
     .ribbon-shape > * { transform: skewX(16deg); }
     .rc-green { background: #f2fbf7; border-color: #86efac; } .dark .rc-green { background: #092218; border-color: #065f46; }
     .rc-blue { background: #f0f7ff; border-color: #93c5fd; } .dark .rc-blue { background: #0c192c; border-color: #1e40af; }
@@ -59,20 +55,18 @@
 </head>
 <body class="min-h-screen flex flex-col pb-20 md:pb-0">
 
-  <!-- Toast & Live Message Popup -->
   <div id="toast-msg" class="fixed top-5 right-4 z-50 hidden bg-asf-700 text-white px-4 py-3 rounded-xl shadow-2xl border border-emerald-400 text-xs sm:text-sm font-bold max-w-[90vw]"></div>
   <div id="live-msg-toast" onclick="openChatBox()" class="fixed bottom-20 right-4 z-50 hidden cursor-pointer bg-white dark:bg-slate-900 border-2 border-asf-600 p-3.5 rounded-2xl shadow-2xl max-w-[85vw] sm:max-w-xs">
     <p class="text-[11px] font-bold text-asf-600" id="toast-sender"></p>
     <p class="text-xs font-semibold text-slate-800 dark:text-slate-100 line-clamp-2 mt-0.5" id="toast-preview"></p>
   </div>
 
-  <!-- Top Notice Bar -->
   <div id="notice-bar" class="bg-asf-700 text-white text-xs py-2 px-3 hidden w-full items-center gap-2 border-b border-emerald-800">
     <span class="px-2 py-0.5 text-[10px] font-bold bg-amber-400 text-slate-950 rounded shrink-0 z-10">নোটিশ</span>
     <div class="ticker-wrap flex-1"><div id="notice-text" class="ticker-move font-semibold"></div></div>
   </div>
 
-  <!-- Header (Triple-click on logo opens Secret Admin Panel for Super Admin/Director) -->
+  <!-- Header (Triple-click logo or #admin for Secret Admin Panel) -->
   <header class="sticky top-0 z-40 w-full bg-white dark:bg-[#0a1912] border-b border-slate-200 dark:border-emerald-950">
     <div class="w-full px-2.5 sm:px-0 sm:w-[95%] max-w-[1600px] mx-auto h-16 sm:h-20 flex items-center justify-between gap-1.5 sm:gap-2">
       <div class="flex items-center gap-2 cursor-pointer min-w-0 flex-1 select-none" onclick="handleLogoSecretClick()">
@@ -93,9 +87,7 @@
       </nav>
 
       <div class="flex items-center gap-1 sm:gap-1.5 shrink-0">
-        <button onclick="triggerAppInstall()" class="px-2 sm:px-2.5 py-1.5 text-[11px] sm:text-xs font-bold rounded-lg bg-emerald-50 text-asf-600 border border-asf-600/30 flex items-center gap-1">
-          <span>📲</span><span class="hidden sm:inline" data-bn="অ্যাপ" data-en="App">অ্যাপ</span>
-        </button>
+        <button onclick="triggerAppInstall()" class="px-2 sm:px-2.5 py-1.5 text-[11px] sm:text-xs font-bold rounded-lg bg-emerald-50 text-asf-600 border border-asf-600/30 flex items-center gap-1"><span>📲</span><span class="hidden sm:inline" data-bn="অ্যাপ" data-en="App">অ্যাপ</span></button>
         <button onclick="toggleLanguage()" id="lang-btn" class="px-2 sm:px-2.5 py-1.5 text-[11px] sm:text-xs font-bold rounded-lg bg-slate-100 dark:bg-slate-800 border">EN</button>
         <button onclick="toggleTheme()" class="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-slate-100 dark:bg-slate-800 border text-xs flex items-center justify-center">🌙</button>
 
@@ -123,7 +115,6 @@
     </div>
   </header>
 
-  <!-- Mobile Bottom Nav (Admin Hidden, Profile Added) -->
   <nav id="mobile-bottom-nav" class="md:hidden fixed bottom-0 left-0 right-0 w-full z-40 bg-white dark:bg-[#0a1912] border-t px-1 py-1.5 flex items-center justify-around text-[11px] font-bold">
     <button onclick="switchTab('home')" id="mnav-home" class="text-asf-600 py-1 px-1.5" data-bn="হোম" data-en="Home">হোম</button>
     <button onclick="switchTab('pipeline')" id="mnav-pipeline" class="text-slate-500 py-1 px-1.5" data-bn="পাইপলাইন" data-en="Pipeline">পাইপলাইন</button>
@@ -148,59 +139,40 @@
         </div>
       </div>
 
-      <!-- Project Status Summaries (Clean Single-Language Labels) -->
+      <!-- Project Status Summaries -->
       <div class="space-y-2.5">
         <h3 class="text-sm sm:text-base font-bold text-asf-700 dark:text-emerald-400" data-bn="প্রজেক্ট স্ট্যাটাস সামারি" data-en="Project Status Summary">প্রজেক্ট স্ট্যাটাস সামারি</h3>
         <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4">
           <div onclick="openQuickStatusModal('Completed')" class="ribbon-card rc-green motion-card">
-            <div class="pr-12">
-              <p class="text-2xl sm:text-3xl font-extrabold text-asf-700 dark:text-emerald-300" id="stat-completed">0</p>
-              <p class="text-xs font-bold text-slate-600 dark:text-slate-300 mt-1" data-bn="সম্পন্ন" data-en="Completed">সম্পন্ন</p>
-            </div>
+            <div class="pr-12"><p class="text-2xl sm:text-3xl font-extrabold text-asf-700 dark:text-emerald-300" id="stat-completed">0</p><p class="text-xs font-bold text-slate-600 dark:text-slate-300 mt-1" data-bn="সম্পন্ন" data-en="Completed">সম্পন্ন</p></div>
             <div class="ribbon-shape bg-emerald-200/70 dark:bg-emerald-900/50 text-asf-700 dark:text-emerald-300">✓</div>
           </div>
-
           <div onclick="openQuickStatusModal('Ongoing')" class="ribbon-card rc-blue motion-card">
-            <div class="pr-12">
-              <p class="text-2xl sm:text-3xl font-extrabold text-blue-700 dark:text-blue-300" id="stat-ongoing">0</p>
-              <p class="text-xs font-bold text-slate-600 dark:text-slate-300 mt-1" data-bn="চলমান প্রজেক্ট" data-en="Running Project">চলমান প্রজেক্ট</p>
-            </div>
+            <div class="pr-12"><p class="text-2xl sm:text-3xl font-extrabold text-blue-700 dark:text-blue-300" id="stat-ongoing">0</p><p class="text-xs font-bold text-slate-600 dark:text-slate-300 mt-1" data-bn="চলমান" data-en="Running">চলমান</p></div>
             <div class="ribbon-shape bg-blue-200/70 dark:bg-blue-900/50 text-blue-700 dark:text-blue-300">⟳</div>
           </div>
-
           <div onclick="openQuickStatusModal('Ready')" class="ribbon-card rc-rose motion-card">
-            <div class="pr-12">
-              <p class="text-2xl sm:text-3xl font-extrabold text-rose-700 dark:text-rose-300" id="stat-ready">0</p>
-              <p class="text-xs font-bold text-slate-600 dark:text-slate-300 mt-1" data-bn="পাবলিশের জন্য রেডি" data-en="Ready to Publish">পাবলিশের জন্য রেডি</p>
-            </div>
+            <div class="pr-12"><p class="text-2xl sm:text-3xl font-extrabold text-rose-700 dark:text-rose-300" id="stat-ready">0</p><p class="text-xs font-bold text-slate-600 dark:text-slate-300 mt-1" data-bn="রেডি" data-en="Ready">রেডি</p></div>
             <div class="ribbon-shape bg-rose-200/70 dark:bg-rose-900/50 text-rose-700 dark:text-rose-300">▶</div>
           </div>
-
           <div onclick="openQuickStatusModal('Pending')" class="ribbon-card rc-amber motion-card">
-            <div class="pr-12">
-              <p class="text-2xl sm:text-3xl font-extrabold text-amber-700 dark:text-amber-300" id="stat-pending">0</p>
-              <p class="text-xs font-bold text-slate-600 dark:text-slate-300 mt-1" data-bn="পেন্ডিং" data-en="Pending">পেন্ডিং</p>
-            </div>
+            <div class="pr-12"><p class="text-2xl sm:text-3xl font-extrabold text-amber-700 dark:text-amber-300" id="stat-pending">0</p><p class="text-xs font-bold text-slate-600 dark:text-slate-300 mt-1" data-bn="পেন্ডিং" data-en="Pending">পেন্ডিং</p></div>
             <div class="ribbon-shape bg-amber-200/70 dark:bg-amber-900/50 text-amber-700 dark:text-amber-300">!</div>
           </div>
-
           <div onclick="openQuickStatusModal('Upcoming')" class="ribbon-card rc-purple motion-card col-span-2 sm:col-span-1">
-            <div class="pr-12">
-              <p class="text-2xl sm:text-3xl font-extrabold text-purple-700 dark:text-purple-300" id="stat-upcoming">0</p>
-              <p class="text-xs font-bold text-slate-600 dark:text-slate-300 mt-1" data-bn="আপকামিং প্রজেক্ট" data-en="Upcoming Project">আপকামিং প্রজেক্ট</p>
-            </div>
+            <div class="pr-12"><p class="text-2xl sm:text-3xl font-extrabold text-purple-700 dark:text-purple-300" id="stat-upcoming">0</p><p class="text-xs font-bold text-slate-600 dark:text-slate-300 mt-1" data-bn="আপকামিং" data-en="Upcoming">আপকামিং</p></div>
             <div class="ribbon-shape bg-purple-200/70 dark:bg-purple-900/50 text-purple-700 dark:text-purple-300">📅</div>
           </div>
         </div>
       </div>
 
-      <!-- Monthly Planning (Left: 4 Specific Cards) & Clean Category Summary (Right: Only Category, Total, Completed) -->
+      <!-- Left: Monthly Planning (Card 1 Only Title, Opens Modal on Click) & Right: 2-Column No-Scroll Category Grid -->
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
         <div class="lg:col-span-6 solid-card p-5 space-y-4 shadow-sm flex flex-col justify-between">
           <div class="space-y-4">
             <div class="flex justify-between items-center border-b pb-2.5 dark:border-slate-800">
               <h3 class="font-bold text-base text-asf-700 dark:text-emerald-400" data-bn="মাসিক পরিকল্পনা ও রিপোর্ট" data-en="Monthly Planning">মাসিক পরিকল্পনা ও রিপোর্ট</h3>
-              <button onclick="switchTab('pipeline')" class="px-3 py-1 rounded-lg bg-emerald-50 dark:bg-slate-800 text-xs font-bold text-asf-600 border border-asf-600/30 hover:bg-asf-600 hover:text-white transition" data-bn="ওয়ার্কফ্লো →" data-en="Go to Workflow →">ওয়ার্কফ্লো →</button>
+              <button onclick="switchTab('pipeline')" class="px-3 py-1 rounded-lg bg-emerald-50 dark:bg-slate-800 text-xs font-bold text-asf-600 border border-asf-600/30 hover:bg-asf-600 hover:text-white transition" data-bn="ওয়ার্কফ্লো →" data-en="Workflow →">ওয়ার্কফ্লো →</button>
             </div>
             <div class="bg-emerald-50/70 dark:bg-slate-800 p-3.5 rounded-xl border border-emerald-200 dark:border-slate-700 space-y-1.5">
               <div class="flex justify-between text-xs font-bold">
@@ -212,56 +184,46 @@
               </div>
             </div>
 
-            <!-- 4 Clean Planning Cards -->
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
-              <div onclick="openPlanningDetailModal('prevMonthReport')" class="p-3.5 rounded-xl border hover:border-asf-600 motion-card bg-emerald-50/40 dark:bg-slate-800/40">
-                <p class="font-bold text-asf-700 dark:text-emerald-400 mb-2 border-b pb-1" id="prev-month-report-title">১. গত মাসের রিপোর্ট</p>
-                <div id="home-prev-report-preview" class="space-y-1 text-slate-700 dark:text-slate-300 max-h-28 overflow-y-auto"></div>
+              <!-- Card 1: Clean Title Only, Opens Popup When Clicked -->
+              <div onclick="openPlanningDetailModal('prevMonthReport')" class="p-4 rounded-xl border border-emerald-200 dark:border-emerald-800 hover:border-asf-600 motion-card bg-emerald-50/50 dark:bg-slate-800/50 flex flex-col justify-center">
+                <div class="flex items-center justify-between">
+                  <p class="font-bold text-sm text-asf-700 dark:text-emerald-400" id="prev-month-report-title">১. গত মাসের রিপোর্ট</p>
+                  <span class="px-2.5 py-1 rounded-lg bg-asf-600 text-white font-bold text-[11px]" id="home-prev-total-badge">দেখুন →</span>
+                </div>
               </div>
 
               <div onclick="openPlanningDetailModal('currentPlan')" class="p-3.5 rounded-xl border hover:border-blue-600 motion-card bg-slate-50/60 dark:bg-slate-800/40">
-                <p class="font-bold text-blue-600 mb-2 border-b pb-1">২. চলতি মাসের পরিকল্পনা</p>
-                <div id="home-current-plan-preview" class="space-y-1 text-slate-700 dark:text-slate-300 max-h-28 overflow-y-auto"></div>
+                <p class="font-bold text-blue-600 mb-1.5 border-b pb-1">২. চলতি মাসের পরিকল্পনা</p>
+                <div id="home-current-plan-preview" class="space-y-1 text-slate-700 dark:text-slate-300"></div>
               </div>
 
               <div onclick="openPlanningDetailModal('nextMonthPlan')" class="p-3.5 rounded-xl border hover:border-purple-600 motion-card bg-slate-50/60 dark:bg-slate-800/40">
-                <p class="font-bold text-purple-600 mb-2 border-b pb-1">৩. আগামী মাসের পরিকল্পনা</p>
-                <div id="home-next1-plan-preview" class="space-y-1 text-slate-700 dark:text-slate-300 max-h-28 overflow-y-auto"></div>
+                <p class="font-bold text-purple-600 mb-1.5 border-b pb-1">৩. আগামী মাসের পরিকল্পনা</p>
+                <div id="home-next1-plan-preview" class="space-y-1 text-slate-700 dark:text-slate-300"></div>
               </div>
 
               <div onclick="openPlanningDetailModal('next3Months')" class="p-3.5 rounded-xl border hover:border-amber-600 motion-card bg-slate-50/60 dark:bg-slate-800/40">
-                <p class="font-bold text-amber-600 mb-2 border-b pb-1">৪. আগামী ৩ মাসের পরিকল্পনা</p>
-                <div id="home-next3-plan-preview" class="space-y-1 text-slate-700 dark:text-slate-300 max-h-28 overflow-y-auto"></div>
+                <p class="font-bold text-amber-600 mb-1.5 border-b pb-1">৪. আগামী ৩ মাসের পরিকল্পনা</p>
+                <div id="home-next3-plan-preview" class="space-y-1 text-slate-700 dark:text-slate-300"></div>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- Right Side: Ultra-Clean Category Summary Table -->
-        <div class="lg:col-span-6 solid-card p-5 space-y-3 shadow-sm flex flex-col justify-between">
-          <div>
+        <!-- Right Side: 2-Layer (2-Column) Clean Category Box Grid (No Scrollbar, Single Clear Count) -->
+        <div class="lg:col-span-6 solid-card p-5 space-y-3.5 shadow-sm flex flex-col justify-between">
+          <div class="space-y-3.5">
             <div class="flex justify-between items-center border-b pb-2.5 dark:border-slate-800">
               <h3 class="font-bold text-base text-asf-700 dark:text-emerald-400" data-bn="ক্যাটাগরি অনুযায়ী প্রোডাকশন" data-en="Content Type">ক্যাটাগরি অনুযায়ী প্রোডাকশন</h3>
               <span id="content-type-month-badge" class="text-[11px] font-bold px-2.5 py-0.5 rounded bg-emerald-100 text-asf-700"></span>
             </div>
-            <div class="overflow-x-auto mt-3 max-h-80 select-text">
-              <table class="w-full text-left border-collapse text-xs">
-                <thead class="sticky top-0 z-10">
-                  <tr class="bg-asf-700 text-white">
-                    <th class="p-2.5 rounded-tl-lg text-center font-bold w-12">ক্র.</th>
-                    <th class="p-2.5 font-bold">ক্যাটাগরি</th>
-                    <th class="p-2.5 text-center font-bold">মোট কাজ</th>
-                    <th class="p-2.5 text-center rounded-tr-lg font-bold">সম্পন্ন</th>
-                  </tr>
-                </thead>
-                <tbody id="home-content-type-tbody" class="divide-y dark:divide-slate-800"></tbody>
-              </table>
-            </div>
+            <div id="home-content-type-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-2.5"></div>
           </div>
         </div>
       </div>
 
-      <!-- Home Page Team Members & Director's Worker Summary List -->
+      <!-- Home Page Team Members & Worker Summary List -->
       <div class="space-y-4">
         <div class="flex flex-wrap items-center justify-between gap-2">
           <h3 class="text-lg sm:text-xl font-bold text-asf-700 dark:text-emerald-400" data-bn="টিম মেম্বার সামারি" data-en="Worker Summary List">টিম মেম্বার সামারি</h3>
@@ -282,7 +244,6 @@
                   <th class="p-3 font-bold">নাম</th>
                   <th class="p-3 font-bold">পদবী</th>
                   <th class="p-3 text-center font-bold">মোট সম্পন্ন</th>
-                  <th class="p-3 text-center font-bold">রেডি</th>
                   <th class="p-3 text-center font-bold">চলমান</th>
                   <th class="p-3 text-center font-bold">পেন্ডিং</th>
                   <th class="p-3 text-right font-bold">শিট লিংক</th>
@@ -320,14 +281,14 @@
       </div>
     </section>
 
-    <!-- ================= 2. PRODUCTION PIPELINE ================= -->
+    <!-- ================= 2. PRODUCTION PIPELINE (Instant Month Filter + Platform + Shooting Date) ================= -->
     <section id="tab-pipeline" class="hidden space-y-5">
       <div class="solid-card p-4 sm:p-5 space-y-4 shadow-sm">
         <div class="flex flex-wrap items-center justify-between gap-3 border-b pb-3 dark:border-slate-800">
           <h2 class="text-lg sm:text-xl font-bold text-asf-700 dark:text-white" data-bn="প্রোডাকশন পাইপলাইন" data-en="Production Pipeline">প্রোডাকশন পাইপলাইন</h2>
           <div class="flex flex-wrap items-center gap-2 text-xs">
             <div class="flex items-center gap-1.5 bg-slate-100 dark:bg-slate-800 px-2.5 py-1.5 rounded-xl border">
-              <input type="month" id="pipe-month-filter" onchange="renderPipelineBoard()" class="bg-transparent font-bold focus:outline-none">
+              <input type="month" id="pipe-month-filter" oninput="renderPipelineBoard()" onchange="renderPipelineBoard()" class="bg-transparent font-bold focus:outline-none">
               <button onclick="clearPipelineMonthFilter()" class="px-2 py-0.5 rounded bg-white dark:bg-slate-700 text-[10px] font-bold hover:text-asf-600">সব মাস</button>
             </div>
             <button onclick="setPipelineDisplayMode('sheet')" id="pview-sheet-btn" class="px-3 py-2 rounded-lg font-bold btn-green">মাস্টার শিট</button>
@@ -335,30 +296,17 @@
           </div>
         </div>
 
-        <!-- Stage Filter Pills -->
         <div class="grid grid-cols-2 sm:grid-cols-6 gap-2.5 text-xs font-bold">
-          <button onclick="setPipelineFilter('ALL')" id="pstage-ALL" class="p-2.5 rounded-xl border-2 border-asf-600 bg-emerald-50 dark:bg-slate-800 text-asf-700 dark:text-emerald-300 flex items-center justify-between">
-            <span>সব প্রজেক্ট</span><span id="pipe-count-all" class="px-2 py-0.5 rounded-full bg-asf-700 text-white">0</span>
-          </button>
-          <button onclick="setPipelineFilter('Upcoming')" id="pstage-Upcoming" class="p-2.5 rounded-xl border bg-white dark:bg-slate-900 flex items-center justify-between">
-            <span>আপকামিং</span><span id="pipe-count-up" class="px-2 py-0.5 rounded-full bg-purple-600 text-white">0</span>
-          </button>
-          <button onclick="setPipelineFilter('Running')" id="pstage-Running" class="p-2.5 rounded-xl border bg-white dark:bg-slate-900 flex items-center justify-between">
-            <span>চলমান</span><span id="pipe-count-edit" class="px-2 py-0.5 rounded-full bg-blue-600 text-white">0</span>
-          </button>
-          <button onclick="setPipelineFilter('Pending')" id="pstage-Pending" class="p-2.5 rounded-xl border bg-white dark:bg-slate-900 flex items-center justify-between">
-            <span>পেন্ডিং</span><span id="pipe-count-pend" class="px-2 py-0.5 rounded-full bg-amber-500 text-slate-950">0</span>
-          </button>
-          <button onclick="setPipelineFilter('Ready to Publish')" id="pstage-Ready to Publish" class="p-2.5 rounded-xl border bg-white dark:bg-slate-900 flex items-center justify-between">
-            <span>রেডি</span><span id="pipe-count-ready" class="px-2 py-0.5 rounded-full bg-rose-600 text-white">0</span>
-          </button>
-          <button onclick="setPipelineFilter('Published')" id="pstage-Published" class="p-2.5 rounded-xl border bg-white dark:bg-slate-900 flex items-center justify-between">
-            <span>পাবলিশড</span><span id="pipe-count-done" class="px-2 py-0.5 rounded-full bg-asf-600 text-white">0</span>
-          </button>
+          <button onclick="setPipelineFilter('ALL')" id="pstage-ALL" class="p-2.5 rounded-xl border-2 border-asf-600 bg-emerald-50 dark:bg-slate-800 text-asf-700 dark:text-emerald-300 flex items-center justify-between"><span>সব প্রজেক্ট</span><span id="pipe-count-all" class="px-2 py-0.5 rounded-full bg-asf-700 text-white">0</span></button>
+          <button onclick="setPipelineFilter('Upcoming')" id="pstage-Upcoming" class="p-2.5 rounded-xl border bg-white dark:bg-slate-900 flex items-center justify-between"><span>আপকামিং</span><span id="pipe-count-up" class="px-2 py-0.5 rounded-full bg-purple-600 text-white">0</span></button>
+          <button onclick="setPipelineFilter('Running')" id="pstage-Running" class="p-2.5 rounded-xl border bg-white dark:bg-slate-900 flex items-center justify-between"><span>চলমান</span><span id="pipe-count-edit" class="px-2 py-0.5 rounded-full bg-blue-600 text-white">0</span></button>
+          <button onclick="setPipelineFilter('Pending')" id="pstage-Pending" class="p-2.5 rounded-xl border bg-white dark:bg-slate-900 flex items-center justify-between"><span>পেন্ডিং</span><span id="pipe-count-pend" class="px-2 py-0.5 rounded-full bg-amber-500 text-slate-950">0</span></button>
+          <button onclick="setPipelineFilter('Ready to Publish')" id="pstage-Ready to Publish" class="p-2.5 rounded-xl border bg-white dark:bg-slate-900 flex items-center justify-between"><span>রেডি</span><span id="pipe-count-ready" class="px-2 py-0.5 rounded-full bg-rose-600 text-white">0</span></button>
+          <button onclick="setPipelineFilter('Published')" id="pstage-Published" class="p-2.5 rounded-xl border bg-white dark:bg-slate-900 flex items-center justify-between"><span>পাবলিশড</span><span id="pipe-count-done" class="px-2 py-0.5 rounded-full bg-asf-600 text-white">0</span></button>
         </div>
       </div>
 
-      <!-- MASTER WORKFLOW SHEET TABLE (With Shooting Date before Direction & Only Bottom Add Row Button) -->
+      <!-- MASTER WORKFLOW SHEET TABLE -->
       <div id="pipeline-sheet-container" class="solid-card overflow-hidden shadow-sm">
         <div class="overflow-x-auto">
           <table class="w-full text-left border-collapse text-xs whitespace-nowrap">
@@ -367,23 +315,21 @@
           </table>
         </div>
         <div class="admin-only-block p-3 bg-slate-50 dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800">
-          <button onclick="addBlankPipelineRow()" class="btn-green px-4 py-2 text-xs font-bold flex items-center gap-1.5 shadow-sm">
-            <span>+ নতুন রো যুক্ত করুন</span>
-          </button>
+          <button onclick="addBlankPipelineRow()" class="btn-green px-4 py-2 text-xs font-bold flex items-center gap-1.5 shadow-sm"><span>+ নতুন রো যুক্ত করুন</span></button>
         </div>
       </div>
 
-      <!-- FRESH MINIMAL PROFESSIONAL CARD VIEW (Role-based names + Shooting & Editing Duration Summary) -->
+      <!-- FRESH MINIMAL PROFESSIONAL CARD VIEW -->
       <div id="pipeline-board" class="hidden grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"></div>
     </section>
 
-    <!-- ================= 3. MONTHLY DASHBOARD TAB (100% CLICKABLE) ================= -->
+    <!-- ================= 3. MONTHLY DASHBOARD TAB ================= -->
     <section id="tab-dashboard" class="hidden space-y-6">
       <div class="solid-card p-5 space-y-4 shadow-sm">
         <div class="flex flex-wrap items-center justify-between gap-3 border-b pb-3 dark:border-slate-800">
           <h2 id="dashboard-month-heading" class="text-lg sm:text-xl font-bold">মাসিক ড্যাশবোর্ড</h2>
           <div class="flex flex-wrap items-center gap-2 text-xs">
-            <input type="month" id="filter-month" onchange="renderDashboard()" class="px-3 py-2 rounded-lg border font-bold dark:bg-slate-800">
+            <input type="month" id="filter-month" oninput="renderDashboard()" onchange="renderDashboard()" class="px-3 py-2 rounded-lg border font-bold dark:bg-slate-800">
             <select id="filter-member" onchange="renderDashboard()" class="px-3 py-2 rounded-lg border font-bold dark:bg-slate-800"></select>
             <select id="filter-status" onchange="setDashboardCardFilter(this.value)" class="px-3 py-2 rounded-lg border font-bold dark:bg-slate-800">
               <option value="ALL">সকল অবস্থা</option>
@@ -393,7 +339,7 @@
               <option value="Pending">পেন্ডিং</option>
             </select>
             <button onclick="resetDashboardFilters()" class="px-3 py-2 rounded-lg bg-slate-100 dark:bg-slate-800 font-bold border hover:border-asf-600">রিসেট</button>
-            <button onclick="exportTasksToCSV()" class="btn-green px-3.5 py-2 font-bold">📥 ডাউনলোড</button>
+            <button onclick="exportFilteredDashboardCSV()" class="btn-green px-3.5 py-2 font-bold">📥 ডাউনলোড</button>
           </div>
         </div>
         <div id="dash-visual-summary-chart" class="grid grid-cols-2 lg:grid-cols-4 gap-3.5"></div>
@@ -402,7 +348,7 @@
       <div class="solid-card p-5 space-y-3 shadow-sm">
         <div class="flex items-center justify-between border-b pb-2">
           <h3 class="font-bold text-base">ক্যাটাগরি অনুযায়ী হিসাব</h3>
-          <span id="dash-active-cat-badge" class="hidden text-xs font-bold px-2.5 py-0.5 rounded bg-asf-600 text-white"></span>
+          <span id="dash-active-cat-badge" class="hidden text-xs font-bold px-2.5 py-0.5 rounded bg-asf-600 text-white cursor-pointer"></span>
         </div>
         <div id="dashboard-category-list" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5"></div>
       </div>
@@ -431,11 +377,11 @@
       </div>
     </section>
 
-    <!-- ================= 4. TEAM MEMBERS TAB (3 STATUS BOXES: COMPLETED, RUNNING, PENDING) ================= -->
+    <!-- ================= 4. TEAM MEMBERS TAB ================= -->
     <section id="tab-team" class="hidden space-y-6">
       <div class="solid-card p-5 flex flex-wrap items-center justify-between gap-2 shadow-sm">
         <h2 class="text-lg sm:text-xl font-bold">টিম মেম্বার</h2>
-        <input type="month" id="team-tab-month-filter" onchange="renderTeamSection()" class="px-3 py-1.5 rounded-lg border text-xs font-bold dark:bg-slate-800">
+        <input type="month" id="team-tab-month-filter" oninput="renderTeamSection()" onchange="renderTeamSection()" class="px-3 py-1.5 rounded-lg border text-xs font-bold dark:bg-slate-800">
       </div>
       <div id="full-team-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"></div>
     </section>
@@ -456,7 +402,7 @@
       <div id="full-portfolio-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"></div>
     </section>
 
-    <!-- ================= 6. PROFILE TAB (প্রোফাইল ও অতিরিক্ত কাজ যুক্ত করার প্যানেল) ================= -->
+    <!-- ================= 6. PROFILE TAB (কাজ যুক্ত করুন — No Default Pre-selected Category/Activity) ================= -->
     <section id="tab-profile" class="hidden space-y-6">
       <div class="solid-card p-5 flex flex-wrap items-center justify-between gap-4 shadow-sm">
         <div class="flex items-center gap-3.5">
@@ -480,7 +426,7 @@
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
         <div class="lg:col-span-7 solid-card p-5 space-y-4 shadow-sm">
           <div class="flex justify-between items-center border-b pb-2.5">
-            <h3 class="font-bold text-base text-asf-600">সোশ্যাল মিডিয়া / জরুরি বা অন্যান্য কাজ যুক্ত করুন</h3>
+            <h3 class="font-bold text-base text-asf-600">কাজ যুক্ত করুন</h3>
             <span id="today-date-badge" class="text-xs font-bold text-asf-600"></span>
           </div>
           <form onsubmit="submitDailyTask(event)" class="space-y-3.5 text-xs sm:text-sm">
@@ -531,7 +477,7 @@
       <div class="bg-asf-700 text-white p-5 rounded-2xl flex flex-wrap items-center justify-between gap-3">
         <div>
           <h2 class="text-lg sm:text-xl font-bold">অ্যাডমিন ও ডিরেক্টর কন্ট্রোল প্যানেল</h2>
-          <p class="text-xs text-emerald-200">৯৯% নো-কোড কন্ট্রোল — কলাম, ক্যাটাগরি, পরিকল্পনা, লিংক, মেম্বার ও ব্যানার নিয়ন্ত্রণ</p>
+          <p class="text-xs text-emerald-200">৯৯% নো-কোড কন্ট্রোল — কলাম, ক্যাটাগরি, প্ল্যাটফর্ম, পরিকল্পনা, লিংক ও মেম্বার নিয়ন্ত্রণ</p>
         </div>
         <div class="flex flex-wrap gap-2 text-xs font-bold">
           <button onclick="exportTasksToCSV()" class="bg-white text-asf-700 px-3 py-2 rounded-lg">📥 এক্সেল ব্যাকআপ</button>
@@ -540,7 +486,6 @@
         </div>
       </div>
 
-      <!-- Dynamic Production Tracker Columns (With Reordering ◀ ▶ & Edit) & Categories Manager -->
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div class="solid-card p-5 space-y-3 shadow-sm border-2 border-asf-600/20">
           <div class="flex items-center justify-between border-b pb-2">
@@ -567,7 +512,6 @@
         </div>
       </div>
 
-      <!-- Row 1: Managed Official Channels & Featured Productions -->
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div class="solid-card p-5 space-y-3 shadow-sm">
           <div class="flex items-center justify-between border-b pb-2">
@@ -599,11 +543,10 @@
         </div>
       </div>
 
-      <!-- Row 2: Short Platforms & Core Activities -->
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div class="solid-card p-5 space-y-3 shadow-sm">
           <div class="flex items-center justify-between border-b pb-2">
-            <h3 class="font-bold text-sm text-asf-600">প্ল্যাটফর্ম অপশন</h3>
+            <h3 class="font-bold text-sm text-asf-600">প্ল্যাটফর্ম অপশন (পাইপলাইন ও প্রোফাইলের জন্য)</h3>
             <button onclick="resetShortPlatforms()" class="text-[11px] bg-amber-100 text-amber-900 px-2 py-0.5 rounded font-bold">রিসেট</button>
           </div>
           <div class="flex gap-1.5 text-xs">
@@ -626,10 +569,9 @@
         </div>
       </div>
 
-      <!-- Row 3: Planning (Current, Next 1M, Next 3M) & Meetings -->
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div class="solid-card p-5 space-y-3 shadow-sm">
-          <h3 class="font-bold text-base text-asf-600 border-b pb-2">মাসিক পরিকল্পনা সেটিংস (১নং গত মাসের রিপোর্ট অটোমেটিক আসে)</h3>
+          <h3 class="font-bold text-base text-asf-600 border-b pb-2">মাসিক পরিকল্পনা সেটিংস</h3>
           <form onsubmit="savePlanningSettings(event)" class="space-y-2.5 text-xs">
             <div><label class="font-bold">চলতি মাসের মোট লক্ষ্যমাত্রা</label><input type="number" id="plan-target-count" value="50" class="w-full px-3 py-1.5 rounded border dark:bg-slate-800 font-bold"></div>
             <div><label class="font-bold">২. চলতি মাসের পরিকল্পনা (প্রতি লাইনে ১টি পয়েন্ট)</label><textarea id="plan-current-text" rows="3" class="w-full px-3 py-1.5 rounded border dark:bg-slate-800"></textarea></div>
@@ -654,7 +596,6 @@
         </div>
       </div>
 
-      <!-- Row 4: Team Members & Site Branding CMS -->
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
         <div class="lg:col-span-7 solid-card p-5 space-y-3 shadow-sm">
           <h3 class="font-bold text-base text-asf-600 border-b pb-2">টিম মেম্বার সিরিয়াল (▲ ▼), অনুমোদন, পদবী ও বিবরণী এডিট</h3>
@@ -781,7 +722,6 @@
     </div>
   </div>
 
-  <!-- Auth Modal -->
   <div id="auth-modal" class="fixed inset-0 z-50 bg-slate-950/60 hidden items-center justify-center p-3 sm:p-4">
     <div class="solid-card relative max-w-md w-full p-5 sm:p-6 space-y-4">
       <button onclick="closeAuthModal()" class="absolute top-4 right-4 w-8 h-8 rounded-lg bg-slate-100 dark:bg-slate-800 font-bold">✕</button>
@@ -809,7 +749,7 @@
     </div>
   </div>
 
-  <!-- Member Profile Modal (3 Status Cards: সম্পন্ন, চলমান, পেন্ডিং + Category Boxes + Hidden Task List Until Clicked) -->
+  <!-- Member Profile Modal (With Monthly Report Download Button & 3 Status Boxes) -->
   <div id="member-modal" class="fixed inset-0 z-50 bg-slate-950/65 hidden items-center justify-center p-2 sm:p-4">
     <div class="solid-card relative max-w-4xl w-full p-4 sm:p-6 space-y-4 max-h-[90vh] overflow-y-auto">
       <button onclick="closeMemberModal()" class="absolute top-4 right-4 w-9 h-9 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-red-100 hover:text-red-600 font-bold flex items-center justify-center text-sm">✕</button>
@@ -824,11 +764,11 @@
         </div>
         <div class="flex flex-wrap items-center gap-2">
           <button id="mod-add-port-btn" onclick="openAddPortfolioItemModal()" class="hidden px-3 py-1.5 rounded-lg bg-amber-500 text-slate-950 text-xs font-bold">+ পোর্টফোলিও যুক্ত করুন</button>
-          <input type="month" id="mod-member-month" onchange="refreshOpenedMemberModal()" class="px-3 py-1.5 rounded-lg border text-xs font-bold dark:bg-slate-800">
+          <input type="month" id="mod-member-month" oninput="refreshOpenedMemberModal()" onchange="refreshOpenedMemberModal()" class="px-3 py-1.5 rounded-lg border text-xs font-bold dark:bg-slate-800">
+          <button onclick="downloadOpenedMemberMonthlyCSV()" class="btn-green px-3 py-1.5 text-xs font-bold">📥 রিপোর্ট ডাউনলোড</button>
         </div>
       </div>
 
-      <!-- 3 Interactive Filter Cards (Ready to Publish automatically merged into সম্পন্ন) -->
       <div class="grid grid-cols-3 gap-2.5 sm:gap-3 text-xs">
         <div onclick="setMemberModalStatusFilter('Completed')" id="mcard-Completed" class="ribbon-card rc-green motion-card">
           <p class="text-xl font-extrabold text-asf-700" id="mod-stat-completed">0</p>
@@ -844,7 +784,6 @@
         </div>
       </div>
 
-      <!-- Member Category-Wise Breakdown Boxes inside Profile Modal -->
       <div class="p-4 rounded-2xl bg-slate-50/70 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-800 space-y-2.5">
         <div class="flex items-center justify-between text-xs font-bold text-slate-700 dark:text-slate-200">
           <span id="mod-cat-summary-heading">ক্যাটাগরি সামারি</span>
@@ -853,7 +792,6 @@
         <div id="mod-member-category-pills" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2.5 text-xs"></div>
       </div>
 
-      <!-- Filtered Task List (HIDDEN BY DEFAULT — Opens Only When User Clicks a Card) -->
       <div id="mod-tasks-list-wrapper" class="hidden border-2 border-asf-600/40 rounded-xl p-3.5 space-y-2 bg-emerald-50/30 dark:bg-slate-900/60">
         <div class="flex items-center justify-between border-b pb-2 dark:border-slate-800">
           <h4 id="mod-filtered-list-title" class="font-bold text-xs sm:text-sm text-asf-700 dark:text-emerald-400">কাজের তালিকা</h4>
@@ -867,7 +805,6 @@
         </div>
       </div>
 
-      <!-- 3 Portfolio Sections -->
       <div class="space-y-5 pt-1">
         <div id="mod-photocard-section" class="space-y-2.5 hidden">
           <h4 class="font-bold text-xs sm:text-sm text-asf-600 border-b pb-1">ফটোকার্ড ডিজাইন</h4>
@@ -885,7 +822,6 @@
     </div>
   </div>
 
-  <!-- Add Portfolio Modal -->
   <div id="add-portfolio-item-modal" class="fixed inset-0 z-50 bg-slate-950/60 hidden items-center justify-center p-3 sm:p-4">
     <div class="solid-card relative max-w-md w-full p-5 sm:p-6 space-y-3.5 text-xs">
       <button onclick="document.getElementById('add-portfolio-item-modal').classList.add('hidden')" class="absolute top-4 right-4 w-8 h-8 rounded-lg bg-slate-100 dark:bg-slate-800 font-bold">✕</button>
@@ -907,7 +843,6 @@
     </div>
   </div>
 
-  <!-- Quick Detail Modal -->
   <div id="quick-detail-modal" class="fixed inset-0 z-50 bg-slate-950/60 hidden items-center justify-center p-3 sm:p-4">
     <div class="solid-card relative max-w-2xl w-full p-5 sm:p-6 space-y-3 max-h-[85vh] overflow-y-auto">
       <button onclick="document.getElementById('quick-detail-modal').classList.add('hidden')" class="absolute top-4 right-4 w-8 h-8 rounded-lg bg-slate-100 dark:bg-slate-800 font-bold">✕</button>
@@ -916,7 +851,6 @@
     </div>
   </div>
 
-  <!-- Edit Profile Modal -->
   <div id="edit-profile-modal" class="fixed inset-0 z-50 bg-slate-950/60 hidden items-center justify-center p-3 sm:p-4">
     <div class="solid-card relative max-w-md w-full p-5 sm:p-6 space-y-3 text-xs">
       <button onclick="document.getElementById('edit-profile-modal').classList.add('hidden')" class="absolute top-4 right-4 w-8 h-8 rounded-lg bg-slate-100 dark:bg-slate-800 font-bold">✕</button>
@@ -931,7 +865,6 @@
     </div>
   </div>
 
-  <!-- Lightbox Modal -->
   <div id="image-lightbox-modal" onclick="this.classList.add('hidden')" class="fixed inset-0 z-50 bg-black/85 hidden items-center justify-center p-4 cursor-zoom-out">
     <button onclick="document.getElementById('image-lightbox-modal').classList.add('hidden')" class="absolute top-5 right-5 w-10 h-10 rounded-full bg-white/20 text-white font-bold">✕</button>
     <img id="lightbox-img" src="" class="max-w-full max-h-[90vh] rounded-xl shadow-2xl object-contain">
@@ -975,27 +908,14 @@
 
     const DEFAULT_SHEET_COLUMNS = ["Editing", "Thumbnail/Poster", "Direction", "Camera", "Script", "With Assigned", "Light"];
 
-    // Short, Clean Category Names (Without '— সম্পন্ন' or double language brackets) + 'অন্যান্য'
     const DEFAULT_PORTFOLIO_CATEGORIES = [
-      "হারিয়ে যাওয়া সুন্নাহ",
-      "নাটিকা",
-      "ডকুমেন্টারি",
-      "প্রমো / ওভিসি",
-      "টিভিসি",
-      "নাটিকা স্ক্রিপ্ট",
-      "প্রেস রিলিজ",
-      "জুমার প্রশ্নোত্তর",
-      "শর্টস",
-      "লেকচার",
-      "গ্রাফিক ডিজাইন",
-      "অন্যান্য"
+      "হারিয়ে যাওয়া সুন্নাহ", "নাটিকা", "ডকুমেন্টারি", "প্রমো / ওভিসি", "টিভিসি",
+      "নাটিকা স্ক্রিপ্ট", "প্রেস রিলিজ", "জুমার প্রশ্নোত্তর", "শর্টস", "লেকচার", "গ্রাফিক ডিজাইন", "অন্যান্য"
     ];
 
     const SHORT_PLATFORMS = [
-      "Ahmadullah (FB)", "Ahmadullah (YT)",
-      "As-Sunnah Foundation (FB)", "As-Sunnah Foundation (YT)",
-      "ইসলামী প্রশ্নোত্তর (FB)", "ইসলামী প্রশ্নোত্তর (YT)",
-      "শরয়ী সমাধান (FB)", "শরয়ী সমাধান (YT)",
+      "Ahmadullah (FB)", "Ahmadullah (YT)", "As-Sunnah Foundation (FB)", "As-Sunnah Foundation (YT)",
+      "ইসলামী প্রশ্নোত্তর (FB)", "ইসলামী প্রশ্নোত্তর (YT)", "শরয়ী সমাধান (FB)", "শরয়ী সমাধান (YT)",
       "As-Sunnah (LinkedIn)", "All Platforms"
     ];
 
@@ -1032,10 +952,9 @@
 
     function calcWorkingDays(startStr, endStr) {
       if (!startStr || !endStr) return '';
-      const d1 = new Date(startStr);
-      const d2 = new Date(endStr);
+      const d1 = new Date(startStr), d2 = new Date(endStr);
       if (isNaN(d1) || isNaN(d2)) return '';
-      const diff = Math.round((d2 - d1) / (1000 * 60 * 60 * 24)) + 1;
+      const diff = Math.round((d2 - d1) / 86400000) + 1;
       return diff >= 1 ? diff : 1;
     }
 
@@ -1050,7 +969,6 @@
       return 'Running';
     }
 
-    // Site-wide bucket (keeps 'Ready' separate for Home, Pipeline, and Dashboard)
     function getNormalizedTaskBucket(t) {
       if (t.isPipeline) {
         const st = computeAutoWorkflowStatus(t);
@@ -1065,7 +983,7 @@
       return 'Pending';
     }
 
-    // Personal Member Bucket: Any 'Ready to Publish' or 'Ready' task counts as 'Completed' for the team member!
+    // All 'Ready to Publish' tasks count as 'Completed' in member profiles
     function getMemberPersonalBucket(t) {
       const b = getNormalizedTaskBucket(t);
       if (b === 'Completed' || b === 'Ready') return 'Completed';
@@ -1127,36 +1045,22 @@
       let list = onlyApproved ? window.allMembers.filter(m => m.approved || m.role === 'superadmin') : [...window.allMembers];
       return list.sort((a,b) => (a.sortOrder||999) - (b.sortOrder||999));
     }
-
-    function getMemberBioText(m) {
-      if (m.bio && String(m.bio).trim() !== '') return String(m.bio).trim();
-      return 'দাওয়াহ মিডিয়া প্রোডাকশন ও কন্টেন্ট ম্যানেজমেন্ট।';
-    }
-
+    function getMemberBioText(m) { return (m.bio && String(m.bio).trim() !== '') ? String(m.bio).trim() : 'দাওয়াহ মিডিয়া প্রোডাকশন ও কন্টেন্ট ম্যানেজমেন্ট।'; }
     function isManagerLoggedIn() {
       const p = window.currentUserProfile;
       return Boolean(auth.currentUser && p && (p.role === 'superadmin' || p.role === 'director' || auth.currentUser.email === SUPER_ADMIN_EMAIL));
     }
 
-    // Secret Triple-Click on Logo to Open Admin Panel
     window.handleLogoSecretClick = () => {
       window.logoClickCount++;
       clearTimeout(window.logoClickTimer);
       if (window.logoClickCount >= 3) {
         window.logoClickCount = 0;
-        if (isManagerLoggedIn()) {
-          switchTab('admin');
-          window.showToast("অ্যাডমিন প্যানেল ওপেন হয়েছে!");
-        } else if (!auth.currentUser) {
-          openAuthModal();
-        } else {
-          window.showToast("শুধুমাত্র সুপার অ্যাডমিন ও ডিরেক্টর প্রবেশ করতে পারবেন।");
-        }
+        if (isManagerLoggedIn()) { switchTab('admin'); window.showToast("অ্যাডমিন প্যানেল ওপেন হয়েছে!"); }
+        else if (!auth.currentUser) openAuthModal();
+        else window.showToast("শুধুমাত্র সুপার অ্যাডমিন ও ডিরেক্টর প্রবেশ করতে পারবেন।");
       } else {
-        window.logoClickTimer = setTimeout(() => {
-          if (window.logoClickCount === 1) switchTab('home');
-          window.logoClickCount = 0;
-        }, 380);
+        window.logoClickTimer = setTimeout(() => { if (window.logoClickCount === 1) switchTab('home'); window.logoClickCount = 0; }, 380);
       }
     };
 
@@ -1189,10 +1093,7 @@
       return window.tAct(t.category);
     }
 
-    function cleanProjectTitle(rawTitle) {
-      if (!rawTitle) return '';
-      return String(rawTitle).replace(/^\[.*?\]\s*/, '').replace(/\s*\(শুটিং:.*?\)\s*$/, '').trim();
-    }
+    function cleanProjectTitle(rawTitle) { return rawTitle ? String(rawTitle).replace(/^\[.*?\]\s*/, '').replace(/\s*\(শুটিং:.*?\)\s*$/, '').trim() : ''; }
 
     function cleanCategoryDisplayName(c) {
       if (!c) return 'অন্যান্য';
@@ -1212,7 +1113,6 @@
       const target = cleanCategoryDisplayName(catName).toLowerCase();
       if (!target) return false;
       if (cleanCategoryDisplayName(rawType).toLowerCase() === target) return true;
-
       if (target.includes('হারিয়ে যাওয়া সুন্নাহ')) return rawType.includes('সুন্নাহ') || rawTitle.includes('সুন্নাহ');
       if (target === 'নাটিকা' || target === 'drama' || target === 'short film') return rawType === 'drama' || rawType === 'short film' || rawType.includes('শর্টফিল্ম') || (rawType.includes('নাটিকা') && !rawType.includes('স্ক্রিপ্ট'));
       if (target.includes('নাটিকা স্ক্রিপ্ট')) return rawType.includes('নাটিকা স্ক্রিপ্ট') || (rawType.includes('স্ক্রিপ্ট') && (rawType.includes('নাটিকা') || rawTitle.includes('নাটিকা')));
@@ -1230,22 +1130,16 @@
 
     function getTaskCategoryLabel(t) {
       const cats = window.siteSettings.portfolioCategories || DEFAULT_PORTFOLIO_CATEGORIES;
-      for (const c of cats) {
-        if (matchesContentType(t, c)) return cleanCategoryDisplayName(c);
-      }
+      for (const c of cats) { if (matchesContentType(t, c)) return cleanCategoryDisplayName(c); }
       if (t.productionType && String(t.productionType).trim() !== '') return cleanCategoryDisplayName(t.productionType);
       return cleanCategoryDisplayName(t.category || 'অন্যান্য');
     }
 
-    // Real-time Listeners
     onSnapshot(doc(db, "config", "siteSettings"), (s) => {
       if (s.exists()) {
         const data = s.data();
-        let loadedCats = (data.portfolioCategories && data.portfolioCategories.length > 0)
-          ? data.portfolioCategories.map(cleanCategoryDisplayName)
-          : [...DEFAULT_PORTFOLIO_CATEGORIES];
-        const hasCleanHQ = loadedCats.some(c => c.includes('হারিয়ে যাওয়া সুন্নাহ'));
-        if (!hasCleanHQ) loadedCats = [...DEFAULT_PORTFOLIO_CATEGORIES];
+        let loadedCats = (data.portfolioCategories && data.portfolioCategories.length > 0) ? data.portfolioCategories.map(cleanCategoryDisplayName) : [...DEFAULT_PORTFOLIO_CATEGORIES];
+        if (!loadedCats.some(c => c.includes('হারিয়ে যাওয়া সুন্নাহ'))) loadedCats = [...DEFAULT_PORTFOLIO_CATEGORIES];
         if (!loadedCats.includes("অন্যান্য")) loadedCats.push("অন্যান্য");
         loadedCats = [...new Set(loadedCats)];
 
@@ -1253,8 +1147,7 @@
         if (!loadedActs.includes("অন্যান্য")) loadedActs.push("অন্যান্য");
 
         window.siteSettings = {
-          ...window.siteSettings,
-          ...data,
+          ...window.siteSettings, ...data,
           activities: loadedActs,
           platforms: (data.platforms && data.platforms.length > 0) ? data.platforms.map(formatShortPlatformLabel) : SHORT_PLATFORMS,
           channelLinks: (data.channelLinks && data.channelLinks.length > 0) ? data.channelLinks : DEFAULT_CHANNEL_LINKS,
@@ -1262,17 +1155,14 @@
           portfolioCategories: loadedCats
         };
       }
-      applySiteSettingsUI();
-      populateCleanMemberNamesEverywhere();
+      applySiteSettingsUI(); populateCleanMemberNamesEverywhere();
       renderHomeSection(); renderPipelineBoard(); renderTeamSection(); renderDashboard(); renderAdminPanel(); renderNotifications();
     });
 
     onSnapshot(collection(db, "users"), (snap) => {
       window.allMembers = []; snap.forEach(d => window.allMembers.push({ uid: d.id, ...d.data() }));
-      if (auth.currentUser) window.currentUserProfile = window.allMembers.find(m => m.uid === auth.currentUser.uid) || null;
-      else window.currentUserProfile = null;
-      updateAuthUI();
-      populateCleanMemberNamesEverywhere();
+      window.currentUserProfile = auth.currentUser ? (window.allMembers.find(m => m.uid === auth.currentUser.uid) || null) : null;
+      updateAuthUI(); populateCleanMemberNamesEverywhere();
       renderHomeSection(); renderPipelineBoard(); renderTeamSection(); renderDashboard(); renderAdminPanel();
     });
 
@@ -1324,8 +1214,7 @@
         const uDoc = await getDoc(doc(db, "users", user.uid));
         if (uDoc.exists()) window.currentUserProfile = { uid: user.uid, ...uDoc.data() };
       } else window.currentUserProfile = null;
-      updateAuthUI(); renderPipelineBoard(); renderDashboard(); renderNotifications();
-      handleRouteFromHash();
+      updateAuthUI(); renderPipelineBoard(); renderDashboard(); renderNotifications(); handleRouteFromHash();
     });
 
     function applySiteSettingsUI() {
@@ -1341,24 +1230,23 @@
       const noticeBar = document.getElementById('notice-bar');
       if (s.notice && s.notice.trim() !== "") {
         document.getElementById('notice-text').innerText = `${s.notice}   •   ${s.notice}   •   ${s.notice}`;
-        noticeBar.classList.remove('hidden');
-        noticeBar.classList.add('flex');
-      } else {
-        noticeBar.classList.add('hidden');
-        noticeBar.classList.remove('flex');
-      }
+        noticeBar.classList.remove('hidden'); noticeBar.classList.add('flex');
+      } else { noticeBar.classList.add('hidden'); noticeBar.classList.remove('flex'); }
 
       if (s.creditPhoto) document.getElementById('footer-credit-img').src = s.creditPhoto;
       if (s.creditName) document.getElementById('footer-credit-name').innerText = s.creditName;
       if (s.creditRole) document.getElementById('footer-credit-role').innerText = s.creditRole;
       if (s.creditLinkedin) document.getElementById('footer-credit-link').href = window.cleanUrl(s.creditLinkedin);
 
-      const acts = (s.activities || CORE_ACTIVITIES).map(a => `<option value="${window.clean(a)}">${window.clean(a)}</option>`).join('');
+      // Correction 6: No Default Pre-selected Category or Activity in Profile Form
+      const acts = `<option value="" selected disabled>— নির্বাচন করুন —</option>` + (s.activities || CORE_ACTIVITIES).map(a => `<option value="${window.clean(a)}">${window.clean(a)}</option>`).join('');
       document.getElementById('task-category').innerHTML = acts;
 
-      const cats = (s.portfolioCategories || DEFAULT_PORTFOLIO_CATEGORIES).map(c => `<option value="${window.clean(c)}">${window.clean(c)}</option>`).join('');
-      document.getElementById('port-cat').innerHTML = cats;
-      if (document.getElementById('task-content-type')) document.getElementById('task-content-type').innerHTML = cats;
+      const catsList = (s.portfolioCategories || DEFAULT_PORTFOLIO_CATEGORIES);
+      document.getElementById('port-cat').innerHTML = catsList.map(c => `<option value="${window.clean(c)}">${window.clean(c)}</option>`).join('');
+      if (document.getElementById('task-content-type')) {
+        document.getElementById('task-content-type').innerHTML = `<option value="" selected disabled>— নির্বাচন করুন —</option>` + catsList.map(c => `<option value="${window.clean(c)}">${window.clean(c)}</option>`).join('');
+      }
 
       const shortPlats = (s.platforms || SHORT_PLATFORMS);
       document.getElementById('task-platform-checkboxes').innerHTML = shortPlats.map(p => `
@@ -1371,8 +1259,7 @@
     function populateCleanMemberNamesEverywhere() {
       const members = getSortedMembers(true);
       if (document.getElementById('chat-recipient')) {
-        document.getElementById('chat-recipient').innerHTML = `<option value="ALL">📢 সকল টিম মেম্বার</option>` +
-          members.map(m => `<option value="${m.uid}">👤 ${window.clean(m.name)}</option>`).join('');
+        document.getElementById('chat-recipient').innerHTML = `<option value="ALL">📢 সকল টিম মেম্বার</option>` + members.map(m => `<option value="${m.uid}">👤 ${window.clean(m.name)}</option>`).join('');
       }
     }
 
@@ -1396,14 +1283,10 @@
       }
     }
 
-    window.toggleNotifDropdown = () => {
-      document.getElementById('notif-dropdown').classList.toggle('hidden');
-      document.getElementById('notif-badge').classList.add('hidden');
-    };
+    window.toggleNotifDropdown = () => { document.getElementById('notif-dropdown').classList.toggle('hidden'); document.getElementById('notif-badge').classList.add('hidden'); };
 
     function renderNotifications() {
-      const listEl = document.getElementById('notif-list');
-      const badgeEl = document.getElementById('notif-badge');
+      const listEl = document.getElementById('notif-list'), badgeEl = document.getElementById('notif-badge');
       if (!listEl || !badgeEl) return;
       const myUid = window.currentUserProfile ? window.currentUserProfile.uid : null;
       const items = [];
@@ -1415,33 +1298,24 @@
       if (items.length > 0) {
         badgeEl.innerText = items.length; badgeEl.classList.remove('hidden');
         listEl.innerHTML = items.map(n => `<div onclick="switchTab('${n.tab}');document.getElementById('notif-dropdown').classList.add('hidden')" class="p-2 rounded-lg hover:bg-emerald-50 dark:hover:bg-slate-800 cursor-pointer"><p class="font-bold">${window.clean(n.title)}</p><p class="text-[10px] text-asf-600 font-semibold">${window.clean(n.sub)}</p></div>`).join('');
-      } else {
-        badgeEl.classList.add('hidden'); listEl.innerHTML = `<p class="text-center text-slate-400 py-4">কোনো নোটিফিকেশন নেই।</p>`;
-      }
+      } else { badgeEl.classList.add('hidden'); listEl.innerHTML = `<p class="text-center text-slate-400 py-4">কোনো নোটিফিকেশন নেই।</p>`; }
     }
 
     window.openChatBox = () => {
-      document.getElementById('chat-drawer').classList.remove('hidden');
-      document.getElementById('chat-drawer').classList.add('flex');
-      document.getElementById('chat-unread-badge').classList.add('hidden');
-      document.getElementById('live-msg-toast').classList.add('hidden');
+      document.getElementById('chat-drawer').classList.remove('hidden'); document.getElementById('chat-drawer').classList.add('flex');
+      document.getElementById('chat-unread-badge').classList.add('hidden'); document.getElementById('live-msg-toast').classList.add('hidden');
       renderChatMessages();
     };
     window.sendLiveChatMessage = async (e) => {
       e.preventDefault();
-      const p = window.currentUserProfile;
-      if (!p) return alert("লগইন করুন।");
-      const text = document.getElementById('chat-input').value.trim();
-      const rec = document.getElementById('chat-recipient').value;
+      const p = window.currentUserProfile; if (!p) return alert("লগইন করুন।");
+      const text = document.getElementById('chat-input').value.trim(), rec = document.getElementById('chat-recipient').value;
       if (!text) return;
-      try {
-        await addDoc(collection(db, "messages"), { senderUid: p.uid, senderName: p.name, recipientUid: rec, text, createdAt: new Date().toISOString() });
-        document.getElementById('chat-input').value = '';
-      } catch (err) { alert("মেসেজ পাঠাতে সমস্যা হয়েছে।"); }
+      await addDoc(collection(db, "messages"), { senderUid: p.uid, senderName: p.name, recipientUid: rec, text, createdAt: new Date().toISOString() });
+      document.getElementById('chat-input').value = '';
     };
     function renderChatMessages() {
-      const box = document.getElementById('chat-messages-box');
-      if (!box) return;
+      const box = document.getElementById('chat-messages-box'); if (!box) return;
       const myUid = window.currentUserProfile ? window.currentUserProfile.uid : null;
       const visible = window.allMessages.filter(m => m.recipientUid === 'ALL' || m.recipientUid === myUid || m.senderUid === myUid);
       box.innerHTML = visible.length === 0 ? `<p class="text-center text-slate-400 py-8">কোনো মেসেজ নেই।</p>` : visible.slice(-35).map(m => `
@@ -1462,15 +1336,11 @@
         if (!groupedMap.has(groupKey)) {
           const initialCrew = Array.isArray(t.crewList) && t.crewList.length > 0 ? [...t.crewList] : [{ uid: t.uid, name: t.memberName, role: "প্রোডাকশন" }];
           groupedMap.set(groupKey, { ...t, cleanTitle, groupedIds: [t.id], masterCrew: initialCrew });
-        } else {
-          const existing = groupedMap.get(groupKey);
-          existing.groupedIds.push(t.id);
-        }
+        } else groupedMap.get(groupKey).groupedIds.push(t.id);
       });
       return Array.from(groupedMap.values());
     }
 
-    // Build Clean 3-Box Member Summary Card (সম্পন্ন [includes Ready to Publish], চলমান, পেন্ডিং)
     function buildCleanMemberSummaryCard(m, tasksForMonth) {
       const mTasks = tasksForMonth.filter(t => isMemberInTask(t, m.uid));
       const comp = window.sumQty(mTasks.filter(t => getMemberPersonalBucket(t) === 'Completed'));
@@ -1486,9 +1356,7 @@
                 <p class="text-xs font-bold text-asf-600 dark:text-emerald-400 truncate">${window.clean(m.designation || 'Team Member')}</p>
               </div>
             </div>
-            <p class="text-xs text-slate-600 dark:text-slate-300 bg-slate-50 dark:bg-slate-800/70 p-2.5 rounded-xl line-clamp-2 leading-relaxed">
-              ${window.clean(getMemberBioText(m))}
-            </p>
+            <p class="text-xs text-slate-600 dark:text-slate-300 bg-slate-50 dark:bg-slate-800/70 p-2.5 rounded-xl line-clamp-2 leading-relaxed">${window.clean(getMemberBioText(m))}</p>
           </div>
           <div class="grid grid-cols-3 gap-2 text-center text-[11px] pt-2.5 border-t dark:border-slate-800">
             <div class="bg-emerald-50 dark:bg-slate-800 py-1.5 rounded-lg"><b class="text-asf-600 block text-sm">${comp}</b>সম্পন্ন</div>
@@ -1505,7 +1373,7 @@
       return lines.map(l => `<div class="flex items-start gap-1.5"><span class="text-asf-600 font-bold">•</span><span class="leading-snug font-medium">${window.clean(l.replace(/^[০-৯0-9]+\.\s*/, ''))}</span></div>`).join('');
     }
 
-    // 1. Render Home
+    // 1. Render Home (Correction 1: Prev Month Card only title; Correction 2: 2-Column No-Scroll Category Box Grid)
     window.setHomeTeamView = (mode) => {
       window.homeTeamView = mode;
       document.getElementById('hteam-btn-cards').className = mode === 'cards' ? 'px-3 py-1.5 rounded-lg text-xs font-bold btn-green' : 'px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-200 dark:bg-slate-800';
@@ -1519,7 +1387,7 @@
       const curMonth = getCurrentMonthStr();
       const prevMonth = getPreviousMonthStr();
       const curMonthTasks = window.allTasks.filter(t => t.month === curMonth);
-      const prevMonthTasks = window.allTasks.filter(t => t.month === prevMonth);
+      const prevMonthTasks = window.allTasks.filter(t => t.month === prevMonth && getMemberPersonalBucket(t) === 'Completed');
       const masterProjects = getMasterPipelineProjects();
 
       const compCount = window.sumQty(curMonthTasks.filter(t => getNormalizedTaskBucket(t) === 'Completed'));
@@ -1539,41 +1407,25 @@
       document.getElementById('home-plan-percent').innerText = `${pct}% (${compCount}/${target})`;
       document.getElementById('home-plan-bar').style.width = `${pct}%`;
 
-      // Card 1: Auto Previous Month Report by Category from Database
+      // Correction 1: Only title & badge on outside of Card 1
       document.getElementById('prev-month-report-title').innerText = `১. গত মাসের রিপোর্ট (${window.formatMonthName(prevMonth)})`;
-      const prevCatMap = {};
-      prevMonthTasks.forEach(t => {
-        if (getMemberPersonalBucket(t) === 'Completed') {
-          const cLbl = getTaskCategoryLabel(t);
-          prevCatMap[cLbl] = (prevCatMap[cLbl] || 0) + window.getQty(t);
-        }
-      });
-      const prevEntries = Object.entries(prevCatMap);
-      document.getElementById('home-prev-report-preview').innerHTML = prevEntries.length === 0
-        ? `<p class="text-slate-400">গত মাসে কোনো সম্পন্ন কাজ নেই</p>`
-        : prevEntries.map(([c, cnt]) => `<div class="flex justify-between items-center py-0.5 border-b border-slate-100 dark:border-slate-800"><span class="font-semibold">${window.clean(c)}</span><span class="px-1.5 py-0.2 rounded bg-asf-600 text-white font-bold text-[10px]">${cnt}</span></div>`).join('');
+      document.getElementById('home-prev-total-badge').innerText = `মোট ${window.sumQty(prevMonthTasks)} • দেখুন →`;
 
-      // Cards 2, 3, 4: Clean Bullet Points
       document.getElementById('home-current-plan-preview').innerHTML = formatBulletPointsHtml(s.planCurrentText);
       document.getElementById('home-next1-plan-preview').innerHTML = formatBulletPointsHtml(s.planNext1Text);
       document.getElementById('home-next3-plan-preview').innerHTML = formatBulletPointsHtml(s.planNext3Text);
 
-      // Right Side: Clean Category Summary Table (ক্র. | ক্যাটাগরি | মোট কাজ | সম্পন্ন)
+      // Correction 2: 2-Layer (2-Column) Category Box Grid with Single Count & No Scrollbar
       document.getElementById('content-type-month-badge').innerText = window.formatMonthName(curMonth);
       const contentTypes = s.portfolioCategories || DEFAULT_PORTFOLIO_CATEGORIES;
-
-      document.getElementById('home-content-type-tbody').innerHTML = contentTypes.map((cat, idx) => {
+      document.getElementById('home-content-type-grid').innerHTML = contentTypes.map((cat) => {
         const matchedAll = window.allTasks.filter(t => matchesContentType(t, cat));
-        const totalCat = window.sumQty(matchedAll);
-        const doneCat = window.sumQty(matchedAll.filter(t => getMemberPersonalBucket(t) === 'Completed'));
-
+        const countVal = window.sumQty(matchedAll);
         return `
-          <tr onclick="openCategoryDetailModal('${window.clean(cat)}')" class="hover:bg-emerald-50/70 dark:hover:bg-slate-800/60 cursor-pointer transition">
-            <td class="p-2.5 text-center font-bold text-slate-500">${idx + 1}</td>
-            <td class="p-2.5 font-bold text-slate-800 dark:text-slate-100">${window.clean(cleanCategoryDisplayName(cat))}</td>
-            <td class="p-2.5 text-center font-bold text-blue-600">${totalCat}</td>
-            <td class="p-2.5 text-center font-extrabold text-asf-600 dark:text-emerald-400">${doneCat}</td>
-          </tr>
+          <div onclick="openCategoryDetailModal('${window.clean(cat)}')" class="flex items-center justify-between px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/70 dark:bg-slate-800/60 hover:border-asf-600 motion-card text-xs">
+            <span class="font-bold text-slate-800 dark:text-slate-100 truncate pr-2">${window.clean(cleanCategoryDisplayName(cat))}</span>
+            <span class="px-2.5 py-0.5 rounded-md bg-asf-600 text-white font-extrabold shrink-0">${countVal}</span>
+          </div>
         `;
       }).join('');
 
@@ -1583,7 +1435,6 @@
       document.getElementById('home-worker-summary-tbody').innerHTML = approvedMembers.map((m, idx) => {
         const mTasks = curMonthTasks.filter(t => isMemberInTask(t, m.uid));
         const comp = window.sumQty(mTasks.filter(t => getMemberPersonalBucket(t) === 'Completed'));
-        const rdy = window.sumQty(mTasks.filter(t => getNormalizedTaskBucket(t) === 'Ready'));
         const run = window.sumQty(mTasks.filter(t => getMemberPersonalBucket(t) === 'Running'));
         const pend = window.sumQty(mTasks.filter(t => getMemberPersonalBucket(t) === 'Pending'));
         return `
@@ -1592,7 +1443,6 @@
             <td class="p-3 font-bold flex items-center gap-2.5"><img src="${m.photo}" class="w-8 h-8 rounded-full object-cover border border-asf-600"><span>${window.clean(m.name)}</span></td>
             <td class="p-3 text-xs text-slate-500 font-semibold">${window.clean(m.designation)}</td>
             <td class="p-3 text-center font-extrabold text-asf-600">${comp}</td>
-            <td class="p-3 text-center font-extrabold text-rose-600">${rdy}</td>
             <td class="p-3 text-center font-extrabold text-blue-600">${run}</td>
             <td class="p-3 text-center font-extrabold text-amber-600">${pend}</td>
             <td class="p-3 text-right"><span class="text-blue-600 underline font-bold text-xs">Go to Sheet →</span></td>
@@ -1600,7 +1450,6 @@
         `;
       }).join('');
 
-      // Channels Directory
       const chLinks = s.channelLinks || DEFAULT_CHANNEL_LINKS;
       document.getElementById('home-channel-links-grid').innerHTML = chLinks.map(ch => {
         const isYT = /yt|youtube/i.test(ch.name) || /youtube\.com|youtu\.be/i.test(ch.url);
@@ -1609,10 +1458,7 @@
         const badgeText = isYT ? 'YT' : (isFB ? 'FB' : 'Link');
         return `
           <a href="${window.cleanUrl(ch.url)}" target="_blank" rel="noopener noreferrer" class="p-2.5 sm:p-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/70 dark:bg-slate-900 hover:border-asf-600 motion-card flex items-center justify-between gap-1.5">
-            <div class="flex items-center gap-1.5 min-w-0">
-              <span class="px-1.5 py-0.5 rounded text-[10px] font-bold shrink-0 ${badgeColor}">${badgeText}</span>
-              <span class="text-xs font-bold truncate">${window.clean(ch.name)}</span>
-            </div>
+            <div class="flex items-center gap-1.5 min-w-0"><span class="px-1.5 py-0.5 rounded text-[10px] font-bold shrink-0 ${badgeColor}">${badgeText}</span><span class="text-xs font-bold truncate">${window.clean(ch.name)}</span></div>
             <span class="text-xs font-bold text-slate-400 shrink-0">↗</span>
           </a>
         `;
@@ -1633,11 +1479,8 @@
           `).join('');
     }
 
-    // 2. PRODUCTION PIPELINE (With Shooting Date before Direction & Minimal Role-Based Card View)
-    window.clearPipelineMonthFilter = () => {
-      document.getElementById('pipe-month-filter').value = '';
-      renderPipelineBoard();
-    };
+    // 2. PRODUCTION PIPELINE (Correction 3: Instant Month Filter; Correction 4: Platform Column + Shooting Date)
+    window.clearPipelineMonthFilter = () => { document.getElementById('pipe-month-filter').value = ''; renderPipelineBoard(); };
 
     window.setPipelineDisplayMode = (mode) => {
       window.pipelineDisplayMode = mode;
@@ -1653,11 +1496,7 @@
       window.activePipelineStage = stage;
       ['ALL','Upcoming','Running','Pending','Ready to Publish','Published'].forEach(st => {
         const btn = document.getElementById(`pstage-${st}`);
-        if (btn) {
-          btn.className = st === stage
-            ? "p-2.5 rounded-xl border-2 border-asf-600 bg-emerald-50 dark:bg-slate-800 text-asf-700 dark:text-emerald-300 flex items-center justify-between"
-            : "p-2.5 rounded-xl border bg-white dark:bg-slate-900 flex items-center justify-between";
-        }
+        if (btn) btn.className = st === stage ? "p-2.5 rounded-xl border-2 border-asf-600 bg-emerald-50 dark:bg-slate-800 text-asf-700 dark:text-emerald-300 flex items-center justify-between" : "p-2.5 rounded-xl border bg-white dark:bg-slate-900 flex items-center justify-between";
       });
       renderPipelineBoard();
     };
@@ -1667,118 +1506,77 @@
       const filterMonth = document.getElementById('pipe-month-filter').value;
       const startDate = (filterMonth && filterMonth !== getCurrentMonthStr()) ? `${filterMonth}-01` : getTodayStr();
       const defaultCat = (window.siteSettings.portfolioCategories || DEFAULT_PORTFOLIO_CATEGORIES)[0] || "ডকুমেন্টারি";
+      const defaultPlat = (window.siteSettings.platforms || SHORT_PLATFORMS)[0] || "All Platforms";
 
       const docRef = await addDoc(collection(db, "tasks"), {
-        uid: window.currentUserProfile.uid,
-        crewUids: [],
-        crewList: [],
-        sheetRoles: {},
-        memberName: "অ্যাসাইন করা হয়নি",
-        date: startDate,
-        shootingDate: "",
-        month: startDate.slice(0,7),
-        readyDate: "",
-        publishDate: "",
-        coordApproved: false,
-        finalApproved: false,
-        archiving: "Pending",
-        rating: 0,
-        category: "ভিডিও শুটিং ও ক্যামেরা অপারেশন",
-        productionType: defaultCat,
-        title: "",
-        platform: "All Platforms",
-        status: "Ongoing",
-        isPipeline: true,
-        isMasterProject: true,
-        quantity: 1,
-        createdAt: new Date().toISOString()
+        uid: window.currentUserProfile.uid, crewUids: [], crewList: [], sheetRoles: {},
+        memberName: "অ্যাসাইন করা হয়নি", date: startDate, shootingDate: "", month: startDate.slice(0,7),
+        readyDate: "", publishDate: "", coordApproved: false, finalApproved: false, archiving: "Pending",
+        rating: 0, category: "ভিডিও শুটিং ও ক্যামেরা অপারেশন", productionType: defaultCat,
+        title: "", platform: defaultPlat, status: "Ongoing", isPipeline: true, isMasterProject: true,
+        quantity: 1, createdAt: new Date().toISOString()
       });
       window.showToast("নতুন রো যুক্ত হয়েছে!");
-      setTimeout(() => {
-        const inp = document.getElementById(`title-inp-${docRef.id}`);
-        if (inp) inp.focus();
-      }, 250);
+      setTimeout(() => { const inp = document.getElementById(`title-inp-${docRef.id}`); if (inp) inp.focus(); }, 250);
     };
 
     window.updateSheetField = async (taskId, field, value) => {
       if (!isManagerLoggedIn()) return alert("শুধুমাত্র সুপার অ্যাডমিন বা ডিরেক্টর শিট পরিবর্তন করতে পারবেন।");
       const up = { [field]: value };
       if (field === 'date' && value) up.month = value.slice(0,7);
-      if (field === 'publishDate') {
-        up.status = value ? 'Completed' : 'Ready';
-      } else if (field === 'readyDate' && value) {
-        const t = window.allTasks.find(x => x.id === taskId);
-        if (!t?.publishDate) up.status = 'Ready';
-      }
+      if (field === 'publishDate') up.status = value ? 'Completed' : 'Ready';
+      else if (field === 'readyDate' && value) { const t = window.allTasks.find(x => x.id === taskId); if (!t?.publishDate) up.status = 'Ready'; }
       await updateDoc(doc(db, "tasks", taskId), up);
       window.showToast("আপডেট হয়েছে!");
     };
 
     window.updateSheetRoleColumn = async (taskId, colName, slotIdx, selectedName) => {
-      if (!isManagerLoggedIn()) return alert("শুধুমাত্র সুপার অ্যাডমিন বা ডিরেক্টর দায়িত্ব পরিবর্তন করতে পারবেন।");
-      const t = window.allTasks.find(x => x.id === taskId);
-      if (!t) return;
+      if (!isManagerLoggedIn()) return;
+      const t = window.allTasks.find(x => x.id === taskId); if (!t) return;
       const curRaw = (t.sheetRoles && t.sheetRoles[colName]) ? String(t.sheetRoles[colName]) : "";
       const parts = curRaw ? curRaw.split(',').map(s => s.trim()) : ["", ""];
       parts[slotIdx] = selectedName || "";
-      const cleanedParts = parts.filter(Boolean);
-      const joinedVal = [...new Set(cleanedParts)].join(', ');
+      const joinedVal = [...new Set(parts.filter(Boolean))].join(', ');
 
       const sheetRoles = { ...(t.sheetRoles || {}), [colName]: joinedVal };
-      const crewList = [];
-      const crewUids = [];
-
+      const crewList = [], crewUids = [];
       Object.entries(sheetRoles).forEach(([col, valStr]) => {
         if (!valStr) return;
         String(valStr).split(',').map(s => s.trim()).filter(Boolean).forEach(nameVal => {
           if (nameVal !== 'Others' && nameVal !== 'OutSourcing') {
             const m = window.allMembers.find(x => x.name === nameVal);
-            if (m) {
-              crewUids.push(m.uid);
-              crewList.push({ uid: m.uid, name: m.name, role: col });
-            }
+            if (m) { crewUids.push(m.uid); crewList.push({ uid: m.uid, name: m.name, role: col }); }
           }
         });
       });
-
       const allAssignedNames = [...new Set(Object.values(sheetRoles).flatMap(v => String(v||'').split(',').map(s => s.trim())).filter(Boolean))];
-      await updateDoc(doc(db, "tasks", taskId), {
-        sheetRoles,
-        crewList,
-        crewUids: [...new Set(crewUids)],
-        memberName: allAssignedNames.join(', ') || "Team"
-      });
+      await updateDoc(doc(db, "tasks", taskId), { sheetRoles, crewList, crewUids: [...new Set(crewUids)], memberName: allAssignedNames.join(', ') || "Team" });
       window.showToast(`${colName} আপডেট হয়েছে!`);
     };
 
     window.promptSecondAssignee = async (taskId, colName) => {
       if (!isManagerLoggedIn()) return;
-      const t = window.allTasks.find(x => x.id === taskId);
-      if (!t) return;
+      const t = window.allTasks.find(x => x.id === taskId); if (!t) return;
       const curRaw = (t.sheetRoles && t.sheetRoles[colName]) ? String(t.sheetRoles[colName]) : "";
-      const parts = curRaw ? curRaw.split(',').map(s => s.trim()).filter(Boolean) : [];
-      if (parts.length === 0) return alert("প্রথমে ১ম ড্রপডাউন থেকে একজনকে সিলেক্ট করুন।");
+      if (!curRaw) return alert("প্রথমে ১ম ড্রপডাউন থেকে একজনকে সিলেক্ট করুন।");
       const openSec = document.getElementById(`sec-sel-${taskId}-${colName.replace(/[^a-zA-Z0-9]/g,'')}`);
       if (openSec) openSec.classList.toggle('hidden');
     };
 
     window.deleteMasterProject = async (idsStr) => {
-      if (!isManagerLoggedIn()) return;
-      if (!confirm("আপনি কি এই প্রজেক্টটি মুছে ফেলতে চান?")) return;
+      if (!isManagerLoggedIn() || !confirm("আপনি কি এই প্রজেক্টটি মুছে ফেলতে চান?")) return;
       for (const id of idsStr.split(',')) await deleteDoc(doc(db, "tasks", id));
       window.showToast("প্রজেক্টটি মুছে ফেলা হয়েছে!");
     };
 
-    function renderPipelineBoard() {
+    window.renderPipelineBoard = () => {
       const filterMonth = document.getElementById('pipe-month-filter').value;
       let masterProjects = getMasterPipelineProjects();
 
       if (filterMonth) {
         masterProjects = masterProjects.filter(t => {
-          const m1 = (t.date || '').slice(0,7);
-          const m2 = (t.readyDate || '').slice(0,7);
-          const m3 = (t.publishDate || '').slice(0,7);
-          return m1 === filterMonth || m2 === filterMonth || m3 === filterMonth || t.month === filterMonth;
+          const mStart = (t.date || '').slice(0,7);
+          return mStart === filterMonth || t.month === filterMonth;
         });
       }
 
@@ -1805,6 +1603,7 @@
       const canManage = isManagerLoggedIn();
       const cols = window.siteSettings.sheetColumns || DEFAULT_SHEET_COLUMNS;
       const cats = window.siteSettings.portfolioCategories || DEFAULT_PORTFOLIO_CATEGORIES;
+      const plats = window.siteSettings.platforms || SHORT_PLATFORMS;
       const members = getSortedMembers(true);
 
       const firstCol = cols.slice(0, 1);
@@ -1815,8 +1614,9 @@
         <tr>
           <th class="p-2.5 border-r border-slate-600 text-center">ক্র.</th>
           <th class="p-2.5 border-r border-slate-600">Starting Date</th>
-          <th class="p-2.5 border-r border-slate-600 min-w-[230px]">Content Name</th>
+          <th class="p-2.5 border-r border-slate-600 min-w-[220px]">Content Name</th>
           <th class="p-2.5 border-r border-slate-600">Category</th>
+          <th class="p-2.5 border-r border-slate-600">Platform</th>
           ${firstCol.map(c => `<th class="p-2.5 border-r border-slate-600">${window.clean(c)}</th>`).join('')}
           <th class="p-2.5 border-r border-slate-600">Ready Date</th>
           <th class="p-2.5 border-r border-slate-600">Publish Date</th>
@@ -1839,16 +1639,10 @@
           if (matchedNames.length > 0) curRaw = matchedNames.join(', ');
         }
         const parts = curRaw ? curRaw.split(',').map(s => s.trim()).filter(Boolean) : [];
-        const p1 = parts[0] || "";
-        const p2 = parts[1] || "";
-
-        if (!canManage) {
-          return `<span class="font-bold text-slate-800 dark:text-slate-100 px-1">${curRaw ? window.clean(curRaw) : '—'}</span>`;
-        }
-
+        const p1 = parts[0] || "", p2 = parts[1] || "";
+        if (!canManage) return `<span class="font-bold text-slate-800 dark:text-slate-100 px-1">${curRaw ? window.clean(curRaw) : '—'}</span>`;
         const makeOpts = (selVal) => [`<option value="">—</option>`, ...members.map(m => `<option value="${window.clean(m.name)}" ${selVal === m.name ? 'selected' : ''}>${window.clean(m.name)}</option>`), `<option value="Others" ${selVal === 'Others' ? 'selected' : ''}>Others</option>`, `<option value="OutSourcing" ${selVal === 'OutSourcing' ? 'selected' : ''}>OutSourcing</option>`].join('');
         const safeColId = colName.replace(/[^a-zA-Z0-9]/g,'');
-
         return `
           <div class="space-y-1">
             <div class="flex items-center gap-1">
@@ -1864,7 +1658,7 @@
 
       const sheetTbody = document.getElementById('pipeline-sheet-tbody');
       if (currentItems.length === 0) {
-        sheetTbody.innerHTML = `<tr><td colspan="${14 + cols.length}" class="p-8 text-center text-slate-400 font-bold">কোনো প্রজেক্ট নেই।</td></tr>`;
+        sheetTbody.innerHTML = `<tr><td colspan="${15 + cols.length}" class="p-8 text-center text-slate-400 font-bold">এই মাসে কোনো প্রজেক্ট নেই।</td></tr>`;
       } else {
         sheetTbody.innerHTML = currentItems.map((t, idx) => {
           const endRef = t.readyDate || t.publishDate || "";
@@ -1880,6 +1674,8 @@
           const idsStr = t.groupedIds.join(',');
           const matchedLabel = getTaskCategoryLabel(t);
           const catOpts = cats.map(c => `<option value="${window.clean(c)}" ${(t.productionType === c || matchedLabel === c) ? 'selected' : ''}>${window.clean(c)}</option>`).join('');
+          const curPlat = formatShortPlatformLabel(t.platform || plats[0] || "All Platforms");
+          const platOpts = plats.map(p => `<option value="${window.clean(p)}" ${curPlat === p ? 'selected' : ''}>${window.clean(p)}</option>`).join('');
 
           return `
             <tr class="${rowClass} hover:brightness-95 transition">
@@ -1888,13 +1684,13 @@
                 ${canManage ? `<input type="date" value="${t.date || ''}" onchange="updateSheetField('${t.id}','date',this.value)" class="px-1.5 py-1 rounded border bg-white/95 dark:bg-slate-800 font-bold text-[11px]">` : `<span class="font-bold">${window.formatFullDate(t.date)}</span>`}
               </td>
               <td class="p-2 border-r border-slate-300 dark:border-slate-700 font-bold text-slate-900 dark:text-white">
-                ${canManage
-                  ? `<input id="title-inp-${t.id}" type="text" value="${window.clean(t.cleanTitle)}" placeholder="প্রজেক্টের নাম..." onchange="updateSheetField('${t.id}','title',this.value.trim())" class="w-full min-w-[210px] px-2 py-1 rounded border border-transparent hover:border-slate-300 focus:border-asf-600 bg-white/90 dark:bg-slate-800 font-bold text-xs focus:outline-none">`
-                  : `<span>${window.clean(t.cleanTitle || '—')}</span>`
-                }
+                ${canManage ? `<input id="title-inp-${t.id}" type="text" value="${window.clean(t.cleanTitle)}" placeholder="প্রজেক্টের নাম..." onchange="updateSheetField('${t.id}','title',this.value.trim())" class="w-full min-w-[200px] px-2 py-1 rounded border border-transparent hover:border-slate-300 focus:border-asf-600 bg-white/90 dark:bg-slate-800 font-bold text-xs focus:outline-none">` : `<span>${window.clean(t.cleanTitle || '—')}</span>`}
               </td>
               <td class="p-2 border-r border-slate-300 dark:border-slate-700">
                 ${canManage ? `<select onchange="updateSheetField('${t.id}','productionType',this.value)" class="px-2 py-1 rounded border bg-white/95 dark:bg-slate-800 font-bold text-blue-700 dark:text-blue-300 text-[11px]">${catOpts}</select>` : `<span class="px-2 py-0.5 rounded bg-blue-100 text-blue-800 font-bold text-[11px]">${window.clean(matchedLabel)}</span>`}
+              </td>
+              <td class="p-2 border-r border-slate-300 dark:border-slate-700">
+                ${canManage ? `<select onchange="updateSheetField('${t.id}','platform',this.value)" class="px-2 py-1 rounded border bg-white/95 dark:bg-slate-800 font-bold text-asf-700 dark:text-emerald-300 text-[11px]">${platOpts}</select>` : `<span class="px-2 py-0.5 rounded bg-emerald-100 text-asf-800 font-bold text-[11px]">${window.clean(curPlat)}</span>`}
               </td>
               ${firstCol.map(c => `<td class="p-2 border-r border-slate-300 dark:border-slate-700">${buildRoleCell(t, c)}</td>`).join('')}
               <td class="p-2 border-r border-slate-300 dark:border-slate-700">
@@ -1903,9 +1699,7 @@
               <td class="p-2 border-r border-slate-300 dark:border-slate-700">
                 ${canManage ? `<input type="date" value="${t.publishDate || ''}" onchange="updateSheetField('${t.id}','publishDate',this.value)" class="px-1.5 py-1 rounded border bg-white/95 dark:bg-slate-800 font-bold text-[11px]">` : `<span class="font-bold">${t.publishDate ? window.formatFullDate(t.publishDate) : '—'}</span>`}
               </td>
-              <td class="p-2 border-r border-slate-300 dark:border-slate-700 text-center font-extrabold text-sm text-asf-700 dark:text-emerald-300">
-                ${wDays !== '' ? wDays : '—'}
-              </td>
+              <td class="p-2 border-r border-slate-300 dark:border-slate-700 text-center font-extrabold text-sm text-asf-700 dark:text-emerald-300">${wDays !== '' ? wDays : '—'}</td>
               ${secondCol.map(c => `<td class="p-2 border-r border-slate-300 dark:border-slate-700">${buildRoleCell(t, c)}</td>`).join('')}
               <td class="p-2 border-r border-slate-300 dark:border-slate-700 text-center">
                 ${canManage ? `<input type="checkbox" ${t.coordApproved ? 'checked' : ''} onchange="updateSheetField('${t.id}','coordApproved',this.checked)" class="w-4 h-4 accent-amber-700 cursor-pointer">` : `<span class="font-bold">${t.coordApproved ? '☑️' : '—'}</span>`}
@@ -1918,44 +1712,27 @@
               </td>
               ${remainingCols.map(c => `<td class="p-2 border-r border-slate-300 dark:border-slate-700">${buildRoleCell(t, c)}</td>`).join('')}
               <td class="p-2 border-r border-slate-300 dark:border-slate-700 text-center">
-                ${canManage ? `
-                  <select onchange="updateSheetField('${t.id}','archiving',this.value)" class="px-1.5 py-1 rounded border bg-white/95 dark:bg-slate-800 font-bold text-[11px]">
-                    <option value="Pending" ${t.archiving!=='Done'?'selected':''}>Pending</option>
-                    <option value="Done" ${t.archiving==='Done'?'selected':''}>Done</option>
-                  </select>
-                ` : `<span class="font-bold">${t.archiving === 'Done' ? 'Done ✓' : 'Pending'}</span>`}
+                ${canManage ? `<select onchange="updateSheetField('${t.id}','archiving',this.value)" class="px-1.5 py-1 rounded border bg-white/95 dark:bg-slate-800 font-bold text-[11px]"><option value="Pending" ${t.archiving!=='Done'?'selected':''}>Pending</option><option value="Done" ${t.archiving==='Done'?'selected':''}>Done</option></select>` : `<span class="font-bold">${t.archiving === 'Done' ? 'Done ✓' : 'Pending'}</span>`}
               </td>
               <td class="p-2 border-r border-slate-300 dark:border-slate-700 text-center">
-                ${canManage ? `
-                  <select onchange="updateSheetField('${t.id}','rating',Number(this.value))" class="px-1.5 py-1 rounded border bg-white/95 dark:bg-slate-800 font-bold text-amber-600 text-[11px]">
-                    <option value="0" ${!ratingNum?'selected':''}>—</option>
-                    <option value="5" ${ratingNum===5?'selected':''}>5 ★</option>
-                    <option value="4" ${ratingNum===4?'selected':''}>4 ★</option>
-                    <option value="3" ${ratingNum===3?'selected':''}>3 ★</option>
-                    <option value="2" ${ratingNum===2?'selected':''}>2 ★</option>
-                    <option value="1" ${ratingNum===1?'selected':''}>1 ★</option>
-                  </select>
-                ` : `<span class="text-amber-600 font-bold">${ratingNum ? '★'.repeat(ratingNum) : '—'}</span>`}
+                ${canManage ? `<select onchange="updateSheetField('${t.id}','rating',Number(this.value))" class="px-1.5 py-1 rounded border bg-white/95 dark:bg-slate-800 font-bold text-amber-600 text-[11px]"><option value="0" ${!ratingNum?'selected':''}>—</option><option value="5" ${ratingNum===5?'selected':''}>5 ★</option><option value="4" ${ratingNum===4?'selected':''}>4 ★</option><option value="3" ${ratingNum===3?'selected':''}>3 ★</option><option value="2" ${ratingNum===2?'selected':''}>2 ★</option><option value="1" ${ratingNum===1?'selected':''}>1 ★</option></select>` : `<span class="text-amber-600 font-bold">${ratingNum ? '★'.repeat(ratingNum) : '—'}</span>`}
               </td>
               <td class="p-2 text-center space-x-1">
                 <span class="px-2 py-0.5 rounded font-bold text-[11px] ${autoStatus==='Published'?'bg-emerald-100 text-asf-700':(autoStatus==='Ready to Publish'?'bg-rose-100 text-rose-700':'bg-blue-100 text-blue-700')}">${autoStatus}</span>
-                ${canManage ? `
-                  <button onclick="openEditTaskModal('${t.id}')" class="px-1.5 py-0.5 rounded bg-white dark:bg-slate-800 text-amber-600 font-bold">✎</button>
-                  <button onclick="deleteMasterProject('${idsStr}')" class="px-1.5 py-0.5 rounded bg-white dark:bg-slate-800 text-red-600 font-bold">🗑️</button>
-                ` : ''}
+                ${canManage ? `<button onclick="openEditTaskModal('${t.id}')" class="px-1.5 py-0.5 rounded bg-white dark:bg-slate-800 text-amber-600 font-bold">✎</button><button onclick="deleteMasterProject('${idsStr}')" class="px-1.5 py-0.5 rounded bg-white dark:bg-slate-800 text-red-600 font-bold">🗑️</button>` : ''}
               </td>
             </tr>
           `;
         }).join('');
       }
 
-      // Fresh Minimal Professional Card View (Role-based names + Shooting & Editing Duration Summary)
       const board = document.getElementById('pipeline-board');
-      board.innerHTML = currentItems.map((t, idx) => {
+      board.innerHTML = currentItems.length === 0 ? `<div class="col-span-full solid-card p-8 text-center text-slate-400 font-bold">এই মাসে কোনো প্রজেক্ট নেই।</div>` : currentItems.map((t, idx) => {
         const idsStr = t.groupedIds.join(',');
         const wDays = calcWorkingDays(t.date, t.readyDate || t.publishDate);
         const autoStatus = computeAutoWorkflowStatus(t);
         const catLabel = getTaskCategoryLabel(t);
+        const platLabel = formatShortPlatformLabel(t.platform || "All Platforms");
 
         const roleEntries = [];
         cols.forEach(c => {
@@ -1969,51 +1746,31 @@
 
         const rolesHtml = roleEntries.length === 0
           ? `<p class="text-xs text-slate-400">দায়িত্ব এখনো অ্যাসাইন করা হয়নি</p>`
-          : `<div class="grid grid-cols-2 gap-1.5 pt-1">
-              ${roleEntries.map(r => `
-                <div class="p-2 rounded-lg bg-slate-50 dark:bg-slate-800/70 border border-slate-100 dark:border-slate-800 text-[11px]">
-                  <span class="block text-[10px] font-bold text-asf-600 dark:text-emerald-400">${window.clean(r.role)}</span>
-                  <span class="font-bold text-slate-800 dark:text-slate-100 truncate block" title="${window.clean(r.names)}">${window.clean(r.names)}</span>
-                </div>
-              `).join('')}
-            </div>`;
+          : `<div class="grid grid-cols-2 gap-1.5 pt-1">${roleEntries.map(r => `<div class="p-2 rounded-lg bg-slate-50 dark:bg-slate-800/70 border border-slate-100 dark:border-slate-800 text-[11px]"><span class="block text-[10px] font-bold text-asf-600 dark:text-emerald-400">${window.clean(r.role)}</span><span class="font-bold text-slate-800 dark:text-slate-100 truncate block">${window.clean(r.names)}</span></div>`).join('')}</div>`;
 
-        const statusBadgeStyle = autoStatus === 'Published'
-          ? 'bg-emerald-100 text-asf-700'
-          : (autoStatus === 'Ready to Publish' ? 'bg-rose-100 text-rose-700' : 'bg-blue-100 text-blue-700');
+        const statusBadgeStyle = autoStatus === 'Published' ? 'bg-emerald-100 text-asf-700' : (autoStatus === 'Ready to Publish' ? 'bg-rose-100 text-rose-700' : 'bg-blue-100 text-blue-700');
 
         return `
           <div class="solid-card p-5 shadow-sm motion-card flex flex-col justify-between space-y-4">
             <div class="space-y-3">
               <div class="flex items-center justify-between gap-2">
-                <span class="px-2.5 py-0.5 rounded-md bg-emerald-50 dark:bg-slate-800 text-asf-700 dark:text-emerald-300 border border-emerald-200 dark:border-slate-700 text-xs font-bold">#${idx+1} • ${window.clean(catLabel)}</span>
+                <div class="flex flex-wrap items-center gap-1.5">
+                  <span class="px-2.5 py-0.5 rounded-md bg-emerald-50 dark:bg-slate-800 text-asf-700 dark:text-emerald-300 border border-emerald-200 text-xs font-bold">#${idx+1} • ${window.clean(catLabel)}</span>
+                  <span class="px-2 py-0.5 rounded-md bg-blue-50 dark:bg-slate-800 text-blue-700 dark:text-blue-300 text-[10px] font-bold">${window.clean(platLabel)}</span>
+                </div>
                 <div class="flex items-center gap-1.5">
                   <span class="px-2.5 py-0.5 rounded-md text-[11px] font-bold ${statusBadgeStyle}">${autoStatus}</span>
                   ${canManage ? `<button onclick="openEditTaskModal('${t.id}')" class="text-amber-600 font-bold text-xs">✎</button><button onclick="deleteMasterProject('${idsStr}')" class="text-red-600 font-bold text-xs">🗑️</button>` : ''}
                 </div>
               </div>
               <h4 class="font-bold text-base text-slate-900 dark:text-white leading-snug">${window.clean(t.cleanTitle || 'নামবিহীন প্রজেক্ট')}</h4>
-
-              <!-- Timeline & Editing Duration Summary -->
               <div class="grid grid-cols-3 gap-1.5 p-2.5 rounded-xl bg-emerald-50/50 dark:bg-slate-900 border border-emerald-100 dark:border-slate-800 text-[11px]">
-                <div>
-                  <span class="text-[10px] text-slate-400 block font-semibold">শুটিং তারিখ</span>
-                  <span class="font-bold text-slate-700 dark:text-slate-200">${t.shootingDate ? window.formatFullDate(t.shootingDate) : '—'}</span>
-                </div>
-                <div>
-                  <span class="text-[10px] text-slate-400 block font-semibold">শুরু তারিখ</span>
-                  <span class="font-bold text-slate-700 dark:text-slate-200">${t.date ? window.formatFullDate(t.date) : '—'}</span>
-                </div>
-                <div>
-                  <span class="text-[10px] text-slate-400 block font-semibold">এডিটিং সময়</span>
-                  <span class="font-extrabold text-asf-600 dark:text-emerald-400">${wDays !== '' ? `${wDays} দিন` : 'চলমান'}</span>
-                </div>
+                <div><span class="text-[10px] text-slate-400 block font-semibold">শুটিং তারিখ</span><span class="font-bold">${t.shootingDate ? window.formatFullDate(t.shootingDate) : '—'}</span></div>
+                <div><span class="text-[10px] text-slate-400 block font-semibold">শুরু তারিখ</span><span class="font-bold">${t.date ? window.formatFullDate(t.date) : '—'}</span></div>
+                <div><span class="text-[10px] text-slate-400 block font-semibold">এডিটিং সময়</span><span class="font-extrabold text-asf-600 dark:text-emerald-400">${wDays !== '' ? `${wDays} দিন` : 'চলমান'}</span></div>
               </div>
-
-              <!-- Role-Based Crew Breakdown -->
               ${rolesHtml}
             </div>
-
             <div class="flex items-center justify-between text-xs pt-2.5 border-t dark:border-slate-800">
               <div class="flex gap-2 font-bold text-[11px]">
                 <span class="${t.coordApproved ? 'text-asf-600' : 'text-slate-400'}">${t.coordApproved ? '☑️ Co-Ord' : '⬜ Co-Ord'}</span>
@@ -2024,19 +1781,11 @@
           </div>
         `;
       }).join('');
-    }
-
-    // 3. Monthly Dashboard (100% Clickable Cards & Category Boxes)
-    window.setDashboardCardFilter = (st) => {
-      document.getElementById('filter-status').value = st;
-      renderDashboard();
     };
 
-    window.setDashboardCategoryFilter = (cat) => {
-      window.dashboardCategoryFilter = window.dashboardCategoryFilter === cat ? null : cat;
-      renderDashboard();
-    };
-
+    // 3. Monthly Dashboard
+    window.setDashboardCardFilter = (st) => { document.getElementById('filter-status').value = st; renderDashboard(); };
+    window.setDashboardCategoryFilter = (cat) => { window.dashboardCategoryFilter = window.dashboardCategoryFilter === cat ? null : cat; renderDashboard(); };
     window.resetDashboardFilters = () => {
       document.getElementById('filter-member').value = 'ALL';
       document.getElementById('filter-status').value = 'ALL';
@@ -2058,7 +1807,9 @@
       const stFilter = document.getElementById('filter-status').value || 'ALL';
       const searchQ = (document.getElementById('dash-search-input')?.value || '').toLowerCase().trim();
 
-      const monthTasks = window.allTasks.filter(t => t.month === month);
+      let monthTasks = window.allTasks.filter(t => t.month === month);
+      if (curMem !== 'ALL') monthTasks = monthTasks.filter(t => isMemberInTask(t, curMem));
+
       const done = window.sumQty(monthTasks.filter(t => getNormalizedTaskBucket(t) === 'Completed'));
       const ong = window.sumQty(monthTasks.filter(t => getNormalizedTaskBucket(t) === 'Running'));
       const rdy = window.sumQty(monthTasks.filter(t => getNormalizedTaskBucket(t) === 'Ready'));
@@ -2080,14 +1831,10 @@
       `;
 
       let baseFiltered = monthTasks;
-      if (curMem !== 'ALL') baseFiltered = baseFiltered.filter(t => isMemberInTask(t, curMem));
       if (stFilter !== 'ALL') baseFiltered = baseFiltered.filter(t => getNormalizedTaskBucket(t) === stFilter);
 
       const catCounts = {};
-      baseFiltered.forEach(t => {
-        const lbl = getTaskCategoryLabel(t);
-        catCounts[lbl] = (catCounts[lbl] || 0) + window.getQty(t);
-      });
+      baseFiltered.forEach(t => { const lbl = getTaskCategoryLabel(t); catCounts[lbl] = (catCounts[lbl] || 0) + window.getQty(t); });
 
       const activeBadge = document.getElementById('dash-active-cat-badge');
       if (window.dashboardCategoryFilter) {
@@ -2107,20 +1854,15 @@
       }).join('');
 
       let finalFiltered = baseFiltered;
-      if (window.dashboardCategoryFilter) {
-        finalFiltered = finalFiltered.filter(t => getTaskCategoryLabel(t) === window.dashboardCategoryFilter);
-      }
+      if (window.dashboardCategoryFilter) finalFiltered = finalFiltered.filter(t => getTaskCategoryLabel(t) === window.dashboardCategoryFilter);
       if (searchQ) {
-        finalFiltered = finalFiltered.filter(t =>
-          String(t.title || '').toLowerCase().includes(searchQ) ||
-          String(t.memberName || '').toLowerCase().includes(searchQ) ||
-          getTaskCategoryLabel(t).toLowerCase().includes(searchQ)
-        );
+        finalFiltered = finalFiltered.filter(t => String(t.title || '').toLowerCase().includes(searchQ) || String(t.memberName || '').toLowerCase().includes(searchQ) || getTaskCategoryLabel(t).toLowerCase().includes(searchQ));
       }
+      window.currentDashboardFilteredTasks = finalFiltered;
 
       const isAdmin = isManagerLoggedIn();
       document.getElementById('dashboard-logs-tbody').innerHTML = finalFiltered.length === 0
-        ? `<tr><td colspan="7" class="p-6 text-center text-slate-400 font-bold">কোনো কাজ পাওয়া যায়নি।</td></tr>`
+        ? `<tr><td colspan="7" class="p-6 text-center text-slate-400 font-bold">এই মাসে কোনো কাজ পাওয়া যায়নি।</td></tr>`
         : finalFiltered.map(t => `
           <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50">
             <td class="p-3 font-bold whitespace-nowrap">${window.formatFullDate(t.date)}</td>
@@ -2139,6 +1881,33 @@
             </td>
           </tr>
         `).join('');
+    };
+
+    // Correction 5: Download Individual Member Monthly Report CSV & Filtered Dashboard CSV
+    window.downloadOpenedMemberMonthlyCSV = () => {
+      const uid = window.openedModalMemberId;
+      const m = window.allMembers.find(x => x.uid === uid);
+      if (!m) return;
+      const month = document.getElementById('mod-member-month').value || getCurrentMonthStr();
+      const mTasks = window.allTasks.filter(t => isMemberInTask(t, uid) && t.month === month);
+      if (mTasks.length === 0) return alert("এই মাসে ডাউনলোড করার মতো কোনো কাজ নেই।");
+
+      const rows = mTasks.map((t, i) => `${i+1},${t.date},"${cleanProjectTitle(t.title).replace(/"/g,'""')}","${getTaskCategoryLabel(t)}","${getMemberRoleInTask(t, uid)}","${formatShortPlatformLabel(t.platform||'')}",${window.getQty(t)},${getMemberPersonalBucket(t)}`);
+      const csv = `\uFEFFMember Name: ${m.name},Designation: ${m.designation || ''},Month: ${month}\nSL,Date,Title,Category,Role,Platform,Quantity,Status\n` + rows.join("\n");
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(new Blob([csv], { type: "text/csv;charset=utf-8;" }));
+      a.download = `${m.name.replace(/\s+/g,'_')}_${month}_Report.csv`;
+      a.click();
+    };
+
+    window.exportFilteredDashboardCSV = () => {
+      const list = window.currentDashboardFilteredTasks || window.allTasks;
+      const month = document.getElementById('filter-month').value || getCurrentMonthStr();
+      const csv = "\uFEFFSL,Date,Member,Title,Category,Platform,Quantity,Status\n" + list.map((t, i) => `${i+1},${t.date},"${t.memberName}","${cleanProjectTitle(t.title).replace(/"/g,'""')}","${getTaskCategoryLabel(t)}","${formatShortPlatformLabel(t.platform||'')}",${window.getQty(t)},${getNormalizedTaskBucket(t)}`).join("\n");
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(new Blob([csv], { type: "text/csv;charset=utf-8;" }));
+      a.download = `ASF_Dashboard_${month}.csv`;
+      a.click();
     };
 
     // 4. Team Members Tab
@@ -2165,9 +1934,7 @@
 
     window.renderPortfolio = () => {
       const cats = ['ALL', ...(window.siteSettings.portfolioCategories || DEFAULT_PORTFOLIO_CATEGORIES)];
-      document.getElementById('portfolio-category-pills').innerHTML = cats.map(c => `
-        <button onclick="setPortfolioCategoryFilter('${window.clean(c)}')" class="px-3 py-1 rounded-lg text-xs font-bold ${window.selectedPortfolioCategory === c ? 'btn-green' : 'bg-slate-100 dark:bg-slate-800'}">${c === 'ALL' ? 'সব' : window.clean(cleanCategoryDisplayName(c))}</button>
-      `).join('');
+      document.getElementById('portfolio-category-pills').innerHTML = cats.map(c => `<button onclick="setPortfolioCategoryFilter('${window.clean(c)}')" class="px-3 py-1 rounded-lg text-xs font-bold ${window.selectedPortfolioCategory === c ? 'btn-green' : 'bg-slate-100 dark:bg-slate-800'}">${c === 'ALL' ? 'সব' : window.clean(cleanCategoryDisplayName(c))}</button>`).join('');
 
       const canManage = isManagerLoggedIn();
       const buildCards = (items) => items.length === 0
@@ -2201,25 +1968,24 @@
       document.getElementById('full-portfolio-grid').innerHTML = buildCards(fullList);
     };
 
-    // 6. Profile Tasks (Social Media Executive / Extra or Emergency Tasks)
+    // 6. Profile Tasks (Correction 6: Reset dropdowns to empty placeholder after submit)
     window.submitDailyTask = async (e) => {
       e.preventDefault();
-      const p = window.currentUserProfile;
-      if (!p) return alert("লগইন করুন।");
+      const p = window.currentUserProfile; if (!p) return alert("লগইন করুন।");
+      const cType = document.getElementById('task-content-type').value;
+      const actType = document.getElementById('task-category').value;
+      if (!cType || !actType) return alert("অনুগ্রহ করে ক্যাটাগরি ও কাজের ধরন নির্বাচন করুন।");
+
       const checkedPlats = Array.from(document.querySelectorAll('#task-platform-checkboxes input:checked')).map(i => i.value);
       const platformStr = checkedPlats.length > 0 ? checkedPlats.join(', ') : SHORT_PLATFORMS[0];
       const dt = document.getElementById('task-date').value || getTodayStr();
       const qty = Math.max(1, parseInt(document.getElementById('task-qty').value, 10) || 1);
-      const cType = document.getElementById('task-content-type').value;
 
       await addDoc(collection(db, "tasks"), {
         uid: p.uid, memberName: p.name, memberRole: p.designation,
-        date: dt, month: dt.slice(0,7),
-        category: document.getElementById('task-category').value,
-        productionType: cType,
+        date: dt, month: dt.slice(0,7), category: actType, productionType: cType,
         title: document.getElementById('task-title').value.trim(),
-        platform: platformStr,
-        status: document.getElementById('task-status').value,
+        platform: platformStr, status: document.getElementById('task-status').value,
         isPipeline: false, quantity: qty,
         link: document.getElementById('task-link').value.trim(),
         topViewLink: document.getElementById('task-top-link').value.trim(),
@@ -2227,26 +1993,21 @@
       });
       document.getElementById('task-title').value = '';
       document.getElementById('task-qty').value = '1';
+      document.getElementById('task-content-type').selectedIndex = 0;
+      document.getElementById('task-category').selectedIndex = 0;
       window.showToast(`${qty}টি কাজ সেভ হয়েছে।`);
     };
 
-    window.quickUpdateMyTaskStatus = async (taskId, newSt) => {
-      if (!auth.currentUser) return;
-      await updateDoc(doc(db, "tasks", taskId), { status: newSt });
-      window.showToast("আপডেট হয়েছে!");
-    };
+    window.quickUpdateMyTaskStatus = async (taskId, newSt) => { if (auth.currentUser) { await updateDoc(doc(db, "tasks", taskId), { status: newSt }); window.showToast("আপডেট হয়েছে!"); } };
 
     function renderWorkspaceTasks() {
-      const p = window.currentUserProfile;
-      if (!p) return;
+      const p = window.currentUserProfile; if (!p) return;
       const myActive = window.allTasks.filter(t => isMemberInTask(t, p.uid) && getMemberPersonalBucket(t) !== 'Completed');
       document.getElementById('my-ongoing-list').innerHTML = myActive.length === 0 ? `<p class="text-xs text-slate-400">কোনো চলমান বা পেন্ডিং কাজ নেই।</p>` : myActive.map(t => `
         <div class="p-3 rounded-xl border space-y-1.5 text-xs">
           <div class="flex justify-between font-bold text-asf-600"><span>${window.clean(getTaskCategoryLabel(t))}</span><span>${window.formatFullDate(t.date)}</span></div>
           <p class="font-bold">${window.clean(cleanProjectTitle(t.title))}</p>
-          <div class="flex gap-2 pt-1">
-            <button onclick="quickUpdateMyTaskStatus('${t.id}','Completed')" class="btn-green px-3 py-1 font-bold">সম্পন্ন করুন</button>
-          </div>
+          <button onclick="quickUpdateMyTaskStatus('${t.id}','Completed')" class="btn-green px-3 py-1 font-bold">সম্পন্ন করুন</button>
         </div>
       `).join('');
 
@@ -2264,38 +2025,23 @@
 
     // Member Modal On-Click Expand Logic
     window.setMemberModalStatusFilter = (st) => {
-      window.memberModalStatusFilter = st;
-      window.memberModalCategoryFilter = null;
-      ['Completed','Running','Pending'].forEach(k => {
-        const el = document.getElementById(`mcard-${k}`);
-        if (el) el.classList.toggle('filter-card-active', k === st);
-      });
+      window.memberModalStatusFilter = st; window.memberModalCategoryFilter = null;
+      ['Completed','Running','Pending'].forEach(k => { const el = document.getElementById(`mcard-${k}`); if (el) el.classList.toggle('filter-card-active', k === st); });
       refreshOpenedMemberModal();
     };
-
     window.setMemberModalCategoryFilter = (cat) => {
-      window.memberModalCategoryFilter = cat;
-      window.memberModalStatusFilter = null;
-      ['Completed','Running','Pending'].forEach(k => {
-        const el = document.getElementById(`mcard-${k}`);
-        if (el) el.classList.remove('filter-card-active');
-      });
+      window.memberModalCategoryFilter = cat; window.memberModalStatusFilter = null;
+      ['Completed','Running','Pending'].forEach(k => { const el = document.getElementById(`mcard-${k}`); if (el) el.classList.remove('filter-card-active'); });
       refreshOpenedMemberModal();
     };
-
     window.closeMemberTaskList = () => {
-      window.memberModalStatusFilter = null;
-      window.memberModalCategoryFilter = null;
-      ['Completed','Running','Pending'].forEach(k => {
-        const el = document.getElementById(`mcard-${k}`);
-        if (el) el.classList.remove('filter-card-active');
-      });
+      window.memberModalStatusFilter = null; window.memberModalCategoryFilter = null;
+      ['Completed','Running','Pending'].forEach(k => { const el = document.getElementById(`mcard-${k}`); if (el) el.classList.remove('filter-card-active'); });
       refreshOpenedMemberModal();
     };
 
     window.openEditTaskModal = (taskId) => {
-      const t = window.allTasks.find(x => x.id === taskId);
-      if (!t) return;
+      const t = window.allTasks.find(x => x.id === taskId); if (!t) return;
       document.getElementById('edit-task-id').value = t.id;
       document.getElementById('edit-task-title').value = cleanProjectTitle(t.title);
       document.getElementById('edit-task-date').value = t.date || getTodayStr();
@@ -2307,17 +2053,14 @@
       document.getElementById('edit-task-platform').value = formatShortPlatformLabel(t.platform || "");
       document.getElementById('edit-task-link').value = t.link || "";
       document.getElementById('edit-task-toplink').value = t.topViewLink || "";
-      document.getElementById('edit-task-modal').classList.remove('hidden');
-      document.getElementById('edit-task-modal').classList.add('flex');
+      document.getElementById('edit-task-modal').classList.remove('hidden'); document.getElementById('edit-task-modal').classList.add('flex');
     };
 
     window.saveEditedTask = async (e) => {
       e.preventDefault();
-      const id = document.getElementById('edit-task-id').value;
-      const dt = document.getElementById('edit-task-date').value;
+      const id = document.getElementById('edit-task-id').value, dt = document.getElementById('edit-task-date').value;
       await updateDoc(doc(db, "tasks", id), {
-        title: document.getElementById('edit-task-title').value.trim(),
-        date: dt, month: dt.slice(0,7),
+        title: document.getElementById('edit-task-title').value.trim(), date: dt, month: dt.slice(0,7),
         shootingDate: document.getElementById('edit-task-shoot').value,
         readyDate: document.getElementById('edit-task-ready').value,
         publishDate: document.getElementById('edit-task-pub').value,
@@ -2333,8 +2076,7 @@
 
     window.openImageLightbox = (src) => {
       document.getElementById('lightbox-img').src = src;
-      document.getElementById('image-lightbox-modal').classList.remove('hidden');
-      document.getElementById('image-lightbox-modal').classList.add('flex');
+      document.getElementById('image-lightbox-modal').classList.remove('hidden'); document.getElementById('image-lightbox-modal').classList.add('flex');
     };
 
     window.openCategoryDetailModal = (catName) => {
@@ -2378,14 +2120,11 @@
         document.getElementById('quick-modal-title').innerText = `গত মাসের রিপোর্ট (${window.formatMonthName(prevMonth)})`;
         const prevTasks = window.allTasks.filter(t => t.month === prevMonth && getMemberPersonalBucket(t) === 'Completed');
         const catMap = {};
-        prevTasks.forEach(t => {
-          const c = getTaskCategoryLabel(t);
-          catMap[c] = (catMap[c] || 0) + window.getQty(t);
-        });
+        prevTasks.forEach(t => { const c = getTaskCategoryLabel(t); catMap[c] = (catMap[c] || 0) + window.getQty(t); });
         const entries = Object.entries(catMap);
         document.getElementById('quick-modal-body').innerHTML = entries.length === 0
           ? `<p class="text-center py-6 text-slate-400">গত মাসে কোনো সম্পন্ন কাজ নেই।</p>`
-          : `<div class="space-y-2">${entries.map(([c, cnt]) => `<div class="p-3 rounded-xl bg-slate-50 dark:bg-slate-800 border flex justify-between items-center font-bold"><span>${window.clean(c)}</span><span class="px-2.5 py-0.5 rounded bg-asf-600 text-white">${cnt}</span></div>`).join('')}</div>`;
+          : `<div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">${entries.map(([c, cnt]) => `<div class="p-3 rounded-xl bg-slate-50 dark:bg-slate-800 border flex justify-between items-center font-bold"><span>${window.clean(c)}</span><span class="px-2.5 py-0.5 rounded bg-asf-600 text-white">${cnt}</span></div>`).join('')}</div>`;
       } else {
         const titleMap = { currentPlan: 'চলতি মাসের পরিকল্পনা', nextMonthPlan: 'আগামী মাসের পরিকল্পনা', next3Months: 'আগামী ৩ মাসের পরিকল্পনা' };
         const textMap = { currentPlan: window.siteSettings.planCurrentText, nextMonthPlan: window.siteSettings.planNext1Text, next3Months: window.siteSettings.planNext3Text };
@@ -2397,27 +2136,19 @@
     };
 
     window.openMemberModal = (uid) => {
-      window.openedModalMemberId = uid;
-      window.memberModalStatusFilter = null;
-      window.memberModalCategoryFilter = null;
-      ['Completed','Running','Pending'].forEach(k => {
-        const el = document.getElementById(`mcard-${k}`);
-        if (el) el.classList.remove('filter-card-active');
-      });
-      document.getElementById('member-modal').classList.remove('hidden');
-      document.getElementById('member-modal').classList.add('flex');
+      window.openedModalMemberId = uid; window.memberModalStatusFilter = null; window.memberModalCategoryFilter = null;
+      ['Completed','Running','Pending'].forEach(k => { const el = document.getElementById(`mcard-${k}`); if (el) el.classList.remove('filter-card-active'); });
+      document.getElementById('member-modal').classList.remove('hidden'); document.getElementById('member-modal').classList.add('flex');
       refreshOpenedMemberModal();
     };
     window.closeMemberModal = () => { window.openedModalMemberId = null; document.getElementById('member-modal').classList.add('hidden'); };
 
     window.refreshOpenedMemberModal = () => {
       const uid = window.openedModalMemberId;
-      const m = window.allMembers.find(x => x.uid === uid);
-      if (!m) return;
+      const m = window.allMembers.find(x => x.uid === uid); if (!m) return;
       const canEditPort = Boolean(window.currentUserProfile && (window.currentUserProfile.uid === uid || isManagerLoggedIn()));
       const addPortBtn = document.getElementById('mod-add-port-btn');
-      if (canEditPort) { addPortBtn.classList.remove('hidden'); addPortBtn.classList.add('inline-flex'); }
-      else addPortBtn.classList.add('hidden');
+      if (canEditPort) { addPortBtn.classList.remove('hidden'); addPortBtn.classList.add('inline-flex'); } else addPortBtn.classList.add('hidden');
 
       document.getElementById('mod-member-img').src = m.photo;
       document.getElementById('mod-member-name').innerText = m.name;
@@ -2427,7 +2158,6 @@
       const month = document.getElementById('mod-member-month').value || getCurrentMonthStr();
       const mTasks = window.allTasks.filter(t => isMemberInTask(t, uid) && t.month === month);
 
-      // Personal Member Buckets (Ready to Publish automatically counts as Completed)
       const compList = mTasks.filter(t => getMemberPersonalBucket(t) === 'Completed');
       const runList = mTasks.filter(t => getMemberPersonalBucket(t) === 'Running');
       const pendList = mTasks.filter(t => getMemberPersonalBucket(t) === 'Pending');
@@ -2440,10 +2170,7 @@
       document.getElementById('mod-cat-total-badge').innerText = `মোট: ${window.sumQty(mTasks)}`;
 
       const catCounts = {};
-      mTasks.forEach(t => {
-        const lbl = getTaskCategoryLabel(t);
-        catCounts[lbl] = (catCounts[lbl] || 0) + window.getQty(t);
-      });
+      mTasks.forEach(t => { const lbl = getTaskCategoryLabel(t); catCounts[lbl] = (catCounts[lbl] || 0) + window.getQty(t); });
       const pillsBox = document.getElementById('mod-member-category-pills');
       if (Object.keys(catCounts).length === 0) {
         pillsBox.innerHTML = `<div class="col-span-full text-center py-3 text-slate-400 font-semibold">এই মাসে কোনো কাজ নেই।</div>`;
@@ -2545,18 +2272,12 @@
     };
 
     window.openAddPortfolioItemModal = () => { document.getElementById('add-portfolio-item-modal').classList.remove('hidden'); document.getElementById('add-portfolio-item-modal').classList.add('flex'); toggleMpFields(); };
-    window.toggleMpFields = () => {
-      const type = document.getElementById('mp-type').value;
-      document.getElementById('mp-file-wrap').classList.toggle('hidden', type === 'video');
-    };
+    window.toggleMpFields = () => { document.getElementById('mp-file-wrap').classList.toggle('hidden', document.getElementById('mp-type').value === 'video'); };
     window.saveMemberPortfolioItem = async (e) => {
       e.preventDefault();
-      const p = window.currentUserProfile;
-      if (!p) return alert("লগইন করুন।");
+      const p = window.currentUserProfile; if (!p) return alert("লগইন করুন।");
       const targetUid = window.openedModalMemberId || p.uid;
-      const type = document.getElementById('mp-type').value;
-      const title = document.getElementById('mp-title').value.trim();
-      const link = document.getElementById('mp-link').value.trim();
+      const type = document.getElementById('mp-type').value, title = document.getElementById('mp-title').value.trim(), link = document.getElementById('mp-link').value.trim();
       const file = document.getElementById('mp-image-file').files[0];
       if ((type === 'photocard' || type === 'thumbnail') && !file) return alert("ছবি নির্বাচন করুন।");
       if (type === 'video' && !link) return alert("ভিডিওর লিংক দিন।");
@@ -2568,7 +2289,7 @@
     };
     window.deleteMemberPortfolioItem = async (id) => { if (confirm("মুছে ফেলতে চান?")) await deleteDoc(doc(db, "memberPortfolio", id)); };
 
-    // 7. Admin Panel Rendering & Full No-Code Controls (With Column & Category Reorder)
+    // 7. Admin Panel Rendering & Full No-Code Controls
     function renderAdminPanel() {
       const s = window.siteSettings;
       document.getElementById('plan-target-count').value = s.planTargetCount || 50;
@@ -2621,13 +2342,8 @@
         </div>
       `).join('');
 
-      document.getElementById('admin-platform-tags').innerHTML = (s.platforms || SHORT_PLATFORMS).map(p => `
-        <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-xs font-bold">${window.clean(p)} <button onclick="removePlatform('${window.clean(p)}')" class="text-red-500 ml-1">×</button></span>
-      `).join('');
-
-      document.getElementById('admin-activity-tags').innerHTML = (s.activities || CORE_ACTIVITIES).map(a => `
-        <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-xs font-semibold">${window.clean(a)} <button onclick="removeActivity('${window.clean(a)}')" class="text-red-500 ml-1">×</button></span>
-      `).join('');
+      document.getElementById('admin-platform-tags').innerHTML = (s.platforms || SHORT_PLATFORMS).map(p => `<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-xs font-bold">${window.clean(p)} <button onclick="removePlatform('${window.clean(p)}')" class="text-red-500 ml-1">×</button></span>`).join('');
+      document.getElementById('admin-activity-tags').innerHTML = (s.activities || CORE_ACTIVITIES).map(a => `<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-xs font-semibold">${window.clean(a)} <button onclick="removeActivity('${window.clean(a)}')" class="text-red-500 ml-1">×</button></span>`).join('');
 
       document.getElementById('admin-members-list').innerHTML = getSortedMembers(false).map(m => `
         <div class="p-2.5 rounded-xl border flex flex-wrap items-center justify-between gap-2 text-xs">
@@ -2665,15 +2381,12 @@
       `).join('');
     }
 
-    // Column & Category Reorder + Edit Functions
     window.addNewSheetColumn = async () => {
       if (!isManagerLoggedIn()) return;
-      const val = document.getElementById('new-sheet-col-input').value.trim();
-      if (!val) return;
+      const val = document.getElementById('new-sheet-col-input').value.trim(); if (!val) return;
       const updated = [...new Set([...(window.siteSettings.sheetColumns || DEFAULT_SHEET_COLUMNS), val])];
       await setDoc(doc(db, "config", "siteSettings"), { sheetColumns: updated }, { merge: true });
-      document.getElementById('new-sheet-col-input').value = '';
-      window.showToast("নতুন কলাম যুক্ত হয়েছে!");
+      document.getElementById('new-sheet-col-input').value = ''; window.showToast("নতুন কলাম যুক্ত হয়েছে!");
     };
     window.moveSheetColumn = async (idx, dir) => {
       if (!isManagerLoggedIn()) return;
@@ -2685,8 +2398,7 @@
     window.editSheetColumnName = async (idx) => {
       if (!isManagerLoggedIn()) return;
       const list = [...(window.siteSettings.sheetColumns || DEFAULT_SHEET_COLUMNS)];
-      const n = prompt("কলামের নতুন নাম:", list[idx]);
-      if (!n || !n.trim()) return;
+      const n = prompt("কলামের নতুন নাম:", list[idx]); if (!n || !n.trim()) return;
       list[idx] = n.trim();
       await setDoc(doc(db, "config", "siteSettings"), { sheetColumns: list }, { merge: true });
     };
@@ -2695,20 +2407,14 @@
       const updated = (window.siteSettings.sheetColumns || DEFAULT_SHEET_COLUMNS).filter(x => x !== val);
       await setDoc(doc(db, "config", "siteSettings"), { sheetColumns: updated }, { merge: true });
     };
-    window.resetSheetColumns = async () => {
-      if (!isManagerLoggedIn()) return;
-      await setDoc(doc(db, "config", "siteSettings"), { sheetColumns: DEFAULT_SHEET_COLUMNS }, { merge: true });
-      window.showToast("ডিফল্ট কলাম সেট হয়েছে!");
-    };
+    window.resetSheetColumns = async () => { if (isManagerLoggedIn()) { await setDoc(doc(db, "config", "siteSettings"), { sheetColumns: DEFAULT_SHEET_COLUMNS }, { merge: true }); window.showToast("ডিফল্ট কলাম সেট হয়েছে!"); } };
 
     window.addNewPortfolioCategory = async () => {
       if (!isManagerLoggedIn()) return;
-      const val = cleanCategoryDisplayName(document.getElementById('new-port-cat-input').value.trim());
-      if (!val) return;
+      const val = cleanCategoryDisplayName(document.getElementById('new-port-cat-input').value.trim()); if (!val) return;
       const updated = [...new Set([...(window.siteSettings.portfolioCategories || DEFAULT_PORTFOLIO_CATEGORIES), val])];
       await setDoc(doc(db, "config", "siteSettings"), { portfolioCategories: updated }, { merge: true });
-      document.getElementById('new-port-cat-input').value = '';
-      window.showToast("নতুন ক্যাটাগরি যুক্ত হয়েছে!");
+      document.getElementById('new-port-cat-input').value = ''; window.showToast("নতুন ক্যাটাগরি যুক্ত হয়েছে!");
     };
     window.movePortfolioCategory = async (idx, dir) => {
       if (!isManagerLoggedIn()) return;
@@ -2720,8 +2426,7 @@
     window.editPortfolioCategoryName = async (idx) => {
       if (!isManagerLoggedIn()) return;
       const list = [...(window.siteSettings.portfolioCategories || DEFAULT_PORTFOLIO_CATEGORIES)];
-      const n = prompt("ক্যাটাগরির নতুন নাম:", list[idx]);
-      if (!n || !n.trim()) return;
+      const n = prompt("ক্যাটাগরির নতুন নাম:", list[idx]); if (!n || !n.trim()) return;
       list[idx] = cleanCategoryDisplayName(n.trim());
       await setDoc(doc(db, "config", "siteSettings"), { portfolioCategories: list }, { merge: true });
     };
@@ -2730,37 +2435,27 @@
       const updated = (window.siteSettings.portfolioCategories || DEFAULT_PORTFOLIO_CATEGORIES).filter(x => x !== val);
       await setDoc(doc(db, "config", "siteSettings"), { portfolioCategories: updated }, { merge: true });
     };
-    window.resetPortfolioCategories = async () => {
-      if (!isManagerLoggedIn()) return;
-      await setDoc(doc(db, "config", "siteSettings"), { portfolioCategories: DEFAULT_PORTFOLIO_CATEGORIES }, { merge: true });
-      window.showToast("সংক্ষিপ্ত ক্যাটাগরি তালিকা সেট হয়েছে!");
-    };
+    window.resetPortfolioCategories = async () => { if (isManagerLoggedIn()) { await setDoc(doc(db, "config", "siteSettings"), { portfolioCategories: DEFAULT_PORTFOLIO_CATEGORIES }, { merge: true }); window.showToast("সংক্ষিপ্ত ক্যাটাগরি তালিকা সেট হয়েছে!"); } };
 
     window.editMemberInfoByAdmin = async (uid) => {
       if (!isManagerLoggedIn()) return;
-      const m = window.allMembers.find(x => x.uid === uid);
-      if (!m) return;
-      const newDesig = prompt(`${m.name}-এর পদবী:`, m.designation || "");
-      if (newDesig === null) return;
-      const newBio = prompt(`${m.name}-এর কাজের বিবরণী:`, getMemberBioText(m));
-      if (newBio === null) return;
+      const m = window.allMembers.find(x => x.uid === uid); if (!m) return;
+      const newDesig = prompt(`${m.name}-এর পদবী:`, m.designation || ""); if (newDesig === null) return;
+      const newBio = prompt(`${m.name}-এর কাজের বিবরণী:`, getMemberBioText(m)); if (newBio === null) return;
       await setDoc(doc(db, "users", uid), { designation: newDesig.trim(), bio: newBio.trim() }, { merge: true });
       window.showToast("আপডেট হয়েছে!");
     };
 
     window.addManagedChannelLink = async (e) => {
-      e.preventDefault();
-      if (!isManagerLoggedIn()) return;
-      const name = document.getElementById('ch-link-name').value.trim();
-      const url = document.getElementById('ch-link-url').value.trim();
+      e.preventDefault(); if (!isManagerLoggedIn()) return;
+      const name = document.getElementById('ch-link-name').value.trim(), url = document.getElementById('ch-link-url').value.trim();
       const updated = [...(window.siteSettings.channelLinks || DEFAULT_CHANNEL_LINKS), { name, url }];
       await setDoc(doc(db, "config", "siteSettings"), { channelLinks: updated }, { merge: true });
       document.getElementById('ch-link-name').value = ''; document.getElementById('ch-link-url').value = '';
     };
     window.editManagedChannelLink = async (idx) => {
       if (!isManagerLoggedIn()) return;
-      const list = [...(window.siteSettings.channelLinks || DEFAULT_CHANNEL_LINKS)];
-      const item = list[idx]; if (!item) return;
+      const list = [...(window.siteSettings.channelLinks || DEFAULT_CHANNEL_LINKS)], item = list[idx]; if (!item) return;
       const n = prompt("নাম:", item.name); if (n === null) return;
       const u = prompt("লিংক:", item.url); if (u === null) return;
       list[idx] = { name: n.trim(), url: u.trim() };
@@ -2802,8 +2497,7 @@
     };
 
     window.saveSiteSettings = async (e) => {
-      e.preventDefault();
-      if (!isManagerLoggedIn()) return;
+      e.preventDefault(); if (!isManagerLoggedIn()) return;
       const updates = {
         title: document.getElementById('set-title').value.trim(),
         subtitle: document.getElementById('set-subtitle').value.trim(),
@@ -2816,8 +2510,7 @@
         creditRole: document.getElementById('set-credit-role').value.trim(),
         creditLinkedin: document.getElementById('set-credit-linkedin').value.trim()
       };
-      const logoFile = document.getElementById('set-logo-file').files[0];
-      const creditFile = document.getElementById('set-credit-photo').files[0];
+      const logoFile = document.getElementById('set-logo-file').files[0], creditFile = document.getElementById('set-credit-photo').files[0];
       if (logoFile) updates.logo = await compressImg(logoFile, 220);
       if (creditFile) updates.creditPhoto = await compressImg(creditFile, 220);
       await setDoc(doc(db, "config", "siteSettings"), updates, { merge: true });
@@ -2837,8 +2530,7 @@
     window.deleteMemberProfile = async (uid) => { if (isManagerLoggedIn() && confirm("মুছে ফেলতে চান?")) await deleteDoc(doc(db, "users", uid)); };
 
     window.savePlanningSettings = async (e) => {
-      e.preventDefault();
-      if (!isManagerLoggedIn()) return;
+      e.preventDefault(); if (!isManagerLoggedIn()) return;
       await setDoc(doc(db, "config", "siteSettings"), {
         planTargetCount: parseInt(document.getElementById('plan-target-count').value)||50,
         planCurrentText: document.getElementById('plan-current-text').value.trim(),
@@ -2848,13 +2540,10 @@
       window.showToast("পরিকল্পনা সেভ হয়েছে!");
     };
     window.addMeetingRecord = async (e) => {
-      e.preventDefault();
-      if (!isManagerLoggedIn()) return;
+      e.preventDefault(); if (!isManagerLoggedIn()) return;
       await addDoc(collection(db, "meetings"), {
-        title: document.getElementById('meet-title').value.trim(),
-        date: document.getElementById('meet-date').value,
-        agenda: document.getElementById('meet-agenda').value.trim(),
-        decisions: document.getElementById('meet-decisions').value.trim(),
+        title: document.getElementById('meet-title').value.trim(), date: document.getElementById('meet-date').value,
+        agenda: document.getElementById('meet-agenda').value.trim(), decisions: document.getElementById('meet-decisions').value.trim(),
         createdAt: new Date().toISOString()
       });
       e.target.reset();
@@ -2862,13 +2551,10 @@
     window.deleteMeetingRecord = async (id) => { if (isManagerLoggedIn() && confirm("মুছে ফেলতে চান?")) await deleteDoc(doc(db, "meetings", id)); };
 
     window.addPortfolioVideo = async (e) => {
-      e.preventDefault();
-      if (!isManagerLoggedIn()) return;
+      e.preventDefault(); if (!isManagerLoggedIn()) return;
       await addDoc(collection(db, "portfolio"), {
-        title: document.getElementById('port-title').value.trim(),
-        url: document.getElementById('port-url').value.trim(),
-        category: document.getElementById('port-cat').value,
-        popular: document.getElementById('port-popular').checked,
+        title: document.getElementById('port-title').value.trim(), url: document.getElementById('port-url').value.trim(),
+        category: document.getElementById('port-cat').value, popular: document.getElementById('port-popular').checked,
         month: getCurrentMonthStr(), createdAt: new Date().toISOString()
       });
       e.target.reset(); window.showToast("যুক্ত হয়েছে!");
@@ -2916,9 +2602,7 @@
     };
     window.handleSignup = async (e) => {
       e.preventDefault();
-      const name = document.getElementById('reg-name').value.trim();
-      const email = document.getElementById('reg-email').value.trim().toLowerCase();
-      const pass = document.getElementById('reg-pass').value;
+      const name = document.getElementById('reg-name').value.trim(), email = document.getElementById('reg-email').value.trim().toLowerCase(), pass = document.getElementById('reg-pass').value;
       const photo = await compressImg(document.getElementById('reg-photo').files[0], 260) || `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=006837&color=fff`;
       const isSuper = email === SUPER_ADMIN_EMAIL;
       const cred = await createUserWithEmailAndPassword(auth, email, pass);
@@ -2936,24 +2620,16 @@
       document.getElementById('edit-prof-name').value = p.name || "";
       document.getElementById('edit-prof-desig').value = p.designation || "";
       document.getElementById('edit-prof-bio').value = p.bio || "";
-      document.getElementById('edit-profile-modal').classList.remove('hidden');
-      document.getElementById('edit-profile-modal').classList.add('flex');
+      document.getElementById('edit-profile-modal').classList.remove('hidden'); document.getElementById('edit-profile-modal').classList.add('flex');
     };
     window.saveProfileChanges = async (e) => {
       e.preventDefault();
-      const up = {
-        name: document.getElementById('edit-prof-name').value.trim(),
-        designation: document.getElementById('edit-prof-desig').value.trim(),
-        bio: document.getElementById('edit-prof-bio').value.trim()
-      };
-      const f = document.getElementById('edit-prof-photo').files[0];
-      if (f) up.photo = await compressImg(f, 260);
+      const up = { name: document.getElementById('edit-prof-name').value.trim(), designation: document.getElementById('edit-prof-desig').value.trim(), bio: document.getElementById('edit-prof-bio').value.trim() };
+      const f = document.getElementById('edit-prof-photo').files[0]; if (f) up.photo = await compressImg(f, 260);
       await setDoc(doc(db, "users", window.currentUserProfile.uid), up, { merge: true });
-      document.getElementById('edit-profile-modal').classList.add('hidden');
-      window.showToast("আপডেট হয়েছে!");
+      document.getElementById('edit-profile-modal').classList.add('hidden'); window.showToast("আপডেট হয়েছে!");
     };
 
-    // Smart URL Hash Routing (#home, #pipeline, #dashboard, #team, #portfolio, #profile, #admin)
     window.switchTab = (t, skipHash = false) => {
       if (t === 'workspace') t = 'profile';
       if (t === 'profile' && !auth.currentUser) { openAuthModal(); return; }
@@ -2963,19 +2639,13 @@
         return;
       }
       ['home','pipeline','dashboard','team','portfolio','profile','admin'].forEach(k => {
-        const sec = document.getElementById(`tab-${k}`);
-        if (sec) sec.classList.add('hidden');
-        const b = document.getElementById(`nav-${k}`);
-        if(b) { b.classList.remove('font-bold','text-asf-600','border-b-2','border-asf-600'); b.classList.add('font-semibold','text-slate-700','dark:text-slate-300'); }
-        const mb = document.getElementById(`mnav-${k}`);
-        if(mb) { mb.classList.remove('text-asf-600'); mb.classList.add('text-slate-500'); }
+        const sec = document.getElementById(`tab-${k}`); if (sec) sec.classList.add('hidden');
+        const b = document.getElementById(`nav-${k}`); if(b) { b.classList.remove('font-bold','text-asf-600','border-b-2','border-asf-600'); b.classList.add('font-semibold','text-slate-700','dark:text-slate-300'); }
+        const mb = document.getElementById(`mnav-${k}`); if(mb) { mb.classList.remove('text-asf-600'); mb.classList.add('text-slate-500'); }
       });
-      const targetSec = document.getElementById(`tab-${t}`);
-      if (targetSec) targetSec.classList.remove('hidden');
-      const ab = document.getElementById(`nav-${t}`);
-      if(ab) { ab.classList.remove('font-semibold','text-slate-700','dark:text-slate-300'); ab.classList.add('font-bold','text-asf-600','border-b-2','border-asf-600'); }
-      const mab = document.getElementById(`mnav-${t}`);
-      if(mab) { mab.classList.remove('text-slate-500'); mab.classList.add('text-asf-600'); }
+      const targetSec = document.getElementById(`tab-${t}`); if (targetSec) targetSec.classList.remove('hidden');
+      const ab = document.getElementById(`nav-${t}`); if(ab) { ab.classList.remove('font-semibold','text-slate-700','dark:text-slate-300'); ab.classList.add('font-bold','text-asf-600','border-b-2','border-asf-600'); }
+      const mab = document.getElementById(`mnav-${t}`); if(mab) { mab.classList.remove('text-slate-500'); mab.classList.add('text-asf-600'); }
 
       if (!skipHash) {
         const newHash = t === 'home' ? '#home' : `#${t}`;
@@ -2986,9 +2656,7 @@
 
     function handleRouteFromHash() {
       const rawHash = (window.location.hash || '').replace(/^#\/?/, '').trim().toLowerCase();
-      if (['home','pipeline','dashboard','team','portfolio','profile','admin'].includes(rawHash)) {
-        window.switchTab(rawHash, true);
-      }
+      if (['home','pipeline','dashboard','team','portfolio','profile','admin'].includes(rawHash)) window.switchTab(rawHash, true);
     }
     window.addEventListener('hashchange', handleRouteFromHash);
 
@@ -3002,16 +2670,14 @@
     };
     window.triggerAppInstall = () => alert("মোবাইলের ব্রাউজার মেনু (⋮) থেকে 'Add to Home screen' বা 'Install App' সিলেক্ট করুন।");
     window.exportTasksToCSV = () => {
-      const csv = "\uFEFFSL,StartDate,ShootingDate,ContentName,Category,ReadyDate,PublishDate,WorkingDays,Members,Quantity,Status\n" + window.allTasks.map((t, i) => `${i+1},${t.date},${t.shootingDate||''},"${cleanProjectTitle(t.title)}","${getTaskCategoryLabel(t)}",${t.readyDate||''},${t.publishDate||''},${calcWorkingDays(t.date,t.readyDate||t.publishDate)},"${t.memberName}",${window.getQty(t)},${getNormalizedTaskBucket(t)}`).join("\n");
+      const csv = "\uFEFFSL,StartDate,ShootingDate,ContentName,Category,Platform,ReadyDate,PublishDate,WorkingDays,Members,Quantity,Status\n" + window.allTasks.map((t, i) => `${i+1},${t.date},${t.shootingDate||''},"${cleanProjectTitle(t.title).replace(/"/g,'""')}","${getTaskCategoryLabel(t)}","${formatShortPlatformLabel(t.platform||'')}",${t.readyDate||''},${t.publishDate||''},${calcWorkingDays(t.date,t.readyDate||t.publishDate)},"${t.memberName}",${window.getQty(t)},${getNormalizedTaskBucket(t)}`).join("\n");
       const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([csv],{type:"text/csv"})); a.download = "ASF_Report.csv"; a.click();
     };
     window.downloadFullJSONBackup = () => {
       const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([JSON.stringify({tasks:window.allTasks,members:window.allMembers,settings:window.siteSettings},null,2)],{type:"application/json"})); a.download = "ASF_Backup.json"; a.click();
     };
 
-    updateAuthUI();
-    applySiteSettingsUI();
-    handleRouteFromHash();
+    updateAuthUI(); applySiteSettingsUI(); handleRouteFromHash();
   </script>
 </body>
 </html>
