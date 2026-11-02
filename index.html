@@ -5,7 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <meta name="theme-color" content="#083823">
   <title>ASF Dawah Media | As-Sunnah Foundation</title>
-  <link id="favicon" rel="icon" type="image/png" href="https://assunnahfoundation.org/assets/images/logo.png">
+  <!-- Built-in SVG Favicon Fallback + Dynamic Logo Favicon -->
+  <link id="favicon" rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%23006837'/><text x='50%' y='54%' dominant-baseline='middle' text-anchor='middle' fill='white' font-family='sans-serif' font-weight='bold' font-size='44'>ASF</text></svg>">
+  <link id="apple-touch-favicon" rel="apple-touch-icon" href="https://assunnahfoundation.org/assets/images/logo.png">
   <link rel="preload" href="./Bornomala-Regular.ttf" as="font" type="font/ttf" crossorigin>
   <link rel="preload" href="./Bornomala-Bold.ttf" as="font" type="font/ttf" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -91,14 +93,18 @@
         <button onclick="toggleLanguage()" id="lang-btn" class="px-2 sm:px-2.5 py-1.5 text-[11px] sm:text-xs font-bold rounded-lg bg-slate-100 dark:bg-slate-800 border">EN</button>
         <button onclick="toggleTheme()" class="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-slate-100 dark:bg-slate-800 border text-xs flex items-center justify-center">🌙</button>
 
+        <!-- Smart Notification Dropdown with Clear All -->
         <div class="relative">
           <button onclick="toggleNotifDropdown()" class="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-slate-100 dark:bg-slate-800 border text-xs relative flex items-center justify-center">
             🔔<span id="notif-badge" class="hidden absolute -top-1 -right-1 w-4 h-4 rounded-full bg-red-600 text-white text-[9px] font-bold flex items-center justify-center">0</span>
           </button>
           <div id="notif-dropdown" class="hidden fixed sm:absolute right-2 sm:right-0 top-16 sm:top-auto sm:mt-2 w-[92vw] max-w-xs sm:w-80 solid-card shadow-2xl border-2 border-asf-600 z-50 overflow-hidden">
             <div class="bg-asf-700 text-white px-3.5 py-2.5 flex items-center justify-between text-xs font-bold">
-              <span>🔔 নোটিফিকেশন</span>
-              <button onclick="document.getElementById('notif-dropdown').classList.add('hidden')" class="text-white">✕</button>
+              <span>🔔 জরুরি নোটিফিকেশন</span>
+              <div class="flex items-center gap-2">
+                <button onclick="dismissAllNotifications()" class="text-[10px] bg-emerald-800 hover:bg-emerald-900 px-2 py-0.5 rounded text-emerald-100">সব মুছুন</button>
+                <button onclick="document.getElementById('notif-dropdown').classList.add('hidden')" class="text-white">✕</button>
+              </div>
             </div>
             <div id="notif-list" class="max-h-64 overflow-y-auto divide-y dark:divide-slate-800 text-xs p-2 space-y-1"></div>
           </div>
@@ -166,59 +172,47 @@
         </div>
       </div>
 
-      <!-- Left: Monthly Planning & Right: 2-Column Category Grid -->
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
-        <div class="lg:col-span-6 solid-card p-5 space-y-4 shadow-sm flex flex-col justify-between">
-          <div class="space-y-4">
-            <div class="flex justify-between items-center border-b pb-2.5 dark:border-slate-800">
-              <h3 class="font-bold text-base text-asf-700 dark:text-emerald-400" data-bn="মাসিক পরিকল্পনা ও রিপোর্ট" data-en="Monthly Planning">মাসিক পরিকল্পনা ও রিপোর্ট</h3>
-              <button onclick="switchTab('pipeline')" class="px-3 py-1 rounded-lg bg-emerald-50 dark:bg-slate-800 text-xs font-bold text-asf-600 border border-asf-600/30 hover:bg-asf-600 hover:text-white transition" data-bn="ওয়ার্কফ্লো →" data-en="Workflow →">ওয়ার্কফ্লো →</button>
+      <!-- Left: Monthly Planning (Slim Report Card at Bottom with Month Picker & Download) & Right: Current Month Category Grid -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+        <div class="lg:col-span-6 solid-card p-5 space-y-4 shadow-sm">
+          <div class="flex justify-between items-center border-b pb-2.5 dark:border-slate-800">
+            <h3 class="font-bold text-base text-asf-700 dark:text-emerald-400" data-bn="মাসিক পরিকল্পনা ও রিপোর্ট" data-en="Monthly Planning">মাসিক পরিকল্পনা ও রিপোর্ট</h3>
+            <button onclick="switchTab('pipeline')" class="px-3 py-1 rounded-lg bg-emerald-50 dark:bg-slate-800 text-xs font-bold text-asf-600 border border-asf-600/30 hover:bg-asf-600 hover:text-white transition" data-bn="ওয়ার্কফ্লো →" data-en="Workflow →">ওয়ার্কফ্লো →</button>
+          </div>
+
+          <div class="bg-emerald-50/70 dark:bg-slate-800 p-3.5 rounded-xl border border-emerald-200 dark:border-slate-700 space-y-1.5">
+            <div class="flex justify-between text-xs font-bold">
+              <span data-bn="চলতি মাসের লক্ষ্যমাত্রা বাস্তবায়ন" data-en="Current Month Progress">চলতি মাসের লক্ষ্যমাত্রা বাস্তবায়ন</span>
+              <span id="home-plan-percent" class="text-asf-600">0%</span>
             </div>
-            <div class="bg-emerald-50/70 dark:bg-slate-800 p-3.5 rounded-xl border border-emerald-200 dark:border-slate-700 space-y-1.5">
-              <div class="flex justify-between text-xs font-bold">
-                <span data-bn="চলতি মাসের লক্ষ্যমাত্রা বাস্তবায়ন" data-en="Current Month Progress">চলতি মাসের লক্ষ্যমাত্রা বাস্তবায়ন</span>
-                <span id="home-plan-percent" class="text-asf-600">0%</span>
-              </div>
-              <div class="w-full h-2.5 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
-                <div id="home-plan-bar" class="h-full bg-asf-600 rounded-full" style="width:0%"></div>
-              </div>
+            <div class="w-full h-2.5 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
+              <div id="home-plan-bar" class="h-full bg-asf-600 rounded-full" style="width:0%"></div>
             </div>
+          </div>
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
-              <div onclick="openPlanningDetailModal('prevMonthReport')" class="p-4 rounded-xl border border-emerald-200 dark:border-emerald-800 hover:border-asf-600 motion-card bg-emerald-50/50 dark:bg-slate-800/50 flex flex-col justify-center">
-                <div class="flex items-center justify-between">
-                  <p class="font-bold text-sm text-asf-700 dark:text-emerald-400" id="prev-month-report-title">১. গত মাসের রিপোর্ট</p>
-                  <span class="px-2.5 py-1 rounded-lg bg-asf-600 text-white font-bold text-[11px]" id="home-prev-total-badge">দেখুন →</span>
-                </div>
-              </div>
+          <!-- Planning Boxes Grid (Current Month, Next Month + Any Admin Custom Boxes; 3-Months Removed) -->
+          <div id="home-planning-boxes-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs select-text"></div>
 
-              <div onclick="openPlanningDetailModal('currentPlan')" class="p-3.5 rounded-xl border hover:border-blue-600 motion-card bg-slate-50/60 dark:bg-slate-800/40">
-                <p class="font-bold text-blue-600 mb-1.5 border-b pb-1">২. চলতি মাসের পরিকল্পনা</p>
-                <div id="home-current-plan-preview" class="space-y-1 text-slate-700 dark:text-slate-300"></div>
-              </div>
-
-              <div onclick="openPlanningDetailModal('nextMonthPlan')" class="p-3.5 rounded-xl border hover:border-purple-600 motion-card bg-slate-50/60 dark:bg-slate-800/40">
-                <p class="font-bold text-purple-600 mb-1.5 border-b pb-1">৩. আগামী মাসের পরিকল্পনা</p>
-                <div id="home-next1-plan-preview" class="space-y-1 text-slate-700 dark:text-slate-300"></div>
-              </div>
-
-              <div onclick="openPlanningDetailModal('next3Months')" class="p-3.5 rounded-xl border hover:border-amber-600 motion-card bg-slate-50/60 dark:bg-slate-800/40">
-                <p class="font-bold text-amber-600 mb-1.5 border-b pb-1">৪. আগামী ৩ মাসের পরিকল্পনা</p>
-                <div id="home-next3-plan-preview" class="space-y-1 text-slate-700 dark:text-slate-300"></div>
-              </div>
+          <!-- Slim Report Bar at the Bottom with Month Selector, View Details & Download -->
+          <div class="p-3.5 rounded-xl border-2 border-emerald-200 dark:border-emerald-800 bg-emerald-50/60 dark:bg-slate-800/70 flex flex-wrap items-center justify-between gap-2.5 text-xs">
+            <div class="flex items-center gap-2">
+              <span class="font-bold text-asf-700 dark:text-emerald-300">📊 মাসিক রিপোর্ট:</span>
+              <input type="month" id="home-report-month-picker" oninput="updateHomeReportBar()" onchange="updateHomeReportBar()" class="px-2 py-1 rounded-lg border bg-white dark:bg-slate-900 font-bold text-xs focus:outline-none">
+            </div>
+            <div class="flex items-center gap-1.5">
+              <button onclick="openPlanningDetailModal('monthReport')" class="px-3 py-1.5 rounded-lg bg-asf-600 hover:bg-asf-700 text-white font-bold transition" id="home-prev-total-badge">মোট 0 • দেখুন →</button>
+              <button onclick="downloadHomeSelectedMonthReportCSV()" class="px-2.5 py-1.5 rounded-lg bg-white dark:bg-slate-900 border border-asf-600 text-asf-700 dark:text-emerald-300 font-bold hover:bg-emerald-50 transition" title="রিপোর্ট ডাউনলোড">📥 ডাউনলোড</button>
             </div>
           </div>
         </div>
 
-        <!-- Right Side: 2-Layer Category Box Grid -->
-        <div class="lg:col-span-6 solid-card p-5 space-y-3.5 shadow-sm flex flex-col justify-between">
-          <div class="space-y-3.5">
-            <div class="flex justify-between items-center border-b pb-2.5 dark:border-slate-800">
-              <h3 class="font-bold text-base text-asf-700 dark:text-emerald-400" data-bn="ক্যাটাগরি অনুযায়ী প্রোডাকশন" data-en="Content Type">ক্যাটাগরি অনুযায়ী প্রোডাকশন</h3>
-              <span id="content-type-month-badge" class="text-[11px] font-bold px-2.5 py-0.5 rounded bg-emerald-100 text-asf-700"></span>
-            </div>
-            <div id="home-content-type-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-2.5"></div>
+        <!-- Right Side: Current Month Only Category Grid (Clickable + Copyable Text) -->
+        <div class="lg:col-span-6 solid-card p-5 space-y-3.5 shadow-sm select-text">
+          <div class="flex justify-between items-center border-b pb-2.5 dark:border-slate-800">
+            <h3 class="font-bold text-base text-asf-700 dark:text-emerald-400" data-bn="ক্যাটাগরি অনুযায়ী প্রোডাকশন" data-en="Content Type">ক্যাটাগরি অনুযায়ী প্রোডাকশন</h3>
+            <span id="content-type-month-badge" class="text-[11px] font-bold px-2.5 py-0.5 rounded bg-emerald-100 text-asf-700"></span>
           </div>
+          <div id="home-content-type-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 select-text"></div>
         </div>
       </div>
 
@@ -280,12 +274,16 @@
       </div>
     </section>
 
-    <!-- ================= 2. PRODUCTION PIPELINE ================= -->
+    <!-- ================= 2. PRODUCTION PIPELINE (With Carry-Forward Toggle) ================= -->
     <section id="tab-pipeline" class="hidden space-y-5">
       <div class="solid-card p-4 sm:p-5 space-y-4 shadow-sm">
         <div class="flex flex-wrap items-center justify-between gap-3 border-b pb-3 dark:border-slate-800">
           <h2 class="text-lg sm:text-xl font-bold text-asf-700 dark:text-white" data-bn="প্রোডাকশন পাইপলাইন" data-en="Production Pipeline">প্রোডাকশন পাইপলাইন</h2>
           <div class="flex flex-wrap items-center gap-2 text-xs">
+            <label class="flex items-center gap-1.5 bg-emerald-50 dark:bg-slate-800 px-2.5 py-1.5 rounded-xl border border-emerald-200 dark:border-slate-700 font-bold text-asf-700 dark:text-emerald-300 cursor-pointer">
+              <input type="checkbox" id="pipe-carry-forward" checked onchange="renderPipelineBoard()" class="accent-asf-600 rounded">
+              <span>বিগত মাসের অমীমাংসিতসহ</span>
+            </label>
             <div class="flex items-center gap-1.5 bg-slate-100 dark:bg-slate-800 px-2.5 py-1.5 rounded-xl border">
               <input type="month" id="pipe-month-filter" oninput="renderPipelineBoard()" onchange="renderPipelineBoard()" class="bg-transparent font-bold focus:outline-none">
               <button onclick="clearPipelineMonthFilter()" class="px-2 py-0.5 rounded bg-white dark:bg-slate-700 text-[10px] font-bold hover:text-asf-600">সব মাস</button>
@@ -344,12 +342,12 @@
         <div id="dash-visual-summary-chart" class="grid grid-cols-2 lg:grid-cols-4 gap-3.5"></div>
       </div>
 
-      <div class="solid-card p-5 space-y-3 shadow-sm">
+      <div class="solid-card p-5 space-y-3 shadow-sm select-text">
         <div class="flex items-center justify-between border-b pb-2">
           <h3 class="font-bold text-base">ক্যাটাগরি অনুযায়ী হিসাব</h3>
           <span id="dash-active-cat-badge" class="hidden text-xs font-bold px-2.5 py-0.5 rounded bg-asf-600 text-white cursor-pointer"></span>
         </div>
-        <div id="dashboard-category-list" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5"></div>
+        <div id="dashboard-category-list" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5 select-text"></div>
       </div>
 
       <div class="solid-card overflow-hidden shadow-sm">
@@ -401,7 +399,7 @@
       <div id="full-portfolio-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"></div>
     </section>
 
-    <!-- ================= 6. PROFILE TAB (কাজ যুক্ত করুন — Blank Selects with Only Arrow) ================= -->
+    <!-- ================= 6. PROFILE TAB (কাজ যুক্ত করুন — Only Category & Title, No Redundant 'কাজের ধরন') ================= -->
     <section id="tab-profile" class="hidden space-y-6">
       <div class="solid-card p-5 flex flex-wrap items-center justify-between gap-4 shadow-sm">
         <div class="flex items-center gap-3.5">
@@ -429,10 +427,9 @@
             <span id="today-date-badge" class="text-xs font-bold text-asf-600"></span>
           </div>
           <form onsubmit="submitDailyTask(event)" class="space-y-3.5 text-xs sm:text-sm">
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-              <div><label class="block text-xs font-bold mb-1">ক্যাটাগরি *</label><select id="task-content-type" required class="w-full px-3 py-2 rounded-lg border dark:bg-slate-800 font-bold bg-white"></select></div>
-              <div><label class="block text-xs font-bold mb-1">কাজের ধরন *</label><select id="task-category" required class="w-full px-3 py-2 rounded-lg border dark:bg-slate-800 font-bold bg-white"></select></div>
-              <div><label class="block text-xs font-bold mb-1">শিরোনাম *</label><input type="text" id="task-title" required class="w-full px-3 py-2 rounded-lg border dark:bg-slate-800"></div>
+            <div class="grid grid-cols-1 sm:grid-cols-12 gap-3">
+              <div class="sm:col-span-5"><label class="block text-xs font-bold mb-1">ক্যাটাগরি *</label><select id="task-content-type" required class="w-full px-3 py-2 rounded-lg border dark:bg-slate-800 font-bold bg-white"></select></div>
+              <div class="sm:col-span-7"><label class="block text-xs font-bold mb-1">শিরোনাম *</label><input type="text" id="task-title" required class="w-full px-3 py-2 rounded-lg border dark:bg-slate-800"></div>
             </div>
             <div>
               <label class="block text-xs font-bold mb-1 text-asf-600">প্ল্যাটফর্ম</label>
@@ -485,29 +482,41 @@
         </div>
       </div>
 
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div class="solid-card p-5 space-y-3 shadow-sm border-2 border-asf-600/20">
           <div class="flex items-center justify-between border-b pb-2">
-            <h3 class="font-bold text-sm text-asf-600">পাইপলাইন কলাম নিয়ন্ত্রণ (নতুন যোগ ও আগে-পিছে ◀ ▶)</h3>
-            <button onclick="resetSheetColumns()" class="text-[11px] bg-amber-100 text-amber-900 px-2 py-0.5 rounded font-bold">ডিফল্ট কলাম</button>
+            <h3 class="font-bold text-sm text-asf-600">পাইপলাইন কলাম (◀ ▶)</h3>
+            <button onclick="resetSheetColumns()" class="text-[11px] bg-amber-100 text-amber-900 px-2 py-0.5 rounded font-bold">ডিফল্ট</button>
           </div>
           <div class="flex gap-1.5 text-xs">
             <input type="text" id="new-sheet-col-input" placeholder="নতুন কলামের নাম..." class="flex-grow px-2.5 py-1.5 rounded-lg border dark:bg-slate-800">
             <button onclick="addNewSheetColumn()" class="btn-green px-3 py-1.5 font-bold">+ যুক্ত</button>
           </div>
-          <div id="admin-sheet-col-tags" class="flex flex-wrap gap-2 pt-1"></div>
+          <div id="admin-sheet-col-tags" class="flex flex-wrap gap-1.5 pt-1"></div>
         </div>
 
         <div class="solid-card p-5 space-y-3 shadow-sm border-2 border-asf-600/20">
           <div class="flex items-center justify-between border-b pb-2">
-            <h3 class="font-bold text-sm text-asf-600">ক্যাটাগরি নিয়ন্ত্রণ (সংক্ষিপ্ত নাম, যোগ-বিয়োগ ও সিরিয়াল ▲ ▼)</h3>
-            <button onclick="resetPortfolioCategories()" class="text-[11px] bg-amber-100 text-amber-900 px-2 py-0.5 rounded font-bold">ডিফল্ট ক্যাটাগরি</button>
+            <h3 class="font-bold text-sm text-asf-600">ক্যাটাগরি নিয়ন্ত্রণ (▲ ▼)</h3>
+            <button onclick="resetPortfolioCategories()" class="text-[11px] bg-amber-100 text-amber-900 px-2 py-0.5 rounded font-bold">ডিফল্ট</button>
           </div>
           <div class="flex gap-1.5 text-xs">
             <input type="text" id="new-port-cat-input" placeholder="নতুন ক্যাটাগরি..." class="flex-grow px-2.5 py-1.5 rounded-lg border dark:bg-slate-800">
             <button onclick="addNewPortfolioCategory()" class="btn-green px-3 py-1.5 font-bold">+ যুক্ত</button>
           </div>
-          <div id="admin-port-cat-tags" class="space-y-1.5 max-h-48 overflow-y-auto pt-1"></div>
+          <div id="admin-port-cat-tags" class="space-y-1.5 max-h-44 overflow-y-auto pt-1"></div>
+        </div>
+
+        <div class="solid-card p-5 space-y-3 shadow-sm border-2 border-asf-600/20">
+          <div class="flex items-center justify-between border-b pb-2">
+            <h3 class="font-bold text-sm text-asf-600">প্ল্যাটফর্ম অপশন</h3>
+            <button onclick="resetShortPlatforms()" class="text-[11px] bg-amber-100 text-amber-900 px-2 py-0.5 rounded font-bold">ডিফল্ট</button>
+          </div>
+          <div class="flex gap-1.5 text-xs">
+            <input type="text" id="new-platform-input" placeholder="নতুন প্ল্যাটফর্ম..." class="flex-grow px-2.5 py-1.5 rounded-lg border dark:bg-slate-800">
+            <button onclick="addNewPlatform()" class="btn-green px-3 py-1.5 font-bold">+ যুক্ত</button>
+          </div>
+          <div id="admin-platform-tags" class="flex flex-wrap gap-1.5 max-h-44 overflow-y-auto pt-1"></div>
         </div>
       </div>
 
@@ -545,37 +554,14 @@
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div class="solid-card p-5 space-y-3 shadow-sm">
           <div class="flex items-center justify-between border-b pb-2">
-            <h3 class="font-bold text-sm text-asf-600">প্ল্যাটফর্ম অপশন (পাইপলাইন ও প্রোফাইলের জন্য)</h3>
-            <button onclick="resetShortPlatforms()" class="text-[11px] bg-amber-100 text-amber-900 px-2 py-0.5 rounded font-bold">রিসেট</button>
+            <h3 class="font-bold text-base text-asf-600">মাসিক পরিকল্পনা ও কাস্টম ঘর সেটিংস</h3>
+            <button type="button" onclick="addCustomPlanningBox()" class="px-2.5 py-1 rounded-lg bg-emerald-100 text-asf-700 text-xs font-bold">+ নতুন পরিকল্পনার ঘর</button>
           </div>
-          <div class="flex gap-1.5 text-xs">
-            <input type="text" id="new-platform-input" placeholder="নতুন প্ল্যাটফর্ম..." class="flex-grow px-2.5 py-1.5 rounded-lg border dark:bg-slate-800">
-            <button onclick="addNewPlatform()" class="btn-green px-3 py-1.5 font-bold">+ যুক্ত</button>
-          </div>
-          <div id="admin-platform-tags" class="flex flex-wrap gap-1.5 max-h-40 overflow-y-auto pt-1"></div>
-        </div>
-
-        <div class="solid-card p-5 space-y-3 shadow-sm">
-          <div class="flex items-center justify-between border-b pb-2">
-            <h3 class="font-bold text-sm text-asf-600">কাজের ধরন (Activities)</h3>
-            <button onclick="resetCoreActivities()" class="text-[11px] bg-amber-100 text-amber-900 px-2 py-0.5 rounded font-bold">ডিফল্ট</button>
-          </div>
-          <div class="flex gap-1.5 text-xs">
-            <input type="text" id="new-activity-input" placeholder="নতুন কাজের ধরন..." class="flex-grow px-2.5 py-1.5 rounded-lg border dark:bg-slate-800">
-            <button onclick="addNewActivity()" class="btn-green px-3 py-1.5 font-bold">+ যুক্ত</button>
-          </div>
-          <div id="admin-activity-tags" class="flex flex-wrap gap-1.5 max-h-40 overflow-y-auto pt-1"></div>
-        </div>
-      </div>
-
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <div class="solid-card p-5 space-y-3 shadow-sm">
-          <h3 class="font-bold text-base text-asf-600 border-b pb-2">মাসিক পরিকল্পনা সেটিংস</h3>
           <form onsubmit="savePlanningSettings(event)" class="space-y-2.5 text-xs">
             <div><label class="font-bold">চলতি মাসের মোট লক্ষ্যমাত্রা</label><input type="number" id="plan-target-count" value="50" class="w-full px-3 py-1.5 rounded border dark:bg-slate-800 font-bold"></div>
-            <div><label class="font-bold">২. চলতি মাসের পরিকল্পনা (প্রতি লাইনে ১টি পয়েন্ট)</label><textarea id="plan-current-text" rows="3" class="w-full px-3 py-1.5 rounded border dark:bg-slate-800"></textarea></div>
-            <div><label class="font-bold">৩. আগামী মাসের পরিকল্পনা (প্রতি লাইনে ১টি পয়েন্ট)</label><textarea id="plan-next1-text" rows="3" class="w-full px-3 py-1.5 rounded border dark:bg-slate-800"></textarea></div>
-            <div><label class="font-bold">৪. আগামী ৩ মাসের পরিকল্পনা (প্রতি লাইনে ১টি পয়েন্ট)</label><textarea id="plan-next3-text" rows="3" class="w-full px-3 py-1.5 rounded border dark:bg-slate-800"></textarea></div>
+            <div><label class="font-bold">চলতি মাসের পরিকল্পনা (প্রতি লাইনে ১টি পয়েন্ট)</label><textarea id="plan-current-text" rows="3" class="w-full px-3 py-1.5 rounded border dark:bg-slate-800"></textarea></div>
+            <div><label class="font-bold">আগামী মাসের পরিকল্পনা (প্রতি লাইনে ১টি পয়েন্ট)</label><textarea id="plan-next1-text" rows="3" class="w-full px-3 py-1.5 rounded border dark:bg-slate-800"></textarea></div>
+            <div id="admin-custom-plan-boxes-list" class="space-y-2 pt-1"></div>
             <button type="submit" class="btn-green w-full py-2 font-bold">পরিকল্পনা সেভ করুন</button>
           </form>
         </div>
@@ -602,7 +588,7 @@
         </div>
 
         <div class="lg:col-span-5 solid-card p-5 space-y-3 shadow-sm">
-          <h3 class="font-bold text-base text-asf-600 border-b pb-2">সাইট ব্যানার, নোটিশ ও কন্ট্রিবিউটর সেটিংস</h3>
+          <h3 class="font-bold text-base text-asf-600 border-b pb-2">সাইট ব্যানার, লোগো (Favicon) ও সেটিংস</h3>
           <form onsubmit="saveSiteSettings(event)" class="space-y-2 text-xs">
             <div class="grid grid-cols-2 gap-2">
               <div><label class="font-bold">সাইটের নাম</label><input type="text" id="set-title" class="w-full px-2.5 py-1.5 rounded border dark:bg-slate-800"></div>
@@ -621,7 +607,7 @@
             </div>
             <div><label class="font-bold">Contributor লিংক</label><input type="url" id="set-credit-linkedin" class="w-full px-2.5 py-1.5 rounded border dark:bg-slate-800"></div>
             <div class="grid grid-cols-2 gap-2">
-              <div><label class="font-bold">লোগো</label><input type="file" id="set-logo-file" accept="image/*" class="w-full text-[10px]"></div>
+              <div><label class="font-bold">লোগো ও Favicon</label><input type="file" id="set-logo-file" accept="image/*" class="w-full text-[10px]"></div>
               <div><label class="font-bold">Contributor ছবি</label><input type="file" id="set-credit-photo" accept="image/*" class="w-full text-[10px]"></div>
             </div>
             <button type="submit" class="btn-green w-full py-2.5 font-bold mt-2">সেভ করুন</button>
@@ -782,15 +768,15 @@
         </div>
       </div>
 
-      <div class="p-4 rounded-2xl bg-slate-50/70 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-800 space-y-2.5">
+      <div class="p-4 rounded-2xl bg-slate-50/70 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-800 space-y-2.5 select-text">
         <div class="flex items-center justify-between text-xs font-bold text-slate-700 dark:text-slate-200">
           <span id="mod-cat-summary-heading">ক্যাটাগরি সামারি</span>
           <span id="mod-cat-total-badge" class="text-asf-700 dark:text-emerald-400">মোট: 0</span>
         </div>
-        <div id="mod-member-category-pills" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2.5 text-xs"></div>
+        <div id="mod-member-category-pills" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2.5 text-xs select-text"></div>
       </div>
 
-      <div id="mod-tasks-list-wrapper" class="hidden border-2 border-asf-600/40 rounded-xl p-3.5 space-y-2 bg-emerald-50/30 dark:bg-slate-900/60">
+      <div id="mod-tasks-list-wrapper" class="hidden border-2 border-asf-600/40 rounded-xl p-3.5 space-y-2 bg-emerald-50/30 dark:bg-slate-900/60 select-text">
         <div class="flex items-center justify-between border-b pb-2 dark:border-slate-800">
           <h4 id="mod-filtered-list-title" class="font-bold text-xs sm:text-sm text-asf-700 dark:text-emerald-400">কাজের তালিকা</h4>
           <div class="flex items-center gap-2">
@@ -841,10 +827,14 @@
     </div>
   </div>
 
+  <!-- Quick Detail / Monthly Report Modal -->
   <div id="quick-detail-modal" class="fixed inset-0 z-50 bg-slate-950/60 hidden items-center justify-center p-3 sm:p-4">
-    <div class="solid-card relative max-w-2xl w-full p-5 sm:p-6 space-y-3 max-h-[85vh] overflow-y-auto">
+    <div class="solid-card relative max-w-2xl w-full p-5 sm:p-6 space-y-3 max-h-[85vh] overflow-y-auto select-text">
       <button onclick="document.getElementById('quick-detail-modal').classList.add('hidden')" class="absolute top-4 right-4 w-8 h-8 rounded-lg bg-slate-100 dark:bg-slate-800 font-bold">✕</button>
-      <h3 id="quick-modal-title" class="font-bold text-base text-asf-600 border-b pb-2 pr-8"></h3>
+      <div class="flex flex-wrap items-center justify-between gap-2 border-b pb-2 pr-10">
+        <h3 id="quick-modal-title" class="font-bold text-base text-asf-600"></h3>
+        <div id="quick-modal-actions" class="flex items-center gap-2"></div>
+      </div>
       <div id="quick-modal-body" class="space-y-2 text-xs select-text"></div>
     </div>
   </div>
@@ -867,8 +857,6 @@
     <button onclick="document.getElementById('image-lightbox-modal').classList.add('hidden')" class="absolute top-5 right-5 w-10 h-10 rounded-full bg-white/20 text-white font-bold">✕</button>
     <img id="lightbox-img" src="" class="max-w-full max-h-[90vh] rounded-xl shadow-2xl object-contain">
   </div>
-
-  <!-- ================= FIREBASE & APPLICATION LOGIC ================= -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
     import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
@@ -895,26 +883,17 @@
     window.getQty = (t) => Math.max(1, parseInt(t?.quantity, 10) || 1);
     window.sumQty = (list) => (list || []).reduce((acc, t) => acc + window.getQty(t), 0);
 
-    const CORE_ACTIVITIES = [
-      "টিম ম্যানেজমেন্ট ও কাজের তদারকি", "কোয়ালিটি কন্ট্রোল ও ফাইনাল রিভিউ",
-      "সোশ্যাল মিডিয়া কন্টেন্ট পাবলিশিং ও পেজ ম্যানেজমেন্ট", "টাইটেল, ক্যাপশন ও কপিরাইটিং",
-      "কপিরাইট ও রাইটস ম্যানেজার সমাধান", "স্ক্রিপ্ট রাইটিং ও গবেষণা",
-      "ভিডিও শুটিং ও ক্যামেরা অপারেশন", "লং ভিডিও ও লেকচার এডিটিং",
-      "শর্টস ও রিলস এডিটিং", "ডকুমেন্টারি ও ওভিসি এডিটিং",
-      "গ্রাফিক ডিজাইন, থাম্বনেইল ও ফটোকার্ড", "শরয়ী পরামর্শ ও যাচাইকরণ", "অন্যান্য"
-    ];
-
     const DEFAULT_SHEET_COLUMNS = ["Editing", "Thumbnail/Poster", "Direction", "Camera", "Script", "With Assigned", "Light"];
 
     const DEFAULT_PORTFOLIO_CATEGORIES = [
       "হারিয়ে যাওয়া সুন্নাহ", "নাটিকা", "ডকুমেন্টারি", "প্রমো / ওভিসি", "টিভিসি",
-      "নাটিকা স্ক্রিপ্ট", "প্রেস রিলিজ", "জুমার প্রশ্নোত্তর", "শর্টস", "লেকচার", "গ্রাফিক ডিজাইন", "অন্যান্য"
+      "টাইটেল ও ক্যাপশন", "নাটিকা স্ক্রিপ্ট", "প্রেস রিলিজ", "জুমার প্রশ্নোত্তর", "শর্টস", "লেকচার", "গ্রাফিক ডিজাইন", "কন্টেন্ট পাবলিশ", "অন্যান্য"
     ];
 
     const SHORT_PLATFORMS = [
       "Ahmadullah (FB)", "Ahmadullah (YT)", "As-Sunnah Foundation (FB)", "As-Sunnah Foundation (YT)",
       "ইসলামী প্রশ্নোত্তর (FB)", "ইসলামী প্রশ্নোত্তর (YT)", "শরয়ী সমাধান (FB)", "শরয়ী সমাধান (YT)",
-      "As-Sunnah (LinkedIn)", "All Platforms"
+      "As-Sunnah (LinkedIn)", "Internal / All Platforms"
     ];
 
     const DEFAULT_CHANNEL_LINKS = [
@@ -988,6 +967,28 @@
       return 'Pending';
     }
 
+    // Effective Month Helper: If a pipeline task is published on a specific date, count its completion in that publish month; otherwise its start month
+    function getTaskEffectiveMonth(t) {
+      if (t.publishDate && String(t.publishDate).length >= 7) return String(t.publishDate).slice(0, 7);
+      if (t.month) return t.month;
+      if (t.date && String(t.date).length >= 7) return String(t.date).slice(0, 7);
+      return getCurrentMonthStr();
+    }
+
+    // Correction 4: Get Member Tasks for a Selected Month (With Carry-Forward of Unfinished Tasks when viewing Current Month)
+    function getMemberTasksForMonthView(uid, selMonth) {
+      const curMonth = getCurrentMonthStr();
+      return window.allTasks.filter(t => {
+        if (!isMemberInTask(t, uid)) return false;
+        const bucket = getMemberPersonalBucket(t);
+        const taskMonth = getTaskEffectiveMonth(t);
+        if (taskMonth === selMonth) return true;
+        // Carry forward unfinished (Running/Pending) tasks from earlier months into current month view until completed
+        if (selMonth === curMonth && taskMonth < curMonth && bucket !== 'Completed') return true;
+        return false;
+      });
+    }
+
     window.currentLang = 'bn';
     window.currentUserProfile = null;
     window.allMembers = [];
@@ -1020,10 +1021,9 @@
       creditName: "Tarek Ahmad", creditRole: "Social Media Executive",
       creditLinkedin: "https://www.linkedin.com/company/assunnahfoundation",
       planTargetCount: 50,
-      planCurrentText: "হারিয়ে যাওয়া সুন্নাহ প্রতি সপ্তাহে ১টি পর্ব নির্মাণ\nরাতের আমল বইয়ের প্রমোশনাল ভিডিও প্রোডাকশন\nনিয়মিত লেকচার ও শর্টস আপলোড",
-      planNext1Text: "২০টি নতুন ভিডিও প্রোডাকশন ও আপলোড\nহারিয়ে যাওয়া সুন্নাহ ৪টি পর্ব\n২টি বিশেষ ডকুমেন্টারি নির্মাণ",
-      planNext3Text: "নভেম্বর ২০২৬: বিশেষ দাওয়াহ ক্যাম্পেইন ও ডকুমেন্টারি\nডিসেম্বর ২০২৬: শীতকালীন দাওয়াহ প্রামাণ্যচিত্র\nজানুয়ারি ২০২৭: নতুন সিরিজ প্রোডাকশন",
-      activities: CORE_ACTIVITIES,
+      planCurrentText: "হারিয়ে যাওয়া সুন্নাহ প্রতি সপ্তাহে ১টি পর্ব নির্মাণ\nনিয়মিত লেকচার ও শর্টস আপলোড",
+      planNext1Text: "২০টি নতুন ভিডিও প্রোডাকশন ও আপলোড\n২টি বিশেষ ডকুমেন্টারি নির্মাণ",
+      customPlanBoxes: [],
       platforms: SHORT_PLATFORMS,
       portfolioCategories: DEFAULT_PORTFOLIO_CATEGORIES,
       sheetColumns: DEFAULT_SHEET_COLUMNS,
@@ -1034,6 +1034,7 @@
     document.getElementById('pipe-month-filter').value = getCurrentMonthStr();
     document.getElementById('team-tab-month-filter').value = getCurrentMonthStr();
     document.getElementById('mod-member-month').value = getCurrentMonthStr();
+    document.getElementById('home-report-month-picker').value = getPreviousMonthStr();
     document.getElementById('task-date').value = getTodayStr();
     document.getElementById('meet-date').value = getTodayStr();
     document.getElementById('today-date-badge').innerText = window.formatFullDate(getTodayStr());
@@ -1087,7 +1088,7 @@
         });
         if (matched.length > 0) return matched.join(', ');
       }
-      return window.tAct(t.category);
+      return window.tAct(t.productionType || t.category);
     }
 
     function cleanProjectTitle(rawTitle) { return rawTitle ? String(rawTitle).replace(/^\[.*?\]\s*/, '').replace(/\s*\(শুটিং:.*?\)\s*$/, '').trim() : ''; }
@@ -1113,6 +1114,8 @@
       if (target.includes('হারিয়ে যাওয়া সুন্নাহ')) return rawType.includes('সুন্নাহ') || rawTitle.includes('সুন্নাহ');
       if (target === 'নাটিকা' || target === 'drama' || target === 'short film') return rawType === 'drama' || rawType === 'short film' || rawType.includes('শর্টফিল্ম') || (rawType.includes('নাটিকা') && !rawType.includes('স্ক্রিপ্ট'));
       if (target.includes('নাটিকা স্ক্রিপ্ট')) return rawType.includes('নাটিকা স্ক্রিপ্ট') || (rawType.includes('স্ক্রিপ্ট') && (rawType.includes('নাটিকা') || rawTitle.includes('নাটিকা')));
+      if (target.includes('টাইটেল') || target.includes('ক্যাপশন')) return rawType.includes('টাইটেল') || rawType.includes('ক্যাপশন') || rawType.includes('কপিরাইটিং');
+      if (target.includes('কন্টেন্ট পাবলিশ')) return rawType.includes('পাবলিশ');
       if (target === 'ডকুমেন্টারি' || target === 'documentary') return rawType === 'documentary' || rawType === 'ডকুমেন্টারি' || rawType.includes('documentary') || (rawType.includes('ডকুমেন্টারি') && !rawType.includes('প্রমো'));
       if (target.includes('প্রমো') || target.includes('ওভিসি') || target === 'ovc') return rawType.includes('প্রমো') || rawType === 'ovc' || rawType.includes('ওভিসি');
       if (target === 'টিভিসি' || target === 'tvc') return rawType === 'tvc' || rawType.includes('টিভিসি');
@@ -1141,16 +1144,13 @@
         if (!loadedCats.includes("অন্যান্য")) loadedCats.push("অন্যান্য");
         loadedCats = [...new Set(loadedCats)];
 
-        let loadedActs = (data.activities && data.activities.length > 0) ? [...data.activities] : [...CORE_ACTIVITIES];
-        if (!loadedActs.includes("অন্যান্য")) loadedActs.push("অন্যান্য");
-
         window.siteSettings = {
           ...window.siteSettings, ...data,
-          activities: loadedActs,
           platforms: (data.platforms && data.platforms.length > 0) ? data.platforms.map(formatShortPlatformLabel) : SHORT_PLATFORMS,
           channelLinks: (data.channelLinks && data.channelLinks.length > 0) ? data.channelLinks : DEFAULT_CHANNEL_LINKS,
           sheetColumns: (data.sheetColumns && data.sheetColumns.length > 0) ? data.sheetColumns : DEFAULT_SHEET_COLUMNS,
-          portfolioCategories: loadedCats
+          portfolioCategories: loadedCats,
+          customPlanBoxes: Array.isArray(data.customPlanBoxes) ? data.customPlanBoxes : []
         };
       }
       applySiteSettingsUI(); populateCleanMemberNamesEverywhere();
@@ -1215,11 +1215,24 @@
       updateAuthUI(); renderPipelineBoard(); renderDashboard(); renderNotifications(); handleRouteFromHash();
     });
 
+    // Correction 7: Dynamically Set Browser Tab Favicon from Site Logo
+    function updateBrowserFavicon(logoUrl) {
+      if (!logoUrl) return;
+      const fav = document.getElementById('favicon');
+      const appleFav = document.getElementById('apple-touch-favicon');
+      if (fav) { fav.type = 'image/png'; fav.href = logoUrl; }
+      if (appleFav) appleFav.href = logoUrl;
+    }
+
     function applySiteSettingsUI() {
       const s = window.siteSettings;
       document.getElementById('brand-title').innerText = s.title || "ASF Dawah Media";
       document.getElementById('brand-subtitle').innerText = s.subtitle || "As-Sunnah Foundation";
-      if (s.logo) { document.getElementById('brand-logo').src = s.logo; document.getElementById('footer-brand-logo').src = s.logo; }
+      if (s.logo) {
+        document.getElementById('brand-logo').src = s.logo;
+        document.getElementById('footer-brand-logo').src = s.logo;
+        updateBrowserFavicon(s.logo);
+      }
       document.getElementById('hero-line-1').innerText = window.currentLang === 'en' ? "As-Sunnah Foundation" : (s.heroLine1 || "আস-সুন্নাহ ফাউন্ডেশন");
       document.getElementById('hero-line-2').innerText = window.currentLang === 'en' ? "Dawah Media" : (s.heroLine2 || "দাওয়াহ মিডিয়া");
       document.getElementById('hero-desc').innerText = s.heroDesc || "";
@@ -1235,10 +1248,6 @@
       if (s.creditName) document.getElementById('footer-credit-name').innerText = s.creditName;
       if (s.creditRole) document.getElementById('footer-credit-role').innerText = s.creditRole;
       if (s.creditLinkedin) document.getElementById('footer-credit-link').href = window.cleanUrl(s.creditLinkedin);
-
-      // Completely Blank Initial Option (Only Arrow Visible, No '— নির্বাচন করুন —' Text)
-      const acts = `<option value="" selected></option>` + (s.activities || CORE_ACTIVITIES).map(a => `<option value="${window.clean(a)}">${window.clean(a)}</option>`).join('');
-      document.getElementById('task-category').innerHTML = acts;
 
       const catsList = (s.portfolioCategories || DEFAULT_PORTFOLIO_CATEGORIES);
       document.getElementById('port-cat').innerHTML = catsList.map(c => `<option value="${window.clean(c)}">${window.clean(c)}</option>`).join('');
@@ -1281,22 +1290,70 @@
       }
     }
 
-    window.toggleNotifDropdown = () => { document.getElementById('notif-dropdown').classList.toggle('hidden'); document.getElementById('notif-badge').classList.add('hidden'); };
+    // Correction 6: Smart Actionable Notifications (Auto-remove Published, Dismissible via localStorage)
+    function getDismissedNotifIds() {
+      try { return JSON.parse(localStorage.getItem('asf_dismissed_notifs') || '[]'); } catch(e) { return []; }
+    }
+    window.dismissSingleNotification = (id, ev) => {
+      if (ev) ev.stopPropagation();
+      const list = getDismissedNotifIds();
+      if (!list.includes(id)) list.push(id);
+      localStorage.setItem('asf_dismissed_notifs', JSON.stringify(list));
+      renderNotifications();
+    };
+    window.dismissAllNotifications = () => {
+      const list = getDismissedNotifIds();
+      (window.currentActiveNotifIds || []).forEach(id => { if (!list.includes(id)) list.push(id); });
+      localStorage.setItem('asf_dismissed_notifs', JSON.stringify(list));
+      renderNotifications();
+    };
+    window.toggleNotifDropdown = () => { document.getElementById('notif-dropdown').classList.toggle('hidden'); };
 
     function renderNotifications() {
       const listEl = document.getElementById('notif-list'), badgeEl = document.getElementById('notif-badge');
       if (!listEl || !badgeEl) return;
       const myUid = window.currentUserProfile ? window.currentUserProfile.uid : null;
+      const dismissed = getDismissedNotifIds();
       const items = [];
-      if (window.siteSettings.notice) items.push({ title: `📢 ${window.siteSettings.notice}`, sub: "নোটিশ", tab: 'home' });
-      getMasterPipelineProjects().slice(-5).reverse().forEach(t => {
+
+      if (window.siteSettings.notice && window.siteSettings.notice.trim() !== '') {
+        const nid = `notice_${window.siteSettings.notice.trim()}`;
+        if (!dismissed.includes(nid)) items.push({ id: nid, title: `📢 ${window.siteSettings.notice}`, sub: "জরুরি নোটিশ", tab: 'home' });
+      }
+
+      // Only show actionable (NOT Published/Completed) projects
+      getMasterPipelineProjects().forEach(t => {
+        const st = computeAutoWorkflowStatus(t);
+        if (st === 'Published') return; // Auto-exclude Published projects
         const isMine = myUid && isMemberInTask(t, myUid);
-        items.push({ title: `${isMine ? '🎯 ' : '🎬 '}${t.cleanTitle || 'নতুন প্রজেক্ট'}`, sub: `${computeAutoWorkflowStatus(t)} • ${window.formatFullDate(t.date)}`, tab: 'pipeline' });
+        const isReady = st === 'Ready to Publish';
+        const nid = `pipe_${t.id}_${st}`;
+        if (dismissed.includes(nid)) return;
+        if (isMine || isReady || st === 'Running' || st === 'Pending') {
+          items.push({
+            id: nid,
+            title: `${isReady ? '▶ ' : (isMine ? '🎯 ' : '🎬 ')}${t.cleanTitle || 'চলমান প্রজেক্ট'}`,
+            sub: `${st} • ${window.formatFullDate(t.date)}`,
+            tab: 'pipeline'
+          });
+        }
       });
-      if (items.length > 0) {
-        badgeEl.innerText = items.length; badgeEl.classList.remove('hidden');
-        listEl.innerHTML = items.map(n => `<div onclick="switchTab('${n.tab}');document.getElementById('notif-dropdown').classList.add('hidden')" class="p-2 rounded-lg hover:bg-emerald-50 dark:hover:bg-slate-800 cursor-pointer"><p class="font-bold">${window.clean(n.title)}</p><p class="text-[10px] text-asf-600 font-semibold">${window.clean(n.sub)}</p></div>`).join('');
-      } else { badgeEl.classList.add('hidden'); listEl.innerHTML = `<p class="text-center text-slate-400 py-4">কোনো নোটিফিকেশন নেই।</p>`; }
+
+      const activeItems = items.slice(-8).reverse();
+      window.currentActiveNotifIds = activeItems.map(x => x.id);
+
+      if (activeItems.length > 0) {
+        badgeEl.innerText = activeItems.length; badgeEl.classList.remove('hidden');
+        listEl.innerHTML = activeItems.map(n => `
+          <div onclick="switchTab('${n.tab}');document.getElementById('notif-dropdown').classList.add('hidden')" class="p-2 rounded-lg hover:bg-emerald-50 dark:hover:bg-slate-800 cursor-pointer flex items-start justify-between gap-2">
+            <div><p class="font-bold">${window.clean(n.title)}</p><p class="text-[10px] text-asf-600 font-semibold">${window.clean(n.sub)}</p></div>
+            <button onclick="dismissSingleNotification('${window.clean(n.id)}', event)" class="text-slate-400 hover:text-red-500 font-bold px-1" title="মুছুন">✕</button>
+          </div>
+        `).join('');
+      } else {
+        badgeEl.classList.add('hidden');
+        listEl.innerHTML = `<p class="text-center text-slate-400 py-4">নতুন কোনো জরুরি নোটিফিকেশন নেই।</p>`;
+      }
     }
 
     window.openChatBox = () => {
@@ -1339,8 +1396,8 @@
       return Array.from(groupedMap.values());
     }
 
-    function buildCleanMemberSummaryCard(m, tasksForMonth) {
-      const mTasks = tasksForMonth.filter(t => isMemberInTask(t, m.uid));
+    function buildCleanMemberSummaryCard(m, selMonth) {
+      const mTasks = getMemberTasksForMonthView(m.uid, selMonth);
       const comp = window.sumQty(mTasks.filter(t => getMemberPersonalBucket(t) === 'Completed'));
       const run = window.sumQty(mTasks.filter(t => getMemberPersonalBucket(t) === 'Running'));
       const pend = window.sumQty(mTasks.filter(t => getMemberPersonalBucket(t) === 'Pending'));
@@ -1371,7 +1428,7 @@
       return lines.map(l => `<div class="flex items-start gap-1.5"><span class="text-asf-600 font-bold">•</span><span class="leading-snug font-medium">${window.clean(l.replace(/^[০-৯0-9]+\.\s*/, ''))}</span></div>`).join('');
     }
 
-    // 1. Render Home
+    // 1. Render Home (Correction 1 & 2: Only Current Month in Category Grid, Slim Report Bar at Bottom with Month Selector & Download)
     window.setHomeTeamView = (mode) => {
       window.homeTeamView = mode;
       document.getElementById('hteam-btn-cards').className = mode === 'cards' ? 'px-3 py-1.5 rounded-lg text-xs font-bold btn-green' : 'px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-200 dark:bg-slate-800';
@@ -1380,12 +1437,28 @@
       document.getElementById('home-worker-summary-box').classList.toggle('hidden', mode !== 'table');
     };
 
+    window.updateHomeReportBar = () => {
+      const selMonth = document.getElementById('home-report-month-picker').value || getPreviousMonthStr();
+      const repTasks = window.allTasks.filter(t => getTaskEffectiveMonth(t) === selMonth && getMemberPersonalBucket(t) === 'Completed');
+      document.getElementById('home-prev-total-badge').innerText = `মোট ${window.sumQty(repTasks)} • দেখুন →`;
+    };
+
+    window.downloadHomeSelectedMonthReportCSV = () => {
+      const selMonth = document.getElementById('home-report-month-picker').value || getPreviousMonthStr();
+      const repTasks = window.allTasks.filter(t => getTaskEffectiveMonth(t) === selMonth && getMemberPersonalBucket(t) === 'Completed');
+      if (repTasks.length === 0) return alert(`${window.formatMonthName(selMonth)}-এ ডাউনলোড করার মতো কোনো সম্পন্ন কাজ নেই।`);
+      const rows = repTasks.map((t, i) => `${i+1},${t.date},"${cleanProjectTitle(t.title).replace(/"/g,'""')}","${getTaskCategoryLabel(t)}","${t.memberName||''}","${formatShortPlatformLabel(t.platform||'')}",${window.getQty(t)}`);
+      const csv = `\uFEFFMonthly Report: ${selMonth}\nSL,Date,Title,Category,Member,Platform,Quantity\n` + rows.join("\n");
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(new Blob([csv], { type: "text/csv;charset=utf-8;" }));
+      a.download = `ASF_Report_${selMonth}.csv`;
+      a.click();
+    };
+
     function renderHomeSection() {
       const s = window.siteSettings;
       const curMonth = getCurrentMonthStr();
-      const prevMonth = getPreviousMonthStr();
-      const curMonthTasks = window.allTasks.filter(t => t.month === curMonth);
-      const prevMonthTasks = window.allTasks.filter(t => t.month === prevMonth && getMemberPersonalBucket(t) === 'Completed');
+      const curMonthTasks = window.allTasks.filter(t => getTaskEffectiveMonth(t) === curMonth);
       const masterProjects = getMasterPipelineProjects();
 
       const compCount = window.sumQty(curMonthTasks.filter(t => getNormalizedTaskBucket(t) === 'Completed'));
@@ -1405,31 +1478,41 @@
       document.getElementById('home-plan-percent').innerText = `${pct}% (${compCount}/${target})`;
       document.getElementById('home-plan-bar').style.width = `${pct}%`;
 
-      document.getElementById('prev-month-report-title').innerText = `১. গত মাসের রিপোর্ট (${window.formatMonthName(prevMonth)})`;
-      document.getElementById('home-prev-total-badge').innerText = `মোট ${window.sumQty(prevMonthTasks)} • দেখুন →`;
+      // Render Planning Boxes (Current Month + Next Month + Any Custom Admin Boxes)
+      const customBoxes = Array.isArray(s.customPlanBoxes) ? s.customPlanBoxes : [];
+      const allPlanCards = [
+        { id: 'currentPlan', title: '১. চলতি মাসের পরিকল্পনা', color: 'text-blue-600 hover:border-blue-600', text: s.planCurrentText },
+        { id: 'nextMonthPlan', title: '২. আগামী মাসের পরিকল্পনা', color: 'text-purple-600 hover:border-purple-600', text: s.planNext1Text },
+        ...customBoxes.map((b, idx) => ({ id: `custom_${idx}`, title: `${idx+3}. ${b.title}`, color: 'text-asf-600 hover:border-asf-600', text: b.text }))
+      ];
+      document.getElementById('home-planning-boxes-grid').innerHTML = allPlanCards.map(c => `
+        <div onclick="openPlanningDetailModal('${c.id}')" class="p-3.5 rounded-xl border ${c.color} motion-card bg-slate-50/60 dark:bg-slate-800/40">
+          <p class="font-bold mb-1.5 border-b pb-1">${window.clean(c.title)}</p>
+          <div class="space-y-1 text-slate-700 dark:text-slate-300 max-h-44 overflow-y-auto">${formatBulletPointsHtml(c.text)}</div>
+        </div>
+      `).join('');
 
-      document.getElementById('home-current-plan-preview').innerHTML = formatBulletPointsHtml(s.planCurrentText);
-      document.getElementById('home-next1-plan-preview').innerHTML = formatBulletPointsHtml(s.planNext1Text);
-      document.getElementById('home-next3-plan-preview').innerHTML = formatBulletPointsHtml(s.planNext3Text);
+      updateHomeReportBar();
 
+      // Correction 1: Right Side Category Grid Shows ONLY Current Month Tasks (Clickable + Selectable Text)
       document.getElementById('content-type-month-badge').innerText = window.formatMonthName(curMonth);
       const contentTypes = s.portfolioCategories || DEFAULT_PORTFOLIO_CATEGORIES;
       document.getElementById('home-content-type-grid').innerHTML = contentTypes.map((cat) => {
-        const matchedAll = window.allTasks.filter(t => matchesContentType(t, cat));
-        const countVal = window.sumQty(matchedAll);
+        const matchedCurMonth = curMonthTasks.filter(t => matchesContentType(t, cat));
+        const countVal = window.sumQty(matchedCurMonth);
         return `
-          <div onclick="openCategoryDetailModal('${window.clean(cat)}')" class="flex items-center justify-between px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/70 dark:bg-slate-800/60 hover:border-asf-600 motion-card text-xs">
-            <span class="font-bold text-slate-800 dark:text-slate-100 truncate pr-2">${window.clean(cleanCategoryDisplayName(cat))}</span>
-            <span class="px-2.5 py-0.5 rounded-md bg-asf-600 text-white font-extrabold shrink-0">${countVal}</span>
+          <div onclick="openCategoryDetailModal('${window.clean(cat)}', '${curMonth}')" class="flex items-center justify-between px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/70 dark:bg-slate-800/60 hover:border-asf-600 motion-card text-xs select-text">
+            <span class="font-bold text-slate-800 dark:text-slate-100 truncate pr-2 select-text">${window.clean(cleanCategoryDisplayName(cat))}</span>
+            <span class="px-2.5 py-0.5 rounded-md bg-asf-600 text-white font-extrabold shrink-0 select-text">${countVal}</span>
           </div>
         `;
       }).join('');
 
       const approvedMembers = getSortedMembers(true);
-      document.getElementById('home-team-grid').innerHTML = approvedMembers.map(m => buildCleanMemberSummaryCard(m, curMonthTasks)).join('');
+      document.getElementById('home-team-grid').innerHTML = approvedMembers.map(m => buildCleanMemberSummaryCard(m, curMonth)).join('');
 
       document.getElementById('home-worker-summary-tbody').innerHTML = approvedMembers.map((m, idx) => {
-        const mTasks = curMonthTasks.filter(t => isMemberInTask(t, m.uid));
+        const mTasks = getMemberTasksForMonthView(m.uid, curMonth);
         const comp = window.sumQty(mTasks.filter(t => getMemberPersonalBucket(t) === 'Completed'));
         const run = window.sumQty(mTasks.filter(t => getMemberPersonalBucket(t) === 'Running'));
         const pend = window.sumQty(mTasks.filter(t => getMemberPersonalBucket(t) === 'Pending'));
@@ -1475,7 +1558,7 @@
           `).join('');
     }
 
-    // 2. PRODUCTION PIPELINE (Blank selects with only arrow — no default category/platform/dash)
+    // 2. PRODUCTION PIPELINE (Correction 3: Auto Carry-Forward Unfinished Projects into Current Month)
     window.clearPipelineMonthFilter = () => { document.getElementById('pipe-month-filter').value = ''; renderPipelineBoard(); };
 
     window.setPipelineDisplayMode = (mode) => {
@@ -1565,12 +1648,19 @@
 
     window.renderPipelineBoard = () => {
       const filterMonth = document.getElementById('pipe-month-filter').value;
+      const carryForward = document.getElementById('pipe-carry-forward')?.checked ?? true;
+      const curMonth = getCurrentMonthStr();
       let masterProjects = getMasterPipelineProjects();
 
       if (filterMonth) {
         masterProjects = masterProjects.filter(t => {
-          const mStart = (t.date || '').slice(0,7);
-          return mStart === filterMonth || t.month === filterMonth;
+          const mStart = (t.date || '').slice(0,7) || t.month;
+          const mPub = (t.publishDate || '').slice(0,7);
+          const st = computeAutoWorkflowStatus(t);
+          if (mStart === filterMonth || mPub === filterMonth) return true;
+          // Auto Carry-Forward unfinished projects from earlier months when viewing Current Month
+          if (carryForward && filterMonth === curMonth && mStart < curMonth && st !== 'Published') return true;
+          return false;
         });
       }
 
@@ -1626,7 +1716,6 @@
         </tr>
       `;
 
-      // Role Dropdown with Empty Initial Option (Only Arrow Visible, No '—' Dash)
       const buildRoleCell = (t, colName) => {
         let curRaw = (t.sheetRoles && t.sheetRoles[colName]) ? String(t.sheetRoles[colName]) : "";
         if (!curRaw && Array.isArray(t.crewList)) {
@@ -1803,8 +1892,14 @@
       const stFilter = document.getElementById('filter-status').value || 'ALL';
       const searchQ = (document.getElementById('dash-search-input')?.value || '').toLowerCase().trim();
 
-      let monthTasks = window.allTasks.filter(t => t.month === month);
-      if (curMem !== 'ALL') monthTasks = monthTasks.filter(t => isMemberInTask(t, curMem));
+      let monthTasks = curMem !== 'ALL'
+        ? getMemberTasksForMonthView(curMem, month)
+        : window.allTasks.filter(t => {
+            const tm = getTaskEffectiveMonth(t);
+            if (tm === month) return true;
+            if (month === getCurrentMonthStr() && tm < month && getNormalizedTaskBucket(t) !== 'Completed') return true;
+            return false;
+          });
 
       const done = window.sumQty(monthTasks.filter(t => getNormalizedTaskBucket(t) === 'Completed'));
       const ong = window.sumQty(monthTasks.filter(t => getNormalizedTaskBucket(t) === 'Running'));
@@ -1842,9 +1937,9 @@
       document.getElementById('dashboard-category-list').innerHTML = Object.entries(catCounts).map(([c,n]) => {
         const isSel = window.dashboardCategoryFilter === c;
         return `
-          <div onclick="setDashboardCategoryFilter('${window.clean(c)}')" class="flex justify-between items-center p-3 rounded-xl motion-card border font-bold text-xs ${isSel ? 'bg-emerald-100 dark:bg-emerald-950 border-asf-600 ring-2 ring-asf-600' : 'bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 hover:border-asf-600'}">
-            <span>${window.clean(c)}</span>
-            <span class="px-2.5 py-0.5 rounded-md bg-asf-600 text-white font-extrabold">${n}</span>
+          <div onclick="setDashboardCategoryFilter('${window.clean(c)}')" class="flex justify-between items-center p-3 rounded-xl motion-card border font-bold text-xs select-text ${isSel ? 'bg-emerald-100 dark:bg-emerald-950 border-asf-600 ring-2 ring-asf-600' : 'bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 hover:border-asf-600'}">
+            <span class="select-text">${window.clean(c)}</span>
+            <span class="px-2.5 py-0.5 rounded-md bg-asf-600 text-white font-extrabold select-text">${n}</span>
           </div>
         `;
       }).join('');
@@ -1883,7 +1978,7 @@
       const uid = window.openedModalMemberId;
       const m = window.allMembers.find(x => x.uid === uid); if (!m) return;
       const month = document.getElementById('mod-member-month').value || getCurrentMonthStr();
-      const mTasks = window.allTasks.filter(t => isMemberInTask(t, uid) && t.month === month);
+      const mTasks = getMemberTasksForMonthView(uid, month);
       if (mTasks.length === 0) return alert("এই মাসে ডাউনলোড করার মতো কোনো কাজ নেই।");
 
       const rows = mTasks.map((t, i) => `${i+1},${t.date},"${cleanProjectTitle(t.title).replace(/"/g,'""')}","${getTaskCategoryLabel(t)}","${getMemberRoleInTask(t, uid)}","${formatShortPlatformLabel(t.platform||'')}",${window.getQty(t)},${getMemberPersonalBucket(t)}`);
@@ -1904,11 +1999,10 @@
       a.click();
     };
 
-    // 4. Team Members Tab
+    // 4. Team Members Tab (With Carry-Forward of Unfinished Tasks)
     window.renderTeamSection = () => {
       const selMonth = document.getElementById('team-tab-month-filter').value || getCurrentMonthStr();
-      const monthTasks = window.allTasks.filter(t => t.month === selMonth);
-      document.getElementById('full-team-grid').innerHTML = getSortedMembers(true).map(m => buildCleanMemberSummaryCard(m, monthTasks)).join('');
+      document.getElementById('full-team-grid').innerHTML = getSortedMembers(true).map(m => buildCleanMemberSummaryCard(m, selMonth)).join('');
     };
 
     // 5. Productions
@@ -1962,13 +2056,12 @@
       document.getElementById('full-portfolio-grid').innerHTML = buildCards(fullList);
     };
 
-    // 6. Profile Tasks
+    // 6. Profile Tasks (Correction 5: Only Category & Title required, no separate 'কাজের ধরন')
     window.submitDailyTask = async (e) => {
       e.preventDefault();
       const p = window.currentUserProfile; if (!p) return alert("লগইন করুন।");
       const cType = document.getElementById('task-content-type').value;
-      const actType = document.getElementById('task-category').value;
-      if (!cType || !actType) return alert("অনুগ্রহ করে ক্যাটাগরি ও কাজের ধরন নির্বাচন করুন।");
+      if (!cType) return alert("অনুগ্রহ করে ক্যাটাগরি নির্বাচন করুন।");
 
       const checkedPlats = Array.from(document.querySelectorAll('#task-platform-checkboxes input:checked')).map(i => i.value);
       const platformStr = checkedPlats.length > 0 ? checkedPlats.join(', ') : '';
@@ -1977,7 +2070,7 @@
 
       await addDoc(collection(db, "tasks"), {
         uid: p.uid, memberName: p.name, memberRole: p.designation,
-        date: dt, month: dt.slice(0,7), category: actType, productionType: cType,
+        date: dt, month: dt.slice(0,7), category: cType, productionType: cType,
         title: document.getElementById('task-title').value.trim(),
         platform: platformStr, status: document.getElementById('task-status').value,
         isPipeline: false, quantity: qty,
@@ -1988,7 +2081,6 @@
       document.getElementById('task-title').value = '';
       document.getElementById('task-qty').value = '1';
       document.getElementById('task-content-type').selectedIndex = 0;
-      document.getElementById('task-category').selectedIndex = 0;
       window.showToast(`${qty}টি কাজ সেভ হয়েছে।`);
     };
 
@@ -2073,12 +2165,18 @@
       document.getElementById('image-lightbox-modal').classList.remove('hidden'); document.getElementById('image-lightbox-modal').classList.add('flex');
     };
 
-    window.openCategoryDetailModal = (catName) => {
+    // Category Detail Modal (Scoped to Specific Month or All)
+    window.openCategoryDetailModal = (catName, targetMonth = null) => {
       const modal = document.getElementById('quick-detail-modal');
-      document.getElementById('quick-modal-title').innerText = cleanCategoryDisplayName(catName);
-      const list = window.allTasks.filter(t => matchesContentType(t, catName));
-      document.getElementById('quick-modal-body').innerHTML = list.length === 0 ? `<p class="text-center py-6 text-slate-400">কোনো প্রজেক্ট নেই।</p>` : list.map(t => `
-        <div class="p-3 rounded-xl border flex justify-between items-center">
+      const mLabel = targetMonth ? ` (${window.formatMonthName(targetMonth)})` : '';
+      document.getElementById('quick-modal-title').innerText = `${cleanCategoryDisplayName(catName)}${mLabel}`;
+      document.getElementById('quick-modal-actions').innerHTML = '';
+
+      let list = window.allTasks.filter(t => matchesContentType(t, catName));
+      if (targetMonth) list = list.filter(t => getTaskEffectiveMonth(t) === targetMonth);
+
+      document.getElementById('quick-modal-body').innerHTML = list.length === 0 ? `<p class="text-center py-6 text-slate-400">এই ক্যাটাগরিতে কোনো প্রজেক্ট নেই।</p>` : list.map(t => `
+        <div class="p-3 rounded-xl border flex justify-between items-center select-text">
           <div><p class="font-bold">${window.clean(cleanProjectTitle(t.title))} <span class="text-asf-600">(${window.getQty(t)})</span></p><p class="text-slate-500">${window.clean(t.memberName)} • ${window.formatFullDate(t.date)}</p></div>
           <span class="px-2 py-0.5 rounded bg-emerald-100 text-asf-700 font-bold">${window.clean(getMemberPersonalBucket(t) === 'Completed' ? 'সম্পন্ন' : 'চলমান')}</span>
         </div>
@@ -2088,18 +2186,19 @@
 
     window.openQuickStatusModal = (st) => {
       const modal = document.getElementById('quick-detail-modal');
-      const titleMap = { Completed: 'সম্পন্ন প্রজেক্ট', Ongoing: 'চলমান প্রজেক্ট', Ready: 'পাবলিশের জন্য রেডি', Pending: 'পেন্ডিং প্রজেক্ট', Upcoming: 'আপকামিং প্রজেক্ট' };
+      const titleMap = { Completed: 'সম্পন্ন প্রজেক্ট (চলতি মাস)', Ongoing: 'চলমান প্রজেক্ট', Ready: 'পাবলিশের জন্য রেডি', Pending: 'পেন্ডিং প্রজেক্ট', Upcoming: 'আপকামিং প্রজেক্ট' };
       document.getElementById('quick-modal-title').innerText = titleMap[st] || st;
+      document.getElementById('quick-modal-actions').innerHTML = '';
       const masters = getMasterPipelineProjects();
       let list = [];
-      if (st === 'Completed') list = window.allTasks.filter(t => t.month === getCurrentMonthStr() && getNormalizedTaskBucket(t) === 'Completed');
+      if (st === 'Completed') list = window.allTasks.filter(t => getTaskEffectiveMonth(t) === getCurrentMonthStr() && getNormalizedTaskBucket(t) === 'Completed');
       else if (st === 'Upcoming') list = masters.filter(t => computeAutoWorkflowStatus(t) === 'Upcoming');
       else if (st === 'Ongoing') list = window.allTasks.filter(t => getNormalizedTaskBucket(t) === 'Running');
       else if (st === 'Ready') list = window.allTasks.filter(t => getNormalizedTaskBucket(t) === 'Ready');
       else list = window.allTasks.filter(t => getNormalizedTaskBucket(t) === 'Pending');
 
       document.getElementById('quick-modal-body').innerHTML = list.length === 0 ? `<p class="text-center py-6 text-slate-400">কোনো প্রজেক্ট নেই।</p>` : list.map(t => `
-        <div class="p-3 rounded-xl border flex justify-between items-center">
+        <div class="p-3 rounded-xl border flex justify-between items-center select-text">
           <div><p class="font-bold">${window.clean(cleanProjectTitle(t.title))} <span class="text-asf-600">(${window.getQty(t)})</span></p><p class="text-slate-500">${window.clean(t.memberName)} • ${window.formatFullDate(t.date)}</p></div>
           ${t.link ? `<a href="${window.cleanUrl(t.link)}" target="_blank" class="text-asf-600 font-bold underline">ফাইল ↗</a>` : ''}
         </div>
@@ -2107,23 +2206,52 @@
       modal.classList.remove('hidden'); modal.classList.add('flex');
     };
 
-    window.openPlanningDetailModal = (type) => {
+    // Interactive Monthly Report Modal (Click Category inside Report to Expand Tasks + Download)
+    window.openPlanningDetailModal = (type, drillCat = null) => {
       const modal = document.getElementById('quick-detail-modal');
-      if (type === 'prevMonthReport') {
-        const prevMonth = getPreviousMonthStr();
-        document.getElementById('quick-modal-title').innerText = `গত মাসের রিপোর্ট (${window.formatMonthName(prevMonth)})`;
-        const prevTasks = window.allTasks.filter(t => t.month === prevMonth && getMemberPersonalBucket(t) === 'Completed');
+      if (type === 'monthReport' || type === 'prevMonthReport') {
+        const selMonth = document.getElementById('home-report-month-picker').value || getPreviousMonthStr();
+        document.getElementById('quick-modal-title').innerText = `মাসিক রিপোর্ট (${window.formatMonthName(selMonth)})`;
+        document.getElementById('quick-modal-actions').innerHTML = `<button onclick="downloadHomeSelectedMonthReportCSV()" class="btn-green px-3 py-1 text-xs font-bold">📥 ডাউনলোড</button>`;
+
+        const repTasks = window.allTasks.filter(t => getTaskEffectiveMonth(t) === selMonth && getMemberPersonalBucket(t) === 'Completed');
         const catMap = {};
-        prevTasks.forEach(t => { const c = getTaskCategoryLabel(t); if (c) catMap[c] = (catMap[c] || 0) + window.getQty(t); });
+        repTasks.forEach(t => { const c = getTaskCategoryLabel(t); if (c) catMap[c] = (catMap[c] || 0) + window.getQty(t); });
         const entries = Object.entries(catMap);
+
+        let drillHtml = '';
+        if (drillCat) {
+          const dTasks = repTasks.filter(t => getTaskCategoryLabel(t) === drillCat);
+          drillHtml = `
+            <div class="mt-4 pt-3 border-t-2 border-asf-600/30 space-y-2">
+              <div class="flex justify-between items-center">
+                <h4 class="font-bold text-asf-700 dark:text-emerald-300">${window.clean(drillCat)} — বিস্তারিত তালিকা (${window.sumQty(dTasks)}টি)</h4>
+                <button onclick="openPlanningDetailModal('monthReport', null)" class="text-xs text-red-500 font-bold">✕ বন্ধ</button>
+              </div>
+              <div class="space-y-1.5 max-h-60 overflow-y-auto">
+                ${dTasks.map(t => `<div class="p-2.5 rounded-lg border bg-white dark:bg-slate-900 flex justify-between items-center"><div><p class="font-bold">${window.clean(cleanProjectTitle(t.title))} <span class="text-asf-600">(${window.getQty(t)})</span></p><p class="text-[11px] text-slate-500">${window.clean(t.memberName)} • ${window.formatFullDate(t.date)}</p></div></div>`).join('')}
+              </div>
+            </div>
+          `;
+        }
+
         document.getElementById('quick-modal-body').innerHTML = entries.length === 0
-          ? `<p class="text-center py-6 text-slate-400">গত মাসে কোনো সম্পন্ন কাজ নেই।</p>`
-          : `<div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">${entries.map(([c, cnt]) => `<div class="p-3 rounded-xl bg-slate-50 dark:bg-slate-800 border flex justify-between items-center font-bold"><span>${window.clean(c)}</span><span class="px-2.5 py-0.5 rounded bg-asf-600 text-white">${cnt}</span></div>`).join('')}</div>`;
+          ? `<p class="text-center py-6 text-slate-400">${window.formatMonthName(selMonth)}-এ কোনো সম্পন্ন কাজ নেই।</p>`
+          : `<p class="text-[11px] text-slate-500 mb-2">যেকোনো ক্যাটাগরিতে ক্লিক করে বিস্তারিত কাজ দেখুন:</p>
+             <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 select-text">${entries.map(([c, cnt]) => `<div onclick="openPlanningDetailModal('monthReport', '${window.clean(c)}')" class="p-3 rounded-xl bg-slate-50 dark:bg-slate-800 border hover:border-asf-600 motion-card flex justify-between items-center font-bold ${drillCat === c ? 'ring-2 ring-asf-600 bg-emerald-50' : ''}"><span class="select-text">${window.clean(c)}</span><span class="px-2.5 py-0.5 rounded bg-asf-600 text-white select-text">${cnt}</span></div>`).join('')}</div>
+             ${drillHtml}`;
       } else {
-        const titleMap = { currentPlan: 'চলতি মাসের পরিকল্পনা', nextMonthPlan: 'আগামী মাসের পরিকল্পনা', next3Months: 'আগামী ৩ মাসের পরিকল্পনা' };
-        const textMap = { currentPlan: window.siteSettings.planCurrentText, nextMonthPlan: window.siteSettings.planNext1Text, next3Months: window.siteSettings.planNext3Text };
-        document.getElementById('quick-modal-title').innerText = titleMap[type] || 'পরিকল্পনা';
-        const lines = String(textMap[type] || '').split('\n').map(s => s.trim()).filter(Boolean);
+        document.getElementById('quick-modal-actions').innerHTML = '';
+        let title = 'পরিকল্পনা', rawText = '';
+        if (type === 'currentPlan') { title = 'চলতি মাসের পরিকল্পনা'; rawText = window.siteSettings.planCurrentText; }
+        else if (type === 'nextMonthPlan') { title = 'আগামী মাসের পরিকল্পনা'; rawText = window.siteSettings.planNext1Text; }
+        else if (type.startsWith('custom_')) {
+          const idx = parseInt(type.split('_')[1], 10);
+          const b = (window.siteSettings.customPlanBoxes || [])[idx];
+          if (b) { title = b.title; rawText = b.text; }
+        }
+        document.getElementById('quick-modal-title').innerText = title;
+        const lines = String(rawText || '').split('\n').map(s => s.trim()).filter(Boolean);
         document.getElementById('quick-modal-body').innerHTML = `<div class="space-y-2 select-text">${lines.map(l => `<div class="p-3 rounded-xl bg-slate-50 dark:bg-slate-800 border font-semibold leading-relaxed">• ${window.clean(l.replace(/^[০-৯0-9]+\.\s*/, ''))}</div>`).join('')}</div>`;
       }
       modal.classList.remove('hidden'); modal.classList.add('flex');
@@ -2150,7 +2278,7 @@
       document.getElementById('mod-member-bio').innerText = getMemberBioText(m);
 
       const month = document.getElementById('mod-member-month').value || getCurrentMonthStr();
-      const mTasks = window.allTasks.filter(t => isMemberInTask(t, uid) && t.month === month);
+      const mTasks = getMemberTasksForMonthView(uid, month);
 
       const compList = mTasks.filter(t => getMemberPersonalBucket(t) === 'Completed');
       const runList = mTasks.filter(t => getMemberPersonalBucket(t) === 'Running');
@@ -2172,9 +2300,9 @@
         pillsBox.innerHTML = Object.entries(catCounts).map(([cName, cnt]) => {
           const isSelected = window.memberModalCategoryFilter === cName;
           return `
-            <div onclick="setMemberModalCategoryFilter('${window.clean(cName)}')" class="flex items-center justify-between px-3.5 py-2.5 rounded-xl border motion-card ${isSelected ? 'bg-emerald-100 dark:bg-emerald-950 border-asf-600 ring-2 ring-asf-600' : 'bg-[#f2fbf7] dark:bg-slate-800 border-[#86efac] dark:border-emerald-800'}">
-              <span class="font-bold text-slate-800 dark:text-slate-100 truncate pr-2">${window.clean(cName)}</span>
-              <span class="px-2 py-0.5 rounded-md bg-asf-600 text-white font-extrabold text-xs shrink-0">${cnt}</span>
+            <div onclick="setMemberModalCategoryFilter('${window.clean(cName)}')" class="flex items-center justify-between px-3.5 py-2.5 rounded-xl border motion-card select-text ${isSelected ? 'bg-emerald-100 dark:bg-emerald-950 border-asf-600 ring-2 ring-asf-600' : 'bg-[#f2fbf7] dark:bg-slate-800 border-[#86efac] dark:border-emerald-800'}">
+              <span class="font-bold text-slate-800 dark:text-slate-100 truncate pr-2 select-text">${window.clean(cName)}</span>
+              <span class="px-2 py-0.5 rounded-md bg-asf-600 text-white font-extrabold text-xs shrink-0 select-text">${cnt}</span>
             </div>
           `;
         }).join('');
@@ -2289,7 +2417,20 @@
       document.getElementById('plan-target-count').value = s.planTargetCount || 50;
       document.getElementById('plan-current-text').value = s.planCurrentText || "";
       document.getElementById('plan-next1-text').value = s.planNext1Text || "";
-      document.getElementById('plan-next3-text').value = s.planNext3Text || "";
+
+      const customBoxes = Array.isArray(s.customPlanBoxes) ? s.customPlanBoxes : [];
+      document.getElementById('admin-custom-plan-boxes-list').innerHTML = customBoxes.map((b, idx) => `
+        <div class="p-2.5 rounded-lg border bg-slate-50 dark:bg-slate-800 space-y-1">
+          <div class="flex justify-between items-center font-bold text-asf-600">
+            <span>${window.clean(b.title)}</span>
+            <div class="space-x-2">
+              <button type="button" onclick="editCustomPlanningBox(${idx})" class="text-amber-600">✎ এডিট</button>
+              <button type="button" onclick="deleteCustomPlanningBox(${idx})" class="text-red-500">🗑️ মুছুন</button>
+            </div>
+          </div>
+          <p class="text-[11px] text-slate-500 line-clamp-2">${window.clean(b.text)}</p>
+        </div>
+      `).join('');
 
       if (document.getElementById('set-title')) {
         document.getElementById('set-title').value = s.title || "";
@@ -2337,7 +2478,6 @@
       `).join('');
 
       document.getElementById('admin-platform-tags').innerHTML = (s.platforms || SHORT_PLATFORMS).map(p => `<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-xs font-bold">${window.clean(p)} <button onclick="removePlatform('${window.clean(p)}')" class="text-red-500 ml-1">×</button></span>`).join('');
-      document.getElementById('admin-activity-tags').innerHTML = (s.activities || CORE_ACTIVITIES).map(a => `<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-xs font-semibold">${window.clean(a)} <button onclick="removeActivity('${window.clean(a)}')" class="text-red-500 ml-1">×</button></span>`).join('');
 
       document.getElementById('admin-members-list').innerHTML = getSortedMembers(false).map(m => `
         <div class="p-2.5 rounded-xl border flex flex-wrap items-center justify-between gap-2 text-xs">
@@ -2374,6 +2514,32 @@
         </div>
       `).join('');
     }
+
+    window.addCustomPlanningBox = async () => {
+      if (!isManagerLoggedIn()) return;
+      const title = prompt("নতুন পরিকল্পনার ঘরের শিরোনাম দিন (যেমন: বিশেষ ক্যাম্পেইন পরিকল্পনা):");
+      if (!title || !title.trim()) return;
+      const text = prompt("পরিকল্পনার পয়েন্টগুলো দিন (কমা বা নতুন লাইনে):", "");
+      if (text === null) return;
+      const formattedText = text.split(',').map(s => s.trim()).filter(Boolean).join('\n');
+      const updated = [...(window.siteSettings.customPlanBoxes || []), { title: title.trim(), text: formattedText }];
+      await setDoc(doc(db, "config", "siteSettings"), { customPlanBoxes: updated }, { merge: true });
+      window.showToast("নতুন পরিকল্পনার ঘর যুক্ত হয়েছে!");
+    };
+    window.editCustomPlanningBox = async (idx) => {
+      if (!isManagerLoggedIn()) return;
+      const list = [...(window.siteSettings.customPlanBoxes || [])];
+      if (!list[idx]) return;
+      const title = prompt("শিরোনাম:", list[idx].title); if (title === null) return;
+      const text = prompt("পয়েন্টসমূহ:", list[idx].text); if (text === null) return;
+      list[idx] = { title: title.trim(), text: text.trim() };
+      await setDoc(doc(db, "config", "siteSettings"), { customPlanBoxes: list }, { merge: true });
+    };
+    window.deleteCustomPlanningBox = async (idx) => {
+      if (!isManagerLoggedIn() || !confirm("এই পরিকল্পনার ঘরটি মুছে ফেলতে চান?")) return;
+      const list = (window.siteSettings.customPlanBoxes || []).filter((_, i) => i !== idx);
+      await setDoc(doc(db, "config", "siteSettings"), { customPlanBoxes: list }, { merge: true });
+    };
 
     window.addNewSheetColumn = async () => {
       if (!isManagerLoggedIn()) return;
@@ -2429,7 +2595,7 @@
       const updated = (window.siteSettings.portfolioCategories || DEFAULT_PORTFOLIO_CATEGORIES).filter(x => x !== val);
       await setDoc(doc(db, "config", "siteSettings"), { portfolioCategories: updated }, { merge: true });
     };
-    window.resetPortfolioCategories = async () => { if (isManagerLoggedIn()) { await setDoc(doc(db, "config", "siteSettings"), { portfolioCategories: DEFAULT_PORTFOLIO_CATEGORIES }, { merge: true }); window.showToast("সংক্ষিপ্ত ক্যাটাগরি তালিকা সেট হয়েছে!"); } };
+    window.resetPortfolioCategories = async () => { if (isManagerLoggedIn()) { await setDoc(doc(db, "config", "siteSettings"), { portfolioCategories: DEFAULT_PORTFOLIO_CATEGORIES }, { merge: true }); window.showToast("ডিফল্ট ক্যাটাগরি তালিকা সেট হয়েছে!"); } };
 
     window.editMemberInfoByAdmin = async (uid) => {
       if (!isManagerLoggedIn()) return;
@@ -2476,20 +2642,6 @@
       await setDoc(doc(db, "config", "siteSettings"), { platforms: updated }, { merge: true });
     };
 
-    window.resetCoreActivities = async () => { if (isManagerLoggedIn()) await setDoc(doc(db, "config", "siteSettings"), { activities: CORE_ACTIVITIES }, { merge: true }); };
-    window.addNewActivity = async () => {
-      if (!isManagerLoggedIn()) return;
-      const val = document.getElementById('new-activity-input').value.trim(); if (!val) return;
-      const updated = [...new Set([...(window.siteSettings.activities || CORE_ACTIVITIES), val])];
-      await setDoc(doc(db, "config", "siteSettings"), { activities: updated }, { merge: true });
-      document.getElementById('new-activity-input').value = '';
-    };
-    window.removeActivity = async (val) => {
-      if (!isManagerLoggedIn()) return;
-      const updated = (window.siteSettings.activities || CORE_ACTIVITIES).filter(x => x !== val);
-      await setDoc(doc(db, "config", "siteSettings"), { activities: updated }, { merge: true });
-    };
-
     window.saveSiteSettings = async (e) => {
       e.preventDefault(); if (!isManagerLoggedIn()) return;
       const updates = {
@@ -2528,8 +2680,7 @@
       await setDoc(doc(db, "config", "siteSettings"), {
         planTargetCount: parseInt(document.getElementById('plan-target-count').value)||50,
         planCurrentText: document.getElementById('plan-current-text').value.trim(),
-        planNext1Text: document.getElementById('plan-next1-text').value.trim(),
-        planNext3Text: document.getElementById('plan-next3-text').value.trim()
+        planNext1Text: document.getElementById('plan-next1-text').value.trim()
       }, { merge: true });
       window.showToast("পরিকল্পনা সেভ হয়েছে!");
     };
