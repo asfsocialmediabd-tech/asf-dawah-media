@@ -145,7 +145,7 @@
         </div>
       </div>
 
-      <!-- Project Status Summaries -->
+      <!-- Project Status Summaries (Ready Comes 2nd in Blue, Ongoing 3rd in Rose-Red) -->
       <div class="space-y-2.5">
         <h3 class="text-sm sm:text-base font-bold text-asf-700 dark:text-emerald-400" data-bn="প্রজেক্ট স্ট্যাটাস সামারি" data-en="Project Status Summary">প্রজেক্ট স্ট্যাটাস সামারি</h3>
         <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4">
@@ -153,13 +153,13 @@
             <div class="pr-12"><p class="text-2xl sm:text-3xl font-extrabold text-asf-700 dark:text-emerald-300" id="stat-completed">0</p><p class="text-xs font-bold text-slate-600 dark:text-slate-300 mt-1" data-bn="সম্পন্ন" data-en="Completed">সম্পন্ন</p></div>
             <div class="ribbon-shape bg-emerald-200/70 dark:bg-emerald-900/50 text-asf-700 dark:text-emerald-300">✓</div>
           </div>
-          <div onclick="openQuickStatusModal('Ongoing')" class="ribbon-card rc-blue motion-card">
-            <div class="pr-12"><p class="text-2xl sm:text-3xl font-extrabold text-blue-700 dark:text-blue-300" id="stat-ongoing">0</p><p class="text-xs font-bold text-slate-600 dark:text-slate-300 mt-1" data-bn="চলমান" data-en="Running">চলমান</p></div>
-            <div class="ribbon-shape bg-blue-200/70 dark:bg-blue-900/50 text-blue-700 dark:text-blue-300">⟳</div>
+          <div onclick="openQuickStatusModal('Ready')" class="ribbon-card rc-blue motion-card">
+            <div class="pr-12"><p class="text-2xl sm:text-3xl font-extrabold text-blue-700 dark:text-blue-300" id="stat-ready">0</p><p class="text-xs font-bold text-slate-600 dark:text-slate-300 mt-1" data-bn="রেডি" data-en="Ready">রেডি</p></div>
+            <div class="ribbon-shape bg-blue-200/70 dark:bg-blue-900/50 text-blue-700 dark:text-blue-300">▶</div>
           </div>
-          <div onclick="openQuickStatusModal('Ready')" class="ribbon-card rc-rose motion-card">
-            <div class="pr-12"><p class="text-2xl sm:text-3xl font-extrabold text-rose-700 dark:text-rose-300" id="stat-ready">0</p><p class="text-xs font-bold text-slate-600 dark:text-slate-300 mt-1" data-bn="রেডি" data-en="Ready">রেডি</p></div>
-            <div class="ribbon-shape bg-rose-200/70 dark:bg-rose-900/50 text-rose-700 dark:text-rose-300">▶</div>
+          <div onclick="openQuickStatusModal('Ongoing')" class="ribbon-card rc-rose motion-card">
+            <div class="pr-12"><p class="text-2xl sm:text-3xl font-extrabold text-rose-700 dark:text-rose-300" id="stat-ongoing">0</p><p class="text-xs font-bold text-slate-600 dark:text-slate-300 mt-1" data-bn="চলমান" data-en="Running">চলমান</p></div>
+            <div class="ribbon-shape bg-rose-200/70 dark:bg-rose-900/50 text-rose-700 dark:text-rose-300">⟳</div>
           </div>
           <div onclick="openQuickStatusModal('Pending')" class="ribbon-card rc-amber motion-card">
             <div class="pr-12"><p class="text-2xl sm:text-3xl font-extrabold text-amber-700 dark:text-amber-300" id="stat-pending">0</p><p class="text-xs font-bold text-slate-600 dark:text-slate-300 mt-1" data-bn="পেন্ডিং" data-en="Pending">পেন্ডিং</p></div>
@@ -172,7 +172,7 @@
         </div>
       </div>
 
-      <!-- Left: Monthly Planning (Slim Report Card at Bottom with Month Picker & Download) & Right: Current Month Category Grid -->
+      <!-- Left: Monthly Planning (Slim Report Card at Bottom) & Right: Current Month Category Grid -->
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
         <div class="lg:col-span-6 solid-card p-5 space-y-4 shadow-sm">
           <div class="flex justify-between items-center border-b pb-2.5 dark:border-slate-800">
@@ -190,7 +190,7 @@
             </div>
           </div>
 
-          <!-- Planning Boxes Grid (Current Month, Next Month + Any Admin Custom Boxes; 3-Months Removed) -->
+          <!-- Planning Boxes Grid -->
           <div id="home-planning-boxes-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs select-text"></div>
 
           <!-- Slim Report Bar at the Bottom with Month Selector, View Details & Download -->
@@ -274,7 +274,7 @@
       </div>
     </section>
 
-    <!-- ================= 2. PRODUCTION PIPELINE (With Carry-Forward Toggle) ================= -->
+    <!-- ================= 2. PRODUCTION PIPELINE ================= -->
     <section id="tab-pipeline" class="hidden space-y-5">
       <div class="solid-card p-4 sm:p-5 space-y-4 shadow-sm">
         <div class="flex flex-wrap items-center justify-between gap-3 border-b pb-3 dark:border-slate-800">
@@ -296,9 +296,9 @@
         <div class="grid grid-cols-2 sm:grid-cols-6 gap-2.5 text-xs font-bold">
           <button onclick="setPipelineFilter('ALL')" id="pstage-ALL" class="p-2.5 rounded-xl border-2 border-asf-600 bg-emerald-50 dark:bg-slate-800 text-asf-700 dark:text-emerald-300 flex items-center justify-between"><span>সব প্রজেক্ট</span><span id="pipe-count-all" class="px-2 py-0.5 rounded-full bg-asf-700 text-white">0</span></button>
           <button onclick="setPipelineFilter('Upcoming')" id="pstage-Upcoming" class="p-2.5 rounded-xl border bg-white dark:bg-slate-900 flex items-center justify-between"><span>আপকামিং</span><span id="pipe-count-up" class="px-2 py-0.5 rounded-full bg-purple-600 text-white">0</span></button>
-          <button onclick="setPipelineFilter('Running')" id="pstage-Running" class="p-2.5 rounded-xl border bg-white dark:bg-slate-900 flex items-center justify-between"><span>চলমান</span><span id="pipe-count-edit" class="px-2 py-0.5 rounded-full bg-blue-600 text-white">0</span></button>
+          <button onclick="setPipelineFilter('Running')" id="pstage-Running" class="p-2.5 rounded-xl border bg-white dark:bg-slate-900 flex items-center justify-between"><span>চলমান</span><span id="pipe-count-edit" class="px-2 py-0.5 rounded-full bg-rose-600 text-white">0</span></button>
           <button onclick="setPipelineFilter('Pending')" id="pstage-Pending" class="p-2.5 rounded-xl border bg-white dark:bg-slate-900 flex items-center justify-between"><span>পেন্ডিং</span><span id="pipe-count-pend" class="px-2 py-0.5 rounded-full bg-amber-500 text-slate-950">0</span></button>
-          <button onclick="setPipelineFilter('Ready to Publish')" id="pstage-Ready to Publish" class="p-2.5 rounded-xl border bg-white dark:bg-slate-900 flex items-center justify-between"><span>রেডি</span><span id="pipe-count-ready" class="px-2 py-0.5 rounded-full bg-rose-600 text-white">0</span></button>
+          <button onclick="setPipelineFilter('Ready to Publish')" id="pstage-Ready to Publish" class="p-2.5 rounded-xl border bg-white dark:bg-slate-900 flex items-center justify-between"><span>রেডি</span><span id="pipe-count-ready" class="px-2 py-0.5 rounded-full bg-blue-600 text-white">0</span></button>
           <button onclick="setPipelineFilter('Published')" id="pstage-Published" class="p-2.5 rounded-xl border bg-white dark:bg-slate-900 flex items-center justify-between"><span>পাবলিশড</span><span id="pipe-count-done" class="px-2 py-0.5 rounded-full bg-asf-600 text-white">0</span></button>
         </div>
       </div>
@@ -331,8 +331,8 @@
             <select id="filter-status" onchange="setDashboardCardFilter(this.value)" class="px-3 py-2 rounded-lg border font-bold dark:bg-slate-800">
               <option value="ALL">সকল অবস্থা</option>
               <option value="Completed">সম্পন্ন</option>
-              <option value="Running">চলমান</option>
               <option value="Ready">রেডি</option>
+              <option value="Running">চলমান</option>
               <option value="Pending">পেন্ডিং</option>
             </select>
             <button onclick="resetDashboardFilters()" class="px-3 py-2 rounded-lg bg-slate-100 dark:bg-slate-800 font-bold border hover:border-asf-600">রিসেট</button>
@@ -365,7 +365,7 @@
                 <th class="p-3 font-bold">সংখ্যা</th>
                 <th class="p-3 font-bold">প্ল্যাটফর্ম</th>
                 <th class="p-3 font-bold">অবস্থা</th>
-                <th class="p-3 font-bold">লিংক ও অ্যাকশন</th>
+                <th class="p-3 font-bold">অ্যাকশন</th>
               </tr>
             </thead>
             <tbody id="dashboard-logs-tbody" class="divide-y dark:divide-slate-800"></tbody>
@@ -399,7 +399,7 @@
       <div id="full-portfolio-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"></div>
     </section>
 
-    <!-- ================= 6. PROFILE TAB (কাজ যুক্ত করুন — Only Category & Title, No Redundant 'কাজের ধরন') ================= -->
+    <!-- ================= 6. PROFILE TAB (কাজ যুক্ত করুন — Link Inputs Removed) ================= -->
     <section id="tab-profile" class="hidden space-y-6">
       <div class="solid-card p-5 flex flex-wrap items-center justify-between gap-4 shadow-sm">
         <div class="flex items-center gap-3.5">
@@ -446,10 +446,6 @@
               </div>
               <div><label class="block text-xs font-bold mb-1">সংখ্যা *</label><input type="number" id="task-qty" value="1" min="1" class="w-full px-2.5 py-2 rounded-lg border dark:bg-slate-800 font-bold"></div>
               <div><label class="block text-xs font-bold mb-1">তারিখ</label><input type="date" id="task-date" required class="w-full px-2 py-2 rounded-lg border dark:bg-slate-800 font-bold"></div>
-            </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <div><label class="block text-xs font-bold mb-1">ড্রাইভ বা ফাইল লিংক</label><input type="url" id="task-link" class="w-full px-3 py-2 rounded-lg border dark:bg-slate-800"></div>
-              <div><label class="block text-xs font-bold mb-1">পাবলিশড লিংক</label><input type="url" id="task-top-link" class="w-full px-3 py-2 rounded-lg border dark:bg-slate-800"></div>
             </div>
             <button type="submit" class="btn-green w-full py-2.5 font-bold">সেভ করুন</button>
           </form>
@@ -698,15 +694,12 @@
           </div>
           <div><label class="block font-bold mb-1">প্ল্যাটফর্ম</label><input type="text" id="edit-task-platform" class="w-full px-2 py-1.5 rounded border dark:bg-slate-800"></div>
         </div>
-        <div class="grid grid-cols-2 gap-2">
-          <div><label class="block font-bold mb-1">ড্রাইভ লিংক</label><input type="url" id="edit-task-link" class="w-full px-2.5 py-1.5 rounded border dark:bg-slate-800"></div>
-          <div><label class="block font-bold mb-1">পাবলিশড লিংক</label><input type="url" id="edit-task-toplink" class="w-full px-2.5 py-1.5 rounded border dark:bg-slate-800"></div>
-        </div>
         <button type="submit" class="btn-green w-full py-2.5 font-bold">সেভ করুন</button>
       </form>
     </div>
   </div>
 
+  <!-- Auth Modal with 'ফরগেট পাসওয়ার্ড' (Forgot Password) Button -->
   <div id="auth-modal" class="fixed inset-0 z-50 bg-slate-950/60 hidden items-center justify-center p-3 sm:p-4">
     <div class="solid-card relative max-w-md w-full p-5 sm:p-6 space-y-4">
       <button onclick="closeAuthModal()" class="absolute top-4 right-4 w-8 h-8 rounded-lg bg-slate-100 dark:bg-slate-800 font-bold">✕</button>
@@ -717,7 +710,13 @@
       </div>
       <form id="login-form" onsubmit="handleLogin(event)" class="space-y-3 text-xs">
         <div><label class="font-bold">ইমেইল</label><input type="email" id="login-email" required class="w-full px-3 py-2 rounded border dark:bg-slate-800"></div>
-        <div><label class="font-bold">পাসওয়ার্ড</label><input type="password" id="login-pass" required class="w-full px-3 py-2 rounded border dark:bg-slate-800"></div>
+        <div>
+          <div class="flex items-center justify-between mb-1">
+            <label class="font-bold">পাসওয়ার্ড</label>
+            <button type="button" onclick="handleForgotPassword()" class="text-[11px] font-bold text-asf-600 hover:underline">ফরগেট পাসওয়ার্ড</button>
+          </div>
+          <input type="password" id="login-pass" required class="w-full px-3 py-2 rounded border dark:bg-slate-800">
+        </div>
         <button type="submit" class="btn-green w-full py-2.5 font-bold">লগইন</button>
       </form>
       <form id="signup-form" onsubmit="handleSignup(event)" class="hidden space-y-2.5 text-xs">
@@ -857,9 +856,10 @@
     <button onclick="document.getElementById('image-lightbox-modal').classList.add('hidden')" class="absolute top-5 right-5 w-10 h-10 rounded-full bg-white/20 text-white font-bold">✕</button>
     <img id="lightbox-img" src="" class="max-w-full max-h-[90vh] rounded-xl shadow-2xl object-contain">
   </div>
+
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-    import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+    import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, sendPasswordResetEmail, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
     import { getFirestore, collection, doc, setDoc, getDoc, addDoc, updateDoc, deleteDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
     const firebaseConfig = {
@@ -967,7 +967,6 @@
       return 'Pending';
     }
 
-    // Effective Month Helper: If a pipeline task is published on a specific date, count its completion in that publish month; otherwise its start month
     function getTaskEffectiveMonth(t) {
       if (t.publishDate && String(t.publishDate).length >= 7) return String(t.publishDate).slice(0, 7);
       if (t.month) return t.month;
@@ -975,18 +974,76 @@
       return getCurrentMonthStr();
     }
 
-    // Correction 4: Get Member Tasks for a Selected Month (With Carry-Forward of Unfinished Tasks when viewing Current Month)
+    // Correction 2: Multi-Role Split Counting for Pipeline Tasks
+    // If a member is assigned to multiple columns (e.g., Editing AND Thumbnail/Poster) in the same pipeline project,
+    // return a separate virtual task entry for EACH role so both works are counted and categorized properly!
+    function getMemberAssignedRolesInPipelineTask(t, uid) {
+      const mem = window.allMembers.find(m => m.uid === uid);
+      const roles = [];
+      if (mem && t.sheetRoles && typeof t.sheetRoles === 'object') {
+        Object.entries(t.sheetRoles).forEach(([col, val]) => {
+          if (!val) return;
+          const parts = String(val).split(',').map(s => s.trim());
+          if (parts.includes(mem.name) || parts.includes(uid)) roles.push(col);
+        });
+      }
+      if (roles.length === 0 && Array.isArray(t.crewList)) {
+        t.crewList.forEach(c => {
+          if (c.uid === uid || (mem && c.name === mem.name)) {
+            if (c.role && !roles.includes(c.role)) roles.push(c.role);
+          }
+        });
+      }
+      if (roles.length === 0 && Array.isArray(t.crewUids) && t.crewUids.includes(uid)) {
+        roles.push(t.productionType || t.category || 'প্রোডাকশন');
+      }
+      return roles;
+    }
+
+    function getRoleSpecificCategory(t, roleName) {
+      const r = String(roleName || '').toLowerCase();
+      if (r.includes('thumbnail') || r.includes('poster') || r.includes('থাম্বনেইল') || r.includes('পোস্টার') || r.includes('গ্রাফিক')) {
+        return 'গ্রাফিক ডিজাইন';
+      }
+      if (r.includes('script') || r.includes('স্ক্রিপ্ট')) {
+        const baseCat = cleanCategoryDisplayName(t.productionType || t.category || '');
+        if (baseCat.includes('নাটিকা')) return 'নাটিকা স্ক্রিপ্ট';
+      }
+      return cleanCategoryDisplayName(t.productionType || t.category || 'অন্যান্য');
+    }
+
+    function expandMemberTasksList(rawTasksList, uid) {
+      const expanded = [];
+      rawTasksList.forEach(t => {
+        if (!t.isPipeline) {
+          if (t.uid === uid) expanded.push(t);
+        } else {
+          const roles = getMemberAssignedRolesInPipelineTask(t, uid);
+          roles.forEach(roleCol => {
+            const roleCat = getRoleSpecificCategory(t, roleCol);
+            expanded.push({
+              ...t,
+              assignedRoleColumn: roleCol,
+              productionType: roleCat,
+              category: roleCat
+            });
+          });
+        }
+      });
+      return expanded;
+    }
+
     function getMemberTasksForMonthView(uid, selMonth) {
       const curMonth = getCurrentMonthStr();
-      return window.allTasks.filter(t => {
+      const filteredRaw = window.allTasks.filter(t => {
         if (!isMemberInTask(t, uid)) return false;
         const bucket = getMemberPersonalBucket(t);
         const taskMonth = getTaskEffectiveMonth(t);
         if (taskMonth === selMonth) return true;
-        // Carry forward unfinished (Running/Pending) tasks from earlier months into current month view until completed
         if (selMonth === curMonth && taskMonth < curMonth && bucket !== 'Completed') return true;
         return false;
       });
+      return expandMemberTasksList(filteredRaw, uid);
     }
 
     window.currentLang = 'bn';
@@ -1078,16 +1135,9 @@
     }
 
     function getMemberRoleInTask(t, uid) {
-      const mem = window.allMembers.find(m => m.uid === uid);
-      if (mem && t.sheetRoles && typeof t.sheetRoles === 'object') {
-        const matched = [];
-        Object.entries(t.sheetRoles).forEach(([col, val]) => {
-          if (!val) return;
-          const parts = String(val).split(',').map(s => s.trim());
-          if (parts.includes(mem.name) || parts.includes(uid)) matched.push(col);
-        });
-        if (matched.length > 0) return matched.join(', ');
-      }
+      if (t.assignedRoleColumn) return t.assignedRoleColumn;
+      const roles = getMemberAssignedRolesInPipelineTask(t, uid);
+      if (roles.length > 0) return roles.join(', ');
       return window.tAct(t.productionType || t.category);
     }
 
@@ -1105,22 +1155,22 @@
         .trim();
     }
 
+    // Correction 1: Never Override Selected Category Based on Words in Title (like "আস-সুন্নাহ" or "জুমা")!
     function matchesContentType(task, catName) {
-      const rawType = String(task.productionType || task.contentType || (!task.isPipeline ? task.category : '') || '').toLowerCase().trim();
-      const rawTitle = String(task.title || '').toLowerCase();
-      const target = cleanCategoryDisplayName(catName).toLowerCase();
+      const rawType = cleanCategoryDisplayName(task.productionType || task.contentType || (!task.isPipeline ? task.category : '') || '').toLowerCase().trim();
+      const target = cleanCategoryDisplayName(catName).toLowerCase().trim();
       if (!target || !rawType) return false;
-      if (cleanCategoryDisplayName(rawType).toLowerCase() === target) return true;
-      if (target.includes('হারিয়ে যাওয়া সুন্নাহ')) return rawType.includes('সুন্নাহ') || rawTitle.includes('সুন্নাহ');
+      if (rawType === target) return true;
+      if (target.includes('হারিয়ে যাওয়া সুন্নাহ')) return rawType.includes('হারিয়ে যাওয়া সুন্নাহ') || rawType === 'সুন্নাহ';
       if (target === 'নাটিকা' || target === 'drama' || target === 'short film') return rawType === 'drama' || rawType === 'short film' || rawType.includes('শর্টফিল্ম') || (rawType.includes('নাটিকা') && !rawType.includes('স্ক্রিপ্ট'));
-      if (target.includes('নাটিকা স্ক্রিপ্ট')) return rawType.includes('নাটিকা স্ক্রিপ্ট') || (rawType.includes('স্ক্রিপ্ট') && (rawType.includes('নাটিকা') || rawTitle.includes('নাটিকা')));
+      if (target.includes('নাটিকা স্ক্রিপ্ট')) return rawType.includes('নাটিকা স্ক্রিপ্ট') || rawType.includes('স্ক্রিপ্ট');
       if (target.includes('টাইটেল') || target.includes('ক্যাপশন')) return rawType.includes('টাইটেল') || rawType.includes('ক্যাপশন') || rawType.includes('কপিরাইটিং');
       if (target.includes('কন্টেন্ট পাবলিশ')) return rawType.includes('পাবলিশ');
-      if (target === 'ডকুমেন্টারি' || target === 'documentary') return rawType === 'documentary' || rawType === 'ডকুমেন্টারি' || rawType.includes('documentary') || (rawType.includes('ডকুমেন্টারি') && !rawType.includes('প্রমো'));
+      if (target === 'ডকুমেন্টারি' || target === 'documentary') return rawType === 'documentary' || rawType === 'ডকুমেন্টারি' || (rawType.includes('ডকুমেন্টারি') && !rawType.includes('প্রমো'));
       if (target.includes('প্রমো') || target.includes('ওভিসি') || target === 'ovc') return rawType.includes('প্রমো') || rawType === 'ovc' || rawType.includes('ওভিসি');
       if (target === 'টিভিসি' || target === 'tvc') return rawType === 'tvc' || rawType.includes('টিভিসি');
       if (target.includes('প্রেস রিলিজ')) return rawType.includes('প্রেস') || rawType.includes('নিউজ') || rawType.includes('আর্টিকেল');
-      if (target.includes('জুমার প্রশ্নোত্তর')) return rawType.includes('জুমা') || rawType.includes('juma') || rawTitle.includes('জুমা');
+      if (target.includes('জুমার প্রশ্নোত্তর')) return rawType.includes('জুমা') || rawType.includes('juma');
       if (target.includes('গ্রাফিক')) return rawType.includes('গ্রাফিক') || rawType.includes('graphic') || rawType.includes('ফটোকার্ড') || rawType.includes('থাম্বনেইল') || rawType.includes('পোস্টার');
       if (target === 'লেকচার' || target === 'lecture') return rawType === 'lecture' || rawType.includes('লেকচার') || rawType.includes('large video');
       if (target === 'শর্টস' || target === 'shorts') return rawType.includes('shorts') || rawType.includes('শর্টস') || rawType.includes('রিলস');
@@ -1129,11 +1179,15 @@
     }
 
     function getTaskCategoryLabel(t) {
-      if (t.isPipeline && (!t.productionType || String(t.productionType).trim() === '')) return '';
+      if (t.isPipeline && (!t.productionType || String(t.productionType).trim() === '') && !t.assignedRoleColumn) return '';
+      const explicitCat = cleanCategoryDisplayName(t.productionType || t.contentType || (!t.isPipeline ? t.category : '') || '');
       const cats = window.siteSettings.portfolioCategories || DEFAULT_PORTFOLIO_CATEGORIES;
+      // 1. Check exact match with user-selected category first
+      const exactMatch = cats.find(c => cleanCategoryDisplayName(c).toLowerCase() === explicitCat.toLowerCase());
+      if (exactMatch) return cleanCategoryDisplayName(exactMatch);
+      // 2. Fallback to category matcher (strictly on category field, never title)
       for (const c of cats) { if (matchesContentType(t, c)) return cleanCategoryDisplayName(c); }
-      if (t.productionType && String(t.productionType).trim() !== '') return cleanCategoryDisplayName(t.productionType);
-      return cleanCategoryDisplayName(t.category || 'অন্যান্য');
+      return explicitCat || 'অন্যান্য';
     }
 
     onSnapshot(doc(db, "config", "siteSettings"), (s) => {
@@ -1215,7 +1269,6 @@
       updateAuthUI(); renderPipelineBoard(); renderDashboard(); renderNotifications(); handleRouteFromHash();
     });
 
-    // Correction 7: Dynamically Set Browser Tab Favicon from Site Logo
     function updateBrowserFavicon(logoUrl) {
       if (!logoUrl) return;
       const fav = document.getElementById('favicon');
@@ -1290,7 +1343,6 @@
       }
     }
 
-    // Correction 6: Smart Actionable Notifications (Auto-remove Published, Dismissible via localStorage)
     function getDismissedNotifIds() {
       try { return JSON.parse(localStorage.getItem('asf_dismissed_notifs') || '[]'); } catch(e) { return []; }
     }
@@ -1321,10 +1373,9 @@
         if (!dismissed.includes(nid)) items.push({ id: nid, title: `📢 ${window.siteSettings.notice}`, sub: "জরুরি নোটিশ", tab: 'home' });
       }
 
-      // Only show actionable (NOT Published/Completed) projects
       getMasterPipelineProjects().forEach(t => {
         const st = computeAutoWorkflowStatus(t);
-        if (st === 'Published') return; // Auto-exclude Published projects
+        if (st === 'Published') return;
         const isMine = myUid && isMemberInTask(t, myUid);
         const isReady = st === 'Ready to Publish';
         const nid = `pipe_${t.id}_${st}`;
@@ -1428,7 +1479,6 @@
       return lines.map(l => `<div class="flex items-start gap-1.5"><span class="text-asf-600 font-bold">•</span><span class="leading-snug font-medium">${window.clean(l.replace(/^[০-৯0-9]+\.\s*/, ''))}</span></div>`).join('');
     }
 
-    // 1. Render Home (Correction 1 & 2: Only Current Month in Category Grid, Slim Report Bar at Bottom with Month Selector & Download)
     window.setHomeTeamView = (mode) => {
       window.homeTeamView = mode;
       document.getElementById('hteam-btn-cards').className = mode === 'cards' ? 'px-3 py-1.5 rounded-lg text-xs font-bold btn-green' : 'px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-200 dark:bg-slate-800';
@@ -1468,8 +1518,8 @@
       const upCount = masterProjects.filter(t => computeAutoWorkflowStatus(t) === 'Upcoming').length;
 
       document.getElementById('stat-completed').innerText = compCount;
-      document.getElementById('stat-ongoing').innerText = ongCount;
       document.getElementById('stat-ready').innerText = readyCount;
+      document.getElementById('stat-ongoing').innerText = ongCount;
       document.getElementById('stat-pending').innerText = pendCount;
       document.getElementById('stat-upcoming').innerText = upCount;
 
@@ -1478,7 +1528,6 @@
       document.getElementById('home-plan-percent').innerText = `${pct}% (${compCount}/${target})`;
       document.getElementById('home-plan-bar').style.width = `${pct}%`;
 
-      // Render Planning Boxes (Current Month + Next Month + Any Custom Admin Boxes)
       const customBoxes = Array.isArray(s.customPlanBoxes) ? s.customPlanBoxes : [];
       const allPlanCards = [
         { id: 'currentPlan', title: '১. চলতি মাসের পরিকল্পনা', color: 'text-blue-600 hover:border-blue-600', text: s.planCurrentText },
@@ -1494,11 +1543,10 @@
 
       updateHomeReportBar();
 
-      // Correction 1: Right Side Category Grid Shows ONLY Current Month Tasks (Clickable + Selectable Text)
       document.getElementById('content-type-month-badge').innerText = window.formatMonthName(curMonth);
       const contentTypes = s.portfolioCategories || DEFAULT_PORTFOLIO_CATEGORIES;
       document.getElementById('home-content-type-grid').innerHTML = contentTypes.map((cat) => {
-        const matchedCurMonth = curMonthTasks.filter(t => matchesContentType(t, cat));
+        const matchedCurMonth = curMonthTasks.filter(t => getTaskCategoryLabel(t) === cleanCategoryDisplayName(cat));
         const countVal = window.sumQty(matchedCurMonth);
         return `
           <div onclick="openCategoryDetailModal('${window.clean(cat)}', '${curMonth}')" class="flex items-center justify-between px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/70 dark:bg-slate-800/60 hover:border-asf-600 motion-card text-xs select-text">
@@ -1558,7 +1606,7 @@
           `).join('');
     }
 
-    // 2. PRODUCTION PIPELINE (Correction 3: Auto Carry-Forward Unfinished Projects into Current Month)
+    // 2. PRODUCTION PIPELINE
     window.clearPipelineMonthFilter = () => { document.getElementById('pipe-month-filter').value = ''; renderPipelineBoard(); };
 
     window.setPipelineDisplayMode = (mode) => {
@@ -1658,7 +1706,6 @@
           const mPub = (t.publishDate || '').slice(0,7);
           const st = computeAutoWorkflowStatus(t);
           if (mStart === filterMonth || mPub === filterMonth) return true;
-          // Auto Carry-Forward unfinished projects from earlier months when viewing Current Month
           if (carryForward && filterMonth === curMonth && mStart < curMonth && st !== 'Published') return true;
           return false;
         });
@@ -1803,7 +1850,7 @@
                 ${canManage ? `<select onchange="updateSheetField('${t.id}','rating',Number(this.value))" class="px-1.5 py-1 rounded border bg-white/95 dark:bg-slate-800 font-bold text-amber-600 text-[11px]"><option value="0" ${!ratingNum?'selected':''}></option><option value="5" ${ratingNum===5?'selected':''}>5 ★</option><option value="4" ${ratingNum===4?'selected':''}>4 ★</option><option value="3" ${ratingNum===3?'selected':''}>3 ★</option><option value="2" ${ratingNum===2?'selected':''}>2 ★</option><option value="1" ${ratingNum===1?'selected':''}>1 ★</option></select>` : `<span class="text-amber-600 font-bold">${ratingNum ? '★'.repeat(ratingNum) : ''}</span>`}
               </td>
               <td class="p-2 text-center space-x-1">
-                <span class="px-2 py-0.5 rounded font-bold text-[11px] ${autoStatus==='Published'?'bg-emerald-100 text-asf-700':(autoStatus==='Ready to Publish'?'bg-rose-100 text-rose-700':'bg-blue-100 text-blue-700')}">${autoStatus}</span>
+                <span class="px-2 py-0.5 rounded font-bold text-[11px] ${autoStatus==='Published'?'bg-emerald-100 text-asf-700':(autoStatus==='Ready to Publish'?'bg-blue-100 text-blue-700':'bg-rose-100 text-rose-700')}">${autoStatus}</span>
                 ${canManage ? `<button onclick="openEditTaskModal('${t.id}')" class="px-1.5 py-0.5 rounded bg-white dark:bg-slate-800 text-amber-600 font-bold">✎</button><button onclick="deleteMasterProject('${idsStr}')" class="px-1.5 py-0.5 rounded bg-white dark:bg-slate-800 text-red-600 font-bold">🗑️</button>` : ''}
               </td>
             </tr>
@@ -1833,7 +1880,7 @@
           ? `<p class="text-xs text-slate-400">দায়িত্ব এখনো অ্যাসাইন করা হয়নি</p>`
           : `<div class="grid grid-cols-2 gap-1.5 pt-1">${roleEntries.map(r => `<div class="p-2 rounded-lg bg-slate-50 dark:bg-slate-800/70 border border-slate-100 dark:border-slate-800 text-[11px]"><span class="block text-[10px] font-bold text-asf-600 dark:text-emerald-400">${window.clean(r.role)}</span><span class="font-bold text-slate-800 dark:text-slate-100 truncate block">${window.clean(r.names)}</span></div>`).join('')}</div>`;
 
-        const statusBadgeStyle = autoStatus === 'Published' ? 'bg-emerald-100 text-asf-700' : (autoStatus === 'Ready to Publish' ? 'bg-rose-100 text-rose-700' : 'bg-blue-100 text-blue-700');
+        const statusBadgeStyle = autoStatus === 'Published' ? 'bg-emerald-100 text-asf-700' : (autoStatus === 'Ready to Publish' ? 'bg-blue-100 text-blue-700' : 'bg-rose-100 text-rose-700');
 
         return `
           <div class="solid-card p-5 shadow-sm motion-card flex flex-col justify-between space-y-4">
@@ -1868,7 +1915,7 @@
       }).join('');
     };
 
-    // 3. Monthly Dashboard
+    // 3. Monthly Dashboard (Matched Ready 2nd in Blue, Ongoing 3rd in Rose-Red)
     window.setDashboardCardFilter = (st) => { document.getElementById('filter-status').value = st; renderDashboard(); };
     window.setDashboardCategoryFilter = (cat) => { window.dashboardCategoryFilter = window.dashboardCategoryFilter === cat ? null : cat; renderDashboard(); };
     window.resetDashboardFilters = () => {
@@ -1902,19 +1949,19 @@
           });
 
       const done = window.sumQty(monthTasks.filter(t => getNormalizedTaskBucket(t) === 'Completed'));
-      const ong = window.sumQty(monthTasks.filter(t => getNormalizedTaskBucket(t) === 'Running'));
       const rdy = window.sumQty(monthTasks.filter(t => getNormalizedTaskBucket(t) === 'Ready'));
+      const ong = window.sumQty(monthTasks.filter(t => getNormalizedTaskBucket(t) === 'Running'));
       const pend = window.sumQty(monthTasks.filter(t => getNormalizedTaskBucket(t) === 'Pending'));
 
       document.getElementById('dash-visual-summary-chart').innerHTML = `
         <div onclick="setDashboardCardFilter('${stFilter==='Completed'?'ALL':'Completed'}')" class="ribbon-card rc-green motion-card ${stFilter==='Completed'?'filter-card-active':''}">
           <p class="text-2xl font-extrabold text-asf-700">${done}</p><p class="text-xs font-bold text-slate-600 dark:text-slate-300 mt-1">সম্পন্ন</p><div class="ribbon-shape bg-emerald-200/70 text-asf-700">✓</div>
         </div>
-        <div onclick="setDashboardCardFilter('${stFilter==='Running'?'ALL':'Running'}')" class="ribbon-card rc-blue motion-card ${stFilter==='Running'?'filter-card-active':''}">
-          <p class="text-2xl font-extrabold text-blue-700">${ong}</p><p class="text-xs font-bold text-slate-600 dark:text-slate-300 mt-1">চলমান</p><div class="ribbon-shape bg-blue-200/70 text-blue-700">⟳</div>
+        <div onclick="setDashboardCardFilter('${stFilter==='Ready'?'ALL':'Ready'}')" class="ribbon-card rc-blue motion-card ${stFilter==='Ready'?'filter-card-active':''}">
+          <p class="text-2xl font-extrabold text-blue-700">${rdy}</p><p class="text-xs font-bold text-slate-600 dark:text-slate-300 mt-1">রেডি</p><div class="ribbon-shape bg-blue-200/70 text-blue-700">▶</div>
         </div>
-        <div onclick="setDashboardCardFilter('${stFilter==='Ready'?'ALL':'Ready'}')" class="ribbon-card rc-rose motion-card ${stFilter==='Ready'?'filter-card-active':''}">
-          <p class="text-2xl font-extrabold text-rose-700">${rdy}</p><p class="text-xs font-bold text-slate-600 dark:text-slate-300 mt-1">রেডি</p><div class="ribbon-shape bg-rose-200/70 text-rose-700">▶</div>
+        <div onclick="setDashboardCardFilter('${stFilter==='Running'?'ALL':'Running'}')" class="ribbon-card rc-rose motion-card ${stFilter==='Running'?'filter-card-active':''}">
+          <p class="text-2xl font-extrabold text-rose-700">${ong}</p><p class="text-xs font-bold text-slate-600 dark:text-slate-300 mt-1">চলমান</p><div class="ribbon-shape bg-rose-200/70 text-rose-700">⟳</div>
         </div>
         <div onclick="setDashboardCardFilter('${stFilter==='Pending'?'ALL':'Pending'}')" class="ribbon-card rc-amber motion-card ${stFilter==='Pending'?'filter-card-active':''}">
           <p class="text-2xl font-extrabold text-amber-700">${pend}</p><p class="text-xs font-bold text-slate-600 dark:text-slate-300 mt-1">পেন্ডিং</p><div class="ribbon-shape bg-amber-200/70 text-amber-700">!</div>
@@ -1960,14 +2007,12 @@
             <td class="p-3 font-bold cursor-pointer hover:text-asf-600" onclick="openMemberModal('${t.uid}')">${window.clean(t.memberName)}</td>
             <td class="p-3">
               <p class="font-bold">${window.clean(cleanProjectTitle(t.title))}</p>
-              <span onclick="setDashboardCategoryFilter('${window.clean(getTaskCategoryLabel(t))}')" class="text-[11px] text-asf-600 font-bold cursor-pointer hover:underline">${window.clean(getTaskCategoryLabel(t))}</span>
+              <span onclick="setDashboardCategoryFilter('${window.clean(getTaskCategoryLabel(t))}')" class="text-[11px] text-asf-600 font-bold cursor-pointer hover:underline">${window.clean(getTaskCategoryLabel(t))}${t.assignedRoleColumn ? ` (${window.clean(t.assignedRoleColumn)})` : ''}</span>
             </td>
             <td class="p-3 font-bold text-asf-600">${window.getQty(t)}</td>
             <td class="p-3 text-xs font-semibold">${window.clean(formatShortPlatformLabel(t.platform))}</td>
             <td class="p-3"><span class="px-2 py-0.5 rounded text-xs font-bold bg-emerald-100 text-asf-700">${window.clean(getNormalizedTaskBucket(t))}</span></td>
             <td class="p-3 space-x-2 whitespace-nowrap">
-              ${t.link ? `<a href="${window.cleanUrl(t.link)}" target="_blank" class="text-asf-600 underline font-bold">ফাইল ↗</a>` : ''}
-              ${t.topViewLink ? `<a href="${window.cleanUrl(t.topViewLink)}" target="_blank" class="text-red-600 underline font-bold">ভিউ ↗</a>` : ''}
               ${isAdmin ? `<button onclick="openEditTaskModal('${t.id}')" class="text-amber-600 font-bold">✎</button><button onclick="deleteTaskByAdmin('${t.id}')" class="text-red-500 font-bold">🗑️</button>` : ''}
             </td>
           </tr>
@@ -1999,7 +2044,7 @@
       a.click();
     };
 
-    // 4. Team Members Tab (With Carry-Forward of Unfinished Tasks)
+    // 4. Team Members Tab
     window.renderTeamSection = () => {
       const selMonth = document.getElementById('team-tab-month-filter').value || getCurrentMonthStr();
       document.getElementById('full-team-grid').innerHTML = getSortedMembers(true).map(m => buildCleanMemberSummaryCard(m, selMonth)).join('');
@@ -2056,7 +2101,7 @@
       document.getElementById('full-portfolio-grid').innerHTML = buildCards(fullList);
     };
 
-    // 6. Profile Tasks (Correction 5: Only Category & Title required, no separate 'কাজের ধরন')
+    // 6. Profile Tasks (Correction 4: Link fields removed)
     window.submitDailyTask = async (e) => {
       e.preventDefault();
       const p = window.currentUserProfile; if (!p) return alert("লগইন করুন।");
@@ -2074,8 +2119,6 @@
         title: document.getElementById('task-title').value.trim(),
         platform: platformStr, status: document.getElementById('task-status').value,
         isPipeline: false, quantity: qty,
-        link: document.getElementById('task-link').value.trim(),
-        topViewLink: document.getElementById('task-top-link').value.trim(),
         rating: 0, createdAt: new Date().toISOString()
       });
       document.getElementById('task-title').value = '';
@@ -2088,19 +2131,20 @@
 
     function renderWorkspaceTasks() {
       const p = window.currentUserProfile; if (!p) return;
-      const myActive = window.allTasks.filter(t => isMemberInTask(t, p.uid) && getMemberPersonalBucket(t) !== 'Completed');
+      const myAllExpanded = expandMemberTasksList(window.allTasks.filter(t => isMemberInTask(t, p.uid)), p.uid);
+      const myActive = myAllExpanded.filter(t => getMemberPersonalBucket(t) !== 'Completed');
       document.getElementById('my-ongoing-list').innerHTML = myActive.length === 0 ? `<p class="text-xs text-slate-400">কোনো চলমান বা পেন্ডিং কাজ নেই।</p>` : myActive.map(t => `
         <div class="p-3 rounded-xl border space-y-1.5 text-xs">
-          <div class="flex justify-between font-bold text-asf-600"><span>${window.clean(getTaskCategoryLabel(t))}</span><span>${window.formatFullDate(t.date)}</span></div>
+          <div class="flex justify-between font-bold text-asf-600"><span>${window.clean(getTaskCategoryLabel(t))}${t.assignedRoleColumn ? ` (${window.clean(t.assignedRoleColumn)})` : ''}</span><span>${window.formatFullDate(t.date)}</span></div>
           <p class="font-bold">${window.clean(cleanProjectTitle(t.title))}</p>
           <button onclick="quickUpdateMyTaskStatus('${t.id}','Completed')" class="btn-green px-3 py-1 font-bold">সম্পন্ন করুন</button>
         </div>
       `).join('');
 
-      const myRecent = window.allTasks.filter(t => isMemberInTask(t, p.uid)).slice(-10).reverse();
+      const myRecent = myAllExpanded.slice(-10).reverse();
       document.getElementById('my-today-tasks-list').innerHTML = myRecent.map(t => `
         <div class="p-2.5 rounded-lg border flex justify-between items-center text-xs">
-          <div><p class="font-bold">${window.clean(cleanProjectTitle(t.title))} <span class="text-asf-600">(${window.getQty(t)})</span></p><p class="text-[10px] text-slate-500">${window.clean(getTaskCategoryLabel(t))} • ${window.formatFullDate(t.date)}</p></div>
+          <div><p class="font-bold">${window.clean(cleanProjectTitle(t.title))} <span class="text-asf-600">(${window.getQty(t)})</span></p><p class="text-[10px] text-slate-500">${window.clean(getTaskCategoryLabel(t))}${t.assignedRoleColumn ? ` (${window.clean(t.assignedRoleColumn)})` : ''} • ${window.formatFullDate(t.date)}</p></div>
           <div class="flex gap-2">
             <button onclick="openEditTaskModal('${t.id}')" class="text-amber-600 font-bold">✎</button>
             <button onclick="deleteTaskByAdmin('${t.id}')" class="text-red-500 font-bold">🗑️</button>
@@ -2137,8 +2181,6 @@
       document.getElementById('edit-task-qty').value = window.getQty(t);
       document.getElementById('edit-task-status').value = t.status || "Ongoing";
       document.getElementById('edit-task-platform').value = formatShortPlatformLabel(t.platform || "");
-      document.getElementById('edit-task-link').value = t.link || "";
-      document.getElementById('edit-task-toplink').value = t.topViewLink || "";
       document.getElementById('edit-task-modal').classList.remove('hidden'); document.getElementById('edit-task-modal').classList.add('flex');
     };
 
@@ -2152,9 +2194,7 @@
         publishDate: document.getElementById('edit-task-pub').value,
         quantity: Math.max(1, parseInt(document.getElementById('edit-task-qty').value, 10) || 1),
         status: document.getElementById('edit-task-status').value,
-        platform: document.getElementById('edit-task-platform').value.trim(),
-        link: document.getElementById('edit-task-link').value.trim(),
-        topViewLink: document.getElementById('edit-task-toplink').value.trim()
+        platform: document.getElementById('edit-task-platform').value.trim()
       });
       document.getElementById('edit-task-modal').classList.add('hidden');
       window.showToast("আপডেট হয়েছে!");
@@ -2165,14 +2205,14 @@
       document.getElementById('image-lightbox-modal').classList.remove('hidden'); document.getElementById('image-lightbox-modal').classList.add('flex');
     };
 
-    // Category Detail Modal (Scoped to Specific Month or All)
     window.openCategoryDetailModal = (catName, targetMonth = null) => {
       const modal = document.getElementById('quick-detail-modal');
+      const cleanCat = cleanCategoryDisplayName(catName);
       const mLabel = targetMonth ? ` (${window.formatMonthName(targetMonth)})` : '';
-      document.getElementById('quick-modal-title').innerText = `${cleanCategoryDisplayName(catName)}${mLabel}`;
+      document.getElementById('quick-modal-title').innerText = `${cleanCat}${mLabel}`;
       document.getElementById('quick-modal-actions').innerHTML = '';
 
-      let list = window.allTasks.filter(t => matchesContentType(t, catName));
+      let list = window.allTasks.filter(t => getTaskCategoryLabel(t) === cleanCat);
       if (targetMonth) list = list.filter(t => getTaskEffectiveMonth(t) === targetMonth);
 
       document.getElementById('quick-modal-body').innerHTML = list.length === 0 ? `<p class="text-center py-6 text-slate-400">এই ক্যাটাগরিতে কোনো প্রজেক্ট নেই।</p>` : list.map(t => `
@@ -2186,7 +2226,7 @@
 
     window.openQuickStatusModal = (st) => {
       const modal = document.getElementById('quick-detail-modal');
-      const titleMap = { Completed: 'সম্পন্ন প্রজেক্ট (চলতি মাস)', Ongoing: 'চলমান প্রজেক্ট', Ready: 'পাবলিশের জন্য রেডি', Pending: 'পেন্ডিং প্রজেক্ট', Upcoming: 'আপকামিং প্রজেক্ট' };
+      const titleMap = { Completed: 'সম্পন্ন প্রজেক্ট (চলতি মাস)', Ready: 'পাবলিশের জন্য রেডি', Ongoing: 'চলমান প্রজেক্ট', Pending: 'পেন্ডিং প্রজেক্ট', Upcoming: 'আপকামিং প্রজেক্ট' };
       document.getElementById('quick-modal-title').innerText = titleMap[st] || st;
       document.getElementById('quick-modal-actions').innerHTML = '';
       const masters = getMasterPipelineProjects();
@@ -2200,13 +2240,12 @@
       document.getElementById('quick-modal-body').innerHTML = list.length === 0 ? `<p class="text-center py-6 text-slate-400">কোনো প্রজেক্ট নেই।</p>` : list.map(t => `
         <div class="p-3 rounded-xl border flex justify-between items-center select-text">
           <div><p class="font-bold">${window.clean(cleanProjectTitle(t.title))} <span class="text-asf-600">(${window.getQty(t)})</span></p><p class="text-slate-500">${window.clean(t.memberName)} • ${window.formatFullDate(t.date)}</p></div>
-          ${t.link ? `<a href="${window.cleanUrl(t.link)}" target="_blank" class="text-asf-600 font-bold underline">ফাইল ↗</a>` : ''}
+          <span class="px-2 py-0.5 rounded bg-emerald-50 text-asf-700 font-bold">${window.clean(getTaskCategoryLabel(t))}</span>
         </div>
       `).join('');
       modal.classList.remove('hidden'); modal.classList.add('flex');
     };
 
-    // Interactive Monthly Report Modal (Click Category inside Report to Expand Tasks + Download)
     window.openPlanningDetailModal = (type, drillCat = null) => {
       const modal = document.getElementById('quick-detail-modal');
       if (type === 'monthReport' || type === 'prevMonthReport') {
@@ -2333,7 +2372,7 @@
           : displayTasks.map(t => `
               <tr>
                 <td class="p-2.5 font-bold whitespace-nowrap">${window.formatFullDate(t.date)}</td>
-                <td class="p-2.5"><p class="font-bold">${window.clean(cleanProjectTitle(t.title))} <span class="text-asf-600">(${window.getQty(t)})</span></p><p class="text-[10px] text-asf-600 font-bold">${window.clean(getTaskCategoryLabel(t))} • ${window.clean(getMemberRoleInTask(t, uid))}</p></td>
+                <td class="p-2.5"><p class="font-bold">${window.clean(cleanProjectTitle(t.title))} <span class="text-asf-600">(${window.getQty(t)})</span></p><p class="text-[10px] text-asf-600 font-bold">${window.clean(getTaskCategoryLabel(t))}${t.assignedRoleColumn ? ` • ${window.clean(t.assignedRoleColumn)}` : ''}</p></td>
                 <td class="p-2.5 font-bold text-right"><span class="px-2 py-0.5 rounded bg-white dark:bg-slate-800 border">${window.clean(getMemberPersonalBucket(t) === 'Completed' ? 'সম্পন্ন' : (getMemberPersonalBucket(t) === 'Running' ? 'চলমান' : 'পেন্ডিং'))}</span></td>
               </tr>
             `).join('');
@@ -2743,8 +2782,24 @@
     window.handleLogin = async (e) => {
       e.preventDefault();
       try { await signInWithEmailAndPassword(auth, document.getElementById('login-email').value.trim(), document.getElementById('login-pass').value); closeAuthModal(); }
-      catch(err) { alert("লগইন ব্যর্থ হয়েছে!"); }
+      catch(err) { alert("লগইন ব্যর্থ হয়েছে! ইমেইল বা পাসওয়ার্ড যাচাই করুন।"); }
     };
+
+    // Correction 5: Forgot Password Handler via Firebase Email Reset
+    window.handleForgotPassword = async () => {
+      let email = document.getElementById('login-email').value.trim();
+      if (!email) {
+        email = prompt("আপনার অ্যাকাউন্টের ইমেইল অ্যাড্রেসটি লিখুন:");
+      }
+      if (!email || !email.trim()) return;
+      try {
+        await sendPasswordResetEmail(auth, email.trim());
+        alert(`পাসওয়ার্ড রিসেট করার লিংক আপনার ইমেইলে (${email.trim()}) পাঠানো হয়েছে! ইনবক্স অথবা স্প্যাম (Spam) ফোল্ডার চেক করুন।`);
+      } catch (err) {
+        alert("এই ইমেইলে কোনো অ্যাকাউন্ট পাওয়া যায়নি বা ইমেইলটি সঠিক নয়।");
+      }
+    };
+
     window.handleSignup = async (e) => {
       e.preventDefault();
       const name = document.getElementById('reg-name').value.trim(), email = document.getElementById('reg-email').value.trim().toLowerCase(), pass = document.getElementById('reg-pass').value;
